@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+/* intro slider  */
+.embla {
+    overflow: hidden;
+  }
+  .embla__container {
+    display: flex;
+  }
+  .embla__slide {
+    flex: 100% 100% 100%;
+    min-width: 100vw;
+  }
+
+/* car rotate animation  */
+@keyframes rotateLeft90 {
+  0%{
+     transform: rotate(0deg);
+    }
+ 100%{
+     transform: rotate(-90deg);
+    }
+ }
+
+.rotating-element {
+  animation: rotateLeft90 2s infinite;
+}

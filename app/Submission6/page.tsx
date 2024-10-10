@@ -1,0 +1,55 @@
+"use client"
+import React from 'react'
+import car from '@/assets/Sub3Car.png'
+import Link from 'next/link'
+import card2 from '@/assets/Sub6CarD1.png'
+import vector from '@/assets/icons/Vector.png'
+
+const Submission6 = () => {
+  return (
+    <div className='bg-secondary w-full'>
+        <div className='w-full flex justify-center'>
+            <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-5'>
+                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
+                    <Link href='#' className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                </div>
+                <img src={car.src}/>
+            </div>
+        </div>
+
+        <div className='w-full flex justify-center'>
+            <div className='w-[85vw]  mt-6  bg-[#FFFFFF] p-3   rounded-lg'>
+                <div className='relative'>
+                    <img src={card2.src}/>
+                </div>
+            </div>
+        </div>     
+
+        <div className='w-full flex justify-center'>
+            <div className='w-[85vw] mt-6 bg-[#FFFFFF] p-3  rounded-lg'>
+               <div className='w-full flex justify-center font-[400] text-[20px] text-[#101044] text-center'>
+                    <div className='relative'>
+                        Frame it!
+                        <img src={vector.src} className='absolute top-[30px] right-[0px] w-20 '/>
+                    </div>
+               </div>
+
+               <div className='w-full flex justify-center text-center font-[300]  text-[14px] py-4'>
+                    <div>
+                    <div className='w-[76vw]'>
+                    Make sure there's enough room to walk around your vehicle and capture it from all angles. Aim for at least 2.5 – 3.5 meters (8 - 11 feet) of space on each side.
+                    </div>
+                    <div className='w-[76vw] pt-5'>
+                    Opt for a bright, cloudy day for glare-free photos.
+                    </div>
+                    </div>
+               </div>
+            </div>
+        </div>    
+    </div>
+  )
+}
+
+export default Submission6 
+
