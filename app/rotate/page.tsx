@@ -1,12 +1,19 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import car from '@/assets/CarRotate.png'
 import frame from '@/assets/RotateFrame.png'
 import { useOrientation } from 'react-use';
+import { useRouter } from 'next/navigation';
 
 const Rotate = () => {
-
+    const router = useRouter()
     const {angle,type} = useOrientation(); 
+
+    useEffect(()=>{
+        if(type === 'landscape-primary'){
+            router.push('./');
+        }
+    },[angle])
 
     console.log(angle,type);
   return (

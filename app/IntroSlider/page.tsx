@@ -53,7 +53,7 @@ const Slider = () => {
             <div className="embla__slide"><Submission6/></div>
           </div>
         </div>
-        <div className='flex justify-center w-full mt-[7vh]'>
+        <div className='flex justify-center w-full absolute bottom-[100px]'>
         <div className='flex space-x-1'>
             {array.map( e=> {
                 return (
