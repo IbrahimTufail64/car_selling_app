@@ -80,7 +80,7 @@ const Submission7 = () => {
                            </Link> 
                             </div>
                             <div>
-                            <Link href='#'>
+                            <Link href='./vehicle_photos'>
                            <Field isComplete={false} Content={'Vehicle photos'} />
                            </Link> 
                             </div>

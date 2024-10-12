@@ -7,10 +7,14 @@ import Submission4 from '../Submission4/page'
 import Submission5 from '../Submission5/page'
 import Submission6 from '../Submission6/page'
 import splash from '@/assets/icons/Rays-small.png'
+import { useRouter } from 'next/navigation';
 
 const Slider = () => {
+    const router = useRouter();
     const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false });
     const [count, setCount] = useState(0);
+
+    
     
     const scrollPrev = useCallback(() => { 
         console.log(count)
@@ -28,12 +32,13 @@ const Slider = () => {
         console.log(count);
         if(count < 3){
             setCount(count => count+1)
-            count === 3 && setCount(count => count-1)
+            
+        }else{
+            router.push('./Submission7');
         }
     }
     
       const scrollNext = useCallback(() => {
-        console.log(count)
         if (emblaApi) emblaApi.scrollNext()
       }, [emblaApi])
     const array = [0,1,2,3]

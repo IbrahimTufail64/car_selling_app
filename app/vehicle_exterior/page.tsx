@@ -40,7 +40,7 @@ const VehiclePhotos = () => {
   return (
     <div className='bg-secondary w-full '>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <div  ><IoChevronBack size={28} className='mt-[1px]'/></div>
+            <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle exterior</div>
         </div>
         <div className='w-full flex justify-center'>

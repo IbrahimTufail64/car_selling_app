@@ -11,7 +11,8 @@ const Rotate = ({ params }: { params: { slug: string } }) => {
 
     useEffect(()=>{
         const portrait = window.matchMedia("(orientation: portrait)").matches;
-      if(!portrait){
+        console.log(portrait)
+      if(!portrait || angle === 90){
         router.push(`../camera_filter/${params.slug}`);
         }
     },[angle])

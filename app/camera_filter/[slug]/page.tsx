@@ -24,10 +24,11 @@ const Filter = ({ params }: { params: { slug: string } }) => {
   
 
     const webcamRef:any = useRef(null);
-    const [img, setImg] = useState(null);
 
-    
-    
+    let returnLink = '';
+    if(params.slug.includes('back') || params.slug.includes('front')){
+      returnLink = 'vehicle_exterior';
+    }
     const car_filter = lookup_table[params.slug];
     console.log(car_filter);
 
@@ -41,7 +42,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         }
     },[angle])
 
-    async function addFriend(img: any) {
+    async function addImage(img: any) {
       try {
         // Add the new friend!
         const image = await db.images.where('name').equals(params.slug).first();
@@ -61,11 +62,10 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         
       try{
         const imageSrc = webcamRef.current.getScreenshot();
-        setImg(imageSrc);
 
-        addFriend(imageSrc);
+        addImage(imageSrc);
 
-        alert('image stored successfully')
+        router.push(`../${returnLink}`);
       }
       catch(e){
         // if(img === null){

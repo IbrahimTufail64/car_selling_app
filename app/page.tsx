@@ -3,20 +3,26 @@
 import HomePage from "./components/Home";
 import { createContext, useContext, useState } from "react";
 
-export const MyContext = createContext({});
+interface MyContextValue {
+  exterior_done: boolean;
+  setExteriorDone: (value: boolean) => void;
+}
+
+export const MyContext = createContext<MyContextValue>({
+  exterior_done: false,
+  setExteriorDone: () => {}
+});
 
 export default function Home() {
 
-  const [img, setImg] = useState<any>();
-
-  const providedValue = useContext(MyContext); 
+  const [exterior_done, setExteriorDone] = useState(false);
 
 
   return (
    <div>
-    <MyContext.Provider value={{ img, setImg }}>
+    <MyContext.Provider value={{ exterior_done, setExteriorDone }}>
       <HomePage/>
-      </MyContext.Provider>
+    </MyContext.Provider>
    </div>
   );
 }
