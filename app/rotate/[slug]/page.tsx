@@ -5,13 +5,14 @@ import frame from '@/assets/RotateFrame.png'
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
 
-const Rotate = () => {
+const Rotate = ({ params }: { params: { slug: string } }) => {
     const router = useRouter()
     const {angle,type} = useOrientation(); 
 
     useEffect(()=>{
-        if(type === 'landscape-primary'){
-            router.push('./');
+        const portrait = window.matchMedia("(orientation: portrait)").matches;
+      if(!portrait){
+        router.push(`../camera_filter/${params.slug}`);
         }
     },[angle])
 

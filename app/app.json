@@ -1,0 +1,15 @@
+{
+    "expo": {
+      "plugins": [
+        [
+          "expo-camera",
+          {
+            "cameraPermission": "Allow Carsmart to access your camera",
+            "microphonePermission": "Allow Carsmart to access your microphone",
+            "recordAudioAndroid": true
+          }
+        ]
+      ]
+    }
+  }
+  
