@@ -1,11 +1,22 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import Field from '../components/Field';
 import alert from '@/assets/icons/alert.png'
 import Link from 'next/link';
+import { db2 } from '../Local_DB/db';
 
 const VehiclePhotos = () => {
+
+  useEffect(()=>{
+
+      const getContext = async () =>{
+        const exterior =  await db2.context.where('name').equals('vehicle_exterior').first();
+        console.log(exterior?.state);
+      }
+      getContext()
+
+  },[])
   return (
     <div className='bg-secondary w-full h-[100vh]'>
         <div className='p-5 flex space-x-2 text-[22px]'>

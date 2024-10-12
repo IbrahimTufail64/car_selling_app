@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
@@ -9,8 +9,8 @@ import BackPassen  from '@/assets/back_passen.png'
 import FrontDriver  from '@/assets/front_driver.png'
 import FrontPassen from '@/assets/front_passen.png'
 import splash from '@/assets/icons/Rays-small.png'
-import { useLiveQuery } from 'dexie-react-hooks';
-import { db } from '../Local_DB/db';
+import { db, db2 } from '../Local_DB/db';
+
 
 const VehiclePhotos = () => {
     const [frontDimg, setfrontDimg]  = useState<any>(null);
@@ -18,14 +18,21 @@ const VehiclePhotos = () => {
     const [backDimg, setbackDimg]  = useState<any>(null);
     const [backPimg, setbackPimg]  = useState<any>(null);
 
+
+
     // Search for images in the db: 
     useEffect(()=>{
+        let count = 0;
+
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const image = await db.images.where('name').equals(image_to_retrieve).first();
                 console.log(image?.data);
                 
                 setter_function(image?.data);
+                if(image?.data){
+                    count++
+                }
             }
             catch(e){
                 
@@ -35,6 +42,17 @@ const VehiclePhotos = () => {
         retrieve('front_passenger',setfrontPimg);
         retrieve('back_driver',setbackDimg);
         retrieve('back_passenger',setbackPimg);
+
+        const setContext = async()=>{
+            await db2.context.add({
+                name: 'vehicle_exterior',
+                state: true
+              });
+        }
+        if(count === 4){
+            setContext();
+            console.log('state set')
+        }
     },[])
 
   return (
