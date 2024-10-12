@@ -77,7 +77,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     }, [webcamRef]);
 
   return (
-    <div className='bg-[#282828] h-[100vh] flex '>
+    <div className='bg-[#282828] h-[100vh] overflow-hidden flex '>
         
         <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
             <Link href='#' >

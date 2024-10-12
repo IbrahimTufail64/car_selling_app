@@ -22,7 +22,6 @@ const VehiclePhotos = () => {
 
     // Search for images in the db: 
     useEffect(()=>{
-        let count = 0;
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
@@ -30,9 +29,6 @@ const VehiclePhotos = () => {
                 console.log(image?.data);
                 
                 setter_function(image?.data);
-                if(image?.data){
-                    count++
-                }
             }
             catch(e){
                 
@@ -43,17 +39,24 @@ const VehiclePhotos = () => {
         retrieve('back_driver',setbackDimg);
         retrieve('back_passenger',setbackPimg);
 
+        
+    },[])
+
+
+    useEffect(()=>{
+
         const setContext = async()=>{
             await db2.context.add({
                 name: 'vehicle_exterior',
                 state: true
               });
         }
-        if(count === 4){
+        if(frontDimg && frontPimg && backDimg && backPimg){
             setContext();
-            console.log('state set')
+            console.log('yay')
         }
-    },[])
+
+    },[frontDimg,frontPimg,backDimg,backPimg])
 
   return (
     <div className='bg-secondary w-full '>

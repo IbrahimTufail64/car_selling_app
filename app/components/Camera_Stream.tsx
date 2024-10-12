@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 const videoConstraints = {
     width: 1400,
     height: 900,
-    facingMode: "FACING_MODE_ENVIRONMENT"
+    facingMode: "environment"
   };
   
   const WebcamCapture = ({webcamRef}:{webcamRef:any}) => {
@@ -15,7 +15,7 @@ const videoConstraints = {
 
     return (
         <Webcam
-                mirrored={false}
+                mirrored={true}
             audio={false}
             height={900}
             screenshotFormat='image/webp'

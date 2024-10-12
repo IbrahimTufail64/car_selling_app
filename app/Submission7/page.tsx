@@ -101,7 +101,7 @@ const Submission7 = () => {
         </div>
 
 {/* Implement LIve Chat (Optional ??) */}
-        <div className='text-sm absolute bottom-3 space-y-2 font-[500] right-10'>
+        <div className='text-sm absolute bottom-0 pb-3 space-y-2 font-[500] right-10'>
             <Link href='#'  className='flex w-full justify-center w-10 h-10'><img src={chat.src}/></Link>   
             <div>Live chat</div>
         </div>
