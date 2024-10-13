@@ -4,22 +4,23 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
-import BackDriver from '@/assets/back_driver.png'
-import BackPassen  from '@/assets/back_passen.png'
-import FrontDriver  from '@/assets/front_driver.png'
-import FrontPassen from '@/assets/front_passen.png'
+
+import Dashboard from '@/assets/Dashboard.png'
+import Boot from '@/assets/Boot.png'
+import FrontSeat from '@/assets/Front_Seat.png'
+import BackSeat from '@/assets/Back_Seat.png'
 import splash from '@/assets/icons/Rays-small.png'
 import { db, db2 } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 
 
-const VehicleExterior = () => {
-    const [frontDimg, setfrontDimg]  = useState<any>(null);
-    const [frontPimg, setfrontPimg]  = useState<any>(null);
-    const [backDimg, setbackDimg]  = useState<any>(null);
-    const [backPimg, setbackPimg]  = useState<any>(null);
+const VehiclePhotos = () => {
+    const [dashboardimg, setdashboardimg]  = useState<any>(null);
+    const [bootimg, setbootimg]  = useState<any>(null);
+    const [frontseatimg, setfrontseatimg]  = useState<any>(null);
+    const [backseatimg, setbackseatimg]  = useState<any>(null);
 
-    const {vehicle_exterior, setVehicle_Exterior} = useAppContext();
+    const {setVehicle_Interior}  = useAppContext();
 
     // Search for images in the db: 
     useEffect(()=>{
@@ -27,6 +28,7 @@ const VehicleExterior = () => {
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const image = await db.images.where('name').equals(image_to_retrieve).first();
+                console.log(image?.data);
                 
                 setter_function(image?.data);
             }
@@ -34,10 +36,10 @@ const VehicleExterior = () => {
                 
             }
         };
-        retrieve('front_driver',setfrontDimg);
-        retrieve('front_passenger',setfrontPimg);
-        retrieve('back_driver',setbackDimg);
-        retrieve('back_passenger',setbackPimg);
+        retrieve('dashboard',setdashboardimg);
+        retrieve('boot',setbootimg);
+        retrieve('front_seat',setfrontseatimg);
+        retrieve('back_seat',setbackseatimg);
 
         // window.location.reload();
         
@@ -47,28 +49,28 @@ const VehicleExterior = () => {
     useEffect(()=>{
 
         const setContext = async(state:boolean)=>{
-            await db2.context.put({
-                name: 'vehicle_exterior',
-                state: state 
+            await db2.context.add({
+                name: 'vehicle_interior',
+                state: state
               });
         }
-        if(frontDimg && frontPimg && backDimg && backPimg){
-            setVehicle_Exterior(true);
+        if(dashboardimg && bootimg && frontseatimg && backseatimg){
             setContext(true);
-
+            setVehicle_Interior(true);
         }
         else{
-            setVehicle_Exterior(false);
+            setVehicle_Interior(false);
             setContext(false);
+            console.log(':(')
         }
 
-    },[frontDimg,frontPimg,backDimg,backPimg])
+    },[dashboardimg,bootimg,frontseatimg,backseatimg])
 
   return (
     <div className='bg-secondary w-full '>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
-            <div>Vehicle exterior</div>
+            <div>Vehicle interior</div>
         </div>
         <div className='w-full flex justify-center'>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-2 pl-3 pt-3 flex justify-between rounded-lg'>
@@ -81,10 +83,10 @@ const VehicleExterior = () => {
         </div>
 
         <div className='space-y-3 pt-7'>
-            <PhotoFrame Content='Front Driver Corner' isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
-            <PhotoFrame Content='Front Passenger Corner' isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
-            <PhotoFrame Content='Back Driver Corner' isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
-            <PhotoFrame Content='Back Passenger Corner' isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
+            <PhotoFrame Content='Dashboard' isUploaded={dashboardimg !== undefined} photo={ dashboardimg ? dashboardimg : Dashboard}  link ='dashboard'/>
+            <PhotoFrame Content='Boot' isUploaded={bootimg !== undefined} photo={bootimg ? bootimg : Boot} link ='boot'/>
+            <PhotoFrame Content='Front seat' isUploaded={frontseatimg !== undefined} photo={frontseatimg ? frontseatimg :  FrontSeat} link ='front_seat'/>
+            <PhotoFrame Content='Back seat' isUploaded={backseatimg !== undefined} photo={backseatimg ? backseatimg : BackSeat} link ='back_seat'/>
         </div>
         
 
@@ -102,4 +104,4 @@ const VehicleExterior = () => {
   )
 }
 
-export default VehicleExterior
+export default VehiclePhotos

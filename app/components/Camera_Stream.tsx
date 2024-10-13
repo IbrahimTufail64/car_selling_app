@@ -1,5 +1,4 @@
 "use client"
-import React, { useState, useRef, useCallback } from "react";
 import Webcam from "react-webcam";
 
 const videoConstraints = {

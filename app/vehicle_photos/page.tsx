@@ -1,20 +1,27 @@
 "use client"
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import Field from '../components/Field';
 import alert from '@/assets/icons/alert.png'
 import Link from 'next/link';
 import { db2 } from '../Local_DB/db';
+import { useAppContext } from '../Context';
 
 const VehiclePhotos = () => {
 
+  const {vehicle_exterior, vehicle_interior} = useAppContext();
+
   useEffect(()=>{
 
-      const getContext = async () =>{
-        const exterior =  await db2.context.where('name').equals('vehicle_exterior').first();
-        console.log(exterior?.state);
-      }
-      getContext()
+      // const getContext = async (query: string, setter_function: React.Dispatch<React.SetStateAction<Boolean>>) =>{
+      //   const exterior =  await db2.context.where('name').equals(query).first();
+      //   if(exterior){
+      //     setter_function(exterior?.state)
+      //   }
+      // }
+
+      // getContext('vehicle_exterior',setVehicleExterior);
+      // getContext('vehicle_interior',setVehicleInterior);
 
   },[])
   return (
@@ -29,13 +36,13 @@ const VehiclePhotos = () => {
         <div className='space-y-4 px-4'>
           <div className='mb-4'>
           <Link href='./vehicle_exterior'>
-            <Field isComplete={false} Content={'Vehicle exterior'}/>
+            <Field isComplete={vehicle_exterior} Content={'Vehicle exterior'}/>
           </Link>
           </div>
           
           <div className='mb-4'>
-          <Link href='./vehicle_exterior'>
-          <Field isComplete={false} Content={'Vehicle interior'}/>
+          <Link href='./vehicle_interior'>
+          <Field isComplete={vehicle_interior} Content={'Vehicle interior'}/>
           </Link>
           </div>
 

@@ -9,15 +9,27 @@ import BackPassen from '@/assets/BackPassenF.png'
 import FrontDriver from '@/assets/FrontDriverF.png'
 import FrontPassen from '@/assets/FrontPassenF.png'
 
+import dashboard from '@/assets/dashboard_filter.png'
+import boot from '@/assets/boot_filter.png'
+import frontSeat from '@/assets/front_seat_filter.png'
+import backSeat from '@/assets/back_seat_filter.png'
+
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { db } from "@/app/Local_DB/db";
 
-const lookup_table:any = {
+const lookup_table_exterior:any = {
   'back_driver': BackDriver,
   'back_passenger':BackPassen,
   'front_driver': FrontDriver,
   'front_passenger': FrontPassen
+}
+
+const lookup_table_interior:any = {
+  'dashboard': dashboard,
+  'boot':boot,
+  'front_seat': frontSeat,
+  'back_seat': backSeat
 }
 
 const Filter = ({ params }: { params: { slug: string } }) => {
@@ -26,12 +38,12 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     const webcamRef:any = useRef(null);
 
     let returnLink = '';
-    if(params.slug.includes('back') || params.slug.includes('front')){
-      returnLink = 'vehicle_exterior';
-    }
-    let car_filter = lookup_table[params.slug];
-    if(!car_filter){
-      car_filter = ''
+
+    let car_filter = lookup_table_exterior[params.slug];
+    returnLink = 'vehicle_exterior';
+    if(car_filter === undefined){
+      car_filter = lookup_table_interior[params.slug];
+      returnLink = 'vehicle_interior';
     }
 
     const {angle,type} = useOrientation(); 

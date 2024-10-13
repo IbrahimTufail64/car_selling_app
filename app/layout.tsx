@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import {Alexandria} from '@next/font/google'
+import { AppWrapper } from "./Context";
 
 const alexandria = Alexandria({
   subsets: [],
@@ -45,12 +46,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html lang="en">
       <body
         className={alexandria.className}
       >
-        {children}
+        <AppWrapper>
+           {children}
+        </AppWrapper>
       </body>
     </html>
   );
