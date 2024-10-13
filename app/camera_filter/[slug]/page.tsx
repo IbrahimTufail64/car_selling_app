@@ -29,8 +29,10 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     if(params.slug.includes('back') || params.slug.includes('front')){
       returnLink = 'vehicle_exterior';
     }
-    const car_filter = lookup_table[params.slug];
-    console.log(car_filter);
+    let car_filter = lookup_table[params.slug];
+    if(!car_filter){
+      car_filter = ''
+    }
 
     const {angle,type} = useOrientation(); 
     const router = useRouter(); 
@@ -88,10 +90,11 @@ const Filter = ({ params }: { params: { slug: string } }) => {
             </Link>
         </div>
         <div className='flex justify-center items-center h-full relative'>
+        
+        <WebcamCapture webcamRef={webcamRef}/>
         <div className='absolute w-full h-full flex justify-center items-center' >
             <img src={car_filter.src} className='w-[70vw]'/>
         </div>
-        <WebcamCapture webcamRef={webcamRef}/>
         </div>
         <div className='w-[10vw]'>
             <div className='flex w-[10vw] justify-center  items-center h-full relative'>

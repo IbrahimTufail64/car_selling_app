@@ -15,7 +15,7 @@ const videoConstraints = {
 
     return (
         <Webcam
-                mirrored={true}
+                mirrored={false}
             audio={false}
             height={900}
             screenshotFormat='image/webp'
