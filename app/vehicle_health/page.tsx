@@ -53,8 +53,8 @@ const VehicleHealth = () => {
         })
     }
 
-    const top = `${Math.abs(coordinates[1]-236)}px`
-    const left = `${Math.abs(coordinates[0]-288)}px`
+    const top = `${Math.abs(coordinates[1])}px`
+    const left = `${Math.abs(coordinates[0])}px`
 
   return (
     <div onClick={e => {handle_damage_marks(e)}}>
