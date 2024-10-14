@@ -14,9 +14,30 @@ import boot from '@/assets/boot_filter.png'
 import frontSeat from '@/assets/front_seat_filter.png'
 import backSeat from '@/assets/back_seat_filter.png'
 
+import BackDriverWheel from '@/assets/PNG-Back-Driver-Wheel.png'
+import BackDriverTyre from '@/assets/PNG-Back-Driver-Tyre-Tread.png'
+import BackPassengerWheel from '@/assets/PNG-Back-Passenger-Wheel.png'
+import BackPassengerTyre from '@/assets/PNG-Back-Passenger-Tyre-Tread.png'
+
+import FrontDriverWheel from '@/assets/PNG-Front-Driver-WheelPNG-Front-Driver-Wheel.png'
+import FrontDriverTyre from '@/assets/PNG-Front-Driver-Tyre-Tread.png'
+import FrontPassengerWheel from '@/assets/PNG-Front-Passenger-Wheel.png'
+import FrontPassengerTyre from '@/assets/PNG-Back-Passenger-Tyre-Tread.png'
+
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { db } from "@/app/Local_DB/db";
+
+const lookup_table_wheels:any = {
+  'back_driver_wheel': BackDriverWheel,
+  'back_driver_tyre':BackDriverTyre,
+  'back_passenger_wheel': BackPassengerWheel,
+  'back_passenger_tyre': BackPassengerTyre,
+  'front_driver_wheel': FrontDriverWheel,
+  'front_driver_tyre':FrontDriverTyre,
+  'front_passenger_wheel': FrontPassengerWheel,
+  'front_passenger_tyre': FrontPassengerTyre
+}
 
 const lookup_table_exterior:any = {
   'back_driver': BackDriver,
@@ -32,6 +53,8 @@ const lookup_table_interior:any = {
   'back_seat': backSeat
 }
 
+
+
 const Filter = ({ params }: { params: { slug: string } }) => {
   
 
@@ -41,9 +64,15 @@ const Filter = ({ params }: { params: { slug: string } }) => {
 
     let car_filter = lookup_table_exterior[params.slug];
     returnLink = 'vehicle_exterior';
+
     if(car_filter === undefined){
       car_filter = lookup_table_interior[params.slug];
       returnLink = 'vehicle_interior';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_wheels[params.slug];
+      returnLink = 'vehicle_wheels';
     }
 
     const {angle,type} = useOrientation(); 

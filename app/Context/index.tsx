@@ -12,9 +12,10 @@ export function AppWrapper({
 
     const [vehicle_exterior, setVehicle_Exterior] = useState(false); 
     const [vehicle_interior, setVehicle_Interior] = useState(false); 
+    const [vehicle_wheels, setVehicle_Wheels] = useState(false); 
 
     return (
-        <AppContext.Provider value={{vehicle_exterior, setVehicle_Exterior,vehicle_interior, setVehicle_Interior}}>
+        <AppContext.Provider value={{vehicle_exterior, setVehicle_Exterior,vehicle_interior, setVehicle_Interior ,vehicle_wheels, setVehicle_Wheels}}>
             {children}
         </AppContext.Provider>
     )

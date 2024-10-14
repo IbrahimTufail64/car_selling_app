@@ -9,7 +9,7 @@ import { useAppContext } from '../Context';
 
 const VehiclePhotos = () => {
 
-  const {vehicle_exterior, vehicle_interior} = useAppContext();
+  const {vehicle_exterior, vehicle_interior, vehicle_wheels} = useAppContext();
 
   useEffect(()=>{
 
@@ -47,8 +47,8 @@ const VehiclePhotos = () => {
           </div>
 
           <div className='mb-4'>
-          <Link href='./vehicle_exterior'>
-          <Field isComplete={false} Content={'Your wheels & typres'}/>
+          <Link href='./vehicle_wheels'>
+          <Field isComplete={vehicle_wheels} Content={'Your wheels & typres'}/>
           </Link>
           </div>
 
