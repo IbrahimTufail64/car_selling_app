@@ -24,6 +24,8 @@ import FrontDriverTyre from '@/assets/PNG-Front-Driver-Tyre-Tread.png'
 import FrontPassengerWheel from '@/assets/PNG-Front-Passenger-Wheel.png'
 import FrontPassengerTyre from '@/assets/PNG-Back-Passenger-Tyre-Tread.png'
 
+import emptyFilter from '@/assets/emptyFilter.png'
+
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { db } from "@/app/Local_DB/db";
@@ -53,7 +55,12 @@ const lookup_table_interior:any = {
   'back_seat': backSeat
 }
 
-
+const lookup_table_empty:any = {
+  'service_records1': emptyFilter,
+  'service_records2': emptyFilter,
+  'service_records3': emptyFilter,
+  'service_records4': emptyFilter,
+}
 
 const Filter = ({ params }: { params: { slug: string } }) => {
   
@@ -73,6 +80,11 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     if(car_filter === undefined){
       car_filter = lookup_table_wheels[params.slug];
       returnLink = 'vehicle_wheels';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_empty[params.slug];
+      returnLink = 'service_records_capture';
     }
 
     const {angle,type} = useOrientation(); 

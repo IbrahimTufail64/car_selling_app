@@ -62,7 +62,7 @@ const VehicleHealth = () => {
                                       let temp_damage:any = damage;
                                     temp_damage[currentSide].coordinates = {x,y};
                                     setDamage(temp_damage);
-                                  
+                                        
                                   
                                       console.log(`Clicked at: X - ${x}, Y - ${y}`);
                                     };
@@ -110,19 +110,22 @@ const VehicleHealth = () => {
     }
 
     const handleSideChange = (e:any)=>{
-        setCurrentSide(e);
+
         let temp_damage:any = damage;
-        const x = temp_damage[currentSide].coordinates.x;
-        const y = temp_damage[currentSide].coordinates.y;
-        console.log(x,y,temp_damage[currentSide].size);
+        const x = temp_damage[e].coordinates.x;
+        const y = temp_damage[e].coordinates.y;
+        console.log(e,x,y,temp_damage[e].size);
         setCoordinates({x,y});
-        setSize(temp_damage[currentSide].size);
+        setSize(temp_damage[e].size);
+        setCurrentSide(e);
     }
+
+
 
   return (
     <div >
          <div className='bg-secondary w-full h-[120vh] overflow-hidden relative' >
-         <canvas ref={canvasRef} width="800" height="600" className="absolute"  onClick={handleClick} />
+         <canvas ref={canvasRef} width="800" height="370" className="absolute"  onClick={handleClick} />
          
 
          <div
@@ -182,7 +185,7 @@ const VehicleHealth = () => {
         </div>
 
         <div className='relative'>
-        <div className='flex justify-center w-full mt-[-70px] absolute'>
+        <div className='flex justify-center w-full mt-[-90px] absolute'>
             <div className='flex'>
                 {
                     sidesArray.map((e,i)=>{
