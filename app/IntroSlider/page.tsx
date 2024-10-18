@@ -8,12 +8,14 @@ import Submission5 from '../Submission5/page'
 import Submission6 from '../Submission6/page'
 import splash from '@/assets/icons/Rays-small.png'
 import { useRouter } from 'next/navigation';
+import { useAppContext } from '../Context'
 
 const Slider = () => {
     const router = useRouter();
     const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false });
     const [count, setCount] = useState(0);
 
+    const {isVendor} = useAppContext();
     
     
     const scrollPrev = useCallback(() => { 
@@ -48,7 +50,7 @@ const Slider = () => {
     },[count])
 
     return (
-        <div className='bg-secondary h-[100vh] relative' >
+        <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} h-[100vh] relative`} >
             <div className="embla">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container">
@@ -67,10 +69,10 @@ const Slider = () => {
             })}
         </div>
         </div>
-        <div className='flex justify-between p-5 space-x-3 absolute bottom-0 flex-1 w-full font-[20px]'>
+        <div className='flex justify-between p-5 space-x-3 absolute bottom-0 flex-1 w-full font-[26px]'>
             
             <div onClick={()=>{SubCount()}}>
-            <button className="embla__prev flex justify-center border-2 border-[#000000] font-bold text-lg rounded-[6px] space-x-2 w-[45vw]  px-5 py-3  " onClick={scrollPrev} >
+            <button className={`embla__prev flex justify-center border-2 ${isVendor ? 'border-white' : 'border-[#000000]'} font-bold text-lg rounded-[6px] space-x-2 w-[45vw]  px-5 py-3  `} onClick={scrollPrev} >
              <div>
                 Back 
              </div>
@@ -78,7 +80,7 @@ const Slider = () => {
             </div>
 
             <div onClick={()=>{AddCount()}}>
-            <button className="embla__next flex justify-center  font-bold text-lg rounded-[6px] space-x-2 w-[45vw] px-5 py-3 bg-tertiary " onClick={scrollNext}>
+            <button className={`embla__next flex justify-center  font-bold ${isVendor && 'text-primaryDark'} text-lg rounded-[6px] space-x-2 w-[45vw] px-5 py-3 bg-tertiary `} onClick={scrollNext}>
             <div className='flex space-x-2'>
             Next 
             <img src={splash.src}/>

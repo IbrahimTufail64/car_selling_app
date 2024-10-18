@@ -7,28 +7,60 @@ import "rc-slider/assets/index.css";
 import logo from '@/assets/icons/logo.png'
 import icon from '@/assets/icons/Iconbutton.png'
 import Link from 'next/link';
+import LogoBlue from '@/assets/Logo.png'
+import LogoWhite from '@/assets/LogoWhite.png'
 import splash from '@/assets/icons/Rays-small.png'
+import { useAppContext } from '../Context';
+import { IoChevronBack } from "react-icons/io5";
 
 const Submission2 = () => {
     const [value, setValue] = useState(20); 
+    const {isVendor} = useAppContext();
+   
 
     const OnChangeEventTriggerd = (newValue:any) => {
         console.log("new Value", newValue);
         setValue(newValue);
       };
+      const [carCount, setCarCount] = useState(0);
+    const handleCarCountMinus =() =>{
+        if(carCount > 0){
+            setCarCount(carCount-1);
+        }
+    }
+
+    const handleCarCountAdd =() =>{
+        if(carCount < 5){
+            setCarCount(carCount+1);
+        }
+    }
+
+    
 
   return (
-    <div className='bg-secondary h-full w-full'>
+    <div className={`${isVendor ? 'bg-primaryDark text-white':'bg-secondary'} h-full w-full overflow-hidden`}>
         <div className='flex justify-center w-full'>
             <div>
-                <div className='flex space-x-4 pt-5'> {/*  Dynamic Content  */}
-                    <img src={demoPic.src}/>
-                    <div className='flex h-full pt-3 text-lg font-[500]'>Joe Doe</div>  
+            <div className='flex w-full justify-center space-x-2 mb-6'>
+                    <img src={isVendor ? LogoWhite.src : LogoBlue.src} className='h-14'/>
+                    {
+                        isVendor && <div className='bg-tertiary w-[46px] text-[14px] mt-4 flex justify-center items-center text-[#000000] h-[22px] rounded-full'>Hub</div>
+                    }
+                    </div>
+                <div className='w-full flex justify-center'>
+                    <div className='flex space-x-4 pt-5'> {/*  Dynamic Content  */}
+                        <img src={demoPic.src}/>
+                        <div className='flex h-full pt-3 text-lg font-[500]'>Joe Doe</div>  
+                    </div>
                 </div>
-                <div className='text-[44px] font-[400] pt-5'>
-                    <div>£ 11,750</div>
+                <div className='w-full flex justify-center mt-6'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>Quick Sale</div></div>
+                <div className='text-[46px] font-[400] pt-3 flex justify-center w-full'>
+                    <div>
+                        <div>£ 11,750</div>
+                        <img src={underline.src}/>
+                    </div>
                 </div>
-                <img src={underline.src}/>
+                
                 
             </div>
         </div>
@@ -61,8 +93,8 @@ const Submission2 = () => {
             
         </div>
         <div className='w-full flex justify-center my-10'>
-                        <div className='bg-[#FFFFFF] w-[90vw] rounded-xl'>
-                            <div className='bg-secondary m-4 rounded-xl p-5'>
+                        <div className={`${isVendor ? 'bg-secondaryDark' : 'bg-[#FFFFFF]'} w-[90vw] rounded-xl`}>
+                            <div className={`${isVendor ? 'bg-[#353661]' : 'bg-secondary'} m-4 rounded-xl p-5`}>
                                 <div className='flex justify-center'>
 
                                     <img src={logo.src}/>
@@ -81,9 +113,28 @@ const Submission2 = () => {
                         </div>
         </div>
 
+        {isVendor && <div className='flex w-full justify-center mb-7 space-x-3'>
+                        <div onClick={handleCarCountMinus} className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
+                            <IoChevronBack size={25}/>
+                        </div>
+
+                        <div className='flex'>
+                        <div className='text-[28px]'>
+                            0{carCount}/
+                        </div>
+                        <div className='opacity-40 text-[20px] pl-2 pt-3'>
+                            05
+                        </div>
+                        </div>
+
+                        <div  onClick={handleCarCountAdd}  className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
+                            <IoChevronBack size={25} className='rotate-180'/>
+                        </div>
+                    </div>}
+
 
         <div className='flex justify-center w-full '>
-            <div className='space-y-5 px-5 py-4 bg-white w-[90vw] rounded-xl'>
+            <div className={`space-y-5 px-5 py-4 ${isVendor ? 'bg-secondaryDark' : 'bg-[#FFFFFF]'} w-[90vw] rounded-xl`}>
                             <div className='flex space-x-5 pt-[10px]'>
                                 <img src={icon.src} className='w-6 h-6'/>
                                 <div>Good photos are important when selling your vehicle! </div>
@@ -105,7 +156,7 @@ const Submission2 = () => {
         </div>
 
         <div>
-            <Link href='./IntroSlider' className='flex justify-center m-5 font-bold text-lg rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
+            <Link href='./IntroSlider' className={`${isVendor && 'text-secondaryDark'} flex justify-center m-5 font-bold text-xl rounded-[6px] space-x-2 px-5 py-4 bg-tertiary `}>
                     <div>Enable Camera</div>
                     <img src={splash.src}/>
             </Link> 

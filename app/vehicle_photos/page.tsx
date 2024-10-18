@@ -9,7 +9,7 @@ import { useAppContext } from '../Context';
 
 const VehiclePhotos = () => {
 
-  const {vehicle_exterior, vehicle_interior, vehicle_wheels} = useAppContext();
+  const {vehicle_exterior, vehicle_interior, vehicle_wheels, isVendor} = useAppContext();
 
   useEffect(()=>{
 
@@ -25,7 +25,7 @@ const VehiclePhotos = () => {
 
   },[])
   return (
-    <div className='bg-secondary w-full h-[100vh]'>
+    <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full h-[100vh]`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle Photos</div>
@@ -60,7 +60,7 @@ const VehiclePhotos = () => {
 
         </div>
 
-        <div className='bg-[#FBFBFF] border-1 border border-[#D3D4FD] border-dashed rounded-lg p-5 mt-7 m-5 space-y-4'>
+        <div className={`${!isVendor ? 'bg-[#FBFBFF] border-[#D3D4FD]' :'bg-[#0A0A37] border-[#3B3B5F]'} border-1 border  border-dashed rounded-lg p-5 mt-7 m-5 space-y-4`}>
             <div className='w-full flex justify-center'>
               <img src={alert.src}/>
             </div>
