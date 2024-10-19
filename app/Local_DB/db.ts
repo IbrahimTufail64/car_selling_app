@@ -1,44 +1,33 @@
-
-
 // db.ts
 import Dexie, { type EntityTable } from 'dexie';
 
 interface Image {
   id: number;
   name: string;
-  data: any
+  data: any;
 }
 
-interface AppContext {
+interface WheelCondition {
   id: number;
-  name: string;
-  state: boolean
+  front_driver: boolean;
+  back_driver: boolean;
+  front_passenger: boolean;
+  back_passenger: boolean;
 }
 
-const db = new Dexie('imagesDatabase') as Dexie & {
-  images: EntityTable<
-    Image,
-    'id' // primary key "id" (for the typings only)
-  >;
+// Create a single Dexie instance and define both stores
+const db = new Dexie('combinedDatabase') as Dexie & {
+  images: EntityTable<Image, 'id'>;
+  wheel_condition: EntityTable<WheelCondition, 'id'>;
 };
 
-// Schema declaration:
+// Schema declaration for both stores
 db.version(1).stores({
-  images: '++id, name, data' // primary key "id" (for the runtime!)
+  images: '++id, name, data',
+  wheel_condition: '++id, front_driver, back_driver, front_passenger, back_passenger',
 });
 
-// for context: 
-const db2 = new Dexie('contextDatabase') as Dexie & {
-  context: EntityTable<
-    AppContext,
-    'id' // primary key "id" (for the typings only)
-  >;
-};
-
-// Schema declaration:
-db2.version(1).stores({
-  context: '++id, name, state' // primary key "id" (for the runtime!)
-});
-
-export type { Image ,AppContext};
-export { db,db2 };
+// Export the types and the database instance
+export type { Image };
+export type { WheelCondition };
+export { db };

@@ -5,21 +5,33 @@ import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
 import splash from '@/assets/icons/Rays-small.png'
-import { db, db2 } from '../Local_DB/db';
+import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 
-import BackDriverWheel from '@/assets/back_driver_wheel.png'
-import BackDriverTyre from '@/assets/back_driver_tyre.png'
-import BackPassengerWheel from '@/assets/back_passenger_wheel.png'
-import BackPassengerTyre from '@/assets/back_passenger_tyre.png'
+import BackDriverWheelC from '@/assets/back_driver_wheel.png'
+import BackDriverTyreC from '@/assets/back_driver_tyre.png'
+import BackPassengerWheelC from '@/assets/back_passenger_wheel.png'
+import BackPassengerTyreC from '@/assets/back_passenger_tyre.png'
 
-import FrontDriverWheel from '@/assets/front_driver_wheel.png'
-import FrontDriverTyre from '@/assets/front_driver_tyre.png'
-import FrontPassengerWheel from '@/assets/front_passenger_wheel.png'
-import FrontPassengerTyre from '@/assets/front_passenger_tyre.png'
+import FrontDriverWheelC from '@/assets/front_driver_wheel.png'
+import FrontDriverTyreC from '@/assets/front_driver_tyre.png'
+import FrontPassengerWheelC from '@/assets/front_passenger_wheel.png'
+import FrontPassengerTyreC from '@/assets/front_passenger_tyre.png'
+
+// Vendor pics 
+
+import BackDriverWheelV from '@/assets/BackDriverWheelVendor.png'
+import BackDriverTyreV from '@/assets/BackDriverTyreVendor.png'
+import BackPassengerWheelV from '@/assets/BackPassengerWheelVendor.png'
+import BackPassengerTyreV from '@/assets/BackPassengerTyreVendor.png'
+
+import FrontDriverWheelV from '@/assets/FrontDriverWheelVendor.png'
+import FrontDriverTyreV from '@/assets/FrontDriverTyreVendor.png'
+import FrontPassengerWheelV from '@/assets/FrontPassengerWheelVendor.png'
+import FrontPassengerTyreV from '@/assets/FrontPassengerTyre.png'
 
 
-const VehicleExterior = () => {
+const VehicleWheels = () => {
     const [back_driver_wheel_img, setback_driver_wheel_img]  = useState<any>(null);
     const [back_driver_tyre_img, setback_driver_tyre_img]  = useState<any>(null);
 
@@ -32,7 +44,17 @@ const VehicleExterior = () => {
     const [front_passenger_wheel_img, setfront_passenger_wheel_img]  = useState<any>(null);
     const [front_passenger_tyre_img, setfront_passenger_tyre_img]  = useState<any>(null);
 
-    const {setVehicle_Wheels} = useAppContext();
+    const {setVehicle_Wheels,isVendor} = useAppContext();
+
+    const BackDriverWheel = isVendor ? BackDriverWheelV : BackDriverWheelC;
+    const BackDriverTyre = isVendor ? BackDriverTyreV : BackDriverTyreC;
+    const BackPassengerWheel = isVendor ? BackPassengerWheelV : BackPassengerWheelC;
+    const BackPassengerTyre = isVendor ? BackPassengerTyreV : BackPassengerTyreC;
+
+    const FrontDriverWheel = isVendor ? FrontDriverWheelV : FrontDriverWheelC;
+    const FrontDriverTyre = isVendor ? FrontDriverTyreV : FrontDriverTyreC;
+    const FrontPassengerWheel = isVendor ? FrontPassengerWheelV : FrontPassengerWheelC;
+    const FrontPassengerTyre = isVendor ? FrontPassengerTyreV : FrontPassengerTyreC;
 
     // Search for images in the db: 
     useEffect(()=>{
@@ -76,22 +98,23 @@ const VehicleExterior = () => {
     },[back_driver_wheel_img,back_driver_tyre_img,back_passenger_wheel_img,back_passenger_tyre_img, front_driver_wheel_img,front_driver_tyre_img,front_passenger_wheel_img,front_passenger_tyre_img])
 
   return (
-    <div className='bg-secondary w-full '>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
-            <div>Your wheels & tyres</div>
+            <div>Vehicle exterior</div>
         </div>
-        <div className='w-full flex justify-center'>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-2 pl-3 pt-3 flex justify-between rounded-lg'>
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link href='./smart_advice/vehicle_exterior' className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./smart_advice/IntroSlider'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
                 <img src={car.src}/>
             </div>
         </div>
 
         <div className='space-y-3 pt-7'>
+
             <PhotoFrame Content='Back Driver Wheel' isUploaded={back_driver_wheel_img !== undefined} photo={ back_driver_wheel_img ? back_driver_wheel_img : BackDriverWheel}  link ='back_driver_wheel'/>
             <PhotoFrame Content='Back Driver Tyre' isUploaded={back_driver_tyre_img !== undefined} photo={back_driver_tyre_img ? back_driver_tyre_img : BackDriverTyre} link ='back_driver_tyre'/>
             <PhotoFrame Content='Back Passenger Wheel' isUploaded={back_passenger_wheel_img !== undefined} photo={back_passenger_wheel_img ? back_passenger_wheel_img :  BackPassengerWheel} link ='back_passenger_wheel'/>
@@ -105,7 +128,7 @@ const VehicleExterior = () => {
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className=' flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
+                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
                         <img src={splash.src}/>
@@ -118,4 +141,5 @@ const VehicleExterior = () => {
   )
 }
 
-export default VehicleExterior
+export default VehicleWheels
+

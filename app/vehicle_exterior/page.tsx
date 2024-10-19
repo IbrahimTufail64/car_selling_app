@@ -4,12 +4,19 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
-import BackDriver from '@/assets/back_driver.png'
-import BackPassen  from '@/assets/back_passen.png'
-import FrontDriver  from '@/assets/front_driver.png'
-import FrontPassen from '@/assets/front_passen.png'
+
+import BackDriverC from '@/assets/back_driver.png'
+import BackPassenC  from '@/assets/back_passen.png'
+import FrontDriverC  from '@/assets/front_driver.png'
+import FrontPassenC from '@/assets/front_passen.png'
+
+import BackDriverV from '@/assets/backDriverVendor.png'
+import BackPassenV  from '@/assets/backPassengerVendor.png'
+import FrontDriverV  from '@/assets/frontDriverVendor.png'
+import FrontPassenV from '@/assets/frontPassengerVendor.png'
+
 import splash from '@/assets/icons/Rays-small.png'
-import { db, db2 } from '../Local_DB/db';
+import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 
 
@@ -20,7 +27,12 @@ const VehicleExterior = () => {
     const [backPimg, setbackPimg]  = useState<any>(null);
 
     const {vehicle_exterior, setVehicle_Exterior} = useAppContext();
+    const {isVendor} = useAppContext()
 
+    const BackDriver = isVendor ? BackDriverV : BackDriverC;
+    const FrontDriver = isVendor ? FrontDriverV : BackDriverC;
+    const BackPassen = isVendor ? BackPassenV : BackPassenC;
+    const FrontPassen = isVendor ? FrontPassenV : BackPassenC;
     // Search for images in the db: 
     useEffect(()=>{
 
@@ -44,37 +56,37 @@ const VehicleExterior = () => {
     },[])
 
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        const setContext = async(state:boolean)=>{
-            await db2.context.put({
-                name: 'vehicle_exterior',
-                state: state 
-              });
-        }
-        if(frontDimg && frontPimg && backDimg && backPimg){
-            setVehicle_Exterior(true);
-            setContext(true);
+    //     const setContext = async(state:boolean)=>{
+    //         await db2.context.put({
+    //             name: 'vehicle_exterior',
+    //             state: state 
+    //           });
+    //     }
+    //     if(frontDimg && frontPimg && backDimg && backPimg){
+    //         setVehicle_Exterior(true);
+    //         setContext(true);
 
-        }
-        else{
-            setVehicle_Exterior(false);
-            setContext(false);
-        }
+    //     }
+    //     else{
+    //         setVehicle_Exterior(false);
+    //         setContext(false);
+    //     }
 
-    },[frontDimg,frontPimg,backDimg,backPimg])
+    // },[frontDimg,frontPimg,backDimg,backPimg])
 
   return (
-    <div className='bg-secondary w-full '>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle exterior</div>
         </div>
-        <div className='w-full flex justify-center'>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-2 pl-3 pt-3 flex justify-between rounded-lg'>
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link href='./smart_advice/vehicle_exterior' className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./smart_advice/IntroSlider'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
                 <img src={car.src}/>
             </div>
@@ -89,7 +101,7 @@ const VehicleExterior = () => {
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className=' flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
+                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
                         <img src={splash.src}/>
