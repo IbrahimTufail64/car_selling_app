@@ -12,7 +12,7 @@ const HomePage = () => {
     const {isVendor} = useAppContext();
 
   return (
-    <div className={`relative ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary '} h-[100vh] flex flex-col justify-between`}>
+    <div className={`relative ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary '} min-h-[100vh] flex flex-col justify-between`}>
         <div>
             <div className='font-[500] bg-primary h-[202px] flex justify-center text-[22px] text-[#FFFFFF] pt-[20px]'>
                 <div>
@@ -30,7 +30,7 @@ const HomePage = () => {
                 <img src={frame.src} className='absolute w-[90vw] mt-[180px] top-0'/>
             </div>
 
-            <div className='w-full flex justify-center pt-[250px] '>
+            <div className='w-full flex justify-center pt-[25vh] '>
                 <div className={`w-[92vw] ${isVendor ? 'bg-secondaryDark text-white': 'bg-white '} rounded-[14px] flex justify-center py-5 mt-5`}>
 
                     <div className='w-[90%]'>
@@ -67,7 +67,7 @@ const HomePage = () => {
         </div>
         
 
-        <div className={`w-full ${isVendor ? 'bg-secondaryDark text-secondaryDark': 'bg-[#101044]'} p-5   flex justify-between`}>
+        <div className={`w-full ${isVendor ? 'bg-secondaryDark text-secondaryDark': 'bg-[#101044]'} p-5 mt-10   flex justify-between`}>
             <div className='flex text-[#FFFFFF]'>
                 <img src={PlayStore.src} className=' w-10 h-10'/>
                 <div className='px-2'>

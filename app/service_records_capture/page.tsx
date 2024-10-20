@@ -6,7 +6,7 @@ import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
 import serviceRecords from '@/assets/ServiceRecords.png'
 import splash from '@/assets/icons/Rays-small.png'
-import { db, db2 } from '../Local_DB/db';
+import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import alertblue from '@/assets/icons/alertBlue.png'
 
@@ -41,25 +41,25 @@ const ServiceRecordsCapture = () => {
     },[])
 
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        const setContext = async(state:boolean)=>{
-            await db2.context.put({
-                name: 'vehicle_exterior',
-                state: state 
-              });
-        }
-        if(serviceRecords1 && serviceRecords2 && serviceRecords3 && serviceRecords4){
-            setVehicle_Exterior(true);
-            setContext(true);
+    //     const setContext = async(state:boolean)=>{
+    //         await db2.context.put({
+    //             name: 'vehicle_exterior',
+    //             state: state 
+    //           });
+    //     }
+    //     if(serviceRecords1 && serviceRecords2 && serviceRecords3 && serviceRecords4){
+    //         setVehicle_Exterior(true);
+    //         setContext(true);
 
-        }
-        else{
-            setVehicle_Exterior(false);
-            setContext(false);
-        }
+    //     }
+    //     else{
+    //         setVehicle_Exterior(false);
+    //         setContext(false);
+    //     }
 
-    },[serviceRecords1,serviceRecords2,serviceRecords3,serviceRecords4])
+    // },[serviceRecords1,serviceRecords2,serviceRecords3,serviceRecords4])
 
   return (
     <div className='bg-secondary w-full '>

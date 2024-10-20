@@ -5,7 +5,7 @@ import { IoChevronBack } from "react-icons/io5";
 import icon from '@/assets/icons/Iconbutton.png'
 import serviceRecords from '@/assets/ServiceRecords.png'
 import splash from '@/assets/icons/Rays-small.png'
-import { db, db2 } from '../Local_DB/db';
+import { db} from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import alert from '@/assets/icons/alert.png'
 
@@ -40,25 +40,25 @@ const ServiceRecords = () => {
     },[])
 
 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        const setContext = async(state:boolean)=>{
-            await db2.context.put({
-                name: 'vehicle_exterior',
-                state: state 
-              });
-        }
-        if(frontDimg && frontPimg && backDimg && backPimg){
-            setVehicle_Exterior(true);
-            setContext(true);
+    //     const setContext = async(state:boolean)=>{
+    //         await db2.context.put({
+    //             name: 'vehicle_exterior',
+    //             state: state 
+    //           });
+    //     }
+    //     if(frontDimg && frontPimg && backDimg && backPimg){
+    //         setVehicle_Exterior(true);
+    //         setContext(true);
 
-        }
-        else{
-            setVehicle_Exterior(false);
-            setContext(false);
-        }
+    //     }
+    //     else{
+    //         setVehicle_Exterior(false);
+    //         setContext(false);
+    //     }
 
-    },[frontDimg,frontPimg,backDimg,backPimg])
+    // },[frontDimg,frontPimg,backDimg,backPimg])
 
   return (
     <div className='bg-secondary w-full '>

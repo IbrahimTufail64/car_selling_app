@@ -4,7 +4,6 @@ import { IoChevronBack } from "react-icons/io5";
 import Field from '../components/Field';
 import alert from '@/assets/icons/alert.png'
 import Link from 'next/link';
-import { db2 } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 
 const VehiclePhotos = () => {
