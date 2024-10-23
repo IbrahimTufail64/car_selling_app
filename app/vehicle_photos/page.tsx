@@ -52,7 +52,7 @@ const VehiclePhotos = () => {
           </div>
 
           <div className='mb-4'>
-          <Link href='./vehicle_exterior'>
+          <Link href='./vehicle_health_selection'>
           <Field isComplete={false} Content={'Vehicle health'}/>
           </Link>
           </div>

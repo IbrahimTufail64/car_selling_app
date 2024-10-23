@@ -40,10 +40,10 @@ const TyreHealth = () => {
             if(!isGood){
                 wheel_state = await db.wheel_condition.put({
                     id: 1,
-                    front_driver: back_driver_tyre_state,
+                    front_driver: front_driver_tyre_state,
                     back_driver: back_driver_tyre_state,
-                    front_passenger: back_driver_tyre_state,
-                    back_passenger: back_driver_tyre_state
+                    front_passenger: front_passenger_tyre_state,
+                    back_passenger: back_passenger_tyre_state
                 });
             }
             else {
@@ -90,9 +90,9 @@ const TyreHealth = () => {
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary' } w-full `}>
-        <div className='p-5 flex space-x-2 text-[26px]'>
-            <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[3px]'/></Link>
-            <div>Wheel Condition</div>
+        <div className='p-5 flex space-x-2 text-[26px] pt-10'>
+        <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
+            <div>Tyre health</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>

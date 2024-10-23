@@ -62,6 +62,48 @@ const lookup_table_empty:any = {
   'service_records4': emptyFilter,
 }
 
+const lookup_table_surface_marks:any = {
+  'surface_marks1': emptyFilter,
+  'surface_marks2': emptyFilter,
+  'surface_marks3': emptyFilter,
+  'surface_marks4': emptyFilter,
+}
+
+const lookup_table_panel_damage:any = {
+  'panel_damage1': emptyFilter,
+  'panel_damage2': emptyFilter,
+  'panel_damage3': emptyFilter,
+  'panel_damage4': emptyFilter,
+}
+
+const lookup_table_glass_health:any = {
+  'glass_health1': emptyFilter,
+  'glass_health2': emptyFilter,
+  'glass_health3': emptyFilter,
+  'glass_health4': emptyFilter,
+}
+
+const lookup_table_exterior_wear_tear:any = {
+  'exterior_wear_tear1': emptyFilter,
+  'exterior_wear_tear2': emptyFilter,
+  'exterior_wear_tear3': emptyFilter,
+  'exterior_wear_tear4': emptyFilter,
+}
+
+const lookup_table_damaged_absent_fixtures:any = {
+  'damaged_absent_fixtures1': emptyFilter,
+  'damaged_absent_fixtures2': emptyFilter,
+  'damaged_absent_fixtures3': emptyFilter,
+  'damaged_absent_fixtures4': emptyFilter,
+}
+
+const lookup_table_dashboard_lights:any = {
+  'dashboard_lights1': emptyFilter,
+  'dashboard_lights2': emptyFilter,
+  'dashboard_lights3': emptyFilter,
+  'dashboard_lights4': emptyFilter,
+}
+
 const Filter = ({ params }: { params: { slug: string } }) => {
   
 
@@ -85,6 +127,36 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     if(car_filter === undefined){
       car_filter = lookup_table_empty[params.slug];
       returnLink = 'service_records_capture';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_surface_marks[params.slug];
+      returnLink = 'surface_marks';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_panel_damage[params.slug];
+      returnLink = 'panel_damage';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_glass_health[params.slug];
+      returnLink = 'glass_health';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_exterior_wear_tear[params.slug];
+      returnLink = 'exterior_wear_tear';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_damaged_absent_fixtures[params.slug];
+      returnLink = 'damaged_absent_fixtures';
+    }
+
+    if(car_filter === undefined){
+      car_filter = lookup_table_dashboard_lights[params.slug];
+      returnLink = 'dashboard_lights';
     }
 
     const {angle,type} = useOrientation(); 

@@ -30,9 +30,9 @@ const VehicleExterior = () => {
     const {isVendor} = useAppContext()
 
     const BackDriver = isVendor ? BackDriverV : BackDriverC;
-    const FrontDriver = isVendor ? FrontDriverV : BackDriverC;
+    const FrontDriver = isVendor ? FrontDriverV : FrontDriverC;
     const BackPassen = isVendor ? BackPassenV : BackPassenC;
-    const FrontPassen = isVendor ? FrontPassenV : BackPassenC;
+    const FrontPassen = isVendor ? FrontPassenV : FrontPassenC;
     // Search for images in the db: 
     useEffect(()=>{
 
@@ -101,9 +101,9 @@ const VehicleExterior = () => {
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
-                    <div className='flex space-x-1 text-xl'>
-                        <div>Done</div>
+                <Link href='./Submission2' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1'>
+                        <div>Submit</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
@@ -115,3 +115,6 @@ const VehicleExterior = () => {
 }
 
 export default VehicleExterior
+
+
+
