@@ -2,21 +2,25 @@
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import icon from '@/assets/icons/Iconbutton.png'
+import car from '@/assets/Sub3Car.png'
+import PhotoFrame from '../components/PhotoFrame';
 import serviceRecords from '@/assets/ServiceRecords.png'
 import splash from '@/assets/icons/Rays-small.png'
-import { db} from '../Local_DB/db';
+import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
-import alert from '@/assets/icons/alert.png'
+import alertblue from '@/assets/icons/alertBlue.png'
+import alertWhite from '@/assets/icons/disclaimerWhite.png'
+import PhotoFrameService from '../components/PhotoFrameService';
 
-const ServiceRecords = () => {
-    const [frontDimg, setfrontDimg]  = useState<any>(null);
-    const [frontPimg, setfrontPimg]  = useState<any>(null);
-    const [backDimg, setbackDimg]  = useState<any>(null);
-    const [backPimg, setbackPimg]  = useState<any>(null);
 
-    const {vehicle_exterior, setVehicle_Exterior} = useAppContext();
+const ServiceRecordsCapture = () => {
+    const [serviceRecords1, setserviceRecords1]  = useState<any>(null);
+    const [serviceRecords2, setserviceRecords2]  = useState<any>(null);
+    const [serviceRecords3, setserviceRecords3]  = useState<any>(null);
+    const [serviceRecords4, setserviceRecords4]  = useState<any>(null);
 
+    const {vehicle_exterior, setVehicle_Exterior,isVendor} = useAppContext();
+    const alert = isVendor ? alertWhite : alertblue;
     // Search for images in the db: 
     useEffect(()=>{
 
@@ -30,10 +34,10 @@ const ServiceRecords = () => {
                 
             }
         };
-        retrieve('front_driver',setfrontDimg);
-        retrieve('front_passenger',setfrontPimg);
-        retrieve('back_driver',setbackDimg);
-        retrieve('back_passenger',setbackPimg);
+        retrieve('service_records1',setserviceRecords1);
+        retrieve('service_records2',setserviceRecords2);
+        retrieve('service_records3',setserviceRecords3);
+        retrieve('service_records4',setserviceRecords4);
 
         // window.location.reload();
         
@@ -48,7 +52,7 @@ const ServiceRecords = () => {
     //             state: state 
     //           });
     //     }
-    //     if(frontDimg && frontPimg && backDimg && backPimg){
+    //     if(serviceRecords1 && serviceRecords2 && serviceRecords3 && serviceRecords4){
     //         setVehicle_Exterior(true);
     //         setContext(true);
 
@@ -58,146 +62,56 @@ const ServiceRecords = () => {
     //         setContext(false);
     //     }
 
-    // },[frontDimg,frontPimg,backDimg,backPimg])
+    // },[serviceRecords1,serviceRecords2,serviceRecords3,serviceRecords4])
 
   return (
-    <div className='bg-secondary w-full '>
-        <div className='p-5 flex space-x-2 text-[26px]'>
-            <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[5px]'/></Link>
-            <div>Service records</div>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+        <div className='p-5 flex space-x-2 text-[22px]'>
+            <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[3px]'/></Link>
+            <div>Service, Manuals and Keys</div>
         </div>
-        <div className='w-full flex justify-center'>
-            <div className='p-5 px-10 text-[19px]'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi.
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-5'>
+                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
+                    <Link  href='./service_manuals_keys'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                </div>
+                <img src={car.src}/>
             </div>
         </div>
-        <div className='w-full flex justify-center'>
-            <div className='w-[90vw] bg-[#F7F8FF] text-[18px] rounded-xl p-5 border-dashed border-2 border-[#D3D4FD] '>
-                <div className='w-full justify-center flex py-4'>
-                    <img src={alert.src}/>
-                </div>
-                <div className='w-full flex justify-center text-center px-5 '>
+
+         <div className='flex justify-center w-full'>
+            <div className={`border-[1px] ${isVendor ? 'border-[#3D3D6A]': 'border-[#D3D4FD]'} mt-7 w-[90%] rounded-lg p-3 font-[300] flex justify-between space-x-10 px-7`}>
+                <div>
                 A detailed service record increases the likelihood of selling your car by 10%
                 </div>
-            </div>
-        </div>
-
-        <div className='w-full flex justify-center my-5'>
-            <div className='w-[90vw] bg-white text-[18px] rounded-xl p-5 '>
-                <div className='w-full text-[26px]'>
-                How can I access my service history? 
-                </div>
-                <div className='flex justify-center w-full my-3'>
-                    <div className='w-full bg-[#D3D4FD] h-[2px]'></div>
-                </div>
-                <div className='space-y-5'>
-                            <div className='flex space-x-5 pt-[10px]'>
-                                <img src={icon.src} className='w-7 h-7 mt-1'/>
-                                <div>
-                                    <div className='font-[600] text-[20px] text-[#101044]'>Service book</div>
-                                    <div className='font-[300]'>
-                                    Usually kept in the glove compartment, your service booklet holds your service history.
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex space-x-5 '>
-                                <img src={icon.src} className='w-7 h-7 mt-1'/>
-                                <div>
-                                    <div className='font-[600] text-[20px] text-[#101044]'>Vehicle manufacturer's website</div>
-                                    <div className='font-[300]'>
-                                    For newer vehicles, you can often access your service records online through your car manufacturer’s website
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex space-x-5 '>
-                                <img src={icon.src} className='w-7 h-7 mt-1'/>
-                                <div>
-                                    <div className='font-[600] text-[20px] text-[#101044]'>Car's computer system</div>
-                                    <div className='font-[300]'>
-                                    In many modern cars, the service history is stored in the main computer system.
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='flex space-x-5 '>
-                                <img src={icon.src} className='w-7 h-7 mt-1'/>
-                                <div>
-                                    <div className='font-[600] text-[20px] text-[#101044]'>Customer support</div>
-                                    <div className='font-[300]'>
-                                    Contact your local dealership or the manufacturer’s customer service team. They can provide you with a printed or emailed copy of your service history.
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-            </div>
-        </div>
-
-        <div className='w-full flex justify-center my-5'>
-            <div className='w-[90vw] bg-white text-[18px] rounded-xl py-5 px-5 '>
-                <div className='w-full text-[26px]'>
-                What is a Service History?
-                </div>
-                <div className='flex justify-center w-full my-3'>
-                    <div className='w-full bg-[#D3D4FD] h-[2px]'></div>
-                </div>
-                <div className='font-[300] text-[16px]'>
-                A service history is a comprehensive log of all maintenance performed on your car throughout its life. This complete record helps dealers assess how well your vehicle has been maintained and its current condition. Cars with a full service history typically have a higher resale value compared to those with incomplete or no service history.
+                <div className='h-full flex justify-center items-center'>
+                    <img src={alert.src} className='max-w-24'/>
                 </div>
             </div>
-        </div>
+        </div> 
 
-        <div className='space-y-3'>
-            <div className='text-[22px] w-full pl-5 mt-10'>Examples</div>
-            <div className='w-full flex justify-center'>
-                <div className='text-[22px] p-3 bg-white w-[90%] rounded-xl'>
-                    <img src={serviceRecords.src}/>
-                    <div className='px-3'>Above image title</div>
-                </div>
-            </div>
-
-            <div className='w-full flex justify-center'>
-                <div className='text-[22px] p-3 bg-white w-[90%] rounded-xl'>
-                    <img src={serviceRecords.src}/>
-                    <div className='px-3'>Above image title</div>
-                </div>
-            </div>
-
-            <div className='w-full flex justify-center'>
-                <div className='text-[22px] p-3 bg-white w-[90%] rounded-xl'>
-                    <img src={serviceRecords.src}/>
-                    <div className='px-3'>Above image title</div>
-                </div>
-            </div>
-
-            <div className='w-full flex justify-center'>
-                <div className='text-[22px] p-3 bg-white w-[90%] rounded-xl'>
-                    <img src={serviceRecords.src}/>
-                    <div className='px-3'>Above image title</div>
-                </div>
-            </div>
-        </div>
-
-        <div className='w-full flex justify-center'>
-            <div className='bg-white w-[90%] p-5 text-[18px] rounded-xl mt-10'>
-                Been maintained and its current condition. Cars with a full service history typically have a higher resale value compared to those with incomplete or no service history.
-            </div>
-        </div>
+        {!isVendor ? 
+        <div className='space-y-3 pt-7'>
+        <PhotoFrame Content='Title here' isUploaded={serviceRecords1 !== undefined} photo={ serviceRecords1 ? serviceRecords1 : serviceRecords}  link ='service_records1'/>
+        <PhotoFrame Content='Title here' isUploaded={serviceRecords2 !== undefined} photo={serviceRecords2 ? serviceRecords2 : serviceRecords} link ='service_records2'/>
+        <PhotoFrame Content='Title here' isUploaded={serviceRecords3 !== undefined} photo={serviceRecords3 ? serviceRecords3 :  serviceRecords} link ='service_records3'/>
+        <PhotoFrame Content='Title here' isUploaded={serviceRecords4 !== undefined} photo={serviceRecords4 ? serviceRecords4 : serviceRecords} link ='service_records4'/>
+    </div>
+        :
+    <div className='space-y-3 pt-7'>
+        <PhotoFrameService Content='Add service history' isUploaded={serviceRecords1 !== undefined} photo={ serviceRecords1 ? serviceRecords1 : serviceRecords}  link ='service_records1'/>
+        <PhotoFrameService Content='Add service history' isUploaded={serviceRecords2 !== undefined} photo={serviceRecords2 ? serviceRecords2 : serviceRecords} link ='service_records2'/>
+        <PhotoFrameService Content='Add manuals' isUploaded={serviceRecords3 !== undefined} photo={serviceRecords3 ? serviceRecords3 :  serviceRecords} link ='service_records3'/>
+        <PhotoFrameService Content='Add keys' isUploaded={serviceRecords4 !== undefined} photo={serviceRecords4 ? serviceRecords4 : serviceRecords} link ='service_records4'/>
+    </div>}
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className=' flex justify-center font-[600] text-lg rounded-[6px] space-x-2 px-5 py-5 text-[24px] bg-tertiary '>
-                    <div className='flex space-x-1'>
-                        <div>Continue</div>
+                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div>Done</div>
                         <img src={splash.src}/>
-                    </div>
-                </Link>
-        </div>
-
-        <div className='px-5 pb-5'>
-                <Link href='./Submission2' className='border border-2 border-[#101044] flex justify-center font-[600] text-lg rounded-[6px] space-x-2 px-5 py-5 text-[24px] text-[#101044] '>
-                    <div className='flex space-x-1'>
-                        <div>No service record</div>
                     </div>
                 </Link>
         </div>
@@ -207,4 +121,8 @@ const ServiceRecords = () => {
   )
 }
 
-export default ServiceRecords
+export default ServiceRecordsCapture
+
+
+
+       

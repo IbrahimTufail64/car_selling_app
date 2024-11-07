@@ -23,6 +23,7 @@ const VehiclePhotos = () => {
       // getContext('vehicle_interior',setVehicleInterior);
 
   },[])
+  
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full h-[100vh]`}>
         <div className='p-5 flex space-x-2 text-[22px]'>

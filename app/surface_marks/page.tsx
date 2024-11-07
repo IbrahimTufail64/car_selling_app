@@ -54,7 +54,7 @@ const SurfaceMarks = () => {
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='./smart_advice/IntroSlider'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./advice_surface_marks'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
                 <img src={car.src}/>
             </div>

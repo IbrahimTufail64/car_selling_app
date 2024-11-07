@@ -6,25 +6,31 @@ import car1 from '@/assets/SmartAdvice1.png'
 import car2 from '@/assets/SmartAdvice2.png'
 import cross from '@/assets/redcross.png'
 import tick from '@/assets/greentick.png'
-import phone from '@/assets/icons/phone.png'
-import email from '@/assets/icons/email.png'
+import phoneW from '@/assets/icons/phone.png'
+import emailW from '@/assets/icons/email.png'
+import phoneD from '@/assets/icons/phoneDark.png'
+import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
+import { useAppContext } from '../Context';
 
-const SmartAdvice = ({ params }: { params: { slug: string } }) => {
+const SmartAdvice = () => {
 
   const router = useRouter();
+  const {isVendor} = useAppContext(); 
+  const phone = isVendor ? phoneD : phoneW;
+  const email = isVendor ? emailD : emailW;
   
   return (
-    <div className='bg-secondary w-full '>
+    <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <Link  href={`../${params.slug}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
+            <Link  href={`./vehicle_exterior`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>smart advice</div>
         </div>
 
         <div className='space-y-4 px-4'>
          <div className='w-full flex justify-center'>
-            <div className='bg-white p-3 rounded-lg'>
-              <img src={car1.src}/>
+            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
                     <img src={cross.src} className='w-7 h-7 mt-[2px]'/>
@@ -45,8 +51,8 @@ const SmartAdvice = ({ params }: { params: { slug: string } }) => {
 
         <div className='space-y-4 px-4 mt-7'>
          <div className='w-full flex justify-center'>
-            <div className='bg-white p-3 rounded-lg'>
-              <img src={car2.src}/>
+         <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <img src={car2.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
                     <img src={tick.src} className='w-7 h-7 mt-[2px]'/>
@@ -66,7 +72,7 @@ const SmartAdvice = ({ params }: { params: { slug: string } }) => {
         </div>
 
         <div className='overflow-hidden  w-full flex justify-center text-[18px]'>
-          <div className='w-[92vw] my-5 bg-white rounded-b-xl' >
+          <div className={`w-[90vw] my-5 rounded-2xl  ${isVendor ? 'bg-secondaryDark': 'bg-white'}`} >
             <div className='p-5 py-3  bg-fourth text-white rounded-t-xl'>
             Need help? Contact our team
             </div>
