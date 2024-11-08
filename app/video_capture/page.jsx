@@ -51,10 +51,14 @@ const WebcamStreamCapture = () => {
         setRecordedChunks([]);
       }
     }, [recordedChunks]);
+
+    const videoConstraints = {
+        facingMode: "environment"
+      };
   
     return (
       <>
-        <Webcam audio={false} ref={webcamRef} />
+        <Webcam audio={false} ref={webcamRef} videoConstraints={videoConstraints}/>
         {capturing ? (
           <button onClick={handleStopCaptureClick}>Stop Capture</button>
         ) : (
