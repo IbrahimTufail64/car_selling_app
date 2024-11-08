@@ -2,9 +2,10 @@
 import React from 'react'
 import car from '@/assets/Sub3Car.png'
 import Link from 'next/link'
-import card1 from '@/assets/Sub3CarD1.png'
+
 import tick from '@/assets/icons/tick.png'
 import cross from '@/assets/icons/cross.png'
+import card1 from '@/assets/Sub3CarD1.png'
 import card4 from '@/assets/Sub3CarD4.png'
 import vector from '@/assets/icons/Vector.png'
 import { useAppContext } from '../Context'
