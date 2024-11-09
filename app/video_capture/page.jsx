@@ -71,7 +71,7 @@ const WebcamStreamCapture = () => {
 
     const handleDownload = React.useCallback(() => {
       console.log(recordedChunks)
-      if (recordedChunks.length) {
+      // if (recordedChunks.length) {
         const blob = new Blob(recordedChunks, {
           type: "video/webm"
         });
@@ -103,7 +103,7 @@ const WebcamStreamCapture = () => {
         setRecordedChunks([]);
         
         
-      }
+      // }
     }, [recordedChunks]);
 
     const videoConstraints = {
