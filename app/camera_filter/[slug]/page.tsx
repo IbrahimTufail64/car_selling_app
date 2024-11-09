@@ -171,7 +171,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
 
     async function addImage(img: any) {
       try {
-        // Add the new friend!
+        
         const image = await db.images.where('name').equals(params.slug).first();
         if(image?.data !== undefined ){
           await db.images.where('name').equals(params.slug).delete();
