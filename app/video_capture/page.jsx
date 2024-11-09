@@ -36,13 +36,13 @@ const WebcamStreamCapture = () => {
       [setRecordedChunks]
     );
   
-    const handleStopCaptureClick = React.useCallback(() => {
+    const handleStopCaptureClick = React.useCallback(async() => {
       alert('video recording done!');
-      mediaRecorderRef.current.stop();
+      await mediaRecorderRef.current.stop();
       setCapturing(false);
       console.log('video working')
       handleDownload();
-      router.push(`./vehicle_video`); 
+      // router.push(`./vehicle_video`); 
     }, [mediaRecorderRef, webcamRef, setCapturing]);
 
     
@@ -76,6 +76,7 @@ const WebcamStreamCapture = () => {
           type: "video/webm"
         });
         console.log(blob)
+        alert(blob);
         addVideo(blob);
         // const reader = new FileReader();
         // console.log(localStorage.getItem("videoData"));
