@@ -13,7 +13,13 @@ const Rotate = ({ params }: { params: { slug: string } }) => {
         const portrait = window.matchMedia("(orientation: portrait)").matches;
         console.log(portrait)
       if(!portrait || angle === 90){
-        router.push(`../camera_filter/${params.slug}`);
+        if(params.slug.includes('video')){
+          router.push(`../video_capture`);
+        }
+        else{
+
+          router.push(`../camera_filter/${params.slug}`);
+        }
         }
     },[angle])
 
