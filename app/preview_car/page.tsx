@@ -2,22 +2,10 @@
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car from '@/assets/Sub3Car.png'
-import PhotoFrame from '../components/PhotoFrame';
 
 import preview_car from '@/assets/preview_car.png'
 import logocarbrand from '@/assets/icons/volkswagenLogo.png'
 import arrow from '@/assets/icons/expandArrow.png'
-
-import BackDriverC from '@/assets/back_driver.png'
-import BackPassenC  from '@/assets/back_passen.png'
-import FrontDriverC  from '@/assets/front_driver.png'
-import FrontPassenC from '@/assets/front_passen.png'
-
-import BackDriverV from '@/assets/backDriverVendor.png'
-import BackPassenV  from '@/assets/backPassengerVendor.png'
-import FrontDriverV  from '@/assets/frontDriverVendor.png'
-import FrontPassenV from '@/assets/frontPassengerVendor.png'
 
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
@@ -40,7 +28,25 @@ const VehicleExterior = () => {
     const [technical, settechnical] = useState(true);
     const [furtherdetails, setfurtherdetails] = useState(true);
 
-    const [vehicle_video, setvehicle_video]  = useState<any>(localStorage.getItem("videoData"));
+    const [vehicle_video, setvehicle_video]  = useState<any>(null);
+
+    useEffect(()=>{
+        setvehicle_video(localStorage.getItem("videoData"));
+    },[])
+
+    const [carCount, setCarCount] = useState(0);
+
+    const handleCarCountMinus =() =>{
+        if(carCount > 0){
+            setCarCount(carCount-1);
+        }
+    }
+
+    const handleCarCountAdd =() =>{
+        if(carCount < 5){
+            setCarCount(carCount+1);
+        }
+    }
 
 
     // for fetching video: 
@@ -123,6 +129,25 @@ const VehicleExterior = () => {
             </div>
             </div>
         </div>
+
+        {isVendor && <div className='flex w-full justify-center my-6 mb-2 space-x-3'>
+                        <div onClick={handleCarCountMinus} className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
+                            <IoChevronBack size={25}/>
+                        </div>
+
+                        <div className='flex'>
+                        <div className='text-[28px]'>
+                            0{carCount}/
+                        </div>
+                        <div className='opacity-40 text-[20px] pl-2 pt-2'>
+                            05
+                        </div>
+                        </div>
+
+                        <div  onClick={handleCarCountAdd}  className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
+                            <IoChevronBack size={25} className='rotate-180'/>
+                        </div>
+                    </div>}
 
         <div className='w-full flex justify-center mt-5'>
             <div className={` border ${isVendor ? 'bg-[#1F204F]  border-[#4C4D72]' : 'bg-white border-[#D3D4FD] '} rounded-2xl w-[90vw] pr-2 py-3 mt-5  flex justify-center`}>

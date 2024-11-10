@@ -82,7 +82,7 @@ const VideoCapture: React.FC = () => {
         reader.onloadend = () => {
             const base64data = reader.result as string;
             try {
-                localStorage.setItem('videoData', base64data);
+                window.localStorage.setItem('videoData', base64data);
                 addVideo(base64data)
                 console.log("Video saved to localStorage!");
             } catch (error) {
