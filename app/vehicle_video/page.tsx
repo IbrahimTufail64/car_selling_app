@@ -30,8 +30,8 @@ const VehicleVideo = () => {
                     setter_function(undefined)
                 }else{
                     const url = URL.createObjectURL(image?.data);
-                setter_function(url);
-                console.log(url)
+                setter_function(image?.data);
+                console.log(image?.data)
                 }
                 
             }

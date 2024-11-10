@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactPlayer from 'react-player'
 
 import Alert from '@/assets/icons/AlertClear.png'
@@ -14,6 +14,11 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
 
     const uploaded_photo = isUploaded ? photo : photo.src;
     const {isVendor} = useAppContext();
+    const [video, setVideo] = useState<any>(null);
+
+    useEffect(()=>{
+        setVideo(localStorage.getItem("videoData"))
+    })
 
     const handleDelete = async()=>{
         try{
@@ -33,7 +38,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 {!isUploaded ? 
                 
                     <img src={uploaded_photo} className=' object-cover w-full'/> :
-                    <video src={uploaded_photo} controls className=' object-cover w-full'/>
+                    <video src={video} controls className=' object-cover w-full'/>
                 }
                 
                 

@@ -40,33 +40,33 @@ const VehicleExterior = () => {
     const [technical, settechnical] = useState(true);
     const [furtherdetails, setfurtherdetails] = useState(true);
 
-    const [vehicle_video, setvehicle_video]  = useState<any>(null);
+    const [vehicle_video, setvehicle_video]  = useState<any>(localStorage.getItem("videoData"));
 
 
     // for fetching video: 
-    useEffect(()=>{
+    // useEffect(()=>{
 
-        const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
-            try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
-                if(image?.data == undefined){
-                    setter_function(undefined)
-                }else{
-                    const url = URL.createObjectURL(image?.data);
-                setter_function(url);
-                console.log(url)
-                }
+    //     const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
+    //         try{
+    //             const image = await db.images.where('name').equals(image_to_retrieve).first();
+    //             if(image?.data == undefined){
+    //                 setter_function(undefined)
+    //             }else{
+    //                 const url = URL.createObjectURL(image?.data);
+    //             setter_function(url);
+    //             console.log(url)
+    //             }
                 
-            }
-            catch(e){
+    //         }
+    //         catch(e){
                 
-            }
-        };
-        retrieve('video',setvehicle_video);
+    //         }
+    //     };
+    //     retrieve('video',setvehicle_video);
 
-        // window.location.reload();
+    //     // window.location.reload();
         
-    },[])
+    // },[])
 
 
 
