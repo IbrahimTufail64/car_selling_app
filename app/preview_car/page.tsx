@@ -13,6 +13,7 @@ import { useAppContext } from '../Context';
 import PreviewCarComp from '../components/PreviewCarComp';
 import PreviewCarComp4 from '../components/PreviewCarComp4';
 import PreviewCarComp1 from '../components/PreviewCarComp1';
+import PreviewPhotos from '../components/PreviewPhotos';
 
 
 const VehicleExterior = () => {
@@ -27,6 +28,8 @@ const VehicleExterior = () => {
     const [vehiclehealth, setvehiclehealth] = useState(true);
     const [technical, settechnical] = useState(true);
     const [furtherdetails, setfurtherdetails] = useState(true);
+
+    const [previewPhotos,setPreviewPhotos] = useState(false);
 
     const [vehicle_video, setvehicle_video]  = useState<any>(null);
 
@@ -78,7 +81,8 @@ const VehicleExterior = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full ${previewPhotos && 'h-[100vh] overflow-hidden'} relative`}>
+        
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='#'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Be Carsmart ready!</div>
@@ -397,12 +401,12 @@ const VehicleExterior = () => {
         </div>
 
         <div className='p-5'>
-                <Link href='./service_records' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div  onClick={()=>setPreviewPhotos(true)} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Looks good! Submit</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
         </div>
 
         <div className='p-5 pt-0'>
@@ -413,7 +417,7 @@ const VehicleExterior = () => {
                 </button>
         </div>
         
-
+        {previewPhotos && <PreviewPhotos/>}
     </div>
   )
 }
