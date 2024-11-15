@@ -3,6 +3,9 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import WebcamCapture from '../../components/Camera_Stream'
 import Link from 'next/link'
 import Alert from '@/assets/icons/Alert_white.png'
+import logo from '@/assets/Logo.png'
+import { IoChevronBack } from "react-icons/io5";
+import car from '@/assets/CamCarFront.png'
 
 import BackDriver from '@/assets/BackDriverF.png'
 import BackPassen from '@/assets/BackPassenF.png'
@@ -204,7 +207,26 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     }, [webcamRef]);
 
   return (
-    <div className='bg-[#282828] h-[100vh] overflow-hidden flex '>
+    <div className='bg-[#282828] w-full   text-white pt-6 text-[20px]'>
+        <div className='flex justify-center w-full h-[100vh]'>
+            <div>
+            <div className=' '>
+            <img src={logo.src} className=''/>
+            </div>
+
+            <div className='pt-5 '>
+                ... And scroll down
+            </div>
+            <div className='flex justify-center w-full pt-5 '>
+                <div className='space-y-[-20px]'>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div className='bg-[#282828] h-[100vh] overflow-hidden flex '>
         
         <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
             <Link href='#' >
@@ -227,7 +249,11 @@ const Filter = ({ params }: { params: { slug: string } }) => {
             </div>
         </div>
     </div>
+    </div>
   )
 }
 
 export default Filter
+
+
+

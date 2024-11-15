@@ -27,10 +27,10 @@ const HomePage = () => {
             </div>
             <div className='w-full flex justify-center '>
 
-                <img src={frame.src} className='absolute w-[90vw] mt-[180px] top-0'/>
+                <img src={frame.src} className='absolute w-[90vw] object-cover h-[250px] rounded-2xl mt-[150px] top-0'/>
             </div>
 
-            <div className='w-full flex justify-center pt-[25vh] '>
+            <div className='w-full flex justify-center pt-[200px] '>
                 <div className={`w-[92vw] ${isVendor ? 'bg-secondaryDark text-white': 'bg-white '} rounded-[14px] flex justify-center py-5 mt-5`}>
 
                     <div className='w-[90%]'>

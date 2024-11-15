@@ -9,7 +9,7 @@ import BackDriverC from '@/assets/back_driver.png'
 import BackPassenC  from '@/assets/back_passen.png'
 import FrontDriverC  from '@/assets/front_driver.png'
 import FrontPassenC from '@/assets/front_passen.png'
-
+import { useRouter } from 'next/navigation';
 import BackDriverV from '@/assets/backDriverVendor.png'
 import BackPassenV  from '@/assets/backPassengerVendor.png'
 import FrontDriverV  from '@/assets/frontDriverVendor.png'
@@ -18,6 +18,7 @@ import FrontPassenV from '@/assets/frontPassengerVendor.png'
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
+import axios from 'axios';
 
 
 const VehicleExterior = () => {
@@ -26,7 +27,7 @@ const VehicleExterior = () => {
     const [backDimg, setbackDimg]  = useState<any>(null);
     const [backPimg, setbackPimg]  = useState<any>(null);
 
-    const {vehicle_exterior, setVehicle_Exterior} = useAppContext();
+    const Router = useRouter();
     const {isVendor} = useAppContext()
 
     const BackDriver = isVendor ? BackDriverV : BackDriverC;
@@ -54,6 +55,38 @@ const VehicleExterior = () => {
         // window.location.reload();
         
     },[])
+
+
+    // request handler
+const handleSubmit = async (event:any) => { 
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append('front_driver', frontDimg);
+    formData.append('front_passenger', frontPimg);
+    formData.append('back_driver', backDimg);
+    formData.append('back_passenger', backPimg);
+    const url:any = process.env.NEXT_PUBLIC_API_URL ;
+    const token = localStorage.getItem('token');
+    try {
+        if(!frontDimg || !backDimg || !frontPimg || !backPimg){
+            alert('Please upload all images before proceding')
+            return;
+        }
+
+      const response = await axios.post(`${url}/vehicle_exterior`,  
+        formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
+              }
+      });
+      console.log(response.status,response.data);  
+      Router.push('./vehicle_photos')
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 
     // useEffect(()=>{
@@ -92,7 +125,7 @@ const VehicleExterior = () => {
             </div>
         </div>
 
-        <div className='space-y-3 pt-7'>
+        <div className='space-y-3 py-7'>
             <PhotoFrame Content='Front Driver Corner' isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
             <PhotoFrame Content='Front Passenger Corner' isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
             <PhotoFrame Content='Back Driver Corner' isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
@@ -100,8 +133,8 @@ const VehicleExterior = () => {
         </div>
         
 
-        <div className='p-5'>
-                <Link href='./Submission2' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+        <div className='p-5 pt-2 '>
+                <Link href='./vehicle_photos' onClick={handleSubmit} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>
                         <img src={splash.src}/>

@@ -3,8 +3,9 @@ import Dexie, { type EntityTable } from 'dexie';
 
 interface Image {
   id: number;
-  name: string;
-  data: any;
+  name?: string;
+  data?: any;
+  condition?: boolean;
 }
 
 interface WheelCondition {
@@ -15,6 +16,12 @@ interface WheelCondition {
   back_passenger: boolean;
 }
 
+interface Technicals {
+  id: number;
+  state: boolean;
+  details: string;
+}
+
 // Create a single Dexie instance and define both stores
 const db = new Dexie('combinedDatabase') as Dexie & {
   images: EntityTable<Image, 'id'>;
@@ -23,9 +30,11 @@ const db = new Dexie('combinedDatabase') as Dexie & {
 
 // Schema declaration for both stores
 db.version(1).stores({
-  images: '++id, name, data',
+  images: '++id, name, data, condition',
   wheel_condition: '++id, front_driver, back_driver, front_passenger, back_passenger',
 });
+
+
 
 // Export the types and the database instance
 export type { Image };

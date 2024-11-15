@@ -29,9 +29,9 @@ const PhotoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary '} flex justify-center  w-full `}>
             <div className='w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden '>
             <div>
-                <img src={uploaded_photo}/>
+                <img src={uploaded_photo} className='w-full h-full object-cover'/>
             </div>
-            <div className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
+            <Link href={`${!isUploaded ? `./camera_filter/${link}` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white' : '  text-fourth'}`}>
@@ -42,7 +42,7 @@ const PhotoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 <div className='pt-1'>
                     {isUploaded ? <img src={Delete.src} onClick={handleDelete}/>: <Link href={`./camera_filter/${link}`}><img src={Camera.src} /></Link>}
                 </div>
-            </div>
+            </Link>
         </div>
     </div>
   )

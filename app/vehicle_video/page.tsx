@@ -28,6 +28,7 @@ const VehicleVideo = () => {
                 const image = await db.images.where('name').equals(image_to_retrieve).first();
                 if(image?.data == undefined){
                     setter_function(undefined)
+                    console.log(image?.data)
                 }else{
                     const url = URL.createObjectURL(image?.data);
                 setter_function(image?.data);

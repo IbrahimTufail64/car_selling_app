@@ -5,24 +5,34 @@ import Field from '../components/Field';
 import alert from '@/assets/icons/alert.png'
 import Link from 'next/link';
 import { useAppContext } from '../Context';
+import CalculateState from '../Context/State';
 
 const VehiclePhotos = () => {
 
-  const {vehicle_exterior, vehicle_interior, vehicle_wheels, isVendor} = useAppContext();
+  const { isVendor} = useAppContext();
+  const [exteriorState,setExteriorState] = useState(false);
+  const [interiorState,setInteriorState] = useState(false);
+  const [wheelsTyresState,setWheelsTyresState] = useState(false);
+  const [healthState,sethealthState] = useState(false);
 
   useEffect(()=>{
+    const state = async()=>{
+    const current:any =await CalculateState();
+    console.log(current)
+    
+    const array = current[1];
+    console.log(array)
+    if(array[0] || array[1] || array[4] || array[5] || array[8]){
 
-      // const getContext = async (query: string, setter_function: React.Dispatch<React.SetStateAction<Boolean>>) =>{
-      //   const exterior =  await db2.context.where('name').equals(query).first();
-      //   if(exterior){
-      //     setter_function(exterior?.state)
-      //   }
-      // }
+    }
+    setInteriorState(array[0]);
+    setExteriorState(array[1]);
+    setWheelsTyresState(array[4] && array[5])
+    sethealthState(array[2] && array[3] && array[6] && array[7] && array[8] && array[9])
 
-      // getContext('vehicle_exterior',setVehicleExterior);
-      // getContext('vehicle_interior',setVehicleInterior);
-
-  },[])
+    }
+    state();
+},[])
   
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full h-[100vh]`}>
@@ -36,25 +46,25 @@ const VehiclePhotos = () => {
         <div className='space-y-4 px-4'>
           <div className='mb-4'>
           <Link href='./vehicle_exterior'>
-            <Field isComplete={vehicle_exterior} Content={'Vehicle exterior'}/>
+            <Field isComplete={exteriorState} Content={'Vehicle exterior'}/>
           </Link>
           </div>
           
           <div className='mb-4'>
           <Link href='./vehicle_interior'>
-          <Field isComplete={vehicle_interior} Content={'Vehicle interior'}/>
+          <Field isComplete={interiorState} Content={'Vehicle interior'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./vehicle_wheels'>
-          <Field isComplete={vehicle_wheels} Content={'Your wheels & typres'}/>
+          <Field isComplete={wheelsTyresState} Content={'Your wheels & typres'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./vehicle_health_selection'>
-          <Field isComplete={false} Content={'Vehicle health'}/>
+          <Field isComplete={healthState} Content={'Vehicle health'}/>
           </Link>
           </div>
 

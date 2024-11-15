@@ -7,7 +7,7 @@ import PhotoFrame from '../components/PhotoFrame';
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
-
+import { useRouter } from 'next/navigation';
 import BackDriverWheelC from '@/assets/back_driver_wheel.png'
 import BackDriverTyreC from '@/assets/back_driver_tyre.png'
 import BackPassengerWheelC from '@/assets/back_passenger_wheel.png'
@@ -29,6 +29,7 @@ import FrontDriverWheelV from '@/assets/FrontDriverWheelVendor.png'
 import FrontDriverTyreV from '@/assets/FrontDriverTyreVendor.png'
 import FrontPassengerWheelV from '@/assets/FrontPassengerWheelVendor.png'
 import FrontPassengerTyreV from '@/assets/FrontPassengerTyre.png'
+import axios from 'axios';
 
 
 const VehicleWheels = () => {
@@ -83,19 +84,57 @@ const VehicleWheels = () => {
         
     },[])
 
+    const Router = useRouter();
+        // request handler
+const handleSubmit = async (event:any) => { 
+    event.preventDefault(); 
 
-    useEffect(()=>{
+    const formData = new FormData();
 
+    formData.append('back_driver_wheel',back_driver_wheel_img);
+        formData.append('back_driver_tyre',back_driver_tyre_img);
+        formData.append('back_passenger_wheel',back_passenger_wheel_img);
+        formData.append('back_passenger_tyre',back_passenger_tyre_img);
 
-        if(back_driver_wheel_img && back_driver_tyre_img && back_passenger_wheel_img && back_passenger_tyre_img && front_driver_wheel_img && front_driver_tyre_img && front_passenger_wheel_img && front_passenger_tyre_img){
-            setVehicle_Wheels(true);
+        formData.append('front_driver_wheel',front_driver_wheel_img);
+        formData.append('front_driver_tyre',front_driver_tyre_img);
+        formData.append('front_passenger_wheel',front_passenger_wheel_img);
+        formData.append('front_passenger_tyre',front_passenger_tyre_img);
+    const url:any = process.env.NEXT_PUBLIC_API_URL ;
+    const token = localStorage.getItem('token');
 
+    try {
+        if(!back_driver_wheel_img || !back_driver_tyre_img || !back_passenger_wheel_img || !back_passenger_tyre_img || !front_driver_wheel_img || !front_driver_tyre_img || !front_passenger_wheel_img || !front_passenger_tyre_img){
+            alert('Please upload all images before proceding')
+            return;
         }
-        else{
-            setVehicle_Wheels(false);
-        }
 
-    },[back_driver_wheel_img,back_driver_tyre_img,back_passenger_wheel_img,back_passenger_tyre_img, front_driver_wheel_img,front_driver_tyre_img,front_passenger_wheel_img,front_passenger_tyre_img])
+      const response = await axios.post(`${url}/vehicle_wheels_tyres`,  
+        formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+      console.log(response.status,response.data);  
+      Router.push('./vehicle_photos')
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+    // useEffect(()=>{
+
+
+    //     if(back_driver_wheel_img && back_driver_tyre_img && back_passenger_wheel_img && back_passenger_tyre_img && front_driver_wheel_img && front_driver_tyre_img && front_passenger_wheel_img && front_passenger_tyre_img){
+    //         setVehicle_Wheels(true);
+
+    //     }
+    //     else{
+    //         setVehicle_Wheels(false);
+    //     }
+
+    // },[back_driver_wheel_img,back_driver_tyre_img,back_passenger_wheel_img,back_passenger_tyre_img, front_driver_wheel_img,front_driver_tyre_img,front_passenger_wheel_img,front_passenger_tyre_img])
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
@@ -128,12 +167,12 @@ const VehicleWheels = () => {
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
         </div>
         
 

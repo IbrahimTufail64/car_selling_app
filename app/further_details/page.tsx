@@ -6,6 +6,8 @@ import { IoChevronBack } from "react-icons/io5";
 import Link from 'next/link';
 import car from '@/assets/Sub3Car.png'
 import { Checkbox } from '@mui/material';
+import { db } from '../Local_DB/db';
+import { useRouter } from 'next/navigation';
 
 const FurtherDetails = () => {
     
@@ -22,6 +24,35 @@ const FurtherDetails = () => {
         color: '#695DFD',
     },
     };
+
+    const Router = useRouter();
+    
+    async function addData(data: any, condition: boolean) {
+        try {
+            if(inputText === '' && checked) {
+                alert('Please enter a description before submitting!')
+                return;
+            }
+            const image = await db.images.where('name').equals('further_details').first();
+            console.log(image)
+            if (image !== undefined) {
+                await db.images.where('name').equals('further_details').modify({
+                    condition,
+                    data
+                });
+            } else {
+                const id = await db.images.add({
+                    name: 'further_details',
+                    condition, // Added missing comma here
+                    data
+                });
+            }
+            Router.push('./vehicle_health_selection')
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     
   return (
@@ -65,7 +96,7 @@ const FurtherDetails = () => {
                         size='large'
                         sx={sx}
                         checked={!checked}
-                        onClick={()=>{setChecked(false)}}
+                        onClick={()=>{setChecked(false); setInputText('')}}
                         />
                         <div className='h-full flex text-[22px] items-center'>No</div>
                     </div>
@@ -86,12 +117,12 @@ const FurtherDetails = () => {
             </div>
 
             <div className='p-5 absolute bottom-0 w-full'>
-                <Link href='./Submission2' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={()=>{addData(inputText,checked)}} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
         </div>
         
 

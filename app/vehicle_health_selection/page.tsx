@@ -5,24 +5,37 @@ import Field from '../components/Field';
 import alert from '@/assets/icons/alert.png'
 import Link from 'next/link';
 import { useAppContext } from '../Context';
+import CalculateState from '../Context/State';
+import { db } from '../Local_DB/db';
 
 const VehicleHealthSelection = () => {
 
-  const {vehicle_exterior, vehicle_interior, vehicle_wheels, isVendor} = useAppContext();
+  const { isVendor} = useAppContext();
+  const [healthState,sethealthState] = useState([false,false,false,false,false,false,false,false]);
 
   useEffect(()=>{
+  //   const retrieve = async (image_to_retrieve:string)=>{ 
+  //     try{ 
+  //         const image = await db.images.where('name').equals(image_to_retrieve).first();
+          
+  //         return image;
+  //     }
+  //     catch(e){
+  //         return;
+  //     }
+  // };
+  // console.log(retrieve('technicals'))
+    const state = async()=>{
+    const current:any =await CalculateState();
+    // console.log(current)
+    
+    const array = current[1];
+    // console.log(array)
+    sethealthState([array[2] , array[3] , array[6] , array[7] , array[8] , array[9], array[10],array[11]])
 
-      // const getContext = async (query: string, setter_function: React.Dispatch<React.SetStateAction<Boolean>>) =>{
-      //   const exterior =  await db2.context.where('name').equals(query).first();
-      //   if(exterior){
-      //     setter_function(exterior?.state)
-      //   }
-      // }
-
-      // getContext('vehicle_exterior',setVehicleExterior);
-      // getContext('vehicle_interior',setVehicleInterior);
-
-  },[])
+    }
+    state();
+},[])
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full min-h-[100vh] pb-10`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
@@ -39,61 +52,61 @@ const VehicleHealthSelection = () => {
         <div className='space-y-2 px-4'>
           <div className=''>
           <Link href='./wheel_condition'> 
-            <Field isComplete={vehicle_exterior} Content={'Wheel condition'}/>
+            <Field isComplete={true} Content={'Wheel condition'}/>
           </Link>
           </div>
           
           <div className='mb-4'>
           <Link href='./tyre_health'>
-          <Field isComplete={vehicle_interior} Content={'Tyre health'}/>
+          <Field isComplete={true} Content={'Tyre health'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./surface_marks'>
-          <Field isComplete={vehicle_wheels} Content={'Surface marks'}/>
+          <Field isComplete={healthState[0]} Content={'Surface marks'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./panel_damage'>
-          <Field isComplete={false} Content={'Panel damage'}/>
+          <Field isComplete={healthState[1]} Content={'Panel damage'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./exterior_wear_tear'>
-          <Field isComplete={true} Content={'Exterior wear & tear'}/>
+          <Field isComplete={healthState[3]} Content={'Exterior wear & tear'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./glass_health'>
-          <Field isComplete={false} Content={'Glass health'}/>
+          <Field isComplete={healthState[4]} Content={'Glass health'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./damaged_absent_fixtures'>
-          <Field isComplete={false} Content={'Damaged/Absent fixtures'}/>
+          <Field isComplete={healthState[5]} Content={'Damaged/Absent fixtures'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./dashboard_lights'>
-          <Field isComplete={false} Content={'Dashboard lights'}/>
+          <Field isComplete={healthState[2]} Content={'Dashboard lights'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./technical_health'>
-          <Field isComplete={false} Content={'Technical Health (electrical and mechanical)'}/>
+          <Field isComplete={healthState[6]} Content={'Technical Health (electrical and mechanical)'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href='./further_details'>
-          <Field isComplete={false} Content={'Further details'}/>
+          <Field isComplete={healthState[7]} Content={'Further details'}/>
           </Link>
           </div>
 

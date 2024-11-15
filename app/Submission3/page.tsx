@@ -19,14 +19,15 @@ const Submission3 = () => {
             <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='./smart_advice/IntroSlider'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./advice_IntroSlider'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
                 <img src={car.src}/>
             </div>
         </div>
 
-        <div className='w-full flex justify-center'>
-            <div className={`w-[85vw] gap-2 mt-6 grid grid-cols-2 ${isVendor ? 'bg-secondaryDark': 'bg-[#FFFFFF]'} p-3   rounded-lg`}>
+        <div className='w-full flex justify-center mt-7'>
+            <div className={`w-[85vw] flex justify-center  ${isVendor ? 'bg-secondaryDark': 'bg-[#FFFFFF]'} p-3   rounded-lg`}>
+                <div className='gap-2 mt-6 grid grid-cols-2 max-w-[400px]'>
                 <div className='relative'>
                     <img src={card1.src} className='w-full'/>
                     <img src={cross.src} className='absolute top-[38%] left-[48%]'/>
@@ -40,6 +41,7 @@ const Submission3 = () => {
                 </div>
                 <div className='relative'>
                     <img src={card4.src} className='w-full'/>
+                </div>
                 </div>
             </div>
         </div>     

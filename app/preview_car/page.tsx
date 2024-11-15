@@ -105,9 +105,9 @@ const VehicleExterior = () => {
                 <div className='flex justify-center w-full'>
                     <img src={logocarbrand.src} className='max-w-20'/>
                 </div>
-                <div className='flex justify-center w-full '>
-                    <div className='w-[100px] h-6 bg-white border border-secondary flex relative'>
-                        <div className=' bg-[#3748EA] w-[15%] border border-t-2 border-white'>
+                <div className='flex justify-center w-full mt-5'>
+                    <div className={`w-[100px] h-6 bg-white border ${!isVendor ? 'border-black' : 'border-secondary'} flex relative`}>
+                        <div className=' bg-[#3748EA] w-[15%] p-t-2'>
                         </div>
                         <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
                             HW23BU

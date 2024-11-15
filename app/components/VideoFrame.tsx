@@ -23,6 +23,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     const handleDelete = async()=>{
         try{
             await db.images.where('name').equals(link).delete(); 
+            localStorage.removeItem("videoData")
             window.location.reload();
 
         }

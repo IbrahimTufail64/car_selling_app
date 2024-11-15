@@ -14,10 +14,11 @@ import DashboardV from '@/assets/DashboardVendor.png'
 import BootV from '@/assets/BootVendor.png'
 import FrontSeatV from '@/assets/FrontSeatVendor.png'
 import BackSeatV from '@/assets/BackSeatVendor.png'
-
+import { useRouter } from 'next/navigation';
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
+import axios from 'axios';
 
 
 const VehicleInterior = () => {
@@ -57,6 +58,37 @@ const VehicleInterior = () => {
         
     },[])
 
+    const Router = useRouter();
+        // request handler
+const handleSubmit = async (event:any) => { 
+    event.preventDefault(); 
+
+    const formData = new FormData();
+    formData.append('dashboard', dashboardimg);
+    formData.append('boot', bootimg);
+    formData.append('front_seat', frontseatimg);
+    formData.append('back_seat', backseatimg);
+    const url:any = process.env.NEXT_PUBLIC_API_URL ;
+    const token = localStorage.getItem('token');
+    try {
+        if(!dashboardimg || !frontseatimg || !bootimg || !backseatimg){
+            alert('Please upload all images before proceding')
+            return;
+        }
+
+      const response = await axios.post(`${url}/vehicle_interior`,  
+        formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
+              }
+      });
+      console.log(response.status,response.data);  
+      Router.push('./vehicle_photos')
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
     // useEffect(()=>{
 
@@ -104,12 +136,12 @@ const VehicleInterior = () => {
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
         </div>
         
 
