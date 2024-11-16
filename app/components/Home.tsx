@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import frame from '@/assets/WelcomeFrame.png'
 import icon from '@/assets/icons/Iconbutton.png'
 import PlayStore from '@/assets/icons/PlayStore.png'
@@ -7,9 +7,57 @@ import splash from '@/assets/icons/Rays-small.png'
 import Link from 'next/link'
 import Logo from '@/assets/LogoWhite.png'
 import { useAppContext } from '../Context'
+import { useSearchParams } from 'next/navigation'
+import axios from 'axios'
 
 const HomePage = () => {
     const {isVendor} = useAppContext();
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id')
+    const {setIsVendor} = useAppContext();
+    console.log(localStorage.getItem('isVendor'))
+    useEffect(()=>{
+        
+        
+        const handleRequest = async () => { 
+            
+            if(!id){
+                // handle authentification
+            }
+        
+            const url:any = process.env.NEXT_PUBLIC_API_URL ;
+            // const token = localStorage.getItem('token');
+            try { 
+                const response = await axios.get(`${url}/pwa_auth/?id=${id}`, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                  });
+                  
+                  console.log(response.data)
+                  localStorage.setItem('token',response.data.token);
+                  localStorage.setItem('isVendor',response.data.isVendor);
+                  
+                  if(response.data.isVendor){
+                    setIsVendor(true);
+                    localStorage.setItem('VendorType',response.data.VendorType);
+                  }else{
+                    setIsVendor(false);
+                  }
+                  
+
+            
+                  
+
+            } catch (error) {
+                //handle authentification
+                
+              console.error(error);
+            }
+          };
+
+        handleRequest()
+    },[])
 
   return (
     <div className={`relative ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary '} min-h-[100vh] flex flex-col justify-between`}>

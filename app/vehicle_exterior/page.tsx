@@ -19,6 +19,7 @@ import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import axios from 'axios';
+// import measureBlur from '../Blur_Detection/measureBlur';
 
 
 const VehicleExterior = () => {
@@ -40,7 +41,7 @@ const VehicleExterior = () => {
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const image = await db.images.where('name').equals(image_to_retrieve).first();
-                
+                // console.log(image);
                 setter_function(image?.data);
             }
             catch(e){
@@ -66,6 +67,10 @@ const handleSubmit = async (event:any) => {
     formData.append('front_passenger', frontPimg);
     formData.append('back_driver', backDimg);
     formData.append('back_passenger', backPimg);
+    console.log(frontDimg)
+    // measureBlur(frontDimg)
+    // .then(blurScore => console.log("Blur Score:", blurScore))
+    // .catch(err => console.error("Error measuring blur:", err));
     const url:any = process.env.NEXT_PUBLIC_API_URL ;
     const token = localStorage.getItem('token');
     try {

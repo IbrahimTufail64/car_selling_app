@@ -6,6 +6,7 @@ import alert from '@/assets/icons/alert.png'
 import Link from 'next/link';
 import { useAppContext } from '../Context';
 import CalculateState from '../Context/State';
+import axios from 'axios';
 
 const VehiclePhotos = () => {
 
@@ -33,6 +34,8 @@ const VehiclePhotos = () => {
     }
     state();
 },[])
+
+
   
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full h-[100vh]`}>

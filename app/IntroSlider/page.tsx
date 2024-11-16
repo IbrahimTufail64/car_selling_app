@@ -52,13 +52,13 @@ const Slider = () => {
     return (
         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} min-h-[100vh] relative flex flex-col justify-between relative`} >
           
-            <div className="embla">
+            <div className="embla overflow-hidden">
         <div className="embla__viewport" ref={emblaRef}>
-          <div className="embla__container">
-            <div className="embla__slide"><Submission3/></div>
-            <div className="embla__slide"><Submission4/></div>
-            <div className="embla__slide"><Submission5/></div>
-            <div className="embla__slide"><Submission6/></div>
+          <div className="embla__container flex">
+            <div className="embla__slide min-w-[100vw] flex-grow-100 flex-shrink-100 flex-basis-full"><Submission3/></div>
+            <div className="embla__slide min-w-[100vw] flex-grow-100 flex-shrink-100 flex-basis-full"><Submission4/></div>
+            <div className="embla__slide min-w-[100vw] flex-grow-100 flex-shrink-100 flex-basis-full"><Submission5/></div>
+            <div className="embla__slide min-w-[100vw] flex-grow-100 flex-shrink-100 flex-basis-full"><Submission6/></div>
           </div>
         </div>
         

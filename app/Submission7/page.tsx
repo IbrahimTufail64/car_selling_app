@@ -13,6 +13,7 @@ import { IoChevronBack } from 'react-icons/io5';
 import LogoWhite from '@/assets/LogoWhite.png'
 import CalculateState from '../Context/State';
 import { db } from '../Local_DB/db';
+import axios from 'axios';
 
 const Submission7 = () => {
     const [value, setValue] = useState(20); 
@@ -22,14 +23,62 @@ const Submission7 = () => {
     const [serviceRecordsState, setserviceRecordsState] = useState<any>();
     const [vehicle_video,setvehicle_video] = useState<any>();
 
+    const [estimatedPrice, setEstimatedPrice] = useState([]);
+    const [retailPrice, setretailPrice] = useState([]);
+    const [saleTag, setsaleTag] = useState('');
+    const [userName, setUserName] = useState('');
+    const [profileImg,setProfileImg] = useState<any>();
+    const [userId,setUserId] = useState('');
+
+    useEffect(()=>{ 
+        
+        
+        const handleRequest = async () => { 
+            
+
+        
+            const url:any = process.env.NEXT_PUBLIC_API_URL ;
+            const token = localStorage.getItem('token');
+            try { 
+                const response = await axios.get(`${url}/pwa/real_time_data`, {
+                    headers: { 
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const data =  response.data;
+                console.log(response.data)
+                
+                // if(data.isWholeSale === "Wholesale"){
+                    setsaleTag(data.tag)
+                    setEstimatedPrice(data.estimatedPrice);
+                    setretailPrice(data.retailPrice);
+                // }
+                setUserName(data.userName);
+                setProfileImg(data.profileImage);
+                setUserId(data.userId);
+                                   
+                  
+
+            
+                  
+
+            } catch (error) {
+                //handle authentification
+              console.error(error);
+            }
+          };
+
+        handleRequest()
+    },[])
     const handleCarCountMinus =() =>{
-        if(carCount > 0){
+        if(carCount > 1){
             setCarCount(carCount-1);
         }
     }
 
     const handleCarCountAdd =() =>{
-        if(carCount < 5){
+        if(carCount < estimatedPrice.length){
             setCarCount(carCount+1);
         }
     }
@@ -73,12 +122,12 @@ const Submission7 = () => {
                         <div className=' bg-[#3748EA] w-[15%] p-t-2'>
                         </div>
                         <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
-                            HW23BU
+                            {userId}
                         </div>
                     </div>
                 </div>
                 <div className='text-[46px] font-[400] relative text-center w-full'>
-                    <div className='font-[500]'>£ 11,750</div>
+                    <div className='font-[500]'>£ {estimatedPrice[carCount-1]}</div>
                     <div className='w-full flex justify-center'>
                     <img src={underline.src} className=''/>
                     </div>
@@ -97,8 +146,7 @@ const Submission7 = () => {
                 <div className='w-full flex justify-center'>
                         <div className='w-[100%]'>
                         <Slider
-                        onChange={OnChangeEventTriggerd}
-                        value={value}
+                        value={(estimatedPrice[carCount-1]/retailPrice[carCount-1])*100}
                         trackStyle={{ backgroundColor: "#695DFD", height: 6 }}
                         railStyle={{ backgroundColor: "#FFFFFF", height: 6 }}
                         handleStyle={{
@@ -120,7 +168,7 @@ const Submission7 = () => {
             
             
         </div>
-        <div className='w-full flex justify-center mt-3'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>Quick Sale</div></div>
+        <div className='w-full flex justify-center mt-3'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{saleTag}</div></div>
                 
                 
                 </div>
@@ -133,7 +181,7 @@ const Submission7 = () => {
             </div>
         </div>
 
-        {isVendor && <div className='flex w-full justify-center mb-7 space-x-3'>
+        {(isVendor && saleTag=== "Wholesale") && <div className='flex w-full justify-center mb-7 space-x-3'>
                         <div onClick={handleCarCountMinus} className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
                             <IoChevronBack size={25}/>
                         </div>
@@ -143,7 +191,7 @@ const Submission7 = () => {
                             0{carCount}/
                         </div>
                         <div className='opacity-40 text-[20px] pl-2 pt-3'>
-                            05
+                            0{estimatedPrice.length}
                         </div>
                         </div>
 

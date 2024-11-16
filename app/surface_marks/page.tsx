@@ -4,9 +4,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
-
+import useEmblaCarousel from 'embla-carousel-react'
 import ExampleImage from '@/assets/ExampleImage.png'
-
+import Autoplay from 'embla-carousel-autoplay'
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
@@ -17,6 +17,8 @@ const SurfaceMarks = () => {
     const [SampleImage2, setSampleImage2]  = useState<any>(null);
     const [SampleImage3, setSampleImage3]  = useState<any>(null);
     const [SampleImage4, setSampleImage4]  = useState<any>(null);
+
+    const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()])
 
     const {isVendor} = useAppContext()
 
@@ -68,10 +70,21 @@ const SurfaceMarks = () => {
         </div>
 
         <div className='space-y-3 pt-7'>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage2 !== undefined} photo={SampleImage2 ? SampleImage2 : ExampleImage} link ='surface_marks2'/>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage3 !== undefined} photo={SampleImage3 ? SampleImage3 :  ExampleImage} link ='surface_marks3'/>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage4 !== undefined} photo={SampleImage4 ? SampleImage4 : ExampleImage} link ='surface_marks4'/>
+        <div className="embla overflow-hidden">
+        <div className="embla__viewport" ref={emblaRef}>
+          <div className="embla__container flex">
+            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
+            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
+            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
+            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
+          </div>
+        </div>
+        
+      </div>
+            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/> */}
+            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage2 !== undefined} photo={SampleImage2 ? SampleImage2 : ExampleImage} link ='surface_marks2'/> */}
+            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage3 !== undefined} photo={SampleImage3 ? SampleImage3 :  ExampleImage} link ='surface_marks3'/> */}
+            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage4 !== undefined} photo={SampleImage4 ? SampleImage4 : ExampleImage} link ='surface_marks4'/> */}
         </div>
         
 
