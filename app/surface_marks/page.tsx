@@ -72,7 +72,7 @@ const SurfaceMarks = () => {
         <div className='space-y-3 pt-7'>
         <div className="embla overflow-hidden">
         <div className="embla__viewport" ref={emblaRef}>
-          <div className="embla__container flex">
+          <div className="embla__container flex space-x-5">
             <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
             <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
             <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
