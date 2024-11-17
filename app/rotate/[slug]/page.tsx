@@ -16,6 +16,9 @@ const Rotate = ({ params }: { params: { slug: string } }) => {
         if(params.slug.includes('video')){
           router.push(`../video_capture`);
         }
+        else if(params.slug.includes('dynamic')){
+          router.push(`../camera_filter_dynamic/${params.slug}`);
+        }
         else{
 
           router.push(`../camera_filter/${params.slug}`);

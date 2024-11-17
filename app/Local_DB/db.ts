@@ -5,6 +5,8 @@ interface Image {
   id: number;
   name?: string;
   data?: any;
+  car_number?:number;
+  dynamic_image_number?:number;
   condition?: boolean;
 }
 
@@ -30,7 +32,7 @@ const db = new Dexie('combinedDatabase') as Dexie & {
 
 // Schema declaration for both stores
 db.version(1).stores({
-  images: '++id, name, data, condition',
+  images: '++id, name, data, condition, dynamic_image_number, car_number',
   wheel_condition: '++id, front_driver, back_driver, front_passenger, back_passenger',
 });
 

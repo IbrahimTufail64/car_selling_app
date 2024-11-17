@@ -5,40 +5,41 @@ import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
 import useEmblaCarousel from 'embla-carousel-react'
-import ExampleImage from '@/assets/ExampleImage.png'
-import Autoplay from 'embla-carousel-autoplay'
+// import ExampleImage from '@/assets/ExampleImage.png'
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
-
+import PhotoFrameDynamic from '../components/PhotoFrameDynamic';
+import Autoplay from 'embla-carousel-autoplay';
+import ExampleImage from '@/assets/ExamplePlaceHolder.png'
+import { Image } from '../Local_DB/db';
 
 const SurfaceMarks = () => {
-    const [SampleImage1, setSampleImage1]  = useState<any>(null);
-    const [SampleImage2, setSampleImage2]  = useState<any>(null);
-    const [SampleImage3, setSampleImage3]  = useState<any>(null);
-    const [SampleImage4, setSampleImage4]  = useState<any>(null);
+    const [images,setImages] = useState<Image[]>([]);
+    const [car_no,setCar_no] = useState(0);
 
-    const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()])
+    const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
 
     const {isVendor} = useAppContext()
-
     // Search for images in the db: 
     useEffect(()=>{
-
+        const car_number = Number(localStorage.getItem('car_no'));
+        setCar_no(car_number);
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
-                
-                setter_function(image?.data);
+                const images = await db.images
+                    .where('name').equals(image_to_retrieve)
+                    .filter(image => image.car_number === car_number )
+                    .toArray();
+                // const imageData = images.map(e => e=e.data);
+                console.log(images);
+                setter_function(images);
             }
             catch(e){
                 
             }
         };
-        retrieve('surface_marks1',setSampleImage1);
-        retrieve('surface_marks2',setSampleImage2);
-        retrieve('surface_marks3',setSampleImage3);
-        retrieve('surface_marks4',setSampleImage4);
+        retrieve('surface_marks',setImages);
 
         // window.location.reload();
         
@@ -47,7 +48,9 @@ const SurfaceMarks = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh]`}>
+        <div className='flex flex-col justify-between min-h-[100vh]'>
+        <div >
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Surface marks</div>
@@ -70,31 +73,38 @@ const SurfaceMarks = () => {
         </div>
 
         <div className='space-y-3 pt-7'>
-        <div className="embla overflow-hidden">
+            {images.length === 0 && <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={1} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>}
+        <div className="embla overflow-hidden mx-2">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container flex space-x-5">
-            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
-            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
-            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
-            <div className="embla__slide "><PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/></div>
+            {images.map((e,i)=>{
+                return <div className="embla__slide "><PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Title here' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='surface_marks'/></div>;
+            })}
+            {images.length===1 && 
+                <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={2} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>
+            }
           </div>
         </div>
         
       </div>
-            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='surface_marks1'/> */}
-            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage2 !== undefined} photo={SampleImage2 ? SampleImage2 : ExampleImage} link ='surface_marks2'/> */}
-            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage3 !== undefined} photo={SampleImage3 ? SampleImage3 :  ExampleImage} link ='surface_marks3'/> */}
-            {/* <PhotoFrame Content='Title here' isUploaded={SampleImage4 !== undefined} photo={SampleImage4 ? SampleImage4 : ExampleImage} link ='surface_marks4'/> */}
+            
+        </div>
+        <div className='w-full flex justify-center'>
+        <Link href={`./camera_filter_dynamic/${'surface_marks'}-${images.length+1}-${'surface_marks'}`} className='py-2 px-5 text-[18px] my-5'>
+             Add another photo
+        </Link>
+        </div>
         </div>
         
 
         <div className='p-5'>
                 <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div>Done</div>
+                        <div>Continue</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
+        </div>
         </div>
         
 
