@@ -15,17 +15,28 @@ import backV from '@/assets/Back_Damage-modified-modified-modified.png'
 import roofV from '@/assets/Roof_Damage-modified-modified-modified.png'
 import driverSideV from '@/assets/Driver_Damage-modified-modified-modified.png'
 import PassengerSideV from '@/assets/Passenger_Damage-modified-modified-modified.png'
-
+import { useRouter } from 'next/navigation';
 import mark from '@/assets/Damage_mark.png'
-import { useAppContext } from '../Context'
+import { useAppContext } from '../../Context'
 import Radio from '@mui/material/Radio';
+import axios from 'axios'
+import { DamageSelection, db } from '@/app/Local_DB/db'
 
-const VehicleHealth = () => {
+const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
     const [currentSide, setCurrentSide] = useState('Driver Side');
     const [size, setSize] = useState('Small');
     const {isVendor} = useAppContext();
     const [coordinates_initial, setCoordinates_initial] = useState({ x: -100, y: -100 });
+    const [isTablet, setIsTablet] = useState(false);
+
+    useEffect(()=>{
+        const width = window.innerWidth;
+        // Define tablet width range (e.g., 768px to 1024px)
+        console.log(width);
+        setIsTablet(width >= 900);
+        
+    },[])
 
     const front = isVendor ? frontV : frontC;
     const back = isVendor ? backV : backC;
@@ -73,11 +84,18 @@ const VehicleHealth = () => {
                                       // Calculate mouse position relative to canvas
                                       const clientX = event.clientX;
                                       const clientY = event.clientY;
-                                      const x = Math.abs(clientX - relativeX);
-                                      const y = Math.abs(clientY - relativeY);
-                                  
+                                      let x = Math.abs(clientX - relativeX);
+                                      let y = Math.abs(clientY - relativeY);
+                                        
+                                      
                                       setCoordinates({ x, y });
                                       let temp_damage:any = damage;
+                                      
+                                    //   if(isTablet){
+                                    //     x = x/1.34;
+                                    //     y = y/1.34;
+                                       
+                                    //   }
                                     temp_damage[currentSide].coordinates = {x,y};
                                     setDamage(temp_damage);
                                         
@@ -148,6 +166,76 @@ const VehicleHealth = () => {
         setSize(temp_damage[e].size);
         setCurrentSide(e);
     }
+    const Router = useRouter();
+
+    const handleSubmit = async (event:any) => { 
+        event.preventDefault(); 
+        
+        try{
+            
+            const link = params.slug.split('-');
+            const returnLink  = link[2];
+            const imageUrl = link[0];
+            const dynamic_image_no =Number(link[1]); 
+            console.log('return',returnLink,'imageUrl',imageUrl,'dymaic no:',dynamic_image_no)
+          
+          console.log(coordinates,'before');
+          let x = coordinates.x;
+          let y = coordinates.y;
+          if(isTablet){
+            x = coordinates.x/1.34;
+            y = coordinates.y/1.34;
+            console.log(x,y)
+          }
+          
+          let value = {
+            name: imageUrl,
+            dynamic_image_no,
+            car_no: Number(localStorage.getItem('car_no')),
+            coordinates: {x,y},
+            size,
+            side: currentSide
+          }
+          console.log(value,'after');
+
+
+          const store = async (value:DamageSelection)=>{
+            try{
+                const existingEntry = await db.damage_selection
+                .where({
+                  name: value.name,
+                  dynamic_image_no: value.dynamic_image_no,
+                  car_no: value.car_no
+                })
+                .first();
+          
+              if (existingEntry) {
+                // If entry exists, update it
+                await db.damage_selection.update(existingEntry.id, {
+                  coordinates: value.coordinates,
+                  size: value.size,
+                  side: value.side
+                });
+                console.log("Updated existing entry:", existingEntry.id);
+              } else {
+                // If entry does not exist, add it
+                const id = await db.damage_selection.add(value);
+                console.log("Created new entry with id:", id);
+              }
+                // const imageData = id.map(e => e=e.data);
+                // console.log(id);
+            }
+            catch(e){
+                console.log(e);
+            }
+        };
+        await store(value);
+        //   localStorage.setItem('dashboard_lights_state',value);
+          Router.push(`../${value.name}`);
+        } catch (error) {
+          console.error(error);
+        }
+      };
 
     const color = isVendor ? '#FFFFFF' : '#695DFD';
     const sx = {
@@ -161,8 +249,9 @@ const VehicleHealth = () => {
 
   return (
     <div >
-         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full h-[120vh] overflow-hidden relative`} >
-         <canvas ref={canvasRef} width="800" height="370" className="absolute"  onClick={handleClick} />
+         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full min-h-[100vh] overflow-hidden relative flex flex-col justify-between`} >
+         <div>
+         <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={handleClick} />
          
 
          <div
@@ -178,8 +267,8 @@ const VehicleHealth = () => {
             <div>Back to main</div>
             </div>
 
-            <div>
-                <button className={` flex justify-center  font-[600] text-lg rounded-[6px] space-x-2 w-[20vw] px-5 py-3 bg-tertiary ${isVendor && 'text-primaryDark'}`} >
+            <div className='md:absolute right-5'>
+                <button onClick={handleSubmit} className={` flex justify-center  font-[600] text-lg rounded-[6px] space-x-2 w-[20vw] px-5 py-3 bg-tertiary ${isVendor && 'text-primaryDark'}`} >
                 <div className='flex space-x-2'>
                 Confirm 
                 <img src={splash.src}/>
@@ -188,9 +277,10 @@ const VehicleHealth = () => {
             </div>
         </div>
 
-        <div className='flex'>
-            <div className='space-y-2 px-3 mt-3'> 
-            <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-10px] `}>
+        <div className='flex '>
+            <div className=' px-3 mt-3 h-[80vh] flex justify-center items-center '> 
+                <div className='space-y-2 pb-20'>
+                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-10px] `}>
                 {/* <input type="radio" id="Small" name="colors" value="Small" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
                 <Radio
                     id="Small"
@@ -237,13 +327,15 @@ const VehicleHealth = () => {
                     <div className={` ${isVendor ? 'text-slate-200' : 'text-slate-500'} text-[13px]`}>16cm+</div>
                 </label>
                 </div>
+                </div>
                 
                 
             </div>
-            <div className='mt-[-60px] w-[649px] h-[464px]' >
-                <img src={sides[currentSide].src} className='w-[606px] h-[437px] '/>
+            <div className='mt-[-60px]' >
+                <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] '/>
             </div>
         </div>
+         </div>
 
         <div className='relative'>
         <div className='flex justify-center w-full mt-[-90px] absolute'>

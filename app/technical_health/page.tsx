@@ -8,6 +8,7 @@ import car from '@/assets/Sub3Car.png'
 import { Checkbox } from '@mui/material';
 import { db } from '../Local_DB/db';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const TechnicalHealth = () => {
     
@@ -26,7 +27,7 @@ const TechnicalHealth = () => {
     };
 
     const Router = useRouter();
-    async function addData(data: any, condition: boolean) {
+    async function addData() {
         try {
             if(inputText === '' && checked) {
                 alert('Please enter a description before submitting!')
@@ -35,16 +36,30 @@ const TechnicalHealth = () => {
             const image = await db.images.where('name').equals('technicals').first();
             if (image !== undefined) {
                 await db.images.where('name').equals('technicals').modify({
-                    condition,
-                    data
+                    condition: checked,
+                    data: inputText
                 });
             } else {
                 const id = await db.images.add({
                     name: 'technicals',
-                    condition, // Added missing comma here
-                    data
+                    condition: checked, 
+                    data: inputText
                 });
             }
+            const token = localStorage.getItem('token');
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/technicals`,  
+                {
+                    condition: checked, 
+                    data: inputText,
+                    car_no: Number(localStorage.getItem('car_no'))
+                }, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                      }
+              });
+              console.log(response.status,response.data);  
+              localStorage.setItem('technical_state','true');
             Router.push('./vehicle_health_selection')
         } catch (error) {
             console.log(error);
@@ -115,7 +130,7 @@ const TechnicalHealth = () => {
             </div>
 
             <div className='p-5 absolute bottom-0 w-full'>
-                <div onClick={()=>addData(inputText,checked)} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={()=>addData()} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>
                         <img src={splash.src}/>

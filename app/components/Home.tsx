@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect,Suspense } from 'react'
 import frame from '@/assets/WelcomeFrame.png'
 import icon from '@/assets/icons/Iconbutton.png'
 import PlayStore from '@/assets/icons/PlayStore.png'

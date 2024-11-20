@@ -31,9 +31,6 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     const router = useRouter(); 
 
     useEffect(()=>{
-      // const car_number = Number(localStorage.getItem('car_no'));
-      // console.log(car_number,'yeet');
-      // setCar_no(2);
       const portrait = window.matchMedia("(orientation: portrait)").matches;
       if(portrait){
             router.push(`../rotate/${params.slug}-dynamic`);
@@ -67,7 +64,14 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         console.log(imageSrc,'added finally');
         await addImage(imageSrc);
 
-        router.push(`../${returnLink}`);
+        const damage_slides = ['surface_marks','panel_damage','exterior_wear_tear'];
+        console.log('bro',damage_slides.includes(returnLink));
+        if(damage_slides.includes(returnLink)){
+          router.push(`../vehicle_health/${params.slug}`);
+        }
+        else{
+          router.push(`../${returnLink}`);
+        }
       }
       catch(e){
         // if(img === null){

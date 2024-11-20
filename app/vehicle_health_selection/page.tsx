@@ -11,36 +11,21 @@ import { db } from '../Local_DB/db';
 const VehicleHealthSelection = () => {
 
   const { isVendor} = useAppContext();
-  const [healthState,sethealthState] = useState([false,false,false,false,false,false,false,false]);
+  const [healthState,sethealthState] = useState<any>([]);
 
   useEffect(()=>{
-  //   const retrieve = async (image_to_retrieve:string)=>{ 
-  //     try{ 
-  //         const image = await db.images.where('name').equals(image_to_retrieve).first();
-          
-  //         return image;
-  //     }
-  //     catch(e){
-  //         return;
-  //     }
-  // };
-  // console.log(retrieve('technicals'))
-    const state = async()=>{
-    const current:any =await CalculateState();
-    // console.log(current)
-    
-    const array = current[1];
-    // console.log(array)
-    sethealthState([array[2] , array[3] , array[6] , array[7] , array[8] , array[9], array[10],array[11]])
 
-    }
-    state();
+    sethealthState([localStorage.getItem('surface_marks_state'),localStorage.getItem('surface_marks_state'),localStorage.getItem('surface_marks_state') , localStorage.getItem('panel_damage_state') , localStorage.getItem('exterior_wear_tear_state') , localStorage.getItem('glass_health_state') , localStorage.getItem('damaged_absent_fixtures_state') , localStorage.getItem('dashboard_lights_state'),localStorage.getItem('technical_state'),localStorage.getItem('further_details_state')])
+
+    // }
+    // state();
+    console.log('state',localStorage.getItem('surface_marks_state')=== 'true');
 },[])
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full min-h-[100vh] pb-10`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
             <Link  href='./Submission7'><IoChevronBack size={35} className='mt-[1px]'/></Link>
-            <div>Vehicle Photos</div>
+            <div>Vehicle health</div>
         </div>
         
         <div className='w-full flex justify-center mb-10'>
@@ -57,56 +42,56 @@ const VehicleHealthSelection = () => {
           </div>
           
           <div className='mb-4'>
-          <Link href='./tyre_health'>
+          <Link href={`${healthState[0]=== 'true' ? './tyre_health' : '#'}`}>
           <Field isComplete={true} Content={'Tyre health'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./surface_marks'>
-          <Field isComplete={healthState[0]} Content={'Surface marks'}/>
+          <Link href={`${healthState[1]=== 'true' ? './surface_marks' : '#'}`}>
+          <Field isComplete={healthState[2] === 'true'} Content={'Surface marks'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./panel_damage'>
-          <Field isComplete={healthState[1]} Content={'Panel damage'}/>
+          <Link href={`${healthState[2]=== 'true' ? './panel_damage' : '#'}`}>
+          <Field isComplete={healthState[3] === 'true'} Content={'Panel damage'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./exterior_wear_tear'>
-          <Field isComplete={healthState[3]} Content={'Exterior wear & tear'}/>
+          <Link href={`${healthState[3]=== 'true' ? './exterior_wear_tear' : '#'}`}>
+          <Field isComplete={healthState[4] === 'true'} Content={'Exterior wear & tear'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./glass_health'>
-          <Field isComplete={healthState[4]} Content={'Glass health'}/>
+          <Link href={`${healthState[4]=== 'true' ? './glass_health' : '#'}`}>
+          <Field isComplete={healthState[5] === 'true'} Content={'Glass health'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./damaged_absent_fixtures'>
-          <Field isComplete={healthState[5]} Content={'Damaged/Absent fixtures'}/>
+          <Link href={`${healthState[5]=== 'true' ? './damaged_absent_fixtures' : '#'}`}>
+          <Field isComplete={healthState[6] === 'true'} Content={'Damaged/Absent fixtures'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./dashboard_lights'>
-          <Field isComplete={healthState[2]} Content={'Dashboard lights'}/>
+          <Link href={`${healthState[6]=== 'true' ? './dashboard_lights' : '#'}`}>
+          <Field isComplete={healthState[7] === 'true'} Content={'Dashboard lights'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./technical_health'>
-          <Field isComplete={healthState[6]} Content={'Technical Health (electrical and mechanical)'}/>
+          <Link href={`${healthState[7]=== 'true' ? './technical_health' : '#'}`}>
+          <Field isComplete={healthState[8] === 'true'} Content={'Technical Health (electrical and mechanical)'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./further_details'>
-          <Field isComplete={healthState[7]} Content={'Further details'}/>
+          <Link href={`${healthState[8]=== 'true' ? './further_details' : '#'}`}>
+          <Field isComplete={healthState[9] === 'true'} Content={'Further details'}/>
           </Link>
           </div>
 

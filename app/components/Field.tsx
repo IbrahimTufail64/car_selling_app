@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import progress100 from '@/assets/icons/Progress100.png'
 import notCompleteBlue from '@/assets/notComplete.png'
 import notCompleteWhite from '@/assets/icons/Progress0.png'
-import tick from '@/assets/icons/tickBlue.png'
+import tick from '@/assets/tickGreen.png'
 import NotStarted from '@/assets/icons/NotStarted.png'
 import { useAppContext } from '../Context'
 
@@ -37,7 +37,7 @@ const Field = ({isComplete,Content}:{isComplete:Boolean,Content:String}) => {
             <img src={`${complete ? tick.src : NotStarted.src}`} className='w-5 h-5'/>
             <div>
               {
-                complete ? <div className='text-fourth '>Completed</div> : <div className='text-slate-500  text-nowrap'>Not started</div>
+                complete ? <div className='text-[#03A703] '>Completed</div> : <div className='text-slate-500  text-nowrap'>Locked</div>
               }
             </div>
         </div>

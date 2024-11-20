@@ -27,7 +27,7 @@ const PhotoFrameDynamic = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary '} flex justify-center  w-full  `}>
-            <div className='w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden '>
+            <div className='w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden flex flex-col justify-between'>
             <div>
                 <img src={uploaded_photo} className='w-full h-full object-cover'/>
             </div>

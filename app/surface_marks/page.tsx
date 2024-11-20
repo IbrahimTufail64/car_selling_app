@@ -10,9 +10,10 @@ import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import PhotoFrameDynamic from '../components/PhotoFrameDynamic';
-import Autoplay from 'embla-carousel-autoplay';
+import { useRouter } from 'next/navigation';
 import ExampleImage from '@/assets/ExamplePlaceHolder.png'
 import { Image } from '../Local_DB/db';
+import axios from 'axios';
 
 const SurfaceMarks = () => {
     const [images,setImages] = useState<Image[]>([]);
@@ -20,7 +21,60 @@ const SurfaceMarks = () => {
 
     const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
 
-    const {isVendor} = useAppContext()
+    const {isVendor} = useAppContext();
+    const Router = useRouter();
+
+    const handleSubmit = async (event:any) => { 
+        event.preventDefault();
+    
+        const formData = new FormData();
+        let damage = await db.damage_selection.where('name').equals('surface_marks').toArray();
+       
+        console.log('dd',damage);
+        const indexedDamageData = damage.map(d => ({
+            index: `${d.name}-${d.dynamic_image_no}-${d.car_no}`,
+            data: d,
+          }));
+
+        console.log(indexedDamageData)
+        let newArr:any = [];
+        images.forEach(e=>{
+            const query:any = `${e.name}-${e.dynamic_image_number}-${e.car_number}`;
+            console.log(query,'f');
+            newArr.push(indexedDamageData.find(item => item.index === query));
+            formData.append(query, e.data);
+        })
+        console.log('aaa',newArr);
+
+        
+
+        // console.log(formData);
+
+        const url:any = process.env.NEXT_PUBLIC_API_URL ;
+        const token = localStorage.getItem('token');
+        try {
+            if(images.length < 1){
+                alert('Please upload atleast one image before proceeding')
+                return;
+            }
+    
+          const response = await axios.post(`${url}/pwa/surface_marks`,  
+            {
+                formData,
+                damage: newArr
+            }, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                  }
+          });
+          console.log(response.status,response.data);  
+          localStorage.setItem('surface_marks_state','true');
+          Router.push('./vehicle_health_selection')
+        } catch (error) {
+          console.error(error);
+        }
+      };
     // Search for images in the db: 
     useEffect(()=>{
         const car_number = Number(localStorage.getItem('car_no'));
@@ -36,7 +90,7 @@ const SurfaceMarks = () => {
                 setter_function(images);
             }
             catch(e){
-                
+                console.log(e);
             }
         };
         retrieve('surface_marks',setImages);
@@ -98,12 +152,12 @@ const SurfaceMarks = () => {
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Continue</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
         </div>
         </div>
         

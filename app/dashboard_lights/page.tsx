@@ -4,39 +4,79 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
-
-import ExampleImage from '@/assets/ExampleImage.png'
-
+import useEmblaCarousel from 'embla-carousel-react'
+// import ExampleImage from '@/assets/ExampleImage.png'
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
+import PhotoFrameDynamic from '../components/PhotoFrameDynamic';
+import { useRouter } from 'next/navigation';
+import ExampleImage from '@/assets/ExamplePlaceHolder.png'
+import { Image } from '../Local_DB/db';
+import axios from 'axios';
 
+const SurfaceMarks = () => {
+    const [images,setImages] = useState<Image[]>([]);
+    const [car_no,setCar_no] = useState(0);
 
-const DashboardLights = () => {
-    const [SampleImage1, setSampleImage1]  = useState<any>(null);
-    const [SampleImage2, setSampleImage2]  = useState<any>(null);
-    const [SampleImage3, setSampleImage3]  = useState<any>(null);
-    const [SampleImage4, setSampleImage4]  = useState<any>(null);
+    const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
 
-    const {isVendor} = useAppContext()
+    const {isVendor} = useAppContext();
+    const Router = useRouter();
 
+    const handleSubmit = async (event:any) => { 
+        event.preventDefault();
+    
+        const formData = new FormData();
+
+        images.forEach(e=>{
+            formData.append(`${e.name}-${e.dynamic_image_number}-${e.car_number}`, e.data);
+        })
+        
+
+        // console.log(formData);
+
+        const url:any = process.env.NEXT_PUBLIC_API_URL ;
+        const token = localStorage.getItem('token');
+        try {
+            if(images.length < 1){
+                alert('Please upload atleast one image before proceeding')
+                return;
+            }
+    
+          const response = await axios.post(`${url}/pwa/dashboard_lights`,  
+            formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                  }
+          });
+          console.log(response.status,response.data);  
+          localStorage.setItem('dashboard_lights_state','true');
+          Router.push('./vehicle_health_selection')
+        } catch (error) {
+          console.error(error);
+        }
+      };
     // Search for images in the db: 
     useEffect(()=>{
-
+        const car_number = Number(localStorage.getItem('car_no'));
+        setCar_no(car_number);
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
-                
-                setter_function(image?.data);
+                const images = await db.images
+                    .where('name').equals(image_to_retrieve)
+                    .filter(image => image.car_number === car_number )
+                    .toArray();
+                // const imageData = images.map(e => e=e.data);
+                console.log(images);
+                setter_function(images);
             }
             catch(e){
-                
+                console.log(e);
             }
         };
-        retrieve('dashboard_lights1',setSampleImage1);
-        retrieve('dashboard_lights2',setSampleImage2);
-        retrieve('dashboard_lights3',setSampleImage3);
-        retrieve('dashboard_lights4',setSampleImage4);
+        retrieve('dashboard_lights',setImages);
 
         // window.location.reload();
         
@@ -45,8 +85,10 @@ const DashboardLights = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
-       <div className='p-5 flex space-x-2 text-[26px] pt-10'>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh]`}>
+        <div className='flex flex-col justify-between min-h-[100vh]'>
+        <div >
+        <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Dashboard and lights</div>
         </div>
@@ -68,20 +110,38 @@ const DashboardLights = () => {
         </div>
 
         <div className='space-y-3 pt-7'>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage1 !== undefined} photo={ SampleImage1 ? SampleImage1 : ExampleImage}  link ='dashboard_lights1'/>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage2 !== undefined} photo={SampleImage2 ? SampleImage2 : ExampleImage} link ='dashboard_lights2'/>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage3 !== undefined} photo={SampleImage3 ? SampleImage3 :  ExampleImage} link ='dashboard_lights3'/>
-            <PhotoFrame Content='Title here' isUploaded={SampleImage4 !== undefined} photo={SampleImage4 ? SampleImage4 : ExampleImage} link ='dashboard_lights4'/>
+            {images.length === 0 && <PhotoFrameDynamic image_name='dashboard_lights' Car_no={car_no} DynamicImageNo={1} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='dashboard_lights'/>}
+        <div className="embla overflow-hidden mx-2">
+        <div className="embla__viewport" ref={emblaRef}>
+          <div className="embla__container flex space-x-5">
+            {images.map((e,i)=>{
+                return <div className="embla__slide "><PhotoFrameDynamic image_name='dashboard_lights' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Title here' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='dashboard_lights'/></div>;
+            })}
+            {images.length===1 && 
+                <PhotoFrameDynamic image_name='dashboard_lights' Car_no={car_no} DynamicImageNo={2} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='dashboard_lights'/>
+            }
+          </div>
+        </div>
+        
+      </div>
+            
+        </div>
+        <div className='w-full flex justify-center'>
+        <Link href={`./camera_filter_dynamic/${'dashboard_lights'}-${images.length+1}-${'dashboard_lights'}`} className='py-2 px-5 text-[18px] my-5'>
+             Add another photo
+        </Link>
+        </div>
         </div>
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div>Done</div>
+                        <div>Continue</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
+        </div>
         </div>
         
 
@@ -89,7 +149,7 @@ const DashboardLights = () => {
   )
 }
 
-export default DashboardLights
+export default SurfaceMarks
 
 
 

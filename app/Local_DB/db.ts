@@ -1,12 +1,11 @@
-// db.ts
 import Dexie, { type EntityTable } from 'dexie';
 
 interface Image {
   id: number;
   name?: string;
   data?: any;
-  car_number?:number;
-  dynamic_image_number?:number;
+  car_number?: number;
+  dynamic_image_number?: number;
   condition?: boolean;
 }
 
@@ -18,27 +17,36 @@ interface WheelCondition {
   back_passenger: boolean;
 }
 
+interface DamageSelection {
+  id?: number;
+  name: string;
+  dynamic_image_no: number;
+  car_no: number;
+  coordinates: { x: number; y: number };
+  size: string;
+  side: string;
+}
+
 interface Technicals {
   id: number;
   state: boolean;
   details: string;
 }
 
-// Create a single Dexie instance and define both stores
+// Create a single Dexie instance and define stores
 const db = new Dexie('combinedDatabase') as Dexie & {
   images: EntityTable<Image, 'id'>;
   wheel_condition: EntityTable<WheelCondition, 'id'>;
+  damage_selection: EntityTable<DamageSelection, 'id'>;
 };
 
-// Schema declaration for both stores
-db.version(1).stores({
+// Schema declaration for all stores
+db.version(2).stores({
   images: '++id, name, data, condition, dynamic_image_number, car_number',
   wheel_condition: '++id, front_driver, back_driver, front_passenger, back_passenger',
+  damage_selection: '++id, coordinates, size, side, car_no, name, dynamic_image_no',
 });
 
-
-
 // Export the types and the database instance
-export type { Image };
-export type { WheelCondition };
+export type { Image, WheelCondition, DamageSelection };
 export { db };
