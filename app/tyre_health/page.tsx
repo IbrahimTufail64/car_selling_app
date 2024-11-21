@@ -9,14 +9,17 @@ import splash from '@/assets/icons/Rays-small.png'
 import { db} from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import WheelFrame from '../components/WheelFrame';
-
+import { useRouter } from 'next/navigation';
 import BackDriverWheel from '@/assets/back_driver_tyre.png'
 import BackPassengerWheel from '@/assets/back_passenger_tyre.png'
 import FrontDriverWheel from '@/assets/front_driver_tyre.png'
 import FrontPassengerWheel from '@/assets/front_passenger_tyre.png'
 import TyreFrame from '../components/TyreFrame';
+import axios from 'axios';
 
 const TyreHealth = () => {
+    const Router = useRouter();
+
     const [back_driver_tyre_img, setback_driver_tyre_img]  = useState<any>(null);
     const [back_passenger_tyre_img, setback_passenger_tyre_img]  = useState<any>(null);
     const [front_driver_tyre_img, setfront_driver_tyre_img]  = useState<any>(null);
@@ -35,29 +38,73 @@ const TyreHealth = () => {
     const {isVendor} = useAppContext();
 
     const handleWheelUpload = async(isGood:boolean)=>{
+        const car = Number(localStorage.getItem('car_no'));
         try{
             let wheel_state: unknown;
+            const url:any = process.env.NEXT_PUBLIC_API_URL ;
+            const token = localStorage.getItem('token');
             if(!isGood){
-                wheel_state = await db.wheel_condition.put({
-                    id: 1,
-                    front_driver: front_driver_tyre_state,
-                    back_driver: back_driver_tyre_state,
-                    front_passenger: front_passenger_tyre_state,
-                    back_passenger: back_passenger_tyre_state
-                });
+                // wheel_state = await db.wheel_condition.put({
+                //     id: 1,
+                //     front_driver: front_driver_tyre_state,
+                //     back_driver: back_driver_tyre_state,
+                //     front_passenger: front_passenger_tyre_state,
+                //     back_passenger: back_passenger_tyre_state
+                // });
+
+                const response = await axios.post(`${url}/pwa/tyre_health`,  
+                    {
+                     back_driver_tyre_state,
+                     back_passenger_tyre_state,
+                     front_driver_tyre_state,
+                     front_passenger_tyre_state,
+                     back_driver_tyre_specs,
+                     back_passenger_tyre_specs,
+                     front_driver_tyre_specs,
+                     front_passenger_tyre_specs,
+                     car_no: car 
+
+                    }, {
+                         headers: {
+                             'Content-Type': 'multipart/form-data',
+                             Authorization: `Bearer ${token}`
+                           }
+                   });
+                   console.log(response.status,response.data);  
             }
             else {
-                wheel_state = await db.wheel_condition.put({ 
-                    id: 1,
-                    front_driver: false,
-                    back_driver: false,
-                    front_passenger: false,
-                    back_passenger: false
-                });
+                // wheel_state = await db.wheel_condition.put({ 
+                //     id: 1,
+                //     front_driver: false,
+                //     back_driver: false,
+                //     front_passenger: false,
+                //     back_passenger: false
+                // });
+                const response = await axios.post(`${url}/pwa/tyre_health`,  
+                    {
+                     back_driver_tyre_state: false,
+                     back_passenger_tyre_state: false,
+                     front_driver_tyre_state: false,
+                     front_passenger_tyre_state: false,
+                     back_driver_tyre_specs : '',
+                     back_passenger_tyre_specs : '',
+                     front_driver_tyre_specs : '',
+                     front_passenger_tyre_specs : '',
+                     car_no: car
+                    }, {
+                         headers: {
+                             'Content-Type': 'multipart/form-data',
+                             Authorization: `Bearer ${token}`
+                           }
+                   });
+                   console.log(response.status,response.data);  
             }
+            // handleSubmit(isGood);
             console.log(wheel_state);
             
-            // setter_function(image?.data);
+          
+          localStorage.setItem(`tyre_health_state_${car}`,'true');
+          Router.push('./vehicle_health_selection') 
         }
         catch(e){
             

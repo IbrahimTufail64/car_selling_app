@@ -16,7 +16,7 @@ export function AppWrapper({
     const [vehicle_exterior, setVehicle_Exterior] = useState(false); 
     const [vehicle_interior, setVehicle_Interior] = useState(false); 
     const [vehicle_wheels, setVehicle_Wheels] = useState(false); 
-    const [isVendor, setIsVendor] = useState<boolean | null>(null);
+    const [isVendor, setIsVendor] = useState<boolean | null>(true);
     const location = useLocation();
     const Router = useRouter();
     useEffect(()=>{
@@ -48,7 +48,7 @@ export function AppWrapper({
       console.log(location)
         getVendor();
       }
-    },[location])
+    },[])
 
     return (
         <AppContext.Provider value={{vehicle_exterior, setVehicle_Exterior,vehicle_interior, setVehicle_Interior ,vehicle_wheels, setVehicle_Wheels,isVendor,setIsVendor}}>

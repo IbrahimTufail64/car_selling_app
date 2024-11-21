@@ -62,7 +62,8 @@ const VehicleWheels = () => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
+              const car_no = Number(localStorage.getItem('car_no'));
+              const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                 
                 setter_function(image?.data);
             }
@@ -81,6 +82,8 @@ const VehicleWheels = () => {
         retrieve('front_passenger_tyre',setfront_passenger_tyre_img);
 
         // window.location.reload();
+        const car = Number(localStorage.getItem('car_no'));
+      localStorage.setItem(`vehicle_wheels_state_${car}`,'true'); 
         
     },[])
 
@@ -110,13 +113,18 @@ const handleSubmit = async (event:any) => {
         }
 
       const response = await axios.post(`${url}/vehicle_wheels_tyres`,  
-        formData, {
+        {
+          formData,
+          car_no: Number(localStorage.getItem('car_no')),
+      }, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`
         }
       });
-      console.log(response.status,response.data);  
+      console.log(response.status,response.data); 
+    //   const car = Number(localStorage.getItem('car_no'));
+    //   localStorage.setItem(`vehicle_wheels_state_${car}`,'true'); 
       Router.push('./vehicle_photos')
     } catch (error) {
       console.error(error);

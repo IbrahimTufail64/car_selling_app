@@ -9,11 +9,12 @@ import splash from '@/assets/icons/Rays-small.png'
 import { db} from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import WheelFrame from '../components/WheelFrame';
-
+import { useRouter } from 'next/navigation';
 import BackDriverWheel from '@/assets/back_driver_wheel.png'
 import BackPassengerWheel from '@/assets/back_passenger_wheel.png'
 import FrontDriverWheel from '@/assets/front_driver_wheel.png'
 import FrontPassengerWheel from '@/assets/front_passenger_wheel.png'
+import axios from 'axios';
 
 const WheelCondition = () => {
     const [back_driver_wheel_img, setback_driver_wheel_img]  = useState<any>(null);
@@ -26,19 +27,40 @@ const WheelCondition = () => {
     const [front_driver_wheel_state, setfront_driver_wheel_state]  = useState(false);
     const [front_passenger_wheel_state, setfront_passenger_wheel_state]  = useState(false);
 
+    const Router = useRouter();
     const {isVendor} = useAppContext();
 
     const handleWheelUpload = async(isGood:boolean)=>{
+
         try{
+            const car = Number(localStorage.getItem('car_no'));
             let wheel_state: unknown;
+            const url:any = process.env.NEXT_PUBLIC_API_URL ;
+            const token = localStorage.getItem('token');
             if(!isGood){
                 wheel_state = await db.wheel_condition.put({
                     id: 1,
-                    front_driver: back_driver_wheel_state,
+                    front_driver: front_driver_wheel_state,
                     back_driver: back_driver_wheel_state,
-                    front_passenger: back_driver_wheel_state,
-                    back_passenger: back_driver_wheel_state
+                    front_passenger: front_passenger_wheel_state,
+                    back_passenger: back_passenger_wheel_state,
+                    
                 });
+
+                const response = await axios.post(`${url}/pwa/wheel_condition`,  
+                    {
+                     back_driver_wheel_state,
+                     back_passenger_wheel_state,
+                     front_driver_wheel_state,
+                     front_passenger_wheel_state,
+                     car_no: car 
+                    }, {
+                         headers: {
+                             'Content-Type': 'multipart/form-data',
+                             Authorization: `Bearer ${token}`
+                           }
+                   });
+                   console.log(response.status,response.data);  
             }
             else {
                 wheel_state = await db.wheel_condition.put({ 
@@ -46,17 +68,36 @@ const WheelCondition = () => {
                     front_driver: false,
                     back_driver: false,
                     front_passenger: false,
-                    back_passenger: false
+                    back_passenger: false,
+                    
                 });
+                const response = await axios.post(`${url}/pwa/wheel_condition`,  
+                    {
+                     back_driver_wheel_state: false,
+                     back_passenger_wheel_state: false,
+                     front_driver_wheel_state: false,
+                     front_passenger_wheel_state: false,
+                     car_no: car 
+                    }, {
+                         headers: {
+                             'Content-Type': 'multipart/form-data',
+                             Authorization: `Bearer ${token}`
+                           }
+                   });
+                   console.log(response.status,response.data);  
             }
+            // handleSubmit(isGood);
             console.log(wheel_state);
             
-            // setter_function(image?.data);
+           
+          localStorage.setItem(`wheel_condition_state_${car}`,'true');
+          Router.push('./vehicle_health_selection')
         }
         catch(e){
             
         }
     }
+
 
     // Search for images in the db: 
     useEffect(()=>{

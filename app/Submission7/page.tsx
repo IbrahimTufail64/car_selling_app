@@ -18,14 +18,14 @@ import axios from 'axios';
 const Submission7 = () => {
     const [value, setValue] = useState(20); 
     const {isVendor} = useAppContext();
-    const [carCount, setCarCount] = useState(0);
-    const [GlobalState, setglobalState] = useState<any>();
+    const [carCount, setCarCount] = useState(1);
+    const [vehiclePhotosState, setvehiclePhotosState] = useState<any>();
     const [serviceRecordsState, setserviceRecordsState] = useState<any>();
     const [vehicle_video,setvehicle_video] = useState<any>();
 
     const [estimatedPrice, setEstimatedPrice] = useState([]);
     const [retailPrice, setretailPrice] = useState([]);
-    const [saleTag, setsaleTag] = useState('');
+    const [saleTag, setsaleTag] = useState('WholeSale');
     const [userName, setUserName] = useState('');
     const [profileImg,setProfileImg] = useState<any>();
     const [userId,setUserId] = useState('');
@@ -72,6 +72,7 @@ const Submission7 = () => {
         handleRequest()
     },[])
     const handleCarCountMinus =() =>{
+        console.log(vehiclePhotosState)
         if(carCount > 1){
             setCarCount(carCount-1);
         }
@@ -83,22 +84,14 @@ const Submission7 = () => {
         }
     }
 
-    const OnChangeEventTriggerd = (newValue:any) => {
-        console.log("new Value", newValue);
-        setValue(newValue);
-      };
 
     useEffect(()=>{
-        const state = async()=>{
-            const current:any =await CalculateState();
-        console.log(current)
-        
-        setglobalState(current[1]);
-        setserviceRecordsState(current[2]);
-        }
-        state();
+        const car_no = Number(localStorage.getItem('car_no')); 
+        console.log(localStorage.getItem(`vehicle_photos_state_${car_no}`));
+        setvehiclePhotosState(localStorage.getItem(`vehicle_photos_state_${car_no}`)==='true');
+        setserviceRecordsState(localStorage.getItem(`service_records_state_${car_no}`)==='true');
 
-        setvehicle_video(localStorage.getItem("videoData"))
+        setvehicle_video(localStorage.getItem(`vehicle_video_state_${car_no}`)==='true')
     },[])
 
   return (
@@ -181,7 +174,7 @@ const Submission7 = () => {
             </div>
         </div>
 
-        {(isVendor && saleTag=== "Wholesale") && <div className='flex w-full justify-center mb-7 space-x-3'>
+        {(isVendor && saleTag=== "WholeSale") && <div className='flex w-full justify-center mb-7 space-x-3'>
                         <div onClick={handleCarCountMinus} className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
                             <IoChevronBack size={25}/>
                         </div>
@@ -236,23 +229,23 @@ const Submission7 = () => {
                             </div>
                             <div>
                             <Link href='./vehicle_photos'>
-                           <Field isComplete={GlobalState} Content={'Vehicle photos'} />
+                           <Field isComplete={vehiclePhotosState} Content={'Vehicle photos'} />
                            </Link> 
                             </div>
                             {
                                 isVendor && (
                                     <div>
-                                        <Link href='#'>
+                                        <Link href={`${vehiclePhotosState ? './service_manuals_keys' : '#'}`}>
                                     <Field isComplete={serviceRecordsState} Content={'Service records, Manuals & Keys'} />
                                     </Link> 
                                         </div>
                                 )
                             }
                             {
-                                isVendor &&
+                                (isVendor && saleTag === 'WholeSale') &&
                                 (
                                     <div>
-                                        <Link href='./vehicle_video'>
+                                        <Link href={`${serviceRecordsState ? './vehicle_video' : '#'}`}>
                                     <Field isComplete={vehicle_video} Content={'Vehicle video'} />
                                     </Link> 
                                         </div>
@@ -261,8 +254,8 @@ const Submission7 = () => {
                             {
                                 !isVendor && (
                                     <div>
-                                        <Link href='#'>
-                                    <Field isComplete={serviceRecordsState} Content={'Service records'} />
+                                        <Link href={`${vehiclePhotosState=== 'true' ? './service_manuals_keys' : '#'}`}>
+                                    <Field isComplete={serviceRecordsState  === 'true'} Content={'Service records'} />
                                     </Link> 
                                         </div>
                                 )

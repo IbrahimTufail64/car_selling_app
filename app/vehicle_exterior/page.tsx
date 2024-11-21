@@ -27,6 +27,7 @@ const VehicleExterior = () => {
     const [frontPimg, setfrontPimg]  = useState<any>(null);
     const [backDimg, setbackDimg]  = useState<any>(null);
     const [backPimg, setbackPimg]  = useState<any>(null);
+    // const [car_no, setcar_no] = useState(0);
 
     const Router = useRouter();
     const {isVendor} = useAppContext()
@@ -40,7 +41,8 @@ const VehicleExterior = () => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
+                const car_no = Number(localStorage.getItem('car_no'));
+                const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                 // console.log(image);
                 setter_function(image?.data);
             }
@@ -62,6 +64,9 @@ const VehicleExterior = () => {
 const handleSubmit = async (event:any) => { 
     event.preventDefault();
 
+    // if(!frontDimg|| ! frontPimg|| !backDimg|| !backPimg){
+    //     alert('Some photos not taken!');
+    // }
     const formData = new FormData();
     formData.append('front_driver', frontDimg);
     formData.append('front_passenger', frontPimg);
@@ -79,40 +84,27 @@ const handleSubmit = async (event:any) => {
             return;
         }
 
-      const response = await axios.post(`${url}/vehicle_exterior`,  
-        formData, {
+      const response = await axios.post(`${url}/pwa/vehicle_exterior`,  
+        {
+            formData,
+            car_no: Number(localStorage.getItem('car_no')),
+        }, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token}`
               }
       });
       console.log(response.status,response.data);  
+      const car = Number(localStorage.getItem('car_no'));
+      localStorage.setItem(`vehicle_interior_state_${car}`,'true');
       Router.push('./vehicle_photos')
     } catch (error) {
+        // localStorage.setItem('vehicle_exterior_state','true');
       console.error(error);
     }
   };
 
 
-    // useEffect(()=>{
-
-    //     const setContext = async(state:boolean)=>{
-    //         await db2.context.put({
-    //             name: 'vehicle_exterior',
-    //             state: state 
-    //           });
-    //     }
-    //     if(frontDimg && frontPimg && backDimg && backPimg){
-    //         setVehicle_Exterior(true);
-    //         setContext(true);
-
-    //     }
-    //     else{
-    //         setVehicle_Exterior(false);
-    //         setContext(false);
-    //     }
-
-    // },[frontDimg,frontPimg,backDimg,backPimg])
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>

@@ -26,7 +26,7 @@ const SurfaceMarks = () => {
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
-    
+        const car = Number(localStorage.getItem('car_no'));
         const formData = new FormData();
 
         images.forEach(e=>{
@@ -45,14 +45,18 @@ const SurfaceMarks = () => {
             }
     
           const response = await axios.post(`${url}/pwa/glass_health`,  
-            formData, {
+            {
+                formData,
+                car_no
+            }, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
                   }
           });
           console.log(response.status,response.data);  
-          localStorage.setItem('glass_health_state','true');
+          
+              localStorage.setItem(`glass_health_state_${car}`,'true');
           Router.push('./vehicle_health_selection')
         } catch (error) {
           console.error(error);

@@ -59,7 +59,8 @@ const TechnicalHealth = () => {
                       }
               });
               console.log(response.status,response.data);  
-              localStorage.setItem('technical_state','true');
+              const car = Number(localStorage.getItem('car_no'));
+              localStorage.setItem(`technical_state_${car}`,'true');
             Router.push('./vehicle_health_selection')
         } catch (error) {
             console.log(error);

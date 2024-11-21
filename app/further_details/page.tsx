@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const FurtherDetails = () => {
     
-
+    
     const {isVendor} = useAppContext() 
     const [checked, setChecked] = useState(false);
     const [inputText, setInputText] = useState('');
@@ -29,6 +29,7 @@ const FurtherDetails = () => {
     const Router = useRouter();
     
     async function addData(data: any, condition: boolean) {
+        // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
         try {
             if(inputText === '' && checked) {
                 alert('Please enter a description before submitting!')
@@ -48,22 +49,28 @@ const FurtherDetails = () => {
                     data
                 });
             }
+            
             const token = localStorage.getItem('token'); 
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/further_details`,  
-                {
-                    condition: checked, 
-                    data: inputText,
-                    car_no: Number(localStorage.getItem('car_no'))
-                }, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: `Bearer ${token}`
-                      }
-              });
-              console.log(response.status,response.data);  
-              localStorage.setItem('further_details_state','true');
-            Router.push('./vehicle_photos')
+            // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/further_details`,  
+            //     {
+            //         condition: checked, 
+            //         data: inputText,
+            //         car_no: Number(localStorage.getItem('car_no'))
+            //     }, {
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data',
+            //             Authorization: `Bearer ${token}`
+            //           }
+            //   });
+            //   console.log(response.status,response.data);  
+              const car = Number(localStorage.getItem('car_no'));
+              localStorage.setItem(`further_details_state_${car}`,'true');
+                  
+                localStorage.setItem(`vehicle_health_state_${car}`,'true');
+                localStorage.setItem(`vehicle_photos_state_${car}`,'true');
+            Router.push('./Submission7')
         } catch (error) {
+            
             console.log(error);
         }
     }

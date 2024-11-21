@@ -17,13 +17,15 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     const [video, setVideo] = useState<any>(null);
 
     useEffect(()=>{
-        setVideo(localStorage.getItem("videoData"))
+        const car_no = Number(localStorage.getItem('car_no'));
+        setVideo(localStorage.getItem(`videoData_${car_no}`))
     })
 
     const handleDelete = async()=>{
         try{
+            const car_no = Number(localStorage.getItem('car_no'));
             await db.images.where('name').equals(link).delete(); 
-            localStorage.removeItem("videoData")
+            localStorage.removeItem(`videoData_${car_no}`)
             window.location.reload();
 
         }
@@ -44,7 +46,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 
                 
             </div>
-            <div className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
+            <Link href={`${!isUploaded ? `./video_capture` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white' : '  text-fourth'}`}>
@@ -55,7 +57,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 <div className='pt-1'>
                     {isUploaded ? <img src={Delete.src} onClick={handleDelete}/>: <Link href={`./video_capture`}><img src={Camera.src} /></Link>}
                 </div>
-            </div>
+            </Link>
         </div>
     </div>
   )

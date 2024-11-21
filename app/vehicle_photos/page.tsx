@@ -18,18 +18,13 @@ const VehiclePhotos = () => {
 
   useEffect(()=>{
     const state = async()=>{
-    const current:any =await CalculateState();
-    console.log(current)
-    
-    const array = current[1];
-    console.log(array)
-    if(array[0] || array[1] || array[4] || array[5] || array[8]){
 
-    }
-    setInteriorState(array[0]);
-    setExteriorState(array[1]);
-    setWheelsTyresState(array[4] && array[5])
-    sethealthState(array[2] && array[3] && array[6] && array[7] && array[8] && array[9])
+      const car = Number(localStorage.getItem('car_no'));
+
+    setInteriorState(localStorage.getItem(`vehicle_interior_state_${car}`)=== 'true');
+    setExteriorState(localStorage.getItem(`vehicle_exterior_state_${car}`)=== 'true');
+    setWheelsTyresState(localStorage.getItem(`vehicle_wheels_state_${car}`)=== 'true');
+    sethealthState(localStorage.getItem(`vehicle_health_state_${car}`)=== 'true');
 
     }
     state();
@@ -54,19 +49,19 @@ const VehiclePhotos = () => {
           </div>
           
           <div className='mb-4'>
-          <Link href='./vehicle_interior'>
+          <Link href={`${exteriorState ? './vehicle_interior' : '#'}`}>
           <Field isComplete={interiorState} Content={'Vehicle interior'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./vehicle_wheels'>
+          <Link href={`${interiorState ? './vehicle_wheels' : '#'}`}>
           <Field isComplete={wheelsTyresState} Content={'Your wheels & typres'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href='./vehicle_health_selection'>
+          <Link href={`${wheelsTyresState ? './vehicle_health_selection' : '#'}`}>
           <Field isComplete={healthState} Content={'Vehicle health'}/>
           </Link>
           </div>

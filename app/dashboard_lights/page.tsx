@@ -45,14 +45,18 @@ const SurfaceMarks = () => {
             }
     
           const response = await axios.post(`${url}/pwa/dashboard_lights`,  
-            formData, {
+            {
+                formData,
+                car_no
+            }, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
                   }
           });
           console.log(response.status,response.data);  
-          localStorage.setItem('dashboard_lights_state','true');
+          const car = Number(localStorage.getItem('car_no'));
+              localStorage.setItem(`dashboard_lights_state_${car}`,'true');
           Router.push('./vehicle_health_selection')
         } catch (error) {
           console.error(error);

@@ -40,7 +40,8 @@ const VehicleInterior = () => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
+                const car_no = Number(localStorage.getItem('car_no'));
+                const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                 console.log(image?.data);
                 
                 setter_function(image?.data);
@@ -53,7 +54,7 @@ const VehicleInterior = () => {
         retrieve('boot',setbootimg);
         retrieve('front_seat',setfrontseatimg);
         retrieve('back_seat',setbackseatimg);
-
+        // localStorage.setItem('vehicle_interior_state','true');
         // window.location.reload();
         
     },[])
@@ -77,15 +78,21 @@ const handleSubmit = async (event:any) => {
         }
 
       const response = await axios.post(`${url}/vehicle_interior`,  
-        formData, {
+        {
+            formData,
+            car_no: Number(localStorage.getItem('car_no')),
+        }, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token}`
               }
       });
       console.log(response.status,response.data);  
+      const car = Number(localStorage.getItem('car_no'));
+      localStorage.setItem(`vehicle_interior_state_${car}`,'true');
       Router.push('./vehicle_photos')
     } catch (error) {
+        // localStorage.setItem('vehicle_interior_state','true');
       console.error(error);
     }
   };
@@ -114,7 +121,7 @@ const handleSubmit = async (event:any) => {
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
-            <div>Vehicle exterior</div>
+            <div>Vehicle interior</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>

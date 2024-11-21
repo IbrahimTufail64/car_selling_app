@@ -14,8 +14,8 @@ const VehicleHealthSelection = () => {
   const [healthState,sethealthState] = useState<any>([]);
 
   useEffect(()=>{
-
-    sethealthState([localStorage.getItem('surface_marks_state'),localStorage.getItem('surface_marks_state'),localStorage.getItem('surface_marks_state') , localStorage.getItem('panel_damage_state') , localStorage.getItem('exterior_wear_tear_state') , localStorage.getItem('glass_health_state') , localStorage.getItem('damaged_absent_fixtures_state') , localStorage.getItem('dashboard_lights_state'),localStorage.getItem('technical_state'),localStorage.getItem('further_details_state')])
+    const car = Number(localStorage.getItem('car_no'));
+    sethealthState([localStorage.getItem(`wheel_condition_state_${car}`),localStorage.getItem(`tyre_health_state_${car}`),localStorage.getItem(`surface_marks_state_${car}`) , localStorage.getItem(`panel_damage_state_${car}`) , localStorage.getItem(`exterior_wear_tear_state_${car}`) , localStorage.getItem(`glass_health_state_${car}`) , localStorage.getItem(`damaged_absent_fixtures_state_${car}`) , localStorage.getItem(`dashboard_lights_state_${car}`),localStorage.getItem(`technical_state_${car}`),localStorage.getItem(`further_details_state_${car}`)])
 
     // }
     // state();
@@ -24,7 +24,7 @@ const VehicleHealthSelection = () => {
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full min-h-[100vh] pb-10`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
-            <Link  href='./Submission7'><IoChevronBack size={35} className='mt-[1px]'/></Link>
+            <Link  href='./vehicle_photos'><IoChevronBack size={35} className='mt-[1px]'/></Link>
             <div>Vehicle health</div>
         </div>
         
@@ -37,13 +37,13 @@ const VehicleHealthSelection = () => {
         <div className='space-y-2 px-4'>
           <div className=''>
           <Link href='./wheel_condition'> 
-            <Field isComplete={true} Content={'Wheel condition'}/>
+            <Field isComplete={healthState[0]} Content={'Wheel condition'}/>
           </Link>
           </div>
           
           <div className='mb-4'>
           <Link href={`${healthState[0]=== 'true' ? './tyre_health' : '#'}`}>
-          <Field isComplete={true} Content={'Tyre health'}/>
+          <Field isComplete={healthState[1]} Content={'Tyre health'}/>
           </Link>
           </div>
 

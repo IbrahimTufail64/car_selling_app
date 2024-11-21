@@ -108,59 +108,29 @@ const lookup_table_dashboard_lights:any = {
 }
 
 const Filter = ({ params }: { params: { slug: string } }) => {
-  
+    
 
     const webcamRef:any = useRef(null);
+    const link = params.slug.split('-');
+    const imageUrl = link[0];
 
     let returnLink = '';
-
-    let car_filter = lookup_table_exterior[params.slug];
+    let car_filter = lookup_table_exterior[imageUrl];
     returnLink = 'vehicle_exterior';
 
     if(car_filter === undefined){
-      car_filter = lookup_table_interior[params.slug];
+      car_filter = lookup_table_interior[imageUrl];
       returnLink = 'vehicle_interior';
     }
 
     if(car_filter === undefined){
-      car_filter = lookup_table_wheels[params.slug];
+      car_filter = lookup_table_wheels[imageUrl];
       returnLink = 'vehicle_wheels';
     }
 
-    if(car_filter === undefined){
-      car_filter = lookup_table_empty[params.slug];
-      returnLink = 'service_records_capture';
-    }
 
-    if(car_filter === undefined){
-      car_filter = lookup_table_surface_marks[params.slug];
-      returnLink = 'surface_marks';
-    }
 
-    if(car_filter === undefined){
-      car_filter = lookup_table_panel_damage[params.slug];
-      returnLink = 'panel_damage';
-    }
 
-    if(car_filter === undefined){
-      car_filter = lookup_table_glass_health[params.slug];
-      returnLink = 'glass_health';
-    }
-
-    if(car_filter === undefined){
-      car_filter = lookup_table_exterior_wear_tear[params.slug];
-      returnLink = 'exterior_wear_tear';
-    }
-
-    if(car_filter === undefined){
-      car_filter = lookup_table_damaged_absent_fixtures[params.slug];
-      returnLink = 'damaged_absent_fixtures';
-    }
-
-    if(car_filter === undefined){
-      car_filter = lookup_table_dashboard_lights[params.slug];
-      returnLink = 'dashboard_lights';
-    }
 
     const {angle,type} = useOrientation(); 
     const router = useRouter(); 
@@ -175,14 +145,16 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     async function addImage(img: any) {
       try {
         
-        const image = await db.images.where('name').equals(params.slug).first();
+        const image = await db.images.where('name').equals(imageUrl).first();
         if(image?.data !== undefined ){
-          await db.images.where('name').equals(params.slug).delete();
+          await db.images.where('name').equals(imageUrl).delete();
         }
         const id = await db.images.add({
-          name: params.slug,
-          data: img
+          name: imageUrl,
+          data: img,
+          car_number: Number(localStorage.getItem('car_no'))
         });
+        console.log('test',id);
       } catch (error) {
         console.log(error)
       }

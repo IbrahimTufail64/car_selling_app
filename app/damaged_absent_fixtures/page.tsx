@@ -45,14 +45,18 @@ const SurfaceMarks = () => {
             }
     
           const response = await axios.post(`${url}/pwa/damaged_absent_fixtures`,  
-            formData, {
+            {
+                formData,
+                car_no
+            }, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
                   }
           });
           console.log(response.status,response.data);  
-          localStorage.setItem('damaged_absent_fixtures_state','true');
+          const car = Number(localStorage.getItem('car_no'));
+              localStorage.setItem(`damaged_absent_fixtures_state_${car}`,'true');
           Router.push('./vehicle_health_selection')
         } catch (error) {
           console.error(error);

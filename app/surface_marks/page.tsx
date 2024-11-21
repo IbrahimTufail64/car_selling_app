@@ -26,7 +26,7 @@ const SurfaceMarks = () => {
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
-    
+        const car = Number(localStorage.getItem('car_no'));
         const formData = new FormData();
         let damage = await db.damage_selection.where('name').equals('surface_marks').toArray();
        
@@ -61,7 +61,8 @@ const SurfaceMarks = () => {
           const response = await axios.post(`${url}/pwa/surface_marks`,  
             {
                 formData,
-                damage: newArr
+                damage: newArr,
+                car_no: car 
             }, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -69,7 +70,8 @@ const SurfaceMarks = () => {
                   }
           });
           console.log(response.status,response.data);  
-          localStorage.setItem('surface_marks_state','true');
+          
+              localStorage.setItem(`surface_marks_state_${car}`,'true');
           Router.push('./vehicle_health_selection')
         } catch (error) {
           console.error(error);
