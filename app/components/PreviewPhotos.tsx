@@ -1,25 +1,27 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import blurBG from '@/assets/blurBG.png'
 import PreviewPhoto from './PreviewPhoto'
 import { IoChevronBack } from 'react-icons/io5'
+import { db, Image } from '../Local_DB/db'
 
 const PreviewPhotos = () => {
     const [carCount, setCarCount] = useState(0); 
     const [index,setIndex] = useState([0,0]);
     const [currentPhoto, setCurrentPhoto] = useState('dashboard');
+    const [images,setImages] = useState<Image[]>([]);
 
     const Photos = [['dashboard','boot','front_seat','back_seat'],
                     ['front_driver','front_passenger','back_driver','back_passenger'],
-                    ['surface_marks1','surface_marks2','surface_marks3','surface_marks4'],
-                    ['panel_damage1','panel_damage2','panel_damage3','panel_damage4'],
+                    ['surface_marks'],
+                    ['panel_damage'], 
                     ['front_driver_wheel','front_passenger_wheel','back_driver_wheel','back_passenger_wheel'],
                     ['front_driver_tyre','front_passenger_tyre','back_driver_tyre','back_passenger_tyre'],
-                    ['dashboard_lights1','dashboard_lights2','dashboard_lights3','dashboard_lights4'],
-                    ['exterior_wear_tear1','exterior_wear_tear2','exterior_wear_tear3','exterior_wear_tear4'],
-                    ['glass_health1','glass_health2','glass_health3','glass_health4'],
-                    ['damaged_absent_fixtures1','damaged_absent_fixtures2','damaged_absent_fixtures3','damaged_absent_fixtures4'],
-                    ['service_records1','service_records2','service_records3','service_records4']]
+                    ['dashboard_lights'],
+                    ['exterior_wear_tear'],
+                    ['glass_health'],
+                    ['damaged_absent_fixtures'],
+                    ['service_records']]
 
     const PhotoTitle = ['Interior','Exterior','Surface marks','Panel Damage','Wheel Condition','Tyre Condition','Dashboard Lights',
                         'Exterior wear & tear','Glass Health','Damaged/Absent Fixtures','Service Records'
@@ -49,10 +51,27 @@ const PreviewPhotos = () => {
         
     }
     console.log(Photos[index[0]][index[1]])
+
+    useEffect(() => {  
+        const car_number = Number(localStorage.getItem('car_no'));
+        const retrieve = async ( setter_function: React.Dispatch<React.SetStateAction<Image[]>>) => {
+          try {
+            const images = await db.images
+              .where('car_number')
+              .equals(car_number)
+              .toArray();
+              console.log(images);
+            setter_function(images); // Store the array of images
+          } catch (e) {
+            console.error(e);
+          }
+        };
+        retrieve( setImages);
+      }, []);
   return (
     <div>
         <div className='absolute top-0'>
-            <img src={blurBG.src} className='w-full h-full'/>
+            <img src={blurBG.src} className='w-[100vw] h-full'/>
         </div>
         <div className='absolute top-5 w-[100vw]'>
             <PreviewPhoto toRetrieve={currentPhoto}/>

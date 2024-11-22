@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import { db } from '../Local_DB/db'
+import { db, Image } from '../Local_DB/db'
 import { useAppContext } from '../Context';
 import arrow from '@/assets/icons/expandArrow.png'
 
@@ -16,7 +16,8 @@ const PreviewPhoto = ({toRetrieve}:{ toRetrieve: string}) => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
+                const car_no = Number(localStorage.getItem('car_no'));
+                const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                 
                 setter_function(image?.data);
             }

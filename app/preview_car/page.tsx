@@ -117,7 +117,8 @@ const VehicleExterior = () => {
         </div>
         
       </div> */}
-      <SliderPreview setpreview_car = {setpreview_car} preview_car={preview_car}/>
+      {!previewPhotos && <SliderPreview setpreview_car = {setpreview_car} preview_car={preview_car}/>}
+      
 
         <div className='w-full flex justify-center'>
             <div className={` ${isVendor ? 'bg-[#1F204F] ' : 'bg-white '} rounded-2xl w-[90vw] p-3 flex justify-center`}>
@@ -335,6 +336,8 @@ const VehicleExterior = () => {
 
                     <PreviewCarCompDynamic query='surface_marks' title='Surface marks'  />
                     <PreviewCarCompDynamic query='panel_damage' title='Panel damage' />
+                    <PreviewCarComp4 title='Wheel condition' Array={['front_driver_wheel','front_passenger_wheel','back_driver_wheel','back_passenger_wheel']} car_no={car_no}/>
+                    <PreviewCarComp4 title='Tyre health' Array={['front_driver_tyre','front_passenger_tyre','back_driver_tyre','back_passenger_tyre']} car_no={car_no}/>
                     {/* <PreviewCarCompDynamic query='wheel_condition' title='Wheel condition' /> */}
                     {/* <PreviewCarCompDynamic query='' title='Tyre health'/> */}
                     
@@ -388,7 +391,7 @@ const VehicleExterior = () => {
                 
                 <div className={`${!vehiclephotos && 'hidden'}`}>
                     
-                    {/* <PreviewCarCompDynamic title='Vehicle service history' Array={['service_records1','service_records2','service_records3','service_records4']}/> */}
+                    {/* <PreviewCarComp4 title='Vehicle service history' Array={['service_records1','service_records2','service_records3','service_records4']}/> */}
                     
 
                 </div>
