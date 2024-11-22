@@ -3,8 +3,7 @@ import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
-import PhotoFrame from '../components/PhotoFrame';
-
+import { useRouter } from 'next/navigation';
 
 import ExampleImage from '@/assets/ExampleImage.png'
 
@@ -12,12 +11,12 @@ import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import VideoFrame from '../components/VideoFrame';
+import axios from 'axios';
 
 
 const VehicleVideo = () => {
     const [vehicle_video, setvehicle_video]  = useState<any>(null);
-
-    const {vehicle_exterior, setVehicle_Exterior} = useAppContext();
+    const Router = useRouter(); 
     const {isVendor} = useAppContext()
 
     // Search for images in the db: 
@@ -25,7 +24,7 @@ const VehicleVideo = () => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
+                const image = await db.images.where('name').equals(image_to_retrieve).first(); 
                 if(image?.data == undefined){
                     setter_function(undefined)
                     console.log(image?.data)
@@ -47,25 +46,39 @@ const VehicleVideo = () => {
     },[])
 
 
-    // useEffect(()=>{
-
-    //     const setContext = async(state:boolean)=>{
-    //         await db2.context.put({
-    //             name: 'vehicle_exterior',
-    //             state: state 
-    //           });
-    //     }
-    //     if(frontDimg && frontPimg && vehicle_video && backPimg){
-    //         setVehicle_Exterior(true);
-    //         setContext(true);
-
-    //     }
-    //     else{
-    //         setVehicle_Exterior(false);
-    //         setContext(false);
-    //     }
-
-    // },[frontDimg,frontPimg,vehicle_video,backPimg])
+    async function Submit() {
+        try {
+            const car_no = Number(localStorage.getItem('car_no'));
+            const formData = new FormData();
+            const video = String(localStorage.getItem(`videoData_${car_no}`));
+            console.log(video);
+            if(!video){
+                alert('please upload a video to proceed!');
+                return;
+            }
+            formData.append('front_driver', video);
+            const token = localStorage.getItem('token'); 
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/further_details`,  
+                {
+                    formData,
+                    car_no
+                }, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                      }
+              });
+              console.log(response.status,response.data);  
+              const car = Number(localStorage.getItem('car_no'));
+                  
+                localStorage.setItem(`vehicle_video_state_${car}`,'true');
+                // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
+            Router.push('./preview_car');
+        } catch (error) {
+            
+            console.log(error);
+        }
+    }
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] relative`}>
@@ -92,12 +105,12 @@ const VehicleVideo = () => {
 
         <div className='p-5 absolute flex justify-center w-full bottom-2'>
                 <div className='w-[90vw]'>
-                <Link href='./Submission2' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={Submit} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
                 </div>
         </div>
         

@@ -4,6 +4,9 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Alert from '@/assets/icons/Alert_white.png';
 import { db } from "@/app/Local_DB/db";
 
+import { useOrientation } from 'react-use';
+import { useRouter } from 'next/navigation';
+
 const VideoCapture: React.FC = () => {
     const [recording, setRecording] = useState<boolean>(false);
     const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
@@ -12,7 +15,17 @@ const VideoCapture: React.FC = () => {
     const mediaRecorderRef = useRef<MediaRecorder | null>(null);
     const streamRef = useRef<MediaStream | null>(null);
 
+    const {angle,type} = useOrientation(); 
+    const router = useRouter(); 
+    useEffect(()=>{
+        const portrait = window.matchMedia("(orientation: portrait)").matches;
+        if(portrait){
+              router.push(`./rotate/video_capture`);
+          }
+      },[angle])
+
     useEffect(() => {
+        
         const setupStream = async () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({
@@ -51,6 +64,7 @@ const VideoCapture: React.FC = () => {
 
         mediaRecorderRef.current.start();
         setRecording(true);
+        alert('Recording started')
     }, []);
 
     const stopRecording = useCallback(() => {
@@ -84,7 +98,8 @@ const VideoCapture: React.FC = () => {
         reader.onloadend = () => {
             const base64data = reader.result as string;
             try {
-                window.localStorage.setItem('videoData', base64data);
+                const car_no = Number(localStorage.getItem('car_no'));
+                window.localStorage.setItem(`videoData_${car_no}`, base64data);
                 addVideo(base64data)
                 console.log("Video saved to localStorage!");
             } catch (error) {
@@ -97,7 +112,7 @@ const VideoCapture: React.FC = () => {
     return (
         <div className='bg-[#282828] flex h-[100vh] overflow-hidden px-5'>
             <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
-                <Link href='#'>Exit</Link>
+                <Link href='./vehicle_video'>Exit</Link>
                 <Link href='#'>
                     <img src={Alert.src} className='w-10' />
                 </Link>
@@ -119,13 +134,13 @@ const VideoCapture: React.FC = () => {
                         <p className='text-lg font-semibold mb-4'>Recording stopped successfully!</p>
                         <button
                             className='bg-gray-200 rounded-full px-5 py-2 mr-2'
-                            onClick={() => setShowPopup(false)}
+                            onClick={() => setShowPopup(false) }
                         >
                             Close
                         </button>
                         <button
                             className='bg-blue-500 text-white rounded-full px-5 py-2'
-                            onClick={()=>{saveRecording(); setShowPopup(false)}}
+                            onClick={()=>{saveRecording(); setShowPopup(false); router.push(`./vehicle_video`);}}
                             disabled={recording || recordedChunks.length === 0}
                         >
                             Save this Video

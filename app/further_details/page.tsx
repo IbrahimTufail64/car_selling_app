@@ -51,18 +51,18 @@ const FurtherDetails = () => {
             }
             
             const token = localStorage.getItem('token'); 
-            // const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/further_details`,  
-            //     {
-            //         condition: checked, 
-            //         data: inputText,
-            //         car_no: Number(localStorage.getItem('car_no'))
-            //     }, {
-            //         headers: {
-            //             'Content-Type': 'multipart/form-data',
-            //             Authorization: `Bearer ${token}`
-            //           }
-            //   });
-            //   console.log(response.status,response.data);  
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/further_details`,  
+                {
+                    condition: checked, 
+                    data: inputText,
+                    car_no: Number(localStorage.getItem('car_no'))
+                }, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                      }
+              });
+              console.log(response.status,response.data);  
               const car = Number(localStorage.getItem('car_no'));
               localStorage.setItem(`further_details_state_${car}`,'true');
                   

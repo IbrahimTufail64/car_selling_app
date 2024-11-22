@@ -4,7 +4,7 @@ import { db } from '../Local_DB/db'
 import { useAppContext } from '../Context';
 import arrow from '@/assets/icons/expandArrow.png'
 
-const PreviewCarComp4 = ({title,Array}:{title: string, Array: string[]}) => {
+const PreviewCarComp4 = ({title,Array, car_no}:{title: string, Array: string[],car_no:number}) => {
 
 
     const [back_driver_wheel_img, setback_driver_wheel_img]  = useState<any>(null);
@@ -23,7 +23,9 @@ const PreviewCarComp4 = ({title,Array}:{title: string, Array: string[]}) => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const image = await db.images.where('name').equals(image_to_retrieve).first();
+                const car_no = Number(localStorage.getItem('car_no'));
+                const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
+                // console.log(image?.data);
                 
                 setter_function(image?.data);
             }

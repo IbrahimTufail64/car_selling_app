@@ -12,8 +12,10 @@ import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import PreviewCarComp from '../components/PreviewCarComp';
 import PreviewCarComp4 from '../components/PreviewCarComp4';
-import PreviewCarComp1 from '../components/PreviewCarComp1';
+import useEmblaCarousel from 'embla-carousel-react'
 import PreviewPhotos from '../components/PreviewPhotos';
+import PreviewCarCompDynamic from '../components/PreviewCarCompDynamic';
+import SliderPreview from '../components/Slider';
 
 
 const VehicleExterior = () => {
@@ -28,13 +30,16 @@ const VehicleExterior = () => {
     const [vehiclehealth, setvehiclehealth] = useState(true);
     const [technical, settechnical] = useState(true);
     const [furtherdetails, setfurtherdetails] = useState(true);
-
+    const [car_no, setcar_no] = useState(0);
+    const [preview_car,setpreview_car] = useState();
     const [previewPhotos,setPreviewPhotos] = useState(false);
 
     const [vehicle_video, setvehicle_video]  = useState<any>(null);
 
     useEffect(()=>{
-        setvehicle_video(localStorage.getItem("videoData"));
+        setcar_no(Number(localStorage.getItem("car_no")))
+        setvehicle_video(localStorage.getItem(`videoData_${Number(localStorage.getItem("car_no"))}`));
+        
     },[])
 
     const [carCount, setCarCount] = useState(0);
@@ -96,8 +101,23 @@ const VehicleExterior = () => {
         </div>
 
         <div className='py-5'>
-            <img src={preview_car.src} className='w-full object-cover max-h-[300px]'/>
+            <img src={preview_car} className='w-full object-cover max-h-[300px]'/>
         </div>
+
+        {/* <div className="embla overflow-hidden mx-2 pb-10">
+        <div className="embla__viewport" ref={emblaRef}>
+          <div className="embla__container flex space-x-5">
+          <img src={preview_car.src} className='w-[80px] h-[80px] object-cover rounded-lg'/>
+          <img src={preview_car.src} className='w-[80px] h-[80px] object-cover rounded-lg'/>
+          <img src={preview_car.src} className='w-[80px] h-[80px] object-cover rounded-lg'/>
+          <img src={preview_car.src} className='w-[80px] h-[80px] object-cover rounded-lg'/>
+          <img src={preview_car.src} className='w-[80px] h-[80px] object-cover rounded-lg'/>
+          <img src={preview_car.src} className='w-[80px] h-[80px] object-cover rounded-lg'/>
+          </div>
+        </div>
+        
+      </div> */}
+      <SliderPreview setpreview_car = {setpreview_car} preview_car={preview_car}/>
 
         <div className='w-full flex justify-center'>
             <div className={` ${isVendor ? 'bg-[#1F204F] ' : 'bg-white '} rounded-2xl w-[90vw] p-3 flex justify-center`}>
@@ -288,8 +308,8 @@ const VehicleExterior = () => {
                     
 
                     <PreviewCarComp/>
-                    <PreviewCarComp4 title='Interior' Array={['dashboard','boot','front_seat','back_seat']}/>
-                    <PreviewCarComp4 title='Exterior' Array={['front_driver','front_passenger','back_driver','back_passenger']}/>
+                    <PreviewCarComp4 title='Interior' Array={[`dashboard`,`boot`,`front_seat`,`back_seat`]}  car_no={car_no}/>
+                    <PreviewCarComp4 title='Exterior' Array={['front_driver','front_passenger','back_driver','back_passenger']} car_no={car_no}/>
                     
 
                 </div>
@@ -313,15 +333,16 @@ const VehicleExterior = () => {
                 <div className={`${!vehiclehealth && 'hidden'}`}>
                     
 
-                    <PreviewCarComp4 title='Surface marks'  Array={['surface_marks1','surface_marks2','surface_marks3','surface_marks4']}/>
-                    <PreviewCarComp4 title='Panel damage' Array={['panel_damage1','panel_damage2','panel_damage3','panel_damage4']}/>
-                    <PreviewCarComp4 title='Wheel condition' Array={['front_driver_wheel','front_passenger_wheel','back_driver_wheel','back_passenger_wheel']}/>
-                    <PreviewCarComp4 title='Tyre health' Array={['front_driver_tyre','front_passenger_tyre','back_driver_tyre','back_passenger_tyre']}/>
-                    <PreviewCarComp4 title='Dashboard lights' Array={['dashboard_lights1','dashboard_lights2','dashboard_lights3','dashboard_lights4']}/>
-                    <PreviewCarComp4 title='Exterior wear & tear' Array={['exterior_wear_tear1','exterior_wear_tear2','exterior_wear_tear3','exterior_wear_tear4']}/>
-                    <PreviewCarComp4 title='Glass health' Array={['glass_health1','glass_health2','glass_health3','glass_health4']}/>
-                    <PreviewCarComp4 title='Damaged/Absent fixtures' Array={['damaged_absent_fixtures1','damaged_absent_fixtures2','damaged_absent_fixtures3','damaged_absent_fixtures4']}/>
-                    <PreviewCarComp1 title='Warning lights' ToRetrieve=''/>
+                    <PreviewCarCompDynamic query='surface_marks' title='Surface marks'  />
+                    <PreviewCarCompDynamic query='panel_damage' title='Panel damage' />
+                    {/* <PreviewCarCompDynamic query='wheel_condition' title='Wheel condition' /> */}
+                    {/* <PreviewCarCompDynamic query='' title='Tyre health'/> */}
+                    
+                    <PreviewCarCompDynamic query='exterior_wear_tear' title='Exterior wear & tear'/>
+                    <PreviewCarCompDynamic query='glass_health' title='Glass health' />
+                    <PreviewCarCompDynamic query='damaged_absent_fixtures' title='Damaged/Absent fixtures' />
+                    <PreviewCarCompDynamic query='dashboard_lights' title='Dashboard lights'/>
+                    {/* <PreviewCarComp1 title='Warning lights' ToRetrieve=''/> */}
 
                     <div className='flex justify-between w-full mx-2 px-1 pt-3 pb-2'>
                     <div className=' font-[350] max-w-[80%]'>Technical health (electrical and mechanical)</div>
@@ -367,7 +388,7 @@ const VehicleExterior = () => {
                 
                 <div className={`${!vehiclephotos && 'hidden'}`}>
                     
-                    <PreviewCarComp4 title='Vehicle service history' Array={['service_records1','service_records2','service_records3','service_records4']}/>
+                    {/* <PreviewCarCompDynamic title='Vehicle service history' Array={['service_records1','service_records2','service_records3','service_records4']}/> */}
                     
 
                 </div>
