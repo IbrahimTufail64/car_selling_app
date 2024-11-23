@@ -112,7 +112,7 @@ const handleSubmit = async (event:any) => {
             return;
         }
 
-      const response = await axios.post(`${url}/vehicle_wheels_tyres`,  
+      const response = await axios.post(`${url}/pwa/vehicle_wheels_tyres`,  
         {
           formData,
           car_no: Number(localStorage.getItem('car_no')),

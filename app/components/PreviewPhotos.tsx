@@ -4,8 +4,10 @@ import blurBG from '@/assets/blurBG.png'
 import PreviewPhoto from './PreviewPhoto'
 import { IoChevronBack } from 'react-icons/io5'
 import { db, Image } from '../Local_DB/db'
+import { useRouter } from 'next/navigation';
 
 const PreviewPhotos = () => {
+    const Router = useRouter();
     const [carCount, setCarCount] = useState(0); 
     const [index,setIndex] = useState([0,0]);
     const [currentPhoto, setCurrentPhoto] = useState('dashboard');
@@ -47,6 +49,8 @@ const PreviewPhotos = () => {
             setIndex(index=>[index[0]+1,0])
             setCarCount(0);
             setCurrentPhoto(Photos[index[0]+1][0]);
+        }else{
+            Router.push('./confirmation_submission')
         }
         
     }

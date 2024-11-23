@@ -25,19 +25,20 @@ const Submission7 = () => {
 
     const [estimatedPrice, setEstimatedPrice] = useState([]);
     const [retailPrice, setretailPrice] = useState([]);
-    const [saleTag, setsaleTag] = useState('WholeSale');
+    const [saleTag, setsaleTag] = useState('');
     const [userName, setUserName] = useState('');
     const [profileImg,setProfileImg] = useState<any>();
     const [userId,setUserId] = useState('');
 
     useEffect(()=>{ 
         
-        
+        setCarCount(Number(localStorage.getItem('car_no')))
         const handleRequest = async () => { 
             
 
         
             const url:any = process.env.NEXT_PUBLIC_API_URL ;
+            console.log(url);
             const token = localStorage.getItem('token');
             try { 
                 const response = await axios.get(`${url}/pwa/real_time_data`, {
@@ -51,6 +52,7 @@ const Submission7 = () => {
                 
                 // if(data.isWholeSale === "Wholesale"){
                     setsaleTag(data.tag)
+                    localStorage.setItem('saletag',data.tag);
                     setEstimatedPrice(data.estimatedPrice);
                     setretailPrice(data.retailPrice);
                 // }
@@ -74,13 +76,17 @@ const Submission7 = () => {
     const handleCarCountMinus =() =>{
         console.log(vehiclePhotosState)
         if(carCount > 1){
+            localStorage.setItem('car_no',String(carCount-1))
             setCarCount(carCount-1);
+            window.location.reload()
         }
     }
 
     const handleCarCountAdd =() =>{
         if(carCount < estimatedPrice.length){
+            localStorage.setItem('car_no',String(carCount+1))
             setCarCount(carCount+1);
+            window.location.reload()
         }
     }
 
@@ -105,73 +111,85 @@ const Submission7 = () => {
             </div>)
         }
         <div className='flex justify-center w-full'>
-            <div className={`${!isVendor && 'bg-[#FFFFFF]' } w-[93vw] flex justify-center rounded-xl mt-3`}>
+            <div className={`${!isVendor && 'bg-[#FFFFFF]' } w-[93vw] rounded-xl mt-3`}>
+                <div className='w-full flex justify-center'>
                 <div className='w-full flex justify-center py-3'>
 
-                <div className={`${isVendor ? 'bg-[#242557] border-[#646488]': 'bg-[#ECF1FD] border-[#D3D4FD]' } border-2  border-dashed w-[86vw] rounded-xl my-3 pb-4`}>
-               
-                <div className='flex justify-center w-full mt-5'>
-                    <div className={`w-[100px] h-6 bg-white border ${!isVendor ? 'border-black' : 'border-secondary'} flex relative`}>
-                        <div className=' bg-[#3748EA] w-[15%] p-t-2'>
-                        </div>
-                        <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
-                            {userId}
-                        </div>
-                    </div>
-                </div>
-                <div className='text-[46px] font-[400] relative text-center w-full'>
-                    <div className='font-[500]'>£ {estimatedPrice[carCount-1]}</div>
-                    <div className='w-full flex justify-center'>
-                    <img src={underline.src} className=''/>
-                    </div>
-                </div>
-                {isVendor && 
-                    <div className='w-full flex justify-center mt-3 text-[12px] text-[#99F22B] underline underline-offset-2'><Link href='#'>I don’t want to proceed with this car</Link></div>}
+<div className={`${isVendor ? 'bg-[#242557] border-[#646488]': 'bg-[#ECF1FD] border-[#D3D4FD]' } border-2  border-dashed w-[86vw] rounded-xl my-3 pb-4`}>
 
-                <div className='flex justify-center w-full'>
-                            <div className='text-sm px-5 text-center pt-5 w-[90%]'>
-                        Based on our live real-time <span className='text-primary'>Smart Data</span> for 'Manufacturer'' vehicles and daily live trade data. 
-                    </div>
-                </div>
-        <div className='w-full px-24 flex justify-center pt-3'>
-            
-            <div className=''>
-                <div className='w-full flex justify-center'>
-                        <div className='w-[100%]'>
-                        <Slider
-                        value={(estimatedPrice[carCount-1]/retailPrice[carCount-1])*100}
-                        trackStyle={{ backgroundColor: "#695DFD", height: 6 }}
-                        railStyle={{ backgroundColor: "#FFFFFF", height: 6 }}
-                        handleStyle={{
-                        borderColor: "#99F22B",
-                        height: 10,
-                        width: 10,
-                        marginLeft: -5,
-                        marginTop: -2,
-                        backgroundColor: "black"
-                        }}
-                />
-                        </div>
-                </div>
-                <div className='w-[60vw] flex justify-between text-[13px]'>
-                    <div>Looked After</div>
-                    <div>Pristine</div>
-                </div>
-            </div>
-            
-            
+<div className='flex justify-center w-full mt-5'>
+    <div className={`w-[100px] h-6 bg-white border ${!isVendor ? 'border-black' : 'border-secondary'} flex relative`}>
+        <div className=' bg-[#3748EA] w-[15%] p-t-2'>
         </div>
-        <div className='w-full flex justify-center mt-3'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{saleTag}</div></div>
-                
-                
-                </div>
-                
-                <div>
+        <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
+            {userId}
+        </div>
+    </div>
+</div>
+<div className='text-[46px] font-[400] relative text-center w-full'>
+    <div className='font-[500]'>£ {estimatedPrice[carCount-1]}</div>
+    <div className='w-full flex justify-center'>
+    <img src={underline.src} className=''/>
+    </div>
+</div>
+{isVendor && 
+    <div className='w-full flex justify-center mt-3 text-[12px] text-[#99F22B] underline underline-offset-2'><Link href='#'>I don’t want to proceed with this car</Link></div>}
 
+<div className='flex justify-center w-full'>
+            <div className='text-sm px-5 text-center pt-5 w-[90%]'>
+        Based on our live real-time <span className='text-primary'>Smart Data</span> for 'Manufacturer'' vehicles and daily live trade data. 
+    </div>
+</div>
+<div className='w-full px-24 flex justify-center pt-3'>
+
+<div className=''>
+<div className='w-full flex justify-center'>
+        <div className='w-[100%]'>
+        <Slider
+        value={(estimatedPrice[carCount-1]/retailPrice[carCount-1])*100}
+        trackStyle={{ backgroundColor: "#695DFD", height: 6 }}
+        railStyle={{ backgroundColor: "#FFFFFF", height: 6 }}
+        handleStyle={{
+        borderColor: "#99F22B",
+        height: 10,
+        width: 10,
+        marginLeft: -5,
+        marginTop: -2,
+        backgroundColor: "black"
+        }}
+/>
+        </div>
+</div>
+<div className='w-[60vw] flex justify-between text-[13px]'>
+    <div>Looked After</div>
+    <div>Pristine</div>
+</div>
+</div>
+
+
+</div>
+<div className='w-full flex justify-center mt-3'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{saleTag}</div></div>
+
+
+</div>
+
+<div>
+
+</div>
+
+</div>
                 </div>
-                </div>
-                
+                {!isVendor &&
+                <div className='text-[#675DF4]  w-full flex justify-center'>
+                <Link href='#' className='space-x-3 mb-3 flex'>
+                <img src={alert.src} className='w-5 h-5'/>
+                <div>More info</div>
+                </Link>
+
+            </div>}
+                {/* here is not flex  */}
             </div>
+            
         </div>
 
         {(isVendor && saleTag=== "WholeSale") && <div className='flex w-full justify-center mb-7 space-x-3'>
@@ -192,14 +210,14 @@ const Submission7 = () => {
                             <IoChevronBack size={25} className='rotate-180'/>
                         </div>
                     </div>}
+                    {isVendor && <div className='text-[#675DF4]  w-full flex justify-center'>
+                    <Link href='#' className='space-x-3 mt-2 flex'>
+                    <img src={alert.src} className='w-5 h-5'/>
+                    <div>More info</div>
+                    </Link>
 
-        <div className='text-[#675DF4]  w-full flex justify-center'>
-            <Link href='#' className='space-x-3 flex'>
-            <img src={alert.src} className='w-5 h-5'/>
-            <div>More info</div>
-            </Link>
-
-        </div>
+                </div>}
+        
 
         <div className='w-full flex justify-center my-10'>
                         <div className=' w-[90vw] rounded-xl space-y-2'>
@@ -254,7 +272,7 @@ const Submission7 = () => {
                             {
                                 !isVendor && (
                                     <div>
-                                        <Link href={`${vehiclePhotosState=== 'true' ? './service_manuals_keys' : '#'}`}>
+                                        <Link href={`${vehiclePhotosState ? './service_manuals_keys' : '#'}`}>
                                     <Field isComplete={serviceRecordsState  === 'true'} Content={'Service records'} />
                                     </Link> 
                                         </div>

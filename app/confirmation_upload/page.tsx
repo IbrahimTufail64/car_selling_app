@@ -115,7 +115,7 @@ const Confirmation= () => {
         </div>
         <div className='p-5 pt-3  flex justify-center w-full bottom-2'>
                 <div className='w-[90vw]'>
-                <Link href='./Submission2' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-[13px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href={`${localStorage.getItem('saletag') === 'WholeSale' ? './confirmation_upload2':'#'}`} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-[13px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div className='whitespace-nowrap'>Finish listing</div>
                         <img src={splash.src}/>

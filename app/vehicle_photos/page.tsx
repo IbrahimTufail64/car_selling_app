@@ -33,7 +33,7 @@ const VehiclePhotos = () => {
 
   
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full h-[100vh]`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full min-h-[100vh] pb-5`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle Photos</div>

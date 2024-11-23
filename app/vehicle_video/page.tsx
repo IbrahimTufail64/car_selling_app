@@ -58,7 +58,7 @@ const VehicleVideo = () => {
             }
             formData.append('front_driver', video);
             const token = localStorage.getItem('token'); 
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/further_details`,  
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/vehicle_video`,  
                 {
                     formData,
                     car_no

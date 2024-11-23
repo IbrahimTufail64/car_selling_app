@@ -54,7 +54,7 @@ const VehicleExterior = () => {
         retrieve('front_passenger',setfrontPimg);
         retrieve('back_driver',setbackDimg);
         retrieve('back_passenger',setbackPimg);
-
+        alert('You may need to reload if your image does not appear');
         // window.location.reload();
         
     },[])
@@ -96,7 +96,9 @@ const handleSubmit = async (event:any) => {
       });
       console.log(response.status,response.data);  
       const car = Number(localStorage.getItem('car_no'));
-      localStorage.setItem(`vehicle_interior_state_${car}`,'true');
+      localStorage.setItem(`vehicle_exterior_state_${car}`,'true');
+    //   localStorage.setItem(`vehicle_interior_state_${car}`,'false');
+
       Router.push('./vehicle_photos')
     } catch (error) {
         // localStorage.setItem('vehicle_exterior_state','true');

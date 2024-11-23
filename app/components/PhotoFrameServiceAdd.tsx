@@ -14,7 +14,7 @@ import alert from '@/assets/icons/alertWhite.png';
 
 import upload from '@/assets/icons/uploadBtn.png'
 
-const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, image_name, return_link}:{Content:string,DynamicImageNo:number, image_name: string,return_link: string,  Car_no: number, isUploaded:Boolean, photo: any})=> {
+const PhotoFrameServiceAdd = ({Content, Car_no, DynamicImageNo, isUploaded, photo, image_name, return_link}:{Content:string,DynamicImageNo:number, image_name: string,return_link: string,  Car_no: number, isUploaded:Boolean, photo: any})=> {
 
     const uploaded_photo = isUploaded ? photo : photo.src;
     const {isVendor} = useAppContext();
@@ -31,13 +31,13 @@ const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
     }
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark' : 'bg-white '} flex justify-center  w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary '} flex justify-center  w-full `}>
             
 
         {isUploaded ?
         <div className={`w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden `}>
         <div>
-            <img src={uploaded_photo} className='w-full object-contain'/>
+            <img src={uploaded_photo}/>
         </div>
         <Link href={`${!isUploaded ? `./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
             <div className='space-y-1'>
@@ -52,7 +52,8 @@ const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
             </div>
         </Link>
     </div> : 
-        <div className={`${!isVendor ? 'bg-white' : 'bg-[#1F204F]'} rounded-2xl w-[90vw] p-3 flex justify-center`}>
+        <div className={`${!isVendor ? 'bg-white' : 'bg-[#1F204F]'} rounded-2xl w-[90vw] p-3 `}>
+        <div className='flex justify-center w-full'>
         <div className={` ${isVendor ? 'bg-[#4C4D72] border-[#70718E]' :'bg-[#EEF1FF] border-[#D1D9FF]'} w-full  border border-2 border-dashed  rounded-xl py-3 space-y-3`}>
             <div className='flex justify-center'>
                 <Link href={`./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}`}>
@@ -66,13 +67,18 @@ const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
             Take a photo or upload from your photo library
             </div>
         </div>
+        </div>
+        
+        <div className='w-full flex justify-center'>
+        <Link href={`./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}`} className='py-2 px-5 text-[18px] my-2'>
+             Add another photo
+        </Link>
+        </div>
             
     </div>}
-    {/* <Link href={`./camera_filter_dynamic/${'dashboard_lights'}-${images.length+1}-${'dashboard_lights'}`} className='py-2 px-5 text-[18px] my-5'>
-             Add another photo
-        </Link> */}
+   
     </div>
   )
 }
 
-export default PhotoFrameService
+export default PhotoFrameServiceAdd

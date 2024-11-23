@@ -3,7 +3,8 @@ import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
-import { useRouter } from 'next/navigation';
+import PhotoFrame from '../components/PhotoFrame';
+import serviceRecords from '@/assets/ExampleImage.png' 
 import splash from '@/assets/icons/Rays-small.png'
 import { db, Image } from '../Local_DB/db';
 import { useAppContext } from '../Context';
@@ -13,12 +14,11 @@ import PhotoFrameService from '../components/PhotoFrameService';
 import PhotoFrameDynamic from '../components/PhotoFrameDynamic';
 import useEmblaCarousel from 'embla-carousel-react';
 import ExampleImage from '@/assets/ExamplePlaceHolder.png'
-import PhotoFrameServiceAdd from '../components/PhotoFrameServiceAdd';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 const ServiceRecordsCapture = () => {
     const Router = useRouter();
-    const [hasRenderedValidElement, setHasRenderedValidElement] = useState(false);
     const [images,setImages] = useState<Image[]>([]);
     const [car_no,setCar_no] = useState(0);
 
@@ -50,11 +50,6 @@ const ServiceRecordsCapture = () => {
         
     },[])
 
-    useEffect(() => {
-        // Check if at least one element in `images` satisfies the rendering condition
-        const hasValidImage = images.some(e => e.dynamic_image_number !== 100 && e.dynamic_image_number !== 101);
-        setHasRenderedValidElement(hasValidImage);
-    }, [images]);
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
@@ -71,9 +66,9 @@ const ServiceRecordsCapture = () => {
         const url:any = process.env.NEXT_PUBLIC_API_URL ;
         const token = localStorage.getItem('token');
         try {
-            if(images.length < 3){ 
+            if(images.length < 1){ 
                 alert('Please upload required images before proceeding')
-                return;
+                return; 
             }
     
           const response = await axios.post(`${url}/pwa/service_records`,  
@@ -89,18 +84,21 @@ const ServiceRecordsCapture = () => {
           console.log(response.status,response.data);  
           const car = Number(localStorage.getItem('car_no'));
               localStorage.setItem(`service_records_state_${car}`,'true');
-              if(localStorage.getItem('saletag')==='WholeSale'){
-                Router.push('./Submission7')
-              }else{
-                Router.push('./preview_car')
-              }
+          if(localStorage.getItem('saletag')==='WholeSale'){
+            Router.push('./Submission7')
+          }else{
+            Router.push('./preview_car')
+          }
         } catch (error) {
           console.error(error);
         }
       };
 
+
+
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full flex flex-col min-h-[100vh] justify-between`}>
+        <div>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./service_manuals_keys'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Service, Manuals and Keys</div>
@@ -126,28 +124,17 @@ const ServiceRecordsCapture = () => {
             </div>
         </div> 
 
-        {/* <div className='space-y-3 pt-7'>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords1 !== undefined} photo={ serviceRecords1 ? serviceRecords1 : serviceRecords}  link ='service_records1'/>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords2 !== undefined} photo={serviceRecords2 ? serviceRecords2 : serviceRecords} link ='service_records2'/>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords3 !== undefined} photo={serviceRecords3 ? serviceRecords3 :  serviceRecords} link ='service_records3'/>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords4 !== undefined} photo={serviceRecords4 ? serviceRecords4 : serviceRecords} link ='service_records4'/>
-    </div> */}
 
 
 
 <div className='space-y-3 pt-7'>
-            {!hasRenderedValidElement &&  
-                    <PhotoFrameServiceAdd image_name='service_records' Car_no={car_no} DynamicImageNo={1} Content='Service history' isUploaded={false} photo={ ExampleImage}  return_link ='service_records'/>
-
-            }
-        <div className="embla overflow-hidden mx-2">
-        <div className={`embla__viewport ${hasRenderedValidElement &&'bg-[#1F204F]'} rounded-xl pt-3`} ref={emblaRef}>
+            
+        <div className={`embla overflow-hidden ${images.length === 0 && 'bg-white'} rounded-xl mx-3`}>
+        <div className={`embla__viewport  rounded-xl pt-3 `} ref={emblaRef}>
           <div className="embla__container flex space-x-5">
 
           {images.map((e, i) => {
-                    return (
-                        e.dynamic_image_number !== 101 &&
-                        e.dynamic_image_number !== 100 && (
+                    return ( (
                             <div className="embla__slide" key={i}>
                                 <PhotoFrameService
                                     image_name="service_records"
@@ -162,7 +149,7 @@ const ServiceRecordsCapture = () => {
                         )
                     );
                 })}
-                {hasRenderedValidElement && (
+                { (
                     <PhotoFrameDynamic
                         image_name="service_records"
                         Car_no={car_no}
@@ -174,59 +161,41 @@ const ServiceRecordsCapture = () => {
                     />
                 )}
           </div>
-          {hasRenderedValidElement &&
-            <div className='w-full flex justify-center'>
-            <Link href={`./camera_filter_dynamic/${'service_records'}-${images.length+1}-${'service_records'}`} className='py-2 px-5 text-[18px] my-5'>
-                 Add another photo
-            </Link>
+          
+                {images.length === 0 &&
+                
+                <div>
+                <PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={1} Content='Service history' isUploaded={false} photo={ ExampleImage}  return_link ='service_records'/>
+
+                <div className='w-full flex justify-center'>
+                <Link href={`./camera_filter_dynamic/${'service_records'}-${images.length+1}-${'service_records'}`} className='py-2 px-5 text-[18px] my-5'>
+                    Add another photo
+                </Link>
+                </div>
             </div>
-          }
+                }
+          
         </div>
         
       </div>
             
         </div>
-        {/* <div className='w-full flex justify-center'>
-        <Link href={`./camera_filter_dynamic/${'service_records'}-${images.length+1}-${'service_records'}`} className='py-2 px-5 text-[18px] my-5'>
-             Add another photo
-        </Link>
-        </div> */}
+        </div>
 
 
 
 
-        
-     <div className='space-y-3 pt-7'>
-        
-         {/* <PhotoFrameService Content='Add service history' isUploaded={serviceRecords1 !== null} photo={ serviceRecords1 ? serviceRecords1 : serviceRecords}  link ='service_records1'/> */}
-         {images.some( e => e.dynamic_image_number === 100) ? images.map((e,i)=>{
-                return ( e.dynamic_image_number === 100 &&
-                    <div className="embla__slide "><PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Add manuals' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='service_records'/></div>
-                )    
-            }):
-            <PhotoFrameService Content='Add manuals' image_name='service_records' Car_no={car_no} DynamicImageNo={100} isUploaded={false} photo={  ExampleImage}  return_link ='service_records'/>
 
-            }
-         {images.some( e => e.dynamic_image_number === 101) ? images.map((e,i)=>{
-                return ( e.dynamic_image_number === 101 &&
-                    <div className="embla__slide "><PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Add keys' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='service_records'/></div>
-                )    
-            }):
-            <PhotoFrameService Content='Add keys' image_name='service_records' Car_no={car_no} DynamicImageNo={101} isUploaded={false} photo={ExampleImage}  return_link ='service_records'/>
-
-            }
-
-     </div>
     
         
 
         <div className='p-5'>
-                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
                         <img src={splash.src}/>
                     </div>
-                </div>
+                </Link>
         </div>
         
 
@@ -234,8 +203,4 @@ const ServiceRecordsCapture = () => {
   )
 }
 
-export default ServiceRecordsCapture
-
-
-
-       
+export default ServiceRecordsCapture 

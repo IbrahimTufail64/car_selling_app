@@ -58,6 +58,7 @@ const VehicleInterior = () => {
         // window.location.reload();
         
     },[])
+    
 
     const Router = useRouter();
         // request handler
@@ -77,7 +78,7 @@ const handleSubmit = async (event:any) => {
             return;
         }
 
-      const response = await axios.post(`${url}/vehicle_interior`,  
+      const response = await axios.post(`${url}/pwa/vehicle_interior`,  
         {
             formData,
             car_no: Number(localStorage.getItem('car_no')),

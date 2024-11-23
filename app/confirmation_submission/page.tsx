@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import underline from '@/assets/icons/underline.png'
 import "rc-slider/assets/index.css";
 import logo from '@/assets/Logo.png'
@@ -9,28 +9,47 @@ import { useAppContext } from '../Context';
 import splash from '@/assets/icons/Rays-small.png'
 import LogoWhite from '@/assets/LogoWhite.png'
 import alert from '@/assets/icons/AlertClear.png'
+import axios from 'axios';
 
 const Confirmation= () => {
     const [value, setValue] = useState(20); 
     const {isVendor} = useAppContext();
     const [carCount, setCarCount] = useState(0);
+    const [user_name,setuser_name] = useState('');
+    const [price,setprice] = useState(0);
 
-    const handleCarCountMinus =() =>{
-        if(carCount > 0){
-            setCarCount(carCount-1);
-        }
-    }
+      useEffect(()=>{ 
+        
+        setCarCount(Number(localStorage.getItem('car_no')))
+        const handleRequest = async () => { 
+            
 
-    const handleCarCountAdd =() =>{
-        if(carCount < 5){
-            setCarCount(carCount+1);
-        }
-    }
+        
+            const url:any = process.env.NEXT_PUBLIC_API_URL ;
+            console.log(url);
+            const token = localStorage.getItem('token'); 
+            try { 
+                const response = await axios.get(`${url}/pwa/confirmation_submission`, {
+                    headers: { 
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const data =  response.data;
+                console.log(response.data)
+                
+                // if(data.isWholeSale === "Wholesale"){
+                    // setsaleTag(data.tag)
+                    setuser_name(data.user_name);
+                    setprice(data.estimated_price);
+            } catch (error) {
+                //handle authentification
+              console.error(error);
+            }
+          };
 
-    const OnChangeEventTriggerd = (newValue:any) => {
-        console.log("new Value", newValue);
-        setValue(newValue);
-      };
+        handleRequest()
+    },[])
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full min-h-[100vh] overflow-hidden `}>
@@ -46,7 +65,7 @@ const Confirmation= () => {
                 
             </div>
             <div className='flex justify-center w-full text-[#675DF4] text-[26px] font-[450]'>
-            USER NAME
+            {user_name}
     
             </div>
             </>) :
@@ -66,8 +85,8 @@ const Confirmation= () => {
                     <div className='w-[100px] h-6 bg-white border border-secondary flex relative'>
                         <div className=' bg-[#3748EA] w-[15%] border border-t-2 border-white'>
                         </div>
-                        <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
-                            HW23BU
+                        <div className='text-black font-[600] w-[85%] absolute top-0 left-5 overflow-hidden'>
+                            {localStorage.getItem('userId')}
                         </div>
                     </div>
                 </div>
@@ -75,13 +94,13 @@ const Confirmation= () => {
                     <div className='pt-3 text-lg text-center'>Your estimated sales price</div>  
                 </div>
                 <div className='text-[46px] font-[400] relative text-center w-full'>
-                    <div className='font-[500]'>£ 11,750</div>
+                    <div className='font-[500]'>£ {price}</div>
                     <div className='w-full flex justify-center'>
                     <img src={underline.src} className=''/>
                     </div>
                     {isVendor && 
                     <div className='w-full flex justify-center mt-3 text-[12px] text-[#99F22B] underline'><Link href='#'>I don’t want to proceed with this car</Link></div>}
-                    <div className='w-full flex justify-center mt-6'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>Quick Sale</div></div>
+                    <div className='w-full flex justify-center mt-6'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{localStorage.getItem('saletag')}</div></div>
                 </div>
                 
                 </div>
@@ -146,7 +165,7 @@ const Confirmation= () => {
         </div>
     <div className='p-5 pt-3  flex justify-center w-full bottom-2'>
                 <div className='w-[90vw]'>
-                <Link href='./Submission2' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-[13px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href='./confirmation_upload' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-[13px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div className='whitespace-nowrap'>Verify my price</div>
                         <img src={splash.src}/>

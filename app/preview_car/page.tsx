@@ -16,6 +16,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import PreviewPhotos from '../components/PreviewPhotos';
 import PreviewCarCompDynamic from '../components/PreviewCarCompDynamic';
 import SliderPreview from '../components/Slider';
+import axios from 'axios';
 
 
 const VehicleExterior = () => {
@@ -33,13 +34,83 @@ const VehicleExterior = () => {
     const [car_no, setcar_no] = useState(0);
     const [preview_car,setpreview_car] = useState();
     const [previewPhotos,setPreviewPhotos] = useState(false);
+    const [video_state,setvideo_state] = useState(true);
+
+    const [about_info,setabout_info] = useState<any[]>([]);
+    const [index, setIndex] = useState(0);
+    const [key,setKey] = useState('');
+    const [elements,setElements] = useState<any[]>([])
 
     const [vehicle_video, setvehicle_video]  = useState<any>(null);
+
+    const handleAdd = ()=>{
+        if(index < about_info[21].length){
+            const key = Object.keys(about_info[21][index+1])[0];
+            const elements = about_info[21][index+1][key] ;
+            setElements(elements);
+            setKey(key);
+            
+            setIndex(index+1);
+
+        }
+    }
+    const handleMinus = ()=>{
+        if(index > 0){
+            const key = Object.keys(about_info[21][index-1])[0];
+            const elements = about_info[21][index-1][key] ;
+            setElements(elements);
+            setKey(key);
+            
+            setIndex(index-1);
+        }
+    }
 
     useEffect(()=>{
         setcar_no(Number(localStorage.getItem("car_no")))
         setvehicle_video(localStorage.getItem(`videoData_${Number(localStorage.getItem("car_no"))}`));
         
+    },[])
+
+    useEffect(()=>{ 
+        
+        setCarCount(Number(localStorage.getItem('car_no')))
+        const handleRequest = async () => { 
+            
+
+        
+            const url:any = process.env.NEXT_PUBLIC_API_URL ;
+            console.log(url);
+            const token = localStorage.getItem('token');
+            try { 
+                const response = await axios.get(`${url}/pwa/preview_car`, {
+                    headers: { 
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const data =  response.data;
+                console.log(response.data);
+                const paramsArray = Object.keys(data).map(key => data[key]);
+                console.log('yay',paramsArray);
+                setabout_info(paramsArray);
+                localStorage.setItem('userId',paramsArray[20]);
+                const key = Object.keys(paramsArray[21][index])[0];
+                const elements = paramsArray[21][index][key] ;
+                console.log(elements)
+                setElements(elements);
+                setKey(key);
+                
+                // if(data.isWholeSale === "Wholesale"){
+                    // setsaleTag(data.tag)
+                    // localStorage.setItem('saletag',data.tag);
+
+            } catch (error) {
+                //handle authentification
+              console.error(error);
+            }
+          };
+
+        handleRequest()
     },[])
 
     const [carCount, setCarCount] = useState(0);
@@ -124,31 +195,31 @@ const VehicleExterior = () => {
             <div className={` ${isVendor ? 'bg-[#1F204F] ' : 'bg-white '} rounded-2xl w-[90vw] p-3 flex justify-center`}>
             <div className={`w-full ${isVendor ? 'bg-[#4C4D72] border-[#70718E]' : 'bg-secondary border-[#D3D4FD]'}  border border-2 border-dashed  rounded-xl py-3 space-y-3`}>
                 <div className='flex justify-center w-full'>
-                    <img src={logocarbrand.src} className='max-w-20'/>
+                    <img src={elements[4]} className='w-20 h-20 object-cover rounded-full'/>
                 </div>
                 <div className='flex justify-center w-full mt-5'>
                     <div className={`w-[100px] h-6 bg-white border ${!isVendor ? 'border-black' : 'border-secondary'} flex relative`}>
                         <div className=' bg-[#3748EA] w-[15%] p-t-2'>
                         </div>
-                        <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
-                            HW23BU
+                        <div className='text-black font-[600] w-[85%] overflow-hidden absolute top-0 left-5'>
+                            {about_info[20]}
                         </div>
                     </div>
                 </div>
 
                 <div className='flex justify-center w-full font-[500] text-[24px]'>
-                Volkswagen Golf S
+                    {/* { about_info.length > 1 && Object.keys(about_info[21][index])[0]} */ key}
                 </div>
 
                 <div className='flex justify-center w-full'>
                                     <div className='flex justify-between w-[80%]'>
-                                    <div className=''>2009</div>
+                                    <div className=''>{elements[0]}</div>
                                     <div className='h-[20px] w-[1px] mt-[1px] bg-secondary'></div>
-                                    <div className=''>Blue</div>
+                                    <div className=''>{elements[1]}</div>
                                     <div className='h-[20px] w-[1px] mt-[1px] bg-secondary'></div>
-                                    <div className=''>Hatchback</div>
+                                    <div className=''>{elements[2]}</div>
                                     <div className='h-[20px] w-[1px] mt-[1px] bg-secondary'></div>
-                                    <div > Petrol</div>
+                                    <div > {elements[3]}</div>
                                     </div>
                 </div>
             </div>
@@ -156,20 +227,20 @@ const VehicleExterior = () => {
         </div>
 
         {isVendor && <div className='flex w-full justify-center my-6 mb-2 space-x-3'>
-                        <div onClick={handleCarCountMinus} className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
+                        <div onClick={handleMinus} className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
                             <IoChevronBack size={25}/>
                         </div>
 
                         <div className='flex'>
                         <div className='text-[28px]'>
-                            0{carCount}/
+                            0{index+1}/
                         </div>
                         <div className='opacity-40 text-[20px] pl-2 pt-2'>
-                            05
+                            0{about_info[21].length}
                         </div>
                         </div>
 
-                        <div  onClick={handleCarCountAdd}  className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
+                        <div  onClick={handleAdd}  className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
                             <IoChevronBack size={25} className='rotate-180'/>
                         </div>
                     </div>}
@@ -188,23 +259,23 @@ const VehicleExterior = () => {
                 <div className={`${!aboutyou && 'hidden'}`}>
                 <div className='px-2 py-3 flex justify-between'>
                     <div>Owner</div>
-                    <div>-</div>
+                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[0]}</div>
                 </div>
                 <div className='px-2 py-3 flex justify-between'>
                     <div>Address</div>
-                    <div>-</div>
+                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[1]}</div>
                 </div>
-                <div className='px-2 py-3 flex justify-between'>
+                <div className='px-2 py-3 flex justify-between  space-x-3'>
                     <div>Email</div>
-                    <div>No</div>
+                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[2]}</div>
                 </div>
-                <div className='px-2 py-3 flex justify-between'>
+                <div className='px-2 py-3 flex justify-between  space-x-3'>
                     <div>Phone Number</div>
-                    <div>No</div>
+                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[3]}</div>
                 </div>
-                <div className='px-2 py-3 flex justify-between'>
+                <div className='px-2 py-3 flex justify-between  space-x-3'>
                     <div>Collection notes</div>
-                    <div>Yes</div>
+                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[4]}</div>
                 </div>
                 </div>
                 
@@ -225,66 +296,66 @@ const VehicleExterior = () => {
                 </div>
                 
                 <div className={`${!aboutyourvehicle && 'hidden'}`}>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Specifications</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Registration</div>
-                    <div>Panoramic roof</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Make</div>
-                    <div>Faux lather</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Model</div>
-                    <div>No</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Year</div>
-                    <div>No</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Mileage</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Color</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Body</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Fuel Status</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Keys on hand</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Tool pack status</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Locking nut status</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Seat type</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Finance status</div>
-                    <div>Yes</div>
-                </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Smoking status</div>
-                    <div>Yes</div>
-                </div>
+                <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Specifications</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[5]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Registration</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[6]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Make</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[7]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Model</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[8]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Year</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[9]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Mileage</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[10]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Color</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[11]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Body</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[12]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Fuel Status</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[13]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Keys on hand</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[14]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Tool pack status</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[15]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Locking nut status</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[16]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Seat type</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[17]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Finance status</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[18]}</div>
+  </div>
+  <div className='px-2 py-3 flex justify-between  space-x-3'>
+    <div>Smoking status</div>
+    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[19]}</div>
+  </div>
 
                 
                 </div>
@@ -392,7 +463,7 @@ const VehicleExterior = () => {
                 <div className={`${!vehiclephotos && 'hidden'}`}>
                     
                     {/* <PreviewCarComp4 title='Vehicle service history' Array={['service_records1','service_records2','service_records3','service_records4']}/> */}
-                    
+                    <PreviewCarCompDynamic query='service_records' title='Vehicle service history'  />
 
                 </div>
                 
@@ -406,13 +477,13 @@ const VehicleExterior = () => {
                 <div className='w-[90%]'>
                 <div className='flex justify-between w-full mx-2 px-1 border border-b border-[#D3D4FD] border-0 pb-2'>
                     <div className='pt-[4px] text-lg font-[500]'>Vehicle video</div>
-                    <div onClick={()=>setvehiclephotos(!vehiclephotos)}>
-                        <img src={arrow.src} className={`w-7 ${!vehiclephotos && 'rotate-180'}`}/>
+                    <div onClick={()=>setvideo_state(!video_state)}>
+                        <img src={arrow.src} className={`w-7 ${!video_state && 'rotate-180'}`}/>
                     </div>
                     
                 </div>
                 
-                <div className={`${!vehiclephotos && 'hidden'}`}>
+                <div className={`${!video_state && 'hidden'}`}>
                     
                 <video src={vehicle_video} controls className=' object-cover w-full rounded-xl p-1 ml-2 mt-5'/>
                     
@@ -434,11 +505,11 @@ const VehicleExterior = () => {
         </div>
 
         <div className='p-5 pt-0'>
-                <button  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link href='Submission7' className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div>Edit</div>
+                        <div>Back</div>
                     </div>
-                </button>
+                </Link>
         </div>
         
         {previewPhotos && <PreviewPhotos/>}

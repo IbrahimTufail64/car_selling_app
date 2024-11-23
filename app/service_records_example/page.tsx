@@ -52,7 +52,7 @@ const ServiceExample = () => {
         </div>
 
         <div className='p-5'>
-                <Link href='./service_records' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href={`${isVendor ? './service_records' : './service_records_customer'}`} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Add Documents</div>
                         <img src={splash.src}/>
@@ -61,7 +61,7 @@ const ServiceExample = () => {
         </div>
 
         <div className='p-5 pt-0'>
-                <Link href='./Submission7' className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link href='./service_manuals_keys' className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Previous</div>
                     </div>

@@ -114,20 +114,20 @@ const Confirmation= () => {
 
         </div>
         <div className='p-5'>
-                <div   className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href='./Submission7'   className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Next Vehicle</div>
                         <img src={splash.src}/>
                     </div>
-                </div>
+                </Link>
         </div>
 
         <div className='p-5 pt-0'>
-                <button  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link href='#'  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Dashboard</div>
                     </div>
-                </button>
+                </Link>
         </div>
    
     </div>
@@ -135,6 +135,8 @@ const Confirmation= () => {
 }
 
 export default Confirmation
+
+// onClick={()=>localStorage.setItem('car_no',String(Number(localStorage.getItem('car_no'))+1))}
 
 
 

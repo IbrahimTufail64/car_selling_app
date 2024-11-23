@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import icon from '@/assets/icons/Iconbutton.png'
-import serviceRecords from '@/assets/ServiceRecords.png'
+import serviceRecords from '@/assets/ExamplePlaceHolder.png' 
 import splash from '@/assets/icons/Rays-small.png'
 import { db} from '../Local_DB/db';
 import { useAppContext } from '../Context';
@@ -64,7 +64,7 @@ const ServiceRecords = () => {
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[26px]'>
-            <Link  href='./service_records'><IoChevronBack size={28} className='mt-[5px]'/></Link>
+            <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[5px]'/></Link>
             <div>Service, Manuals and Keys</div>
         </div>
         
@@ -158,28 +158,28 @@ const ServiceRecords = () => {
             <div className='text-[22px] w-full pl-5 mt-10'>Examples</div>
             <div className='w-full flex justify-center'>
                 <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-                    <img src={serviceRecords.src} className='rounded-lg'/>
+                    <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
                     <div className='px-3'>Above image title</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-            <img src={serviceRecords.src} className='rounded-lg'/>
+            <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
                     <div className='px-3'>Above image title</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-            <img src={serviceRecords.src} className='rounded-lg'/>
+            <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
                     <div className='px-3'>Above image title</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-            <img src={serviceRecords.src} className='rounded-lg'/>
+            <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
                     <div className='px-3'>Above image title</div>
                 </div>
             </div>
@@ -193,7 +193,7 @@ const ServiceRecords = () => {
         
 
         <div className='p-5'>
-                <Link href='./service_records' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href={`${isVendor ? './service_records' : './service_records_customer'}`} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
                         <img src={splash.src}/>
@@ -202,11 +202,11 @@ const ServiceRecords = () => {
         </div>
 
         <div className='p-5 pt-0'>
-                <button  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link href={isVendor && localStorage.getItem('saletag')==='WholeSale' ? './Submission7':'./preview_car'} onClick={()=>{localStorage.setItem(`service_records_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>No service record</div>
                     </div>
-                </button>
+                </Link>
         </div>
         
 
