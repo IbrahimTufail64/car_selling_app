@@ -11,15 +11,17 @@ import LogoWhite from '@/assets/LogoWhite.png'
 import alert from '@/assets/icons/AlertClear.png'
 import axios from 'axios';
 
-const Confirmation= () => {
-    const [value, setValue] = useState(20); 
+const Confirmationdfagagd= () => {
+    const [userId, setuserId] = useState('');
+    const [saletag,setsaletag] = useState('');
     const {isVendor} = useAppContext();
     const [carCount, setCarCount] = useState(0);
     const [user_name,setuser_name] = useState('');
     const [price,setprice] = useState(0);
 
       useEffect(()=>{ 
-        
+        setuserId(String(localStorage.getItem('userId')));
+        setsaletag(String(localStorage.getItem('saletag')))
         setCarCount(Number(localStorage.getItem('car_no')))
         const handleRequest = async () => { 
             
@@ -29,7 +31,7 @@ const Confirmation= () => {
             console.log(url);
             const token = localStorage.getItem('token'); 
             try { 
-                const response = await axios.get(`${url}/pwa/confirmation_submission`, {
+                const response = await axios.get(`${url}/pwa/dfagagd_submission`, {
                     headers: { 
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -86,7 +88,7 @@ const Confirmation= () => {
                         <div className=' bg-[#3748EA] w-[15%] border border-t-2 border-white'>
                         </div>
                         <div className='text-black font-[600] w-[85%] absolute top-0 left-5 overflow-hidden'>
-                            {localStorage.getItem('userId')}
+                            {userId}
                         </div>
                     </div>
                 </div>
@@ -100,7 +102,7 @@ const Confirmation= () => {
                     </div>
                     {isVendor && 
                     <div className='w-full flex justify-center mt-3 text-[12px] text-[#99F22B] underline'><Link href='#'>I don’t want to proceed with this car</Link></div>}
-                    <div className='w-full flex justify-center mt-6'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{localStorage.getItem('saletag')}</div></div>
+                    <div className='w-full flex justify-center mt-6'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{saletag}</div></div>
                 </div>
                 
                 </div>
@@ -180,4 +182,4 @@ const Confirmation= () => {
   )
 }
 
-export default Confirmation
+export default Confirmationdfagagd

@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import icon from '@/assets/icons/Iconbutton.png'
 import Link from 'next/link';
 import { useAppContext } from '../Context';
@@ -11,11 +11,17 @@ import emailW from '@/assets/icons/email.png'
 import phoneD from '@/assets/icons/phoneDark.png'
 import emailD from '@/assets/icons/emailDark.png'
 
-const Confirmation= () => {
+const Confirmationadfasdf= () => {
     const {isVendor} = useAppContext();
     const phone = isVendor ? phoneD : phoneW;
     const email = isVendor ? emailD : emailW;
+    
+    const [saletag,setsaletag] = useState('');
 
+    useEffect(()=>{  
+        // setuserId(String(localStorage.getItem('userId')));
+        setsaletag(String(localStorage.getItem('saletag'))) 
+    },[])
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full min-h-[100vh] overflow-hidden flex flex-col  justify-between relative`}>
         <div className='absolute top-0 scale-x-[-1] w-full'>
@@ -115,7 +121,7 @@ const Confirmation= () => {
         </div>
         <div className='p-5 pt-3  flex justify-center w-full bottom-2'>
                 <div className='w-[90vw]'>
-                <Link href={`${localStorage.getItem('saletag') === 'WholeSale' ? './confirmation_upload2':'#'}`} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-[13px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href={`${saletag === 'WholeSale' ? './confirmation_upload2':'#'}`} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-[13px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div className='whitespace-nowrap'>Finish listing</div>
                         <img src={splash.src}/>
@@ -128,4 +134,4 @@ const Confirmation= () => {
   )
 }
 
-export default Confirmation
+export default Confirmationadfasdf
