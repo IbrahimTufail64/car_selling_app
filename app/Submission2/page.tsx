@@ -96,12 +96,14 @@ const Submission2 = () => {
       const [carCount, setCarCount] = useState(1);
     const handleCarCountMinus =() =>{
         if(carCount > 1){
+            localStorage.setItem('car_no',String(carCount-1));
             setCarCount(carCount-1);
         }
     }
 
     const handleCarCountAdd =() =>{
         if(carCount < estimatedPrice.length){
+            localStorage.setItem('car_no',String(carCount+1));
             setCarCount(carCount+1);
         }
     }
@@ -197,7 +199,7 @@ const Submission2 = () => {
 
         
 
-        {(isVendor && saleTag=== "Wholesale") && <div className='flex w-full justify-center mb-7 space-x-3'>
+        {(isVendor && saleTag=== "WholeSale") && <div className='flex w-full justify-center mb-7 space-x-3'>
                         <div onClick={handleCarCountMinus} className='w-12 h-12 bg-secondaryDark flex justify-center items-center rounded-full border border-[1px] border-[#424375]'>
                             <IoChevronBack size={25}/>
                         </div>

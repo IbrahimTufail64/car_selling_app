@@ -31,8 +31,11 @@ const Submission7 = () => {
     const [userId,setUserId] = useState('');
 
     useEffect(()=>{ 
-        
-        setCarCount(Number(localStorage.getItem('car_no')))
+        // localStorage.removeItem('car_no');
+        const car_no = Number(localStorage.getItem('car_no'));
+        car_no === 0 ? localStorage.setItem('car_no','1') : car_no;
+
+        setCarCount(car_no === 0 ? 1 : car_no)
         const handleRequest = async () => { 
             
 
