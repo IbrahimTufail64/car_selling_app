@@ -12,7 +12,7 @@ const PreviewCarCompSlider = ({toRetrieve, setcurrentcar,current}:{current:undef
     
     useEffect(()=>{ 
         
-
+        
         const retrieve = async (image_to_retrieve:number,setter_function :React.Dispatch<any>)=>{
             try{
                 const car_no = Number(localStorage.getItem('car_no'));
