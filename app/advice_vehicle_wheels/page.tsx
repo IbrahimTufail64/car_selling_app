@@ -12,6 +12,8 @@ import phoneD from '@/assets/icons/phoneDark.png'
 import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context';
+import splash from '@/assets/icons/Rays-small.png'
+
 
 const SmartAdvice = () => {
 
@@ -23,7 +25,7 @@ const SmartAdvice = () => {
   return (
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <Link  href={`./vehicle_wheels`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
+            <Link  href={`./vehicle_photos`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>smart advice</div>
         </div>
 
@@ -89,6 +91,15 @@ const SmartAdvice = () => {
              </div>
             </div>
           </div>
+        </div>
+
+        <div className='p-5'>
+                <Link href='./camera_filter/back_driver_wheel' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
+                        <img src={splash.src}/>
+                    </div>
+                </Link>
         </div>
 
     </div>

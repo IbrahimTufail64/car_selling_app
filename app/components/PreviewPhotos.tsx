@@ -5,9 +5,11 @@ import PreviewPhoto from './PreviewPhoto'
 import { IoChevronBack } from 'react-icons/io5'
 import { db, Image } from '../Local_DB/db'
 import { useRouter } from 'next/navigation';
+import { useAppContext } from '../Context'
 
 const PreviewPhotos = () => {
     const Router = useRouter();
+    const {isVendor} = useAppContext();
     const [carCount, setCarCount] = useState(0); 
     const [index,setIndex] = useState([0,0]);
     const [currentPhoto, setCurrentPhoto] = useState('dashboard');
@@ -57,6 +59,7 @@ const PreviewPhotos = () => {
     console.log(Photos[index[0]][index[1]])
 
     useEffect(() => {  
+        
         const car_number = Number(localStorage.getItem('car_no'));
         const retrieve = async ( setter_function: React.Dispatch<React.SetStateAction<Image[]>>) => {
           try {
@@ -73,7 +76,7 @@ const PreviewPhotos = () => {
         retrieve( setImages);
       }, []);
   return (
-    <div>
+    <div className={`${!isVendor && 'text-white'}`}>
         <div className='absolute top-0'>
             <img src={blurBG.src} className='w-[100vw] h-full'/>
         </div>

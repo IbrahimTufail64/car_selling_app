@@ -43,19 +43,19 @@ const VehiclePhotos = () => {
         </div>
         <div className='space-y-4 px-4'>
           <div className='mb-4'>
-          <Link href='./vehicle_exterior'>
+          <Link href='./advice_exterior'>
             <Field isComplete={exteriorState} Content={'Vehicle exterior'}/>
           </Link>
           </div>
           
           <div className='mb-4'>
-          <Link href={`${exteriorState ? './vehicle_interior' : '#'}`}>
+          <Link href={`${exteriorState ? './advice_interior' : '#'}`}>
           <Field isComplete={interiorState} Content={'Vehicle interior'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${interiorState ? './vehicle_wheels' : '#'}`}>
+          <Link href={`${interiorState ? './advice_vehicle_wheels' : '#'}`}>
           <Field isComplete={wheelsTyresState} Content={'Your wheels & typres'}/>
           </Link>
           </div>

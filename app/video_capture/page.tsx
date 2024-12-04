@@ -3,9 +3,11 @@ import Link from 'next/link';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Alert from '@/assets/icons/Alert_white.png';
 import { db } from "@/app/Local_DB/db";
+import logo from '@/assets/Logo.png'
 
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
+import { IoChevronBack } from 'react-icons/io5';
 
 const VideoCapture: React.FC = () => {
     const [recording, setRecording] = useState<boolean>(false);
@@ -97,6 +99,7 @@ const VideoCapture: React.FC = () => {
         const reader = new FileReader();
         reader.onloadend = () => {
             const base64data = reader.result as string;
+            console.log(base64data);
             try {
                 const car_no = Number(localStorage.getItem('car_no'));
                 window.localStorage.setItem(`videoData_${car_no}`, base64data);
@@ -110,7 +113,8 @@ const VideoCapture: React.FC = () => {
     }, [recordedChunks]);
 
     return (
-        <div className='bg-[#282828] flex h-[100vh] overflow-hidden px-5'>
+        <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
+<div className='bg-[#282828] flex h-[100vh] overflow-hidden px-5 fixed'>
             <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
                 <Link href='./vehicle_video'>Exit</Link>
                 <Link href='#'>
@@ -129,9 +133,9 @@ const VideoCapture: React.FC = () => {
 
             {/* Popup */}
             {showPopup && (
-                <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+                <div className='fixed inset-0 text-black bg-black bg-opacity-50 flex items-center justify-center z-50'>
                     <div className='bg-white p-6 rounded-lg text-center'>
-                        <p className='text-lg font-semibold mb-4'>Recording stopped successfully!</p>
+                        <p className='text-lg font-semibold mb-4 '>Recording stopped successfully!</p>
                         <button
                             className='bg-gray-200 rounded-full px-5 py-2 mr-2'
                             onClick={() => setShowPopup(false) }
@@ -149,7 +153,30 @@ const VideoCapture: React.FC = () => {
                 </div>
             )}
         </div>
+        <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
+            <div>
+            <div className=' '>
+            <img src={logo.src} className=''/>
+            </div>
+
+            <div className='pt-5 '>
+                ... And scroll down
+            </div>
+            <div className='flex justify-center w-full pt-5 '>
+                <div className='space-y-[-20px]'>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+    </div>
     );
 };
 
 export default VideoCapture;
+
+
+

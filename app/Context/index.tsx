@@ -30,9 +30,10 @@ export function AppWrapper({
                   Authorization: `Bearer ${token}`
               }
           });
-          if(isVendor === null){
+          if(isVendor === null || !localStorage.getItem('isVendor')){
 
             setIsVendor(response.data.isVendor);
+            localStorage.setItem('isVendor',response.data.isVendor);
           }
           console.log(response.data);
       } catch (error:any) {

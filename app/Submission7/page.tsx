@@ -266,7 +266,7 @@ const Submission7 = () => {
                                 (isVendor && saleTag === 'WholeSale') &&
                                 (
                                     <div>
-                                        <Link href={`${serviceRecordsState ? './vehicle_video' : '#'}`}>
+                                        <Link href={`${serviceRecordsState ? './advice_vehicle_video' : '#'}`}>
                                     <Field isComplete={vehicle_video} Content={'Vehicle video'} />
                                     </Link> 
                                         </div>
@@ -276,7 +276,7 @@ const Submission7 = () => {
                                 !isVendor && (
                                     <div>
                                         <Link href={`${vehiclePhotosState ? './service_manuals_keys' : '#'}`}>
-                                    <Field isComplete={serviceRecordsState  === 'true'} Content={'Service records'} />
+                                    <Field isComplete={serviceRecordsState} Content={'Service records'} />
                                     </Link> 
                                         </div>
                                 )

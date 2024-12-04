@@ -31,7 +31,7 @@ const Confirmationdfagagd= () => {
             console.log(url);
             const token = localStorage.getItem('token'); 
             try { 
-                const response = await axios.get(`${url}/pwa/dfagagd_submission`, {
+                const response = await axios.get(`${url}/pwa/confirmation_submission`, {
                     headers: { 
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`

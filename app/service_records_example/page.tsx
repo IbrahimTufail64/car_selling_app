@@ -52,7 +52,7 @@ const ServiceExample = () => {
         </div>
 
         <div className='p-5'>
-                <Link href={`${isVendor ? './service_records' : './service_records_customer'}`} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href={`${isVendor ? '././camera_filter_dynamic/service_records-1-service_records' : './camera_filter_dynamic/service_records-1-service_records_customer'}`} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Add Documents</div>
                         <img src={splash.src}/>

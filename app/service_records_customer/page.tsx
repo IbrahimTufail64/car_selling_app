@@ -84,7 +84,11 @@ const ServiceRecordsCapture = () => {
           console.log(response.status,response.data);  
           const car = Number(localStorage.getItem('car_no'));
               localStorage.setItem(`service_records_state_${car}`,'true');
-          if(localStorage.getItem('saletag')==='WholeSale'){
+          
+        if(!isVendor){
+                Router.push('./preview_car')
+        }
+        else if(localStorage.getItem('saletag')==='WholeSale'){
             Router.push('./Submission7')
           }else{
             Router.push('./preview_car')
@@ -143,7 +147,7 @@ const ServiceRecordsCapture = () => {
                                     Content="Service history"
                                     isUploaded={e !== null}
                                     photo={e ? e.data : ExampleImage}
-                                    return_link="service_records"
+                                    return_link="service_records_customer"
                                 />
                             </div>
                         )
@@ -157,7 +161,7 @@ const ServiceRecordsCapture = () => {
                         Content="Title here"
                         isUploaded={false}
                         photo={ExampleImage}
-                        return_link="service_records"
+                        return_link="service_records_customer"
                     />
                 )}
           </div>
@@ -165,7 +169,7 @@ const ServiceRecordsCapture = () => {
                 {images.length === 0 &&
                 
                 <div>
-                <PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={1} Content='Service history' isUploaded={false} photo={ ExampleImage}  return_link ='service_records'/>
+                <PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={1} Content='Service history' isUploaded={false} photo={ ExampleImage}  return_link="service_records_customer"/>
 
                 <div className='w-full flex justify-center'>
                 <Link href={`./camera_filter_dynamic/${'service_records'}-${images.length+1}-${'service_records'}`} className='py-2 px-5 text-[18px] my-5'>
@@ -190,12 +194,12 @@ const ServiceRecordsCapture = () => {
         
 
         <div className='p-5'>
-                <Link href='./Submission2' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
                         <img src={splash.src}/>
                     </div>
-                </Link>
+                </div>
         </div>
         
 

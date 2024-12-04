@@ -62,6 +62,8 @@ const Filter = ({ params }: { params: { slug: string } }) => {
       try{
         const imageSrc = webcamRef.current.getScreenshot();
         console.log(imageSrc,'added finally');
+        const audio = new Audio('https://media.vocaroo.com/mp3/1jSNptuNuLGn'); // Replace with your audio file path or URL
+        audio.play();
         await addImage(imageSrc);
 
         const damage_slides = ['surface_marks','panel_damage','exterior_wear_tear'];
@@ -83,8 +85,28 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     }, [webcamRef]);
 
   return (
-    <div className='bg-[#282828] w-full   text-white pt-6 text-[20px]'>
-        <div className='flex justify-center w-full h-[100vh]'>
+    <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
+        <div className='bg-[#282828] h-[100vh] overflow-hidden flex fixed'>
+        
+        <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
+            <Link href={`../${returnLink}`} >
+                Exit 
+            </Link>
+            <Link href='#'>
+                <img src={Alert.src} className='w-10 '/> 
+            </Link>
+        </div>
+        <div className='flex justify-center items-center h-full relative mt-[-30px]'>
+        
+        <WebcamCapture webcamRef={webcamRef}/>
+        </div>
+        <div className='w-[10vw]'>
+            <div className='flex w-[10vw] justify-center  items-center h-full relative'>
+                <button className='bg-[#1E201D] rounded-full border border-1 border-secondary w-[60px] h-[60px] cursor-pointer' onClick={()=>{capture()}}></button>
+            </div>
+        </div>
+    </div>
+        <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
             <div>
             <div className=' '>
             <img src={logo.src} className=''/>
@@ -102,26 +124,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
             </div>
             </div>
         </div>
-        <div className='bg-[#282828] h-[100vh] overflow-hidden flex '>
         
-        <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
-            <Link href='#' >
-                Exit 
-            </Link>
-            <Link href='#'>
-                <img src={Alert.src} className='w-10 '/> 
-            </Link>
-        </div>
-        <div className='flex justify-center items-center h-full relative'>
-        
-        <WebcamCapture webcamRef={webcamRef}/>
-        </div>
-        <div className='w-[10vw]'>
-            <div className='flex w-[10vw] justify-center  items-center h-full relative'>
-                <button className='bg-[#1E201D] rounded-full border border-1 border-secondary w-[60px] h-[60px] cursor-pointer' onClick={()=>{capture()}}></button>
-            </div>
-        </div>
-    </div>
     </div>
   )
 }

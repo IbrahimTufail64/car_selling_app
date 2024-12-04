@@ -54,7 +54,7 @@ const VehicleExterior = () => {
         retrieve('front_passenger',setfrontPimg);
         retrieve('back_driver',setbackDimg);
         retrieve('back_passenger',setbackPimg);
-        alert('You may need to reload if your image does not appear');
+        // alert('You may need to reload if your image does not appear');
         // window.location.reload();
         
     },[])
@@ -83,6 +83,7 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
+        Router.push('./vehicle_photos')
 
       const response = await axios.post(`${url}/pwa/vehicle_exterior`,  
         {
@@ -99,7 +100,7 @@ const handleSubmit = async (event:any) => {
       localStorage.setItem(`vehicle_exterior_state_${car}`,'true');
     //   localStorage.setItem(`vehicle_interior_state_${car}`,'false');
 
-      Router.push('./vehicle_photos')
+      console.log('uploaded now...')
     } catch (error) {
         // localStorage.setItem('vehicle_exterior_state','true');
       console.error(error);

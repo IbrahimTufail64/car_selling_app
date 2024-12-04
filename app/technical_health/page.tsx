@@ -33,6 +33,10 @@ const TechnicalHealth = () => {
                 alert('Please enter a description before submitting!')
                 return;
             }
+            const car = Number(localStorage.getItem('car_no'));
+              localStorage.setItem(`technical_state_${car}`,'true');
+            Router.push('./vehicle_health_selection')
+
             const image = await db.images.where('name').equals('technicals').first();
             if (image !== undefined) {
                 await db.images.where('name').equals('technicals').modify({
@@ -59,9 +63,7 @@ const TechnicalHealth = () => {
                       }
               });
               console.log(response.status,response.data);  
-              const car = Number(localStorage.getItem('car_no'));
-              localStorage.setItem(`technical_state_${car}`,'true');
-            Router.push('./vehicle_health_selection')
+              
         } catch (error) {
             console.log(error);
         }
@@ -69,7 +71,8 @@ const TechnicalHealth = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full h-[100vh] `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] flex flex-col justify-between`}>
+        <div>
         <div className='p-5 flex space-x-2 text-[22px] pt-10'>
             <Link  href='./vehicle_health_selection'><IoChevronBack size={35} className='mt-[1px]'/></Link>
             <div className='space-y-[-3px]'>
@@ -129,8 +132,9 @@ const TechnicalHealth = () => {
                     />
                 </div>
             </div>
+        </div>
 
-            <div className='p-5 absolute bottom-0 w-full'>
+            <div className='p-5 bottom-0 w-full'>
                 <div onClick={()=>addData()} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>

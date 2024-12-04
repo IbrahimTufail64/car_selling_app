@@ -23,7 +23,7 @@ const SurfaceMarks = () => {
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
-        <Link  href='./surface_marks'><IoChevronBack size={28} className='mt-[3px]'/></Link>
+        <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Surface marks</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
@@ -77,7 +77,7 @@ const SurfaceMarks = () => {
         
 
         <div className='p-5'>
-                <Link href='./surface_marks' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href='./camera_filter_dynamic/surface_marks-1-surface_marks-dynamic' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
                         <img src={splash.src}/>
@@ -86,11 +86,11 @@ const SurfaceMarks = () => {
         </div>
 
         <div className='p-5 pt-0'>
-                <button  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`surface_marks_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>No Marks</div>
                     </div>
-                </button>
+                </Link>
         </div>
         
 

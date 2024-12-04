@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
@@ -30,6 +30,7 @@ import FrontDriverTyreV from '@/assets/FrontDriverTyreVendor.png'
 import FrontPassengerWheelV from '@/assets/FrontPassengerWheelVendor.png'
 import FrontPassengerTyreV from '@/assets/FrontPassengerTyre.png'
 import axios from 'axios';
+import { useTimeout } from 'react-use';
 
 
 const VehicleWheels = () => {
@@ -57,15 +58,23 @@ const VehicleWheels = () => {
     const FrontPassengerWheel = isVendor ? FrontPassengerWheelV : FrontPassengerWheelC;
     const FrontPassengerTyre = isVendor ? FrontPassengerTyreV : FrontPassengerTyreC;
 
+    // const divRefs = useRef<any>([]); 
+    const divRefs:any = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)];
+    
     // Search for images in the db: 
     useEffect(()=>{
 
+      let counter = 0;
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
               const car_no = Number(localStorage.getItem('car_no'));
               const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                 
                 setter_function(image?.data);
+                if(image?.data){
+                  
+                  counter ++;
+                }
             }
             catch(e){
                 
@@ -80,12 +89,21 @@ const VehicleWheels = () => {
         retrieve('front_driver_tyre',setfront_driver_tyre_img);
         retrieve('front_passenger_wheel',setfront_passenger_wheel_img);
         retrieve('front_passenger_tyre',setfront_passenger_tyre_img);
+        setTimeout(() => {
+          console.log(counter,'cc')
+          const Index = counter - 1; // Adjust for zero-based index
+          if (divRefs[Index].current) {
+            divRefs[Index].current.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 300);
+        
 
         // window.location.reload();
         const car = Number(localStorage.getItem('car_no'));
       localStorage.setItem(`vehicle_wheels_state_${car}`,'true'); 
         
     },[])
+
 
     const Router = useRouter();
         // request handler
@@ -111,6 +129,7 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
+        Router.push('./vehicle_photos')
 
       const response = await axios.post(`${url}/pwa/vehicle_wheels_tyres`,  
         {
@@ -125,7 +144,7 @@ const handleSubmit = async (event:any) => {
       console.log(response.status,response.data); 
     //   const car = Number(localStorage.getItem('car_no'));
     //   localStorage.setItem(`vehicle_wheels_state_${car}`,'true'); 
-      Router.push('./vehicle_photos')
+      
     } catch (error) {
       console.error(error);
     }
@@ -162,15 +181,39 @@ const handleSubmit = async (event:any) => {
 
         <div className='space-y-3 pt-7'>
 
+            <div ref={divRefs[0]}>
+              
             <PhotoFrame Content='Back Driver Wheel' isUploaded={back_driver_wheel_img !== undefined} photo={ back_driver_wheel_img ? back_driver_wheel_img : BackDriverWheel}  link ='back_driver_wheel'/>
+            </div>
+            <div ref={divRefs[1]}>
+              
             <PhotoFrame Content='Back Driver Tyre' isUploaded={back_driver_tyre_img !== undefined} photo={back_driver_tyre_img ? back_driver_tyre_img : BackDriverTyre} link ='back_driver_tyre'/>
+            </div>
+            <div ref={divRefs[2]}>
+              
             <PhotoFrame Content='Back Passenger Wheel' isUploaded={back_passenger_wheel_img !== undefined} photo={back_passenger_wheel_img ? back_passenger_wheel_img :  BackPassengerWheel} link ='back_passenger_wheel'/>
+            </div>
+            <div ref={divRefs[3]}>
+              
             <PhotoFrame Content='Back Passenger Tyre' isUploaded={back_passenger_tyre_img !== undefined} photo={back_passenger_tyre_img ? back_passenger_tyre_img : BackPassengerTyre} link ='back_passenger_tyre'/>
+            </div>
 
+            <div ref={divRefs[4]}>
+              
             <PhotoFrame Content='front Driver Wheel' isUploaded={front_driver_wheel_img !== undefined} photo={ front_driver_wheel_img ? front_driver_wheel_img : FrontDriverWheel}  link ='front_driver_wheel'/>
+            </div>
+            <div ref={divRefs[5]}>
+              
             <PhotoFrame Content='front Driver Tyre' isUploaded={front_driver_tyre_img !== undefined} photo={front_driver_tyre_img ? front_driver_tyre_img : FrontDriverTyre} link ='front_driver_tyre'/>
+            </div>
+            <div ref={divRefs[6]}>
+              
             <PhotoFrame Content='front Passenger Wheel' isUploaded={front_passenger_wheel_img !== undefined} photo={front_passenger_wheel_img ? front_passenger_wheel_img :  FrontPassengerWheel} link ='front_passenger_wheel'/>
+            </div>
+            <div ref={divRefs[7]}>
+              
             <PhotoFrame Content='front Passenger Tyre' isUploaded={front_passenger_tyre_img !== undefined} photo={front_passenger_tyre_img ? front_passenger_tyre_img : FrontPassengerTyre} link ='front_passenger_tyre'/>
+            </div>
         </div>
         
 

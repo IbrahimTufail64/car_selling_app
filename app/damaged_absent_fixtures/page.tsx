@@ -43,6 +43,10 @@ const SurfaceMarks = () => {
                 alert('Please upload atleast one image before proceeding')
                 return;
             }
+            const car = Number(localStorage.getItem('car_no'));
+
+            localStorage.setItem(`damaged_absent_fixtures_state_${car}`,'true');
+          Router.push('./vehicle_health_selection')
     
           const response = await axios.post(`${url}/pwa/damaged_absent_fixtures`,  
             {
@@ -55,9 +59,8 @@ const SurfaceMarks = () => {
                   }
           });
           console.log(response.status,response.data);  
-          const car = Number(localStorage.getItem('car_no'));
-              localStorage.setItem(`damaged_absent_fixtures_state_${car}`,'true');
-          Router.push('./vehicle_health_selection')
+          
+              
         } catch (error) {
           console.error(error);
         }

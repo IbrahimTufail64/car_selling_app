@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car from '@/assets/Sub3Car.png'
+import car1 from '@/assets/Sub3Car.png'
 import car4 from '@/assets/SmartAdvice1.png'
 import card1 from '@/assets/Sub3CarD1.png'
 import card4 from '@/assets/Sub3CarD4.png'
@@ -15,6 +15,11 @@ import { useAppContext } from '../Context';
 
 
 const SurfaceMarks = () => {
+    const [car,setCar] = useState(0);
+  useEffect(()=>{
+    const car_local = Number(localStorage.getItem('car_no'));
+    setCar(car_local);
+  },[])
 
     const {isVendor} = useAppContext()
 
@@ -22,7 +27,7 @@ const SurfaceMarks = () => {
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
-        <Link  href='./exterior_wear_tear'><IoChevronBack size={28} className='mt-[3px]'/></Link>
+        <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Exterior wear & tear</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
@@ -31,7 +36,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
                     <Link  href='#'  className='font-[400] text-sm mt-5'>see below for smart advice</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car1.src}/>
             </div>
         </div>
 
@@ -97,7 +102,7 @@ const SurfaceMarks = () => {
         
 
         <div className='p-5'>
-                <Link href='./exterior_wear_tear' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href='./camera_filter_dynamic/exterior_wear_tear-1-exterior_wear_tear-dynamic' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
                         <img src={splash.src}/>
@@ -106,11 +111,11 @@ const SurfaceMarks = () => {
         </div>
 
         <div className='p-5 pt-0'>
-                <button  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link  href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`exterior_wear_tear_state_${car}`,'true');}}  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div>No Panel Damage</div>
+                        <div>No Wear and Tear</div>
                     </div>
-                </button>
+                </Link>
         </div>
         
 

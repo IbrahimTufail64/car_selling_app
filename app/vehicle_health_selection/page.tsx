@@ -36,49 +36,49 @@ const VehicleHealthSelection = () => {
 
         <div className='space-y-2 px-4'>
           <div className=''>
-          <Link href='./wheel_condition'> 
+          <Link href='./advice_wheel_condition'> 
             <Field isComplete={healthState[0]} Content={'Wheel condition'}/>
           </Link>
           </div>
           
           <div className='mb-4'>
-          <Link href={`${healthState[0]=== 'true' ? './tyre_health' : '#'}`}>
+          <Link href={`${healthState[0]=== 'true' ? './advice_tyre_health' : '#'}`}>
           <Field isComplete={healthState[1]} Content={'Tyre health'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${healthState[1]=== 'true' ? './surface_marks' : '#'}`}>
+          <Link href={`${healthState[1]=== 'true' ? './advice_surface_marks' : '#'}`}>
           <Field isComplete={healthState[2] === 'true'} Content={'Surface marks'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${healthState[2]=== 'true' ? './panel_damage' : '#'}`}>
+          <Link href={`${healthState[2]=== 'true' ? './advice_panel_damage' : '#'}`}>
           <Field isComplete={healthState[3] === 'true'} Content={'Panel damage'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${healthState[3]=== 'true' ? './exterior_wear_tear' : '#'}`}>
+          <Link href={`${healthState[3]=== 'true' ? './advice_exterior_wear_tear' : '#'}`}>
           <Field isComplete={healthState[4] === 'true'} Content={'Exterior wear & tear'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${healthState[4]=== 'true' ? './glass_health' : '#'}`}>
+          <Link href={`${healthState[4]=== 'true' ? './advice_glass_health' : '#'}`}>
           <Field isComplete={healthState[5] === 'true'} Content={'Glass health'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${healthState[5]=== 'true' ? './damaged_absent_fixtures' : '#'}`}>
+          <Link href={`${healthState[5]=== 'true' ? './advice_damaged_absent_fixtures' : '#'}`}>
           <Field isComplete={healthState[6] === 'true'} Content={'Damaged/Absent fixtures'}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${healthState[6]=== 'true' ? './dashboard_lights' : '#'}`}>
+          <Link href={`${healthState[6]=== 'true' ? './advice_dashboard_lights' : '#'}`}>
           <Field isComplete={healthState[7] === 'true'} Content={'Dashboard lights'}/>
           </Link>
           </div>

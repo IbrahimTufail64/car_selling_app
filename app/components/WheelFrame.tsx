@@ -23,9 +23,6 @@ const WheelFrame = ({Content, setisSelected, photo, link}:{Content:string, setis
     <div className={`${isVendor ? 'bg-primaryDark':'bg-secondary '} flex justify-center  w-full `}> 
         <div className='w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden '>
             <div className='relative'>
-                {
-                    checked && <img src={Tint.src} className='absolute w-full h-full'/>
-                }
                 <img src={uploaded_photo} className='w-full object-cover'/>
             </div>
             <div className={`flex justify-between py-4 px-5   ${isVendor ? 'bg-[#6D6E8F] border-t-2' : 'border border-1 border-[#D1D9FF]'}`}>

@@ -35,6 +35,13 @@ const FurtherDetails = () => {
                 alert('Please enter a description before submitting!')
                 return;
             }
+            const car = Number(localStorage.getItem('car_no'));
+              localStorage.setItem(`further_details_state_${car}`,'true');
+                  
+                localStorage.setItem(`vehicle_health_state_${car}`,'true');
+                localStorage.setItem(`vehicle_photos_state_${car}`,'true');
+            Router.push('./Submission7')
+            
             const image = await db.images.where('name').equals('further_details').first();
             console.log(image)
             if (image !== undefined) {
@@ -63,12 +70,7 @@ const FurtherDetails = () => {
                       }
               });
               console.log(response.status,response.data);  
-              const car = Number(localStorage.getItem('car_no'));
-              localStorage.setItem(`further_details_state_${car}`,'true');
-                  
-                localStorage.setItem(`vehicle_health_state_${car}`,'true');
-                localStorage.setItem(`vehicle_photos_state_${car}`,'true');
-            Router.push('./Submission7')
+              
         } catch (error) {
             
             console.log(error);
@@ -78,7 +80,8 @@ const FurtherDetails = () => {
 
     
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full h-[100vh] `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] flex flex-col justify-between`}>
+        <div>
         <div className='p-5 flex space-x-2 text-[22px] pt-10'>
         <Link  href='./vehicle_health_selection'><IoChevronBack size={35} className='mt-[1px]'/></Link>
             <div className='space-y-[-3px]'>
@@ -137,8 +140,9 @@ const FurtherDetails = () => {
                     />
                 </div>
             </div>
+        </div>
 
-            <div className='p-5 absolute bottom-0 w-full'>
+            <div className='p-5 bottom-0 w-full'>
                 <div onClick={()=>{addData(inputText,checked)}} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>

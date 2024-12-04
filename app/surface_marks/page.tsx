@@ -57,6 +57,9 @@ const SurfaceMarks = () => {
                 alert('Please upload atleast one image before proceeding')
                 return;
             }
+
+            localStorage.setItem(`surface_marks_state_${car}`,'true');
+          Router.push('./vehicle_health_selection')
     
           const response = await axios.post(`${url}/pwa/surface_marks`,  
             {
@@ -71,8 +74,7 @@ const SurfaceMarks = () => {
           });
           console.log(response.status,response.data);  
           
-              localStorage.setItem(`surface_marks_state_${car}`,'true');
-          Router.push('./vehicle_health_selection')
+              
         } catch (error) {
           console.error(error);
         }

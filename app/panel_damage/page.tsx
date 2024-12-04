@@ -57,6 +57,8 @@ const SurfaceMarks = () => {
                 alert('Please upload atleast one image before proceeding')
                 return;
             }
+            localStorage.setItem(`panel_damage_state_${car}`,'true');
+          Router.push('./vehicle_health_selection')
     
           const response = await axios.post(`${url}/pwa/panel_damage`,  
             {
@@ -71,8 +73,7 @@ const SurfaceMarks = () => {
           });
           console.log(response.status,response.data);  
           
-              localStorage.setItem(`panel_damage_state_${car}`,'true');
-          Router.push('./vehicle_health_selection')
+              
         } catch (error) {
           console.error(error);
         }
@@ -109,7 +110,7 @@ const SurfaceMarks = () => {
         <div >
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
-            <div>Surface marks</div>
+            <div>Panel damage</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>

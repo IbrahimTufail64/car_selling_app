@@ -43,6 +43,8 @@ const TyreHealth = () => {
             let wheel_state: unknown;
             const url:any = process.env.NEXT_PUBLIC_API_URL ;
             const token = localStorage.getItem('token');
+            localStorage.setItem(`tyre_health_state_${car}`,'true');
+          Router.push('./vehicle_health_selection') 
             if(!isGood){
                 // wheel_state = await db.wheel_condition.put({
                 //     id: 1,
@@ -103,8 +105,7 @@ const TyreHealth = () => {
             console.log(wheel_state);
             
           
-          localStorage.setItem(`tyre_health_state_${car}`,'true');
-          Router.push('./vehicle_health_selection') 
+          
         }
         catch(e){
             

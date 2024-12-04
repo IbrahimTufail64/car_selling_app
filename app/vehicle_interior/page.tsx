@@ -77,6 +77,7 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
+        Router.push('./vehicle_photos')
 
       const response = await axios.post(`${url}/pwa/vehicle_interior`,  
         {
@@ -91,32 +92,14 @@ const handleSubmit = async (event:any) => {
       console.log(response.status,response.data);  
       const car = Number(localStorage.getItem('car_no'));
       localStorage.setItem(`vehicle_interior_state_${car}`,'true');
-      Router.push('./vehicle_photos')
+      
     } catch (error) {
         // localStorage.setItem('vehicle_interior_state','true');
       console.error(error);
     }
   };
 
-    // useEffect(()=>{
 
-    //     const setContext = async(state:boolean)=>{
-    //         await db2.context.add({
-    //             name: 'vehicle_interior',
-    //             state: state
-    //           });
-    //     }
-    //     if(dashboardimg && bootimg && frontseatimg && backseatimg){
-    //         setContext(true);
-    //         setVehicle_Interior(true);
-    //     }
-    //     else{
-    //         setVehicle_Interior(false);
-    //         setContext(false);
-    //         console.log(':(')
-    //     }
-
-    // },[dashboardimg,bootimg,frontseatimg,backseatimg])
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>

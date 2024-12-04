@@ -12,8 +12,14 @@ import phoneD from '@/assets/icons/phoneDark.png'
 import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context';
+import splash from '@/assets/icons/Rays-small.png'
 
-const SmartAdvice = () => {
+const SmartAdviceTyre = () => {
+  const [car,setCar] = useState(0);
+  useEffect(()=>{
+    const car_local = Number(localStorage.getItem('car_no'));
+    setCar(car_local);
+  },[])
 
   const router = useRouter();
   const {isVendor} = useAppContext(); 
@@ -23,7 +29,7 @@ const SmartAdvice = () => {
   return (
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <Link  href={`./tyre_health`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
+            <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>smart advice</div>
         </div>
 
@@ -137,8 +143,25 @@ const SmartAdvice = () => {
           </div>
         </div>
 
+
+        <div className='p-5'>
+                <Link href='./tyre_health' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
+                        <img src={splash.src}/>
+                    </div>
+                </Link>
+        </div>
+        <div className='p-5 pt-0'>
+                <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`tyre_health_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div>No Marks</div>
+                    </div>
+                </Link>
+        </div>
+
     </div>
   )
 }
 
-export default SmartAdvice
+export default SmartAdviceTyre

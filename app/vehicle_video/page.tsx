@@ -56,6 +56,11 @@ const VehicleVideo = () => {
                 alert('please upload a video to proceed!');
                 return;
             }
+            const car = Number(localStorage.getItem('car_no'));
+                  
+                localStorage.setItem(`vehicle_video_state_${car}`,'true');
+                // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
+            Router.push('./preview_car');
             formData.append('front_driver', video);
             const token = localStorage.getItem('token'); 
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/vehicle_video`,  
@@ -69,11 +74,7 @@ const VehicleVideo = () => {
                       }
               });
               console.log(response.status,response.data);  
-              const car = Number(localStorage.getItem('car_no'));
-                  
-                localStorage.setItem(`vehicle_video_state_${car}`,'true');
-                // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
-            Router.push('./preview_car');
+              
         } catch (error) {
             
             console.log(error);

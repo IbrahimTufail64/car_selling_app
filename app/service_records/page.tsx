@@ -58,6 +58,13 @@ const ServiceRecordsCapture = () => {
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
+        const car = Number(localStorage.getItem('car_no'));
+              localStorage.setItem(`service_records_state_${car}`,'true');
+              if(localStorage.getItem('saletag')==='WholeSale'){
+                Router.push('./Submission7')
+              }else{
+                Router.push('./preview_car')
+              }
     
         const formData = new FormData();
 
@@ -87,13 +94,7 @@ const ServiceRecordsCapture = () => {
                   }
           });
           console.log(response.status,response.data);  
-          const car = Number(localStorage.getItem('car_no'));
-              localStorage.setItem(`service_records_state_${car}`,'true');
-              if(localStorage.getItem('saletag')==='WholeSale'){
-                Router.push('./Submission7')
-              }else{
-                Router.push('./preview_car')
-              }
+          
         } catch (error) {
           console.error(error);
         }
