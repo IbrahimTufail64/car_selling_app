@@ -16,7 +16,7 @@ export function AppWrapper({
     const [vehicle_exterior, setVehicle_Exterior] = useState(false); 
     const [vehicle_interior, setVehicle_Interior] = useState(false); 
     const [vehicle_wheels, setVehicle_Wheels] = useState(false); 
-    const [isVendor, setIsVendor] = useState<boolean | null>(null);
+    const [isVendor, setIsVendor] = useState<boolean | null>(true);
     const location = useLocation();
     const Router = useRouter();
     useEffect(()=>{
@@ -30,7 +30,7 @@ export function AppWrapper({
                   Authorization: `Bearer ${token}`
               }
           });
-          if(isVendor === null || !localStorage.getItem('isVendor')){
+          if(isVendor === null ){
 
             setIsVendor(response.data.isVendor);
             localStorage.setItem('isVendor',response.data.isVendor);

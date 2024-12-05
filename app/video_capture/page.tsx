@@ -122,7 +122,7 @@ const VideoCapture: React.FC = () => {
                 </Link>
             </div>
             <div className='flex justify-center items-center h-full relative w-full'>
-                <video ref={videoRef} autoPlay muted style={{ width: '100%', maxWidth: '600px' }}></video>
+                <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', maxWidth: '600px' }}></video>
             </div>
             <div className='w-[10vw] flex justify-center items-center'>
                 <button

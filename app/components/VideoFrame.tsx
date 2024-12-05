@@ -41,7 +41,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 {!isUploaded ? 
                 
                     <img src={uploaded_photo} className=' object-cover w-full'/> :
-                    <video src={video} controls className=' object-cover w-full'/>
+                    <video src={video} controls className=' object-cover w-full' playsInline />
                 }
                 
                 

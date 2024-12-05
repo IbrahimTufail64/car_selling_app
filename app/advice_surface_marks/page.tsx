@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car from '@/assets/Sub3Car.png'
+import carS from '@/assets/Sub3Car.png'
 import car1 from '@/assets/SmartAdvice1.png'
 import car2 from '@/assets/smart_advice_car2.png'
 
@@ -15,7 +15,11 @@ import { useAppContext } from '../Context';
 
 
 const SurfaceMarks = () => {
-
+    const [car,setCar] = useState(0);
+  useEffect(()=>{
+    const car_local = Number(localStorage.getItem('car_no'));
+    setCar(car_local);
+  },[])
     const {isVendor} = useAppContext()
 
 
@@ -32,7 +36,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
                     <Link  href='#'  className='font-[400] text-sm mt-5'>see below for smart advice</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={carS.src}/>
             </div>
         </div>
 

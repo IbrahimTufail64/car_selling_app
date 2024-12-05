@@ -236,7 +236,7 @@ const VehicleExterior = () => {
                             0{index+1}/
                         </div>
                         <div className='opacity-40 text-[20px] pl-2 pt-2'>
-                            0{about_info[21].length}
+                            0{about_info[21]?.length}
                         </div>
                         </div>
 

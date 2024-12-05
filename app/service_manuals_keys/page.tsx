@@ -15,11 +15,15 @@ const ServiceRecords = () => {
     const [frontPimg, setfrontPimg]  = useState<any>(null);
     const [backDimg, setbackDimg]  = useState<any>(null);
     const [backPimg, setbackPimg]  = useState<any>(null);
+    const [isWholeSale, setIsWholeSale] = useState(false);
+
+
 
     const {vehicle_exterior, setVehicle_Exterior,isVendor} = useAppContext();
 
     // Search for images in the db: 
     useEffect(()=>{
+        setIsWholeSale(localStorage.getItem('saletag')==='WholeSale');
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
@@ -202,7 +206,7 @@ const ServiceRecords = () => {
         </div>
 
         <div className='p-5 pt-0'>
-                <Link href={isVendor && localStorage.getItem('saletag')==='WholeSale' ? './Submission7':'./preview_car'} onClick={()=>{localStorage.setItem(`service_records_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link href={isVendor && isWholeSale ? './Submission7':'./preview_car'} onClick={()=>{localStorage.setItem(`service_records_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>No service record</div>
                     </div>
