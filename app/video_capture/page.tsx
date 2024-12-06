@@ -66,7 +66,7 @@ const VideoCapture: React.FC = () => {
 
         mediaRecorderRef.current.start();
         setRecording(true);
-        alert('Recording started')
+        // alert('Recording started')
     }, []);
 
     const stopRecording = useCallback(() => {
@@ -115,20 +115,41 @@ const VideoCapture: React.FC = () => {
     return (
         <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
 <div className='bg-[#282828] flex h-[100vh] overflow-hidden px-5 fixed'>
-            <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
+            <div className='w-[10vw] flex flex-col justify-between pb-16 py-10 font-[300] text-white'>
                 <Link href='./vehicle_video'>Exit</Link>
-                <Link href='#'>
-                    <img src={Alert.src} className='w-10' />
+                <Link href='./advice_vehicle_video'>
+                    <img src={Alert.src} className='w-5 h-5 md:w-10 md:h-10 object-cover ' />
                 </Link>
             </div>
-            <div className='flex justify-center items-center h-full relative w-full'>
-                <video ref={videoRef} autoPlay playsInline muted style={{ width: '100%', maxWidth: '600px' }}></video>
+            <div className='flex justify-center items-center h-full  relative w-full'>
+                <div>
+                <video ref={videoRef} autoPlay playsInline muted  className='h-[100vh] w-[80vw] mb-10'></video>
+                <div className='h-10'></div>
+                </div>
+                {/* <div>jfaljdsfi</div> */}
             </div>
-            <div className='w-[10vw] flex justify-center items-center'>
+            <div className='w-[10vw] flex justify-center items-center ml-5 mb-5'>
+                {!recording ? 
+                // <button
+                // className='bg-[#1E201D] rounded-full border border-secondary w-[60px] h-[60px] cursor-pointer'
+                // onClick={recording ? stopRecording : startRecording}
+                // >
+
+                // </button>
                 <button
-                    className='bg-[#1E201D] rounded-full border border-secondary w-[60px] h-[60px] cursor-pointer'
-                    onClick={recording ? stopRecording : startRecording}
-                ></button>
+                className='bg-white rounded-full border border-secondary w-[60px] h-[60px] flex justify-center items-center cursor-pointer'
+                onClick={recording ? stopRecording : startRecording}
+                >
+                    <div className=' bg-red-600 rounded-full w-5 h-5'></div>
+                </button>
+                :
+                <button
+                className='bg-white rounded-full border border-secondary w-[60px] h-[60px] flex justify-center items-center cursor-pointer'
+                onClick={recording ? stopRecording : startRecording}
+                >
+                    <div className='bg-black w-5 h-5'></div>
+                </button>
+                }
             </div>
 
             {/* Popup */}

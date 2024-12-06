@@ -2,7 +2,6 @@
     "name": "Carsmart",
     "description":"A car selling app",
     "short_name": "carsmart",
-    "theme_color": "#00ff00",
     "background_color": "#ffffff",
     "display": "fullscreen",
     "orientation": "natural",

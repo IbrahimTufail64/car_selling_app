@@ -248,8 +248,8 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
 
   return (
-    <div >
-         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full min-h-[100vh] overflow-hidden relative flex flex-col justify-between`} >
+    <div className='' >
+         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-full min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
          <div>
          <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={handleClick} />
          
@@ -261,20 +261,13 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
             <img src={mark.src} className={`w-15 h-15 `} style={{width: sizes[size],height: sizes[size]}}/>
         </div>
 
-        <div className='p-5 py-4 flex space-x-2 text-[18px] justify-between'>
+        <div className='p-5 py-4 flex space-x-2 text-[22px] justify-between'>
             <div className='flex space-x-2 pt-3'>
-            <Link  href='./vehicle_photos'><IoChevronBack size={22} className='mt-[1px]'/></Link>
+            <Link  href='./vehicle_photos'><IoChevronBack size={22} className='mt-[5px]'/></Link>
             <div>Back to main</div>
             </div>
 
-            <div className='md:absolute right-5'>
-                <button onClick={handleSubmit} className={` flex justify-center  font-[600] text-lg rounded-[6px] space-x-2 w-[20vw] px-5 py-3 bg-tertiary ${isVendor && 'text-primaryDark'}`} >
-                <div className='flex space-x-2'>
-                Confirm 
-                <img src={splash.src}/>
-                </div>
-                </button>
-            </div>
+            
         </div>
 
         <div className='flex '>
@@ -331,8 +324,10 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 
                 
             </div>
-            <div className='mt-[-60px]' >
-                <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] '/>
+            <div className='mt-[-60px] mb-4' >
+                {/* <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] object-cover' */}
+                <img src={sides[currentSide].src} className='w-[575px] h-[415px] lg:w-[909px] lg:h-[655.5px] object-cover'
+                />
             </div>
         </div>
          </div>
@@ -350,6 +345,14 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
         </div>
         </div>
+        <div className='absolute right-0 w-[100vw] flex justify-end py-5 pr-5'>
+                <button onClick={handleSubmit} className={` flex justify-center  font-[600] text-lg rounded-[6px] space-x-2 w-[20vw] px-5 py-3 bg-tertiary ${isVendor && 'text-primaryDark'}`} >
+                <div className='flex space-x-2'>
+                Confirm 
+                <img src={splash.src}/>
+                </div>
+                </button>
+            </div>
 
         </div>
     </div>
