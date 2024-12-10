@@ -61,7 +61,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                     </div>
                 </div>
                 <div className='pt-1'>
-                    {isUploaded ? <img src={Delete.src} onClick={handleDelete}/>: <Link href={`./video_capture`}><img src={Camera.src} /></Link>}
+                    {isUploaded ? <img src={Delete.src} onClick={handleDelete}/>: <Link href={`./video_capture_ios`}><img src={Camera.src} /></Link>}
                 </div>
             </Link>
         </div>
