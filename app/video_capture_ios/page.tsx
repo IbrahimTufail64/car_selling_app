@@ -95,17 +95,18 @@ const App = () => {
     }
 }
 
-  const saveRecording = () => {
+  const saveRecording = async() => {
 
     if (recordedBlob) {
       const reader = new FileReader();
-      reader.onload = () => {
+      reader.onload = async() => {
         const base64Data = reader.result as string; // Convert Blob to Base64
         try {
           const car_no = Number(localStorage.getItem('car_no'));
            window.localStorage.setItem(`videoData_${car_no}`, base64Data);
+           console.log(base64Data);
           // localStorage.setItem("recordedVideo", base64Data);
-          addVideo(base64Data)
+          await addVideo(base64Data)
           console.log("Video saved to localStorage.");
         } catch (e) {
           console.error("Error saving video to localStorage:", e);

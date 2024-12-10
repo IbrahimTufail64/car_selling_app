@@ -16,10 +16,16 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     const {isVendor} = useAppContext();
     const [video, setVideo] = useState<any>(null);
 
+    const getVideo = async()=>{
+        const existingVideo = await db.images.where('name').equals('video').first();
+        console.log(existingVideo);
+        setVideo(existingVideo?.data);
+    }
     useEffect(()=>{
         const car_no = Number(localStorage.getItem('car_no'));
-        setVideo(localStorage.getItem(`videoData_${car_no}`))
-    })
+        getVideo();
+        // setVideo(localStorage.getItem(`videoData_${car_no}`))
+    },[])
 
     const handleDelete = async()=>{
         try{
