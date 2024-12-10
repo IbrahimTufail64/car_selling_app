@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
+html, body {
+  background-color: #ffffff; /* Match your app's color */
+  margin: 0;
+  padding: 0;
+}
 
 input[type=radio] {
   accent-color: #675DF4;

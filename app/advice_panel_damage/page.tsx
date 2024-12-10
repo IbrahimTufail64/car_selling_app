@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car1 from '@/assets/Sub3Car.png'
+import carS from '@/assets/Sub3Car.png'
 import car4 from '@/assets/SmartAdvice1.png'
 import car2 from '@/assets/smart_advice_car2.png'
 import car3 from '@/assets/smart_advice_car3.png'
@@ -36,7 +36,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
                     <Link  href='#'  className='font-[400] text-sm mt-5'>see below for smart advice</Link>
                 </div>
-                <img src={car1.src}/>
+                <img src={carS.src}/>
             </div>
         </div>
 

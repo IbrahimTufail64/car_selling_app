@@ -249,7 +249,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className='' >
-         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-full min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
+         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-[100vw] sm:w-[115vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
          <div>
          <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={handleClick} />
          
@@ -324,7 +324,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 
                 
             </div>
-            <div className='mt-[-60px] mb-4' >
+            <div className='mt-[-60px] mb-4 w-[100vw]' >
                 {/* <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] object-cover' */}
                 <img src={sides[currentSide].src} className='w-[575px] h-[415px] lg:w-[909px] lg:h-[655.5px] object-cover'
                 />
