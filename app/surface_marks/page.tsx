@@ -59,7 +59,7 @@ const SurfaceMarks = () => {
             }
 
             localStorage.setItem(`surface_marks_state_${car}`,'true');
-          Router.push('./vehicle_health_selection')
+        //   Router.push('./vehicle_health_selection')
     
           const response = await axios.post(`${url}/pwa/surface_marks`,  
             {

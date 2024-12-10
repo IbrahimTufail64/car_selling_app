@@ -56,7 +56,12 @@ const VideoCapture: React.FC = () => {
         setRecordedChunks([]);
         setShowPopup(false); // Hide popup if it was open
 
-        mediaRecorderRef.current = new MediaRecorder(streamRef.current, { mimeType: 'video/webm' });
+        let options = { mimeType: 'video/webm' };
+        if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+            options = { mimeType: 'video/mp4' };
+        }
+
+        mediaRecorderRef.current = new MediaRecorder(streamRef.current, options);
 
         mediaRecorderRef.current.ondataavailable = (event: BlobEvent) => {
             if (event.data.size > 0) {
