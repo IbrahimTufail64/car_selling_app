@@ -71,13 +71,13 @@ const App = () => {
   };
 
   useEffect(()=>{
+    // localStorage.clear(); 
     const portrait = window.matchMedia("(orientation: portrait)").matches;
     if(portrait){
           router.push(`../rotate/video_capture_ios`);
       }
   },[])
-
-
+  
   // const downloadRecording = () => {
   //   if (recordedBlob) {
   //     const url = URL.createObjectURL(recordedBlob);
@@ -110,10 +110,10 @@ const App = () => {
         const base64Data = reader.result as string; // Convert Blob to Base64
         try {
           const car_no = Number(localStorage.getItem('car_no'));
-           window.localStorage.setItem(`videoData_${car_no}`, base64Data);
-           console.log(base64Data);
-          // localStorage.setItem("recordedVideo", base64Data);
           await addVideo(base64Data)
+          console.log(base64Data);
+           window.localStorage.setItem(`videoData_${car_no}`, base64Data);
+          // localStorage.setItem("recordedVideo", base64Data);
           console.log("Video saved to localStorage.");
         } catch (e) {
           console.error("Error saving video to localStorage:", e);
@@ -151,7 +151,8 @@ const App = () => {
 
                               saveRecording();
                                setShowPopup(false); 
-                               router.push(`./vehicle_video`);}}
+                               router.push(`./vehicle_video`);
+                              }}
                             
                         >
                             Save this Video
