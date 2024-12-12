@@ -18,7 +18,7 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
     const {setIsVendor} = useAppContext();
     // console.log(localStorage.getItem('isVendor'))
     useEffect(()=>{
-        
+        localStorage.clear();
         
         const handleRequest = async () => { 
             

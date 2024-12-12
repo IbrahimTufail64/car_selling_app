@@ -55,9 +55,9 @@ const VehicleVideo = () => {
         try {
             const car_no = Number(localStorage.getItem('car_no'));
             const formData = new FormData();
-            const video = String(localStorage.getItem(`videoData_${car_no}`));
+            const video = String(localStorage.getItem(`videoData_${car_no}`)); 
             console.log(video);
-            if(!video){
+            if(!vehicle_video){
                 alert('please upload a video to proceed!');
                 return;
             }
@@ -66,7 +66,7 @@ const VehicleVideo = () => {
                 localStorage.setItem(`vehicle_video_state_${car}`,'true');
                 // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
             Router.push('./preview_car');
-            formData.append('front_driver', video);
+            formData.append('front_driver', vehicle_video);
             const token = localStorage.getItem('token'); 
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/vehicle_video`,  
                 {
