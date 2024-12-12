@@ -17,7 +17,12 @@ import axios from 'axios';
 const VehicleVideo = () => {
     const [vehicle_video, setvehicle_video]  = useState<any>(null);
     const Router = useRouter(); 
-    const {isVendor} = useAppContext()
+    const {isVendor} = useAppContext();
+
+    const isSafari = () => {
+        const ua = navigator.userAgent;
+        return ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Chromium');
+      };
 
     // Search for images in the db: 
     useEffect(()=>{
@@ -84,7 +89,7 @@ const VehicleVideo = () => {
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] relative`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <Link  href='./Submission2'><IoChevronBack size={28} className='mt-[1px]'/></Link>
+            <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle video</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>

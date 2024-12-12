@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Alert from '@/assets/icons/Alert_white.png'
 import logo from '@/assets/Logo.png'
 import { IoChevronBack } from "react-icons/io5";
+import car from '@/assets/CamCarFront.png'
+import blurBG from '@/assets/backBlur2.png'
 import alertNew from '@/assets/alertNEW.png'
 // import audio from '../../../assets/audio/camera_audio.wav'
 
@@ -114,31 +116,23 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     const webcamRef:any = useRef(null);
     const link = params.slug.split('-');
     const imageUrl = link[0];
-    let adviceLink = '';
 
     let returnLink = '';
     let car_filter = lookup_table_exterior[imageUrl];
     returnLink = 'vehicle_exterior';
-    adviceLink = 'advice_exterior';
 
     if(car_filter === undefined){
       car_filter = lookup_table_interior[imageUrl];
       returnLink = 'vehicle_interior';
-      adviceLink = 'advice_interior';
     }
 
     if(car_filter === undefined){
       car_filter = lookup_table_wheels[imageUrl];
       returnLink = 'vehicle_wheels';
-      adviceLink = 'advice_vehicle_wheels';
     }
 
 
-    useEffect(()=>{
-      if(imageUrl === 'front_driver'){
-        alert('Please raise volume for shutter sound');
-      }
-    },[])
+
 
 
     const {angle,type} = useOrientation(); 
@@ -190,21 +184,17 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     }, [webcamRef]);
 
   return (
-    <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
-        
-
-
-    <div className="fixed top-0">
+    <div className="fixed">
       <div className="relative">
       {/* <img className="h-full w-[14%] absolute z-10" src={blurBG.src}/> */}
 
                 <button className='bg-white absolute rounded-full w-[75px] h-[75px] z-20 top-[50%] -right-5 -translate-x-1/2 -translate-y-1/2 cursor-pointer' onClick={()=>{capture(); console.log('yes')}}></button>
 
                 
-                <Link href={`../${returnLink}`} className="absolute z-20 left-[4.5vw] text-[22px] font-500 top-[30px] text-white">
+                <Link href={returnLink} className="absolute z-20 left-[4.5vw] text-[22px] font-500 top-[30px] text-white">
                     Exit
                 </Link>
-                <Link href={`../${adviceLink}`}>
+                <Link href="#">
                 <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
                 </Link>
       <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
@@ -227,31 +217,10 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     </div>
     </div>
     </div>
-        <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
-            <div>
-            <div className=' '>
-            <img src={logo.src} className=''/>
-            </div>
-
-            <div className='pt-5 '>
-                ... And scroll down
-            </div>
-            <div className='flex justify-center w-full pt-5 '>
-                <div className='space-y-[-20px]'>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
-                </div>
-            </div>
-            </div>
-        </div>
-        
-    </div>
   )
 }
 
 export default Filter
-
 
 
 

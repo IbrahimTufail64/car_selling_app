@@ -6,6 +6,7 @@ import Alert from '@/assets/icons/Alert_white.png'
 import logo from '@/assets/Logo.png'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/CamCarFront.png'
+import alertNew from '@/assets/alertNEW.png'
 
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
@@ -16,7 +17,7 @@ import { db } from "@/app/Local_DB/db";
 
 
 const Filter = ({ params }: { params: { slug: string } }) => {
-    const [car_no,setCar_no] = useState(Number(localStorage.getItem('car_no')));
+    const [car_no,setCar_no] = useState(0);
 
     const webcamRef:any = useRef(null);
 
@@ -25,12 +26,14 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     const returnLink  = link[2];
     const imageUrl = link[0];
     const dynamic_image_no =Number(link[1]); 
+
     console.log('return',returnLink,'imageUrl',imageUrl,'dymaic no:',dynamic_image_no)
 
     const {angle,type} = useOrientation(); 
     const router = useRouter(); 
 
     useEffect(()=>{
+      setCar_no(Number(localStorage.getItem('car_no')));
       const portrait = window.matchMedia("(orientation: portrait)").matches;
       if(portrait){
             router.push(`../rotate/${params.slug}-dynamic`);
@@ -86,25 +89,37 @@ const Filter = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
-        <div className='bg-[#282828] h-[100vh] overflow-hidden flex fixed'>
         
-        <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
-            <Link href={`../${returnLink}`} >
-                Exit 
-            </Link>
-            <Link href='#'>
-                <img src={Alert.src} className='w-10 '/> 
-            </Link>
-        </div>
-        <div className='flex justify-center items-center h-full relative mt-[-30px]'>
+
+
+    <div className="fixed top-0">
+      <div className="relative">
+      {/* <img className="h-full w-[14%] absolute z-10" src={blurBG.src}/> */}
+
+                <button className='bg-white absolute rounded-full w-[75px] h-[75px] z-20 top-[50%] -right-5 -translate-x-1/2 -translate-y-1/2 cursor-pointer' onClick={()=>{capture(); console.log('yes')}}></button>
+
+                
+                <Link href={`../${returnLink}`} className="absolute z-20 left-[4.5vw] text-[22px] font-500 top-[30px] text-white">
+                    Exit
+                </Link>
+                <Link href={`../advice_${returnLink}`}>
+                <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
+                </Link>
+      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+            
+      </div>
+      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+            
+      </div>
+      <div className=" w-[100vw] h-[100vh] overflow-hidden relative">
         
+
+        <div className="-z-10">
         <WebcamCapture webcamRef={webcamRef}/>
         </div>
-        <div className='w-[10vw]'>
-            <div className='flex w-[10vw] justify-center  items-center h-full relative'>
-                <button className='bg-[#1E201D] rounded-full border border-1 border-secondary w-[60px] h-[60px] cursor-pointer' onClick={()=>{capture()}}></button>
-            </div>
-        </div>
+        
+    </div>
+    </div>
     </div>
         <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
             <div>

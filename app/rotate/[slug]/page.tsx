@@ -14,7 +14,7 @@ const Rotate = ({ params }: { params: { slug: string } }) => {
         console.log(portrait)
       if(!portrait || angle === 90){
         if(params.slug.includes('video')){
-          router.push(`../video_capture`);
+          router.push(`../video_capture_ios`);
         }
         else if(params.slug.includes('dynamic')){
           router.push(`../camera_filter_dynamic/${params.slug}`);

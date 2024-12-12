@@ -70,13 +70,6 @@ const App = () => {
     }
   };
 
-  useEffect(()=>{
-    const portrait = window.matchMedia("(orientation: portrait)").matches;
-    if(portrait){
-          router.push(`../rotate/video_capture_ios`);
-      }
-  },[])
-
 
   // const downloadRecording = () => {
   //   if (recordedBlob) {

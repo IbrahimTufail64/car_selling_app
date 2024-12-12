@@ -52,7 +52,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 
                 
             </div>
-            <Link href={`${!isUploaded ? `./video_capture` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
+            <Link href={`${!isUploaded ? `./video_capture_ios` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white' : '  text-fourth'}`}>
