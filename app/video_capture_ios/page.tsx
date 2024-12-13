@@ -7,7 +7,7 @@ import Alert from '@/assets/icons/Alert_white.png';
 import { db } from "@/app/Local_DB/db";
 import logo from '@/assets/Logo.png'
 import alertNew from '@/assets/alertNEW.png'
-import { useOrientation } from 'react-use';
+import { useOrientation, useTimeout } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { IoChevronBack } from 'react-icons/io5';
 
@@ -116,7 +116,10 @@ const App = () => {
           //  window.localStorage.setItem(`videoData_${car_no}`, base64Data);
           // localStorage.setItem("recordedVideo", base64Data);
           console.log("Video saved to localStorage.");
-          router.push(`./vehicle_video`);
+          setTimeout(()=>{
+
+            router.push(`./vehicle_video`);
+          },500)
         } catch (e) {
           console.error("Error saving video to localStorage:", e);
         }
