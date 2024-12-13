@@ -50,11 +50,16 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
             const blobUrl = URL.createObjectURL(blob);
     
             setVideo(blobUrl);
+            alert(blobUrl);
         }
     };
     
+    
     useEffect(()=>{
         const car_no = Number(localStorage.getItem('car_no'));
+        // const videoElement = document.createElement("video");
+        // const canPlay = videoElement.canPlayType("video/x-matroska;codecs=avc1,opus");
+        // alert(`canplay:${canPlay}`);
         getVideo();
         // setVideo(localStorage.getItem(`videoData_${car_no}`))
     },[])
@@ -79,7 +84,8 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 {!isUploaded ? 
                 
                     <img src={uploaded_photo} className=' object-cover w-full'/> :
-                    <video src={video} controls autoPlay playsInline muted className=' object-cover w-full' />
+                    // <video src={video} controls autoPlay playsInline muted className=' object-cover w-full' />
+                    <ReactPlayer url={video} controls width='100%' />
                 }
                 
                 
