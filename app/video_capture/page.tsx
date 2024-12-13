@@ -102,14 +102,16 @@ const VideoCapture: React.FC = () => {
         const blob = new Blob(recordedChunks, { type: 'video/webm' });
 
         const reader = new FileReader();
-        reader.onloadend = () => {
+        reader.onloadend = async() => {
             const base64data = reader.result as string;
             console.log(base64data);
             try {
                 const car_no = Number(localStorage.getItem('car_no'));
-                window.localStorage.setItem(`videoData_${car_no}`, base64data);
-                addVideo(base64data)
+                alert(base64data);
+                // window.localStorage.setItem(`videoData_${car_no}`, base64data);
+                await addVideo(base64data)
                 console.log("Video saved to localStorage!");
+                router.push(`./vehicle_video`);
             } catch (error) {
                 console.error("Error saving video to localStorage:", error);
             }
@@ -170,7 +172,7 @@ const VideoCapture: React.FC = () => {
                         </button>
                         <button
                             className='bg-blue-500 text-white rounded-full px-5 py-2'
-                            onClick={()=>{saveRecording(); setShowPopup(false); router.push(`./vehicle_video`);}}
+                            onClick={()=>{saveRecording(); setShowPopup(false); }}
                             disabled={recording || recordedChunks.length === 0}
                         >
                             Save this Video
