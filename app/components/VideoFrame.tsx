@@ -16,18 +16,43 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     const {isVendor} = useAppContext();
     const [video, setVideo] = useState<any>(null);
 
-    const getVideo = async()=>{
-        const existingVideo = await db.images.where('name').equals('video').first(); 
-        console.log(existingVideo);
-        alert(existingVideo?.data);
-        const car_no = Number(localStorage.getItem('car_no'));
-        if(existingVideo?.data){
+    // const getVideo = async()=>{
+    //     const existingVideo = await db.images.where('name').equals('video').first(); 
+    //     console.log(existingVideo);
+    //     alert(existingVideo?.data);
+    //     const car_no = Number(localStorage.getItem('car_no'));
+    //     if(existingVideo?.data){
 
-            setVideo(existingVideo?.data);
-        }else{
-            setVideo(localStorage.getItem(`videoData_${car_no}`))
+    //         setVideo(existingVideo?.data);
+    //     }else{
+    //         setVideo(localStorage.getItem(`videoData_${car_no}`))
+    //     }
+    // }
+
+    const getVideo = async () => {
+        const existingVideo = await db.images.where('name').equals('video').first(); 
+        const car_no = Number(localStorage.getItem('car_no'));
+        let videoData = existingVideo?.data || localStorage.getItem(`videoData_${car_no}`);
+    
+        if (videoData?.startsWith("data:")) {
+            const base64String = videoData.split(",")[1]; // Extract base64 data
+            const mimeType = videoData.split(",")[0].split(":")[1].split(";")[0]; // Extract MIME type
+    
+            // Decode base64 string to binary
+            const byteString = atob(base64String);
+            const byteArray = new Uint8Array(byteString.length);
+            for (let i = 0; i < byteString.length; i++) {
+                byteArray[i] = byteString.charCodeAt(i);
+            }
+    
+            // Create a Blob and generate a Blob URL
+            const blob = new Blob([byteArray], { type: mimeType });
+            const blobUrl = URL.createObjectURL(blob);
+    
+            setVideo(blobUrl);
         }
-    }
+    };
+    
     useEffect(()=>{
         const car_no = Number(localStorage.getItem('car_no'));
         getVideo();
