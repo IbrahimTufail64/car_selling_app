@@ -8,7 +8,7 @@ import Delete from '@/assets/icons/Delete.png'
 import Link from 'next/link'
 import { db } from '../Local_DB/db'
 import { useAppContext } from '../Context'
-import alert from '@/assets/icons/alertWhite.png';
+import alertWhite from '@/assets/icons/alertWhite.png';
 
 const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUploaded:Boolean, photo: any, link:string}) => {
 
@@ -19,6 +19,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     const getVideo = async()=>{
         const existingVideo = await db.images.where('name').equals('video').first(); 
         console.log(existingVideo);
+        alert(existingVideo?.data);
         const car_no = Number(localStorage.getItem('car_no'));
         if(existingVideo?.data){
 
@@ -62,7 +63,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 <div className='space-y-1'>
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white' : '  text-fourth'}`}>
-                        <div><img src={isVendor ? alert.src : Alert.src} /></div>
+                        <div><img src={isVendor ? alertWhite.src : Alert.src} /></div>
                         <div>Make sure to make in frame</div>
                     </div>
                 </div>
