@@ -8,13 +8,23 @@ import { useRouter } from 'next/navigation';
 const Rotate = ({ params }: { params: { slug: string } }) => {
     const router = useRouter()
     const {angle,type} = useOrientation(); 
+    const isSafari = () => {
+      const ua = navigator.userAgent;
+      return ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Chromium');
+    };
 
     useEffect(()=>{
         const portrait = window.matchMedia("(orientation: portrait)").matches;
         console.log(portrait)
       if(!portrait || angle === 90){
         if(params.slug.includes('video')){
-          router.push(`../video_capture_ios`);
+          if(isSafari()){
+
+            router.push(`../video_capture_ios`);
+          }else{
+            router.push(`../video_capture`);
+
+          }
         }
         else if(params.slug.includes('dynamic')){
           router.push(`../camera_filter_dynamic/${params.slug}`);
