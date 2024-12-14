@@ -3,9 +3,12 @@ import Link from 'next/link';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Alert from '@/assets/icons/Alert_white.png';
 import { db } from "@/app/Local_DB/db";
+import logo from '@/assets/Logo.png'
+import alertNew from '@/assets/alertNEW.png'
 
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
+import { IoChevronBack } from 'react-icons/io5';
 
 const VideoCapture: React.FC = () => {
     const [recording, setRecording] = useState<boolean>(false);
@@ -64,7 +67,7 @@ const VideoCapture: React.FC = () => {
 
         mediaRecorderRef.current.start();
         setRecording(true);
-        alert('Recording started')
+        // alert('Recording started')
     }, []);
 
     const stopRecording = useCallback(() => {
@@ -102,6 +105,8 @@ const VideoCapture: React.FC = () => {
                 window.localStorage.setItem(`videoData_${car_no}`, base64data);
                 addVideo(base64data)
                 console.log("Video saved to localStorage!");
+                router.push(`./vehicle_video`);
+            
             } catch (error) {
                 console.error("Error saving video to localStorage:", error);
             }
@@ -110,28 +115,16 @@ const VideoCapture: React.FC = () => {
     }, [recordedChunks]);
 
     return (
-        <div className='bg-[#282828] flex h-[100vh] overflow-hidden px-5'>
-            <div className='w-[10vw] flex flex-col justify-between px-7 py-10 font-[300] text-white'>
-                <Link href='./vehicle_video'>Exit</Link>
-                <Link href='#'>
-                    <img src={Alert.src} className='w-10' />
-                </Link>
-            </div>
-            <div className='flex justify-center items-center h-full relative w-full'>
-                <video ref={videoRef} autoPlay muted style={{ width: '100%', maxWidth: '600px' }}></video>
-            </div>
-            <div className='w-[10vw] flex justify-center items-center'>
-                <button
-                    className='bg-[#1E201D] rounded-full border border-secondary w-[60px] h-[60px] cursor-pointer'
-                    onClick={recording ? stopRecording : startRecording}
-                ></button>
-            </div>
+        <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
+        
 
-            {/* Popup */}
-            {showPopup && (
-                <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
+
+    <div className="fixed top-0">
+      <div className="relative">
+      {showPopup && (
+                <div className='fixed inset-0 text-black bg-black bg-opacity-50 flex items-center justify-center z-50'>
                     <div className='bg-white p-6 rounded-lg text-center'>
-                        <p className='text-lg font-semibold mb-4'>Recording stopped successfully!</p>
+                        <p className='text-lg font-semibold mb-4 '>Recording stopped successfully!</p>
                         <button
                             className='bg-gray-200 rounded-full px-5 py-2 mr-2'
                             onClick={() => setShowPopup(false) }
@@ -139,16 +132,84 @@ const VideoCapture: React.FC = () => {
                             Close
                         </button>
                         <button
-                            className='bg-blue-500 text-white rounded-full px-5 py-2'
-                            onClick={()=>{saveRecording(); setShowPopup(false); router.push(`./vehicle_video`);}}
-                            disabled={recording || recordedChunks.length === 0}
+                            className='bg-blue-500 text-white rounded-full px-5 py-2 cursor-pointer'
+                            onClick={()=>{
+
+                              saveRecording();
+                               setShowPopup(false); 
+                               
+                              }}
+                            
                         >
                             Save this Video
                         </button>
                     </div>
                 </div>
             )}
+      {/* <img className="h-full w-[14%] absolute z-10" src={blurBG.src}/> */}
+
+                {/* <button className='bg-white absolute rounded-full w-[75px] h-[75px] z-20 top-[50%] -right-5 -translate-x-1/2 -translate-y-1/2 cursor-pointer' onClick={()=>{capture(); console.log('yes')}}></button> */}
+                {!recording ?  
+
+                <button
+                className='bg-white rounded-full  border border-secondary absolute z-20 w-[75px] h-[75px] top-[50%] -right-5 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer'
+                onClick={recording ? stopRecording : startRecording}
+                >
+                    <div className=' bg-red-600 rounded-full w-5 h-5'></div>
+                </button>
+                :
+                <button
+                className='bg-white rounded-full border border-secondary absolute z-20 w-[75px] h-[75px] top-[50%] -right-5 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer'
+                onClick={recording ? stopRecording : startRecording}
+                >
+                    <div className='bg-black w-5 h-5'></div>
+                </button>
+                }
+                
+                <Link href={`./vehicle_video`} className="absolute z-20 left-[4.5vw] text-[22px] font-500 top-[30px] text-white">
+                    Exit
+                </Link>
+                <Link href="./advice_vehicle_video">
+                <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
+                </Link>
+      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+            
+      </div>
+      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+            
+      </div>
+      <div className=" w-[100vw] h-[100vh] overflow-hidden relative">
+        
+
+
+        <div className="-z-10 w-[100vw] h-[100vh]  overflow-hidden">
+        <video ref={videoRef} autoPlay playsInline muted  className=' w-full object-cover'></video>
+
         </div>
+        
+    </div>
+    </div>
+    </div>
+        <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
+            <div>
+            <div className=' '>
+            <img src={logo.src} className=''/>
+            </div>
+
+            <div className='pt-5 '>
+                ... And scroll down
+            </div>
+            <div className='flex justify-center w-full pt-5 '>
+                <div className='space-y-[-20px]'>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+    </div>
     );
 };
 

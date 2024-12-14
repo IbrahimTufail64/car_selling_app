@@ -18,6 +18,7 @@ const VehicleVideo = () => {
     const [vehicle_video, setvehicle_video]  = useState<any>(null);
     const Router = useRouter(); 
     const {isVendor} = useAppContext();
+    const [is_safari, setis_safari] = useState(false);
 
     const isSafari = () => {
         const ua = navigator.userAgent;
@@ -26,6 +27,8 @@ const VehicleVideo = () => {
 
     // Search for images in the db: 
     useEffect(()=>{
+        setis_safari(isSafari());
+        console.log(isSafari());
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{

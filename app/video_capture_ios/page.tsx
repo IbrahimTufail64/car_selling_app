@@ -112,7 +112,7 @@ const App = () => {
           const car_no = Number(localStorage.getItem('car_no'));
           await addVideo(base64Data)
           console.log(base64Data);
-          alert(base64Data);
+          // alert(base64Data);
           //  window.localStorage.setItem(`videoData_${car_no}`, base64Data);
           // localStorage.setItem("recordedVideo", base64Data);
           console.log("Video saved to localStorage.");

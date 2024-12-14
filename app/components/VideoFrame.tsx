@@ -15,19 +15,24 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     const uploaded_photo = isUploaded ? photo : photo.src;
     const {isVendor} = useAppContext();
     const [video, setVideo] = useState<any>(null);
-
+    const [is_safari, setis_safari] = useState('');
+    
+        const isSafari = () => {
+            const ua = navigator.userAgent;
+            return ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Chromium');
+          };
     const getVideo = async()=>{
         const existingVideo = await db.images.where('name').equals('video').first(); 
         console.log(existingVideo);
-        alert(existingVideo?.data);
+        // alert(existingVideo?.data);
         const car_no = Number(localStorage.getItem('car_no'));
-        setVideo(localStorage.getItem(`videoData_${car_no}`));
-        // if(existingVideo?.data){
+        // setVideo(localStorage.getItem(`videoData_${car_no}`));
+        if(isSafari()){
 
-        //     setVideo(existingVideo?.data);
-        // }else{
-        //     setVideo(localStorage.getItem(`videoData_${car_no}`))
-        // }
+            setVideo(existingVideo?.data);
+        }else{
+            setVideo(localStorage.getItem(`videoData_${car_no}`))
+        }
     }
 
     // const getVideo = async () => {
@@ -57,6 +62,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     
     
     useEffect(()=>{
+        setis_safari(isSafari() ? './video_capture_ios' : './video_capture');
         const car_no = Number(localStorage.getItem('car_no'));
         // const videoElement = document.createElement("video");
         // const canPlay = videoElement.canPlayType("video/x-matroska;codecs=avc1,opus");
@@ -91,16 +97,16 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
                 
                 
             </div>
-            <Link href={`${!isUploaded ? `./video_capture_ios` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
+            <Link href={`${!isUploaded ? is_safari : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white' : '  text-fourth'}`}>
-                        <div><img src={isVendor ? alertWhite.src : Alert.src} /></div>
+                        <div><img src={isVendor ? alertWhite.src : Alert.src} /></div> 
                         <div>Make sure to make in frame</div>
                     </div>
                 </div>
                 <div className='pt-1'>
-                    {isUploaded ? <img src={Delete.src} onClick={handleDelete}/>: <Link href={`./video_capture_ios`}><img src={Camera.src} /></Link>}
+                    {isUploaded ? <img src={Delete.src} onClick={handleDelete}/>: <Link href={is_safari}><img src={Camera.src} /></Link>}
                 </div>
             </Link>
         </div>
