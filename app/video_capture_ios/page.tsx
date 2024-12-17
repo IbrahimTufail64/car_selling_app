@@ -20,6 +20,28 @@ const App = () => {
     const [showPopup, setShowPopup] = useState<boolean>(false);
   const router = useRouter();
 
+            const [reachedBottom, setReachedBottom] = useState(false);
+          
+          
+            useEffect(() => {
+              const handleScroll = () => {
+                const offsetHeight = document.documentElement.offsetHeight;
+                const innerHeight = window.innerHeight;
+                const scrollTop = document.documentElement.scrollTop;
+            
+                const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 10;
+                if(hasReachedBottom){
+          
+                  setReachedBottom(hasReachedBottom);
+                }
+                
+              };
+            
+              window.addEventListener("scroll", handleScroll);
+            
+              return () => window.removeEventListener("scroll", handleScroll);
+            }, []);
+
   useEffect(() => {
     const initializeCamera = async () => {
       if (typeof window !== "undefined" && navigator.mediaDevices) {
@@ -116,10 +138,8 @@ const App = () => {
           //  window.localStorage.setItem(`videoData_${car_no}`, base64Data);
           // localStorage.setItem("recordedVideo", base64Data);
           console.log("Video saved to localStorage.");
-          setTimeout(()=>{
-
-            router.push(`./vehicle_video`);
-          },500)
+          router.push(`./vehicle_video`);
+          
         } catch (e) {
           console.error("Error saving video to localStorage:", e);
         }
@@ -191,10 +211,10 @@ const App = () => {
                 <Link href="./advice_vehicle_video">
                 <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
                 </Link>
-      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             
       </div>
-      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             
       </div>
       <div className=" w-[100vw] h-[100vh] overflow-hidden relative">
@@ -209,7 +229,7 @@ const App = () => {
     </div>
     </div>
     </div>
-        <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
+    <div className={`bg-[#282828] absolute top-0 ${reachedBottom ? 'hidden' : 'flex'} justify-center w-full h-[100vh] `} >
             <div>
             <div className=' '>
             <img src={logo.src} className=''/>

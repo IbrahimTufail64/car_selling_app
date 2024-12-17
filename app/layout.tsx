@@ -38,6 +38,12 @@ export const metadata: Metadata = {
     { rel: "apple-touch-icon", url: "icons/Logo-128.png" },
     { rel: "icon", url: "icons/Logo-128x128.png" },
   ],
+  themeColor: "transparent",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Carsmart",
+  },
 };
 
 export default function RootLayout({

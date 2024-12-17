@@ -59,57 +59,35 @@ const lookup_table_interior:any = {
   'back_seat': backSeat
 }
 
-const lookup_table_empty:any = {
-  'service_records1': emptyFilter,
-  'service_records2': emptyFilter,
-  'service_records3': emptyFilter,
-  'service_records4': emptyFilter,
-}
 
-const lookup_table_surface_marks:any = {
-  'surface_marks1': emptyFilter,
-  'surface_marks2': emptyFilter,
-  'surface_marks3': emptyFilter,
-  'surface_marks4': emptyFilter,
-}
 
-const lookup_table_panel_damage:any = {
-  'panel_damage1': emptyFilter,
-  'panel_damage2': emptyFilter,
-  'panel_damage3': emptyFilter,
-  'panel_damage4': emptyFilter,
-}
 
-const lookup_table_glass_health:any = {
-  'glass_health1': emptyFilter,
-  'glass_health2': emptyFilter,
-  'glass_health3': emptyFilter,
-  'glass_health4': emptyFilter,
-}
 
-const lookup_table_exterior_wear_tear:any = {
-  'exterior_wear_tear1': emptyFilter,
-  'exterior_wear_tear2': emptyFilter,
-  'exterior_wear_tear3': emptyFilter,
-  'exterior_wear_tear4': emptyFilter,
-}
 
-const lookup_table_damaged_absent_fixtures:any = {
-  'damaged_absent_fixtures1': emptyFilter,
-  'damaged_absent_fixtures2': emptyFilter,
-  'damaged_absent_fixtures3': emptyFilter,
-  'damaged_absent_fixtures4': emptyFilter,
-}
-
-const lookup_table_dashboard_lights:any = {
-  'dashboard_lights1': emptyFilter,
-  'dashboard_lights2': emptyFilter,
-  'dashboard_lights3': emptyFilter,
-  'dashboard_lights4': emptyFilter,
-}
 
 const Filter = ({ params }: { params: { slug: string } }) => {
-    
+  const [reachedBottom, setReachedBottom] = useState(false);
+
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offsetHeight = document.documentElement.offsetHeight;
+      const innerHeight = window.innerHeight;
+      const scrollTop = document.documentElement.scrollTop;
+  
+      const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 10;
+      if(hasReachedBottom){
+
+        setReachedBottom(hasReachedBottom);
+      }
+      
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+  
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
 
     const webcamRef:any = useRef(null);
     const link = params.slug.split('-');
@@ -178,7 +156,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         addImage(imageSrc);
         setTimeout(() => {
           router.push(`../${returnLink}`);
-        }, 300);
+        }, 800);
       }
       catch(e){
         // if(img === null){
@@ -190,7 +168,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     }, [webcamRef]);
 
   return (
-    <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
+    <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]' >
         
 
 
@@ -207,10 +185,10 @@ const Filter = ({ params }: { params: { slug: string } }) => {
                 <Link href={`../${adviceLink}`}>
                 <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
                 </Link>
-      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             
       </div>
-      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             
       </div>
       <div className=" w-[100vw] h-[100vh] overflow-hidden relative">
@@ -226,8 +204,10 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         
     </div>
     </div>
+    
     </div>
-        <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
+
+        <div className={`bg-[#282828] absolute top-0 ${reachedBottom ? 'hidden' : 'flex'} justify-center w-full h-[100vh] `} >
             <div>
             <div className=' '>
             <img src={logo.src} className=''/>
@@ -243,8 +223,13 @@ const Filter = ({ params }: { params: { slug: string } }) => {
                 <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
                 </div>
             </div>
+            {/* <div ref = {elementRef} className="w-full bg-red h-10">
+
+          </div> */}
             </div>
+            
         </div>
+        
         
     </div>
   )

@@ -17,9 +17,32 @@ import { db } from "@/app/Local_DB/db";
 
 
 const Filter = ({ params }: { params: { slug: string } }) => {
+    const [reachedBottom, setReachedBottom] = useState(false);
+  
+  
+    useEffect(() => {
+      const handleScroll = () => {
+        const offsetHeight = document.documentElement.offsetHeight;
+        const innerHeight = window.innerHeight;
+        const scrollTop = document.documentElement.scrollTop;
+    
+        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 10;
+        if(hasReachedBottom){
+  
+          setReachedBottom(hasReachedBottom);
+        }
+        
+      };
+    
+      window.addEventListener("scroll", handleScroll);
+    
+      return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
     const [car_no,setCar_no] = useState(0);
 
     const webcamRef:any = useRef(null);
+    
 
     
     const link = params.slug.split('-');
@@ -71,12 +94,14 @@ const Filter = ({ params }: { params: { slug: string } }) => {
 
         const damage_slides = ['surface_marks','panel_damage','exterior_wear_tear'];
         console.log('bro',damage_slides.includes(returnLink));
-        if(damage_slides.includes(returnLink)){
-          router.push(`../vehicle_health/${params.slug}`);
-        }
-        else{
-          router.push(`../${returnLink}`);
-        }
+        setTimeout(()=>{
+          if(damage_slides.includes(returnLink)){
+            router.push(`../vehicle_health/${params.slug}`);
+          }
+          else{
+            router.push(`../${returnLink}`);
+          }
+        },800)
       }
       catch(e){
         // if(img === null){
@@ -105,10 +130,10 @@ const Filter = ({ params }: { params: { slug: string } }) => {
                 <Link href={`../advice_${returnLink}`}>
                 <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
                 </Link>
-      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+      <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             
       </div>
-      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-40 backdrop-blur-xl ">
+      <div className="h-full w-[14%] right-0 bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             
       </div>
       <div className=" w-[100vw] h-[100vh] overflow-hidden relative">
@@ -121,7 +146,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     </div>
     </div>
     </div>
-        <div className='bg-[#282828] absolute top-0 flex justify-center w-full h-[100vh]'>
+        <div className={`bg-[#282828] absolute top-0 ${reachedBottom ? 'hidden' : 'flex'} justify-center w-full h-[100vh] `} >
             <div>
             <div className=' '>
             <img src={logo.src} className=''/>
