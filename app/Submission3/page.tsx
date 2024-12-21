@@ -19,7 +19,7 @@ const Submission3 = () => {
             <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='./advice_IntroSlider'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./advice_IntroSlider' onClick={()=>{localStorage.setItem('current_count','0')}} className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
                 <img src={car.src}/>
             </div>

@@ -58,7 +58,10 @@ const SurfaceMarks = () => {
                 return;
             }
             localStorage.setItem(`exterior_wear_tear_state_${car}`,'true');
-          Router.push('./vehicle_health_selection')
+            setTimeout(()=>{
+
+                Router.push('./vehicle_health_selection')
+            },300)
     
           const response = await axios.post(`${url}/pwa/exterior_wear_tear`,  
             {

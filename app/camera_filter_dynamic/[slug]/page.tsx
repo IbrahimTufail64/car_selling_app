@@ -11,6 +11,7 @@ import alertNew from '@/assets/alertNEW.png'
 import { useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { db } from "@/app/Local_DB/db";
+import axios from "axios";
 
 
 
@@ -18,6 +19,63 @@ import { db } from "@/app/Local_DB/db";
 
 const Filter = ({ params }: { params: { slug: string } }) => {
     const [reachedBottom, setReachedBottom] = useState(false);
+
+    const audioRef = useRef<HTMLAudioElement>(null);
+
+    const dataURLToBlob = (dataURL: string) => {
+        const parts = dataURL.split(';base64,');
+        const contentType = parts[0].split(':')[1];
+        const byteCharacters = atob(parts[1]);
+        const byteArrays = new Uint8Array(byteCharacters.length);
+
+        for (let i = 0; i < byteCharacters.length; i++) {
+            byteArrays[i] = byteCharacters.charCodeAt(i);
+        }
+
+        return new Blob([byteArrays], { type: contentType });
+    };
+
+    const playAudio = () => {
+        const base64Audio = localStorage.getItem('audio');
+        console.log(base64Audio);
+        if (base64Audio) {
+            const blob = dataURLToBlob(base64Audio);
+            const audioURL = URL.createObjectURL(blob);
+            if (audioRef.current) {
+                audioRef.current.src = audioURL;
+                audioRef.current.play();
+            }
+        } else {
+            console.error('Audio is not ready yet.');
+        }
+    };
+
+    useEffect(() => {
+        const fetchAudio = async () => {
+            try {
+                if (!localStorage.getItem('audio')) { 
+                    const response = await axios.get('https://media.vocaroo.com/mp3/1jSNptuNuLGn', {
+                        responseType: 'blob',
+                    });
+
+                    const reader = new FileReader();
+                    reader.readAsDataURL(response.data);
+                    reader.onloadend = () => {
+                        const base64Data = reader.result as string;
+                        localStorage.setItem('audio', base64Data);
+                        console.log('Audio saved to localStorage');
+                        // setPlayAudio(playAudio); // Set playAudio after the audio is fetched and stored
+                    };
+                } else {
+                    // setPlayAudio(playAudio); // If audio is already in localStorage, set playAudio immediately
+                }
+            } catch (error) {
+                console.error('Error fetching audio:', error);
+            }
+        };
+
+        fetchAudio();
+    }, []);
   
   
     useEffect(() => {
@@ -88,12 +146,12 @@ const Filter = ({ params }: { params: { slug: string } }) => {
       try{
         const imageSrc = webcamRef.current.getScreenshot();
         console.log(imageSrc,'added finally');
-        const audio = new Audio('https://media.vocaroo.com/mp3/1jSNptuNuLGn'); // Replace with your audio file path or URL
-        audio.play();
+        
         await addImage(imageSrc);
 
         const damage_slides = ['surface_marks','panel_damage','exterior_wear_tear'];
         console.log('bro',damage_slides.includes(returnLink));
+        playAudio();
         setTimeout(()=>{
           if(damage_slides.includes(returnLink)){
             router.push(`../vehicle_health/${params.slug}`);
@@ -114,6 +172,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className='bg-[#282828] w-full   text-white pt-6 text-[20px] relative h-[200vh]'>
+              <audio ref={audioRef} />
         
 
 

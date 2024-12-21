@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import ExampleImage from '@/assets/ExamplePlaceHolder.png'
 import { Image } from '../Local_DB/db';
 import axios from 'axios';
+import { useTimeout } from 'react-use';
 
 const SurfaceMarks = () => {
     const [images,setImages] = useState<Image[]>([]);
@@ -59,7 +60,10 @@ const SurfaceMarks = () => {
             }
 
             localStorage.setItem(`surface_marks_state_${car}`,'true');
-          Router.push('./vehicle_health_selection')
+            setTimeout(()=>{
+
+                Router.push('./vehicle_health_selection')
+            },300)
     
           const response = await axios.post(`${url}/pwa/surface_marks`,  
             {

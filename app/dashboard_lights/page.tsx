@@ -46,7 +46,10 @@ const SurfaceMarks = () => {
 
             const car = Number(localStorage.getItem('car_no'));
               localStorage.setItem(`dashboard_lights_state_${car}`,'true');
-          Router.push('./vehicle_health_selection')
+              setTimeout(()=>{
+
+                Router.push('./vehicle_health_selection')
+            },300)
     
           const response = await axios.post(`${url}/pwa/dashboard_lights`,  
             {

@@ -15,11 +15,24 @@ const VehiclePhotos = () => {
   const [interiorState,setInteriorState] = useState(false);
   const [wheelsTyresState,setWheelsTyresState] = useState(false);
   const [healthState,sethealthState] = useState(false);
+  const [progress,setProgress] = useState([0,0,0,0]);
 
   useEffect(()=>{
     const state = async()=>{
 
       const car = Number(localStorage.getItem('car_no'));
+      console.log(localStorage.getItem(`vehicle_exterior_complete`));
+      const progresst = [
+        Number(localStorage.getItem(`vehicle_exterior_complete`)),
+        Number(localStorage.getItem(`vehicle_interior_complete`)),
+        Number(localStorage.getItem(`vehicle_wheels_complete`)),
+        Number(localStorage.getItem(`vehicle_health_complete`)),
+      ]
+      setProgress(progresst);
+      let count = 0 ; 
+      progresst.map(e => {e === 100 && count++});
+      console.log(String(Math.floor((count/4)*100)),'countttt');
+      localStorage.setItem('vehicle_photos_complete',String(Math.floor((count/4)*100)));
 
     setInteriorState(localStorage.getItem(`vehicle_interior_state_${car}`)=== 'true');
     setExteriorState(localStorage.getItem(`vehicle_exterior_state_${car}`)=== 'true');
@@ -44,25 +57,25 @@ const VehiclePhotos = () => {
         <div className='space-y-4 px-4'>
           <div className='mb-4'>
           <Link href='./advice_exterior'>
-            <Field isComplete={exteriorState} Content={'Vehicle exterior'}/>
+            <Field isComplete={exteriorState} Content={'Vehicle exterior'} Progress={progress[0]} Next={true}/>
           </Link>
           </div>
           
           <div className='mb-4'>
           <Link href={`${exteriorState ? './advice_interior' : '#'}`}>
-          <Field isComplete={interiorState} Content={'Vehicle interior'}/>
+          <Field isComplete={interiorState} Content={'Vehicle interior'} Progress={progress[1]} Next={exteriorState}/>
           </Link>
           </div>
 
           <div className='mb-4'>
           <Link href={`${interiorState ? './advice_vehicle_wheels' : '#'}`}>
-          <Field isComplete={wheelsTyresState} Content={'Your wheels & typres'}/>
+          <Field isComplete={wheelsTyresState} Content={'Your wheels & typres'} Progress={progress[2]} Next={interiorState}/>
           </Link>
           </div>
 
           <div className='mb-4'>
-          <Link href={`${wheelsTyresState ? './vehicle_health_selection' : '#'}`}>
-          <Field isComplete={healthState} Content={'Vehicle health'}/>
+          <Link href={`${wheelsTyresState ? './vehicle_health_selection' : '#'}`} >
+          <Field isComplete={healthState} Content={'Vehicle health'} Progress={progress[3]} Next={wheelsTyresState}/>
           </Link>
           </div>
 

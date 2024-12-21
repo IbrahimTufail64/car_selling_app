@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
@@ -22,6 +22,8 @@ import axios from 'axios';
 
 
 const VehicleInterior = () => {
+    const divRefs:any = [useRef(null), useRef(null), useRef(null), useRef(null)];
+    
     const [dashboardimg, setdashboardimg]  = useState<any>(null);
     const [bootimg, setbootimg]  = useState<any>(null);
     const [frontseatimg, setfrontseatimg]  = useState<any>(null);
@@ -38,22 +40,35 @@ const VehicleInterior = () => {
     // Search for images in the db: 
     useEffect(()=>{
 
-        const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
-            try{
-                const car_no = Number(localStorage.getItem('car_no'));
-                const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
-                console.log(image?.data);
-                
-                setter_function(image?.data);
-            }
-            catch(e){
-                
-            }
+        let counter = 0;
+                        const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
+                            try{
+                              const car_no = Number(localStorage.getItem('car_no'));
+                              const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
+                                
+                                setter_function(image?.data);
+                                if(image?.data){
+                                  
+                                  counter ++;
+                                }
+                            }
+                            catch(e){
+                                
+                            }
         };
         retrieve('dashboard',setdashboardimg);
         retrieve('boot',setbootimg);
         retrieve('front_seat',setfrontseatimg);
         retrieve('back_seat',setbackseatimg);
+
+        setTimeout(() => {
+            console.log(counter,'cc')
+            localStorage.setItem(`vehicle_interior_complete`,String(Math.floor((counter/4)*100)));
+            const Index = counter - 1; // Adjust for zero-based index
+            if (divRefs[Index].current) {
+              divRefs[Index].current.scrollIntoView({ behavior: "auto" });
+            }
+          }, 300);
         // localStorage.setItem('vehicle_interior_state','true');
         // window.location.reload();
         
@@ -77,7 +92,11 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
-        Router.push('./vehicle_photos')
+        const car = Number(localStorage.getItem('car_no'));
+      localStorage.setItem(`vehicle_interior_state_${car}`,'true');
+        setTimeout(()=>{
+          Router.push('./vehicle_photos')
+        },300)
 
       const response = await axios.post(`${url}/pwa/vehicle_interior`,  
         {
@@ -90,10 +109,9 @@ const handleSubmit = async (event:any) => {
               }
       });
       console.log(response.status,response.data);  
-      const car = Number(localStorage.getItem('car_no'));
-      localStorage.setItem(`vehicle_interior_state_${car}`,'true');
       
-    } catch (error) {
+      
+    } catch (error) { 
         // localStorage.setItem('vehicle_interior_state','true');
       console.error(error);
     }
@@ -113,16 +131,27 @@ const handleSubmit = async (event:any) => {
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
                     <Link  href='./advice_interior'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src}/> 
             </div>
         </div>
 
         <div className='space-y-3 pt-7'>
+         <div ref={divRefs[0]}>
             
 <PhotoFrame Content='Dashboard' isUploaded={dashboardimg !== undefined} photo={ dashboardimg ? dashboardimg : Dashboard}  link ='dashboard'/>
+        </div>   
+        <div ref={divRefs[1]}>
+
 <PhotoFrame Content='Boot' isUploaded={bootimg !== undefined} photo={bootimg ? bootimg : Boot} link ='boot'/>
+        </div>
+        <div ref={divRefs[2]}>
+
 <PhotoFrame Content='Front seat' isUploaded={frontseatimg !== undefined} photo={frontseatimg ? frontseatimg :  FrontSeat} link ='front_seat'/>
+        </div>
+        <div ref={divRefs[3]}>
+
 <PhotoFrame Content='Back seat' isUploaded={backseatimg !== undefined} photo={backseatimg ? backseatimg : BackSeat} link ='back_seat'/>
+        </div>
         </div>
         
 

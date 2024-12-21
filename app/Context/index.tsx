@@ -1,7 +1,7 @@
 "use client"
 
 import axios from "axios";
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState, useContext, useEffect, useRef } from "react";
 import { useRouter } from 'next/navigation';
 import { useLocation } from "react-use";
 
@@ -16,10 +16,12 @@ export function AppWrapper({
     const [vehicle_exterior, setVehicle_Exterior] = useState(false); 
     const [vehicle_interior, setVehicle_Interior] = useState(false); 
     const [vehicle_wheels, setVehicle_Wheels] = useState(false); 
-    const [isVendor, setIsVendor] = useState<boolean | null>(true);
+    const [isVendor, setIsVendor] = useState<boolean | null>(null);
     const location = useLocation();
     const Router = useRouter();
+    const audioRef = useRef<HTMLAudioElement | null>(null);
     useEffect(()=>{
+      
       const getVendor = async()=>{
         try { 
           const url:any = process.env.NEXT_PUBLIC_API_URL ;
@@ -49,10 +51,28 @@ export function AppWrapper({
       console.log(location)
         getVendor();
       }
+
+
+      // check if device is mute
+      if (audioRef.current) {
+        const handleVolumeChange = () => {
+            if (audioRef.current?.volume === 0) {
+                alert("Device is muted.");
+            }
+        };
+
+        const audioElement = audioRef.current;
+        audioElement.addEventListener("volumechange", handleVolumeChange);
+
+        return () => {
+            audioElement.removeEventListener("volumechange", handleVolumeChange);
+        };
+    }
     },[])
 
     return (
         <AppContext.Provider value={{vehicle_exterior, setVehicle_Exterior,vehicle_interior, setVehicle_Interior ,vehicle_wheels, setVehicle_Wheels,isVendor,setIsVendor}}>
+            <audio ref={audioRef} />
             {children}
         </AppContext.Provider>
     )

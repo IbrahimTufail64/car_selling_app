@@ -35,7 +35,10 @@ const TechnicalHealth = () => {
             }
             const car = Number(localStorage.getItem('car_no'));
               localStorage.setItem(`technical_state_${car}`,'true');
-            Router.push('./vehicle_health_selection')
+              setTimeout(()=>{
+
+                Router.push('./vehicle_health_selection')
+            },300)
 
             const image = await db.images.where('name').equals('technicals').first();
             if (image !== undefined) {

@@ -12,10 +12,17 @@ import { useAppContext } from '../Context'
 
 const Slider = () => {
     const router = useRouter();
-    const [emblaRef,emblaApi] = useEmblaCarousel({ watchDrag: false });
     const [count, setCount] = useState(0);
+    const [startCount,setStartCount] = useState(0);
+    const [emblaRef,emblaApi] = useEmblaCarousel({ watchDrag: false ,startIndex : startCount});
 
     const {isVendor} = useAppContext();
+    useEffect(()=>{
+        if(localStorage.getItem('current_count')){
+            setStartCount(Number(localStorage.getItem('current_count')));
+            setCount(Number(localStorage.getItem('current_count')));
+        }
+    },[])
     
     
     const scrollPrev = useCallback(() => { 

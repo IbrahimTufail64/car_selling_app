@@ -90,10 +90,11 @@ const VehicleWheels = () => {
         retrieve('front_passenger_wheel',setfront_passenger_wheel_img);
         retrieve('front_passenger_tyre',setfront_passenger_tyre_img);
         setTimeout(() => {
-          console.log(counter,'cc')
+          console.log(counter,'cc');
+          localStorage.setItem(`vehicle_wheels_complete`,String(Math.floor((counter/8)*100)));
           const Index = counter - 1; // Adjust for zero-based index
           if (divRefs[Index].current) {
-            divRefs[Index].current.scrollIntoView({ behavior: "smooth" });
+            divRefs[Index].current.scrollIntoView({ behavior: "auto" });
           }
         }, 300);
         
@@ -129,7 +130,12 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
-        Router.push('./vehicle_photos')
+              const car = Number(localStorage.getItem('car_no'));
+      localStorage.setItem(`vehicle_wheels_state_${car}`,'true');
+        setTimeout(()=>{
+
+          Router.push('./vehicle_photos')
+        },300)
 
       const response = await axios.post(`${url}/pwa/vehicle_wheels_tyres`,  
         {
@@ -142,8 +148,7 @@ const handleSubmit = async (event:any) => {
         }
       });
       console.log(response.status,response.data); 
-    //   const car = Number(localStorage.getItem('car_no'));
-    //   localStorage.setItem(`vehicle_wheels_state_${car}`,'true'); 
+ 
       
     } catch (error) {
       console.error(error);

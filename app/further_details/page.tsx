@@ -40,7 +40,11 @@ const FurtherDetails = () => {
                   
                 localStorage.setItem(`vehicle_health_state_${car}`,'true');
                 localStorage.setItem(`vehicle_photos_state_${car}`,'true');
-            Router.push('./Submission7')
+                setTimeout(()=>{
+
+                    Router.push('./Submission7')
+                },300)
+
             
             const image = await db.images.where('name').equals('further_details').first();
             console.log(image)
@@ -80,7 +84,7 @@ const FurtherDetails = () => {
 
     
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] flex flex-col justify-between`}>
+    <form onSubmit={()=>{addData(inputText,checked)}} className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] flex flex-col justify-between`}>
         <div>
         <div className='p-5 flex space-x-2 text-[22px] pt-10'>
         <Link  href='./vehicle_health_selection'><IoChevronBack size={35} className='mt-[1px]'/></Link>
@@ -142,19 +146,19 @@ const FurtherDetails = () => {
             </div>
         </div>
 
-            <div className='p-5 bottom-0 w-full'>
-                <div onClick={()=>{addData(inputText,checked)}} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+            <div className='p-5 bottom-0 w-[100vw]'>
+                <button type='submit' onClick={()=>{addData(inputText,checked)}}  className={`w-full flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>
                         <img src={splash.src}/>
                     </div>
-                </div>
+                </button>
         </div>
         
 
         
 
-    </div>
+    </form>
   )
 }
 

@@ -32,15 +32,27 @@ const VehicleVideo = () => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
+                const car_no = Number(localStorage.getItem('car_no'));
                 const image = await db.images.where('name').equals(image_to_retrieve).first(); 
-                if(image?.data == undefined){
-                    setter_function(undefined)
+                if(is_safari){
+                    if(image?.data == undefined){
+                        setter_function(undefined)
+                        console.log(image?.data)
+                    }else{
+                        const url = URL.createObjectURL(image?.data);
+                    setter_function(image?.data);
                     console.log(image?.data)
-                }else{
-                    const url = URL.createObjectURL(image?.data);
-                setter_function(image?.data);
-                console.log(image?.data)
+                    }
+                } else {
+
+                    const video = String(localStorage.getItem(`videoData_${car_no}`)); 
+                    if(video === ''){
+                        setter_function(undefined);
+                    } else {
+                        setter_function(image?.data);
+                    }
                 }
+
                 
             }
             catch(e){
@@ -60,10 +72,18 @@ const VehicleVideo = () => {
             const formData = new FormData();
             const video = String(localStorage.getItem(`videoData_${car_no}`)); 
             console.log(video);
-            if(!vehicle_video){
-                alert('please upload a video to proceed!');
-                return;
+            if(is_safari){
+                if(!vehicle_video){
+                    alert('please upload a video to proceed!');
+                    return;
+                }
+            }else{
+                if(!video){
+                    alert('please upload a video to proceed!');
+                    return;
+                }
             }
+            
             const car = Number(localStorage.getItem('car_no'));
                   
                 localStorage.setItem(`vehicle_video_state_${car}`,'true');

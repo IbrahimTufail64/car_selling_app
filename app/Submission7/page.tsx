@@ -29,11 +29,15 @@ const Submission7 = () => {
     const [userName, setUserName] = useState('');
     const [profileImg,setProfileImg] = useState<any>();
     const [userId,setUserId] = useState('');
+    const [progressState,setporgressState] = useState(0)
 
     useEffect(()=>{ 
         // localStorage.removeItem('car_no');
         const car_no = Number(localStorage.getItem('car_no'));
         car_no === 0 ? localStorage.setItem('car_no','1') : car_no;
+        const progresst = Number(localStorage.getItem('vehicle_photos_complete'))
+        console.log(progresst);
+        setporgressState(progresst);
 
         setCarCount(car_no === 0 ? 1 : car_no)
         const handleRequest = async () => { 
@@ -41,7 +45,7 @@ const Submission7 = () => {
 
         
             const url:any = process.env.NEXT_PUBLIC_API_URL ;
-            console.log(url);
+            // console.log(url);
             const token = localStorage.getItem('token');
             try { 
                 const response = await axios.get(`${url}/pwa/real_time_data`, {
@@ -51,7 +55,7 @@ const Submission7 = () => {
                     }
                 });
                 const data =  response.data;
-                console.log(response.data)
+                // console.log(response.data)
                 
                 // if(data.isWholeSale === "Wholesale"){
                     setsaleTag(data.tag)
@@ -77,7 +81,7 @@ const Submission7 = () => {
         handleRequest()
     },[])
     const handleCarCountMinus =() =>{
-        console.log(vehiclePhotosState)
+        // console.log(vehiclePhotosState)
         if(carCount > 1){
             localStorage.setItem('car_no',String(carCount-1))
             setCarCount(carCount-1);
@@ -228,7 +232,7 @@ const Submission7 = () => {
                                 isVendor && (
                                     <div>
                                         <Link href='#'>
-                                    <Field isComplete={true} Content={'Trade declaration'} />
+                                    <Field isComplete={true} Content={'Trade declaration'} Progress={0} Next={true}/>
                                     </Link> 
                                         </div>
                                 )
@@ -237,7 +241,7 @@ const Submission7 = () => {
                                 !isVendor && (
                                     <div>
                                         <Link href='#'>
-                                    <Field isComplete={true} Content={'About you'} />
+                                    <Field isComplete={true} Content={'About you'} Progress={0} Next={true}/>
                                     </Link> 
                                         </div>
                                 )
@@ -245,19 +249,19 @@ const Submission7 = () => {
 
                             <div>
                             <Link href='#'>
-                           <Field isComplete={true} Content={'About your vehicle'} />
+                           <Field isComplete={true} Content={'About your vehicle'} Progress={0} Next={true}/>
                            </Link> 
                             </div>
                             <div>
                             <Link href='./vehicle_photos'>
-                           <Field isComplete={vehiclePhotosState} Content={'Vehicle photos'} />
+                           <Field isComplete={vehiclePhotosState} Content={'Vehicle photos'} Progress={progressState} Next={true}/>
                            </Link> 
                             </div>
                             {
                                 isVendor && (
                                     <div>
                                         <Link href={`${vehiclePhotosState ? './service_manuals_keys' : '#'}`}>
-                                    <Field isComplete={serviceRecordsState} Content={'Service records, Manuals & Keys'} />
+                                    <Field isComplete={serviceRecordsState} Content={'Service records, Manuals & Keys'} Progress={0} Next={vehiclePhotosState}/>
                                     </Link> 
                                         </div>
                                 )
@@ -267,7 +271,7 @@ const Submission7 = () => {
                                 (
                                     <div>
                                         <Link href={`${serviceRecordsState ? './advice_vehicle_video' : '#'}`}>
-                                    <Field isComplete={vehicle_video} Content={'Vehicle video'} />
+                                    <Field isComplete={vehicle_video} Content={'Vehicle video'} Progress={0} Next={serviceRecordsState}/>
                                     </Link> 
                                         </div>
                                 )
@@ -276,7 +280,7 @@ const Submission7 = () => {
                                 !isVendor && (
                                     <div>
                                         <Link href={`${vehiclePhotosState ? './service_manuals_keys' : '#'}`}>
-                                    <Field isComplete={serviceRecordsState} Content={'Service records'} />
+                                    <Field isComplete={serviceRecordsState} Content={'Service records'} Progress={0} Next={vehiclePhotosState}/>
                                     </Link> 
                                         </div>
                                 )

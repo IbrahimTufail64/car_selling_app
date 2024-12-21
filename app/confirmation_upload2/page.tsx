@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import icon from '@/assets/icons/Iconbutton.png'
 import Link from 'next/link';
 import { useAppContext } from '../Context';
@@ -15,6 +15,9 @@ const Confirmation= () => {
     const {isVendor} = useAppContext();
     const phone = isVendor ? phoneD : phoneW;
     const email = isVendor ? emailD : emailW;
+    useEffect(()=>{
+        localStorage.clear();
+    },[])
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full min-h-[100vh] overflow-hidden flex flex-col  justify-between relative`}>

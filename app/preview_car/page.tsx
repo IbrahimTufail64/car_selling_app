@@ -66,8 +66,43 @@ const VehicleExterior = () => {
     }
 
     useEffect(()=>{
-        setcar_no(Number(localStorage.getItem("car_no")))
-        setvehicle_video(localStorage.getItem(`videoData_${Number(localStorage.getItem("car_no"))}`));
+        const isSafari = () => {
+            const ua = navigator.userAgent;
+            return ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Chromium');
+          };
+        setcar_no(Number(localStorage.getItem("car_no")));
+
+            const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
+                        try{
+                            const car_no = Number(localStorage.getItem('car_no'));
+                            const image = await db.images.where('name').equals(image_to_retrieve).first(); 
+                            if(isSafari()){
+                                if(image?.data == undefined){
+                                    setter_function(undefined)
+                                    console.log(image?.data)
+                                }else{
+                                    const url = URL.createObjectURL(image?.data);
+                                setter_function(image?.data);
+                                console.log(image?.data)
+                                }
+                            } else {
+            
+                                const video = String(localStorage.getItem(`videoData_${car_no}`)); 
+                                if(video === ''){
+                                    setter_function(undefined);
+                                } else {
+                                    setter_function(image?.data);
+                                }
+                            }
+            
+                            
+                        }
+                        catch(e){
+                            
+                        }
+                    };
+            retrieve('video',setvehicle_video);
+
         
     },[])
 

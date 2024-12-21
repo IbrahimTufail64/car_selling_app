@@ -38,7 +38,9 @@ const WheelCondition = () => {
             const url:any = process.env.NEXT_PUBLIC_API_URL ;
             const token = localStorage.getItem('token');
             localStorage.setItem(`wheel_condition_state_${car}`,'true');
-            Router.push('./vehicle_health_selection')
+            setTimeout(()=>{
+                Router.push('./vehicle_health_selection')
+            },300)
             if(!isGood){
                 wheel_state = await db.wheel_condition.put({
                     id: 1,

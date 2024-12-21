@@ -60,11 +60,13 @@ const ServiceRecordsCapture = () => {
         event.preventDefault();
         const car = Number(localStorage.getItem('car_no'));
               localStorage.setItem(`service_records_state_${car}`,'true');
-              if(localStorage.getItem('saletag')==='WholeSale'){
-                Router.push('./Submission7')
-              }else{
-                Router.push('./preview_car')
-              }
+              setTimeout(()=>{
+                if(localStorage.getItem('saletag')==='WholeSale'){
+                    Router.push('./Submission7')
+                  }else{
+                    Router.push('./preview_car')
+                  }
+              },300)
     
         const formData = new FormData();
 

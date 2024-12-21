@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car from '@/assets/Sub3Car.png'
 import PhotoFrame from '../components/PhotoFrame';
@@ -22,7 +22,9 @@ import axios from 'axios';
 // import measureBlur from '../Blur_Detection/measureBlur';
 
 
-const VehicleExterior = () => {
+const VehicleExterior = () => { 
+    const divRefs:any = [useRef(null), useRef(null), useRef(null), useRef(null)];
+    
     const [frontDimg, setfrontDimg]  = useState<any>(null);
     const [frontPimg, setfrontPimg]  = useState<any>(null);
     const [backDimg, setbackDimg]  = useState<any>(null);
@@ -39,21 +41,37 @@ const VehicleExterior = () => {
     // Search for images in the db: 
     useEffect(()=>{
 
-        const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
-            try{
-                const car_no = Number(localStorage.getItem('car_no'));
-                const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
-                // console.log(image);
-                setter_function(image?.data);
-            }
-            catch(e){
-                
-            }
-        };
+        let counter = 0;
+                const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
+                    try{
+                      const car_no = Number(localStorage.getItem('car_no'));
+                      const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
+                        
+                        setter_function(image?.data);
+                        if(image?.data){
+                          
+                          counter ++;
+                        }
+                    }
+                    catch(e){
+                        
+                    }
+                };
         retrieve('front_driver',setfrontDimg);
         retrieve('front_passenger',setfrontPimg);
         retrieve('back_driver',setbackDimg);
         retrieve('back_passenger',setbackPimg);
+
+        setTimeout(() => {
+            console.log(counter,'cc')
+            console.log(car,'asdf')
+            localStorage.setItem(`vehicle_exterior_complete`,String(Math.floor((counter/4)*100)));
+            console.log(String(Math.floor((counter/4)*100)));
+            const Index = counter - 1; // Adjust for zero-based index
+            if (divRefs[Index].current) {
+              divRefs[Index].current.scrollIntoView({ behavior: "auto" });
+            }
+          }, 300);
         // alert('You may need to reload if your image does not appear');
         // window.location.reload();
         
@@ -83,7 +101,12 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
-        Router.push('./vehicle_photos')
+        const car = Number(localStorage.getItem('car_no'));
+        localStorage.setItem(`vehicle_exterior_state_${car}`,'true');
+
+        setTimeout(()=>{
+          Router.push('./vehicle_photos')
+        },300)
 
       const response = await axios.post(`${url}/pwa/vehicle_exterior`,  
         {
@@ -96,8 +119,8 @@ const handleSubmit = async (event:any) => {
               }
       });
       console.log(response.status,response.data);  
-      const car = Number(localStorage.getItem('car_no'));
-      localStorage.setItem(`vehicle_exterior_state_${car}`,'true');
+      
+      
     //   localStorage.setItem(`vehicle_interior_state_${car}`,'false');
 
       console.log('uploaded now...')
@@ -126,10 +149,18 @@ const handleSubmit = async (event:any) => {
         </div>
 
         <div className='space-y-3 py-7'>
-            <PhotoFrame Content='Front Driver Corner' isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
+            <div ref={divRefs[0]}> 
+            <PhotoFrame  Content='Front Driver Corner' isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
+            </div>
+            <div ref={divRefs[1]}> 
             <PhotoFrame Content='Front Passenger Corner' isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
+            </div>
+            <div ref={divRefs[2]}>
             <PhotoFrame Content='Back Driver Corner' isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
+            </div>
+            <div ref={divRefs[3]}>
             <PhotoFrame Content='Back Passenger Corner' isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
+            </div>
         </div>
         
 
