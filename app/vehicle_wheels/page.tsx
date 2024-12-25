@@ -63,6 +63,7 @@ const VehicleWheels = () => {
     
     // Search for images in the db: 
     useEffect(()=>{
+      localStorage.setItem('prevRoute','./vehicle_wheels');
 
       let counter = 0;
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{

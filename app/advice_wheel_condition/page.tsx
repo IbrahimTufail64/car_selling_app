@@ -15,6 +15,12 @@ import { useAppContext } from '../Context';
 import splash from '@/assets/icons/Rays-small.png'
 const SmartAdvice = () => {
   const [car,setCar] = useState(0);
+  const [prevRoute,setPrevRoute] = useState<string | null>('');
+                  
+                    useEffect(()=>{
+                      setPrevRoute(localStorage.getItem('prevRoute'));
+                  
+                    },[])
   useEffect(()=>{
     const car_local = Number(localStorage.getItem('car_no'));
     setCar(car_local);
@@ -27,7 +33,7 @@ const SmartAdvice = () => {
   return (
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[1px]'/></Link>
+            <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>smart advice</div>
         </div>
 
@@ -104,6 +110,7 @@ const SmartAdvice = () => {
                     </div>
                 </Link>
         </div>
+        {prevRoute === './vehicle_health_selection' && 
         <div className='p-5 pt-0'>
                 <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`wheel_condition_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
@@ -111,6 +118,7 @@ const SmartAdvice = () => {
                     </div>
                 </Link>
         </div>
+        }
 
     </div>
   )

@@ -14,6 +14,7 @@ import splash from '@/assets/icons/Rays-small.png'
 import { useAppContext } from '../Context';
 import { IoChevronBack } from "react-icons/io5";
 import axios from 'axios';
+import PreviewPhotos from '../components/PreviewPhotos';
 
 const Submission2 = () => {
     const [value, setValue] = useState(20); 
@@ -25,6 +26,7 @@ const Submission2 = () => {
     const [userName, setUserName] = useState('');
     const [profileImg,setProfileImg] = useState<any>();
     const [userId,setUserId] = useState('');
+    const [popup,setpopup] = useState(false);
 
     useEffect(()=>{ 
         
@@ -69,7 +71,13 @@ const Submission2 = () => {
             }
           };
 
-        handleRequest()
+        handleRequest();
+        setTimeout(()=>{
+            setpopup(true);
+        },500)
+        setTimeout(()=>{
+            setpopup(false);
+        },3000)
     },[])
 
     const requestCameraPermission = async () => {
@@ -242,6 +250,7 @@ const Submission2 = () => {
                             
                         </div>
         </div>
+        
  </div>
 
         <div>
@@ -250,6 +259,19 @@ const Submission2 = () => {
                     <img src={splash.src}/>
             </Link> 
         </div>
+
+
+        {popup && 
+        <div className={`flex justify-center items-center w-full h-full`}>
+
+        <div className='fixed top-5 w-[80vw] px-2 text-center  bg-secondaryDark   rounded-2xl text-lg border border-2 border-white'>
+        <div className='py-5'>
+        Smart advice: Turn on sound for a smoother photo experience 📷
+        </div>
+        </div>
+        
+    </div>
+        }
     </div>
   )
 }
@@ -258,98 +280,3 @@ export default Submission2
 
 
 
-
-
-
-
-// <div>
-// <div className='flex w-full justify-center space-x-2 mb-6'>
-//         <img src={isVendor ? LogoWhite.src : LogoBlue.src} className='h-14'/>
-//         {
-//             isVendor && <div className='bg-tertiary w-[46px] text-[14px] mt-4 flex justify-center items-center text-[#000000] h-[22px] rounded-full'>Hub</div>
-//         }
-//         </div>
-
-//     <div className='w-full flex justify-center'>
-//         <div className='flex space-x-4 pt-5'> {/*  Dynamic Content  */}
-//             <img src={demoPic.src}/>
-//             <div className='flex h-full pt-3 text-lg font-[500]'>Joe Doe</div>  
-//         </div>
-//     </div>
-    
-//     <div className='text-[46px] font-[400] pt-3 flex justify-center w-full'>
-//         <div>
-//             <div>£ 11,750</div>
-//             <img src={underline.src}/>
-//         </div>
-//     </div>
-    
-    
-// </div>
-
-// </div>
-// <div className='text-sm px-5 text-center pt-5'>
-// Based on our live real-time <span className='text-primary'>Smart Data</span> for 'Manufacturer'' vehicles and daily live trade data. 
-// </div>
-// <div className='w-full flex justify-center pt-7'>
-// <div>
-//     <div className='w-[85vw]'>
-//             <Slider
-//             onChange={OnChangeEventTriggerd}
-//             value={value}
-//             trackStyle={{ backgroundColor: "#695DFD", height: 6 }}
-//             railStyle={{ backgroundColor: "#FFFFFF", height: 6 }}
-//             handleStyle={{
-//             borderColor: "#99F22B",
-//             height: 10,
-//             width: 10,
-//             marginLeft: -5,
-//             marginTop: -2,
-//             backgroundColor: "black"
-//             }}
-//     />
-//     </div>
-//     <div className='w-[85vw] flex justify-between text-sm'>
-//         <div>Looked After</div>
-//         <div>Pristine</div>
-//     </div>
-// </div>
-
-// </div>
-// <div className='w-full flex justify-center mt-2'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>Quick Sale</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* <div>
-                <div className=''>
-                        <Slider
-                        onChange={OnChangeEventTriggerd}
-                        value={value}
-                        trackStyle={{ backgroundColor: "#695DFD", height: 6 }}
-                        railStyle={{ backgroundColor: "#EEF1FF", height: 6 }}
-                        handleStyle={{
-                        borderColor: "#99F22B",
-                        height: 10,
-                        width: 10,
-                        marginLeft: -5,
-                        marginTop: -2,
-                        backgroundColor: "black"
-                        }}
-                />
-                </div>
-                <div className='w-[85vw] flex justify-between text-[13px]'>
-                    <div>Looked After</div>
-                    <div>Pristine</div>
-                </div>
-            </div> */}

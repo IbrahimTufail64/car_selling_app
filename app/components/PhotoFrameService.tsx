@@ -20,13 +20,17 @@ const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
     const {isVendor} = useAppContext();
 
     const handleDelete = async()=>{
+        const car_no = Number(localStorage.getItem('car_no'))
         try{
-            await db.images.where('name').equals(image_name).filter(e => e.car_number === Car_no && e.dynamic_image_number === DynamicImageNo).delete() 
-            window.location.reload();
+            console.log(image_name,car_no, DynamicImageNo)
+        //    const del =  await db.images.where('name').equals(image_name).toArray()
+           const del =  await db.images.where('name').equals(image_name).filter(e=> e.dynamic_image_number === DynamicImageNo).delete() 
+           console.log('yesdd',del);
+           window.location.reload();
 
         }
         catch(e){
-            console.log(e);
+            console.log(e,'fuck');
         }
     }
 
@@ -37,7 +41,7 @@ const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
         {isUploaded ?
         <div className={`w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden `}>
         <div>
-            <img src={uploaded_photo} className='w-full object-contain'/>
+            <img src={uploaded_photo} className='w-full object-contain sm:max-h-[400px]'/>
         </div>
         <Link href={`${!isUploaded ? `./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
             <div className='space-y-1'>

@@ -96,7 +96,7 @@ const TyreFrame = ({ Content, setisSelected, photo, link, setCondition }: { setC
                 <div className='relative'>
                     <img src={uploaded_photo} className='w-full object-cover'/>
                 </div>
-                <div className={`py-4 px-5 text-[18px]   ${isVendor ? 'bg-[#6D6E8F] border-t-2' : 'border border-1 border-[#D1D9FF]'}`}>
+                <div className={`py-4 px-5 text-[18px]   ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                     <div className='flex justify-between'>
                         <div className='space-y-1'>
                             <div className='font-[400]'>{Content}</div>

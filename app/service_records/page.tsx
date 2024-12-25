@@ -28,13 +28,14 @@ const ServiceRecordsCapture = () => {
     const Alert = isVendor ? alertWhite : alertblue;
     // Search for images in the db: 
     useEffect(()=>{
+        localStorage.setItem('prevRoute','./service_records');
         const car_number = Number(localStorage.getItem('car_no'));
         setCar_no(car_number);
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const images = await db.images
                     .where('name').equals(image_to_retrieve)
-                    .filter(image => image.car_number === car_number )
+                    // .filter(image => image.car_number === car_number )
                     .toArray();
                 // const imageData = images.map(e => e=e.data);
                 console.log(images);
@@ -59,7 +60,7 @@ const ServiceRecordsCapture = () => {
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
         const car = Number(localStorage.getItem('car_no'));
-              localStorage.setItem(`service_records_state_${car}`,'true');
+              localStorage.setItem(`service_records_state_${car}`,'true');      
               setTimeout(()=>{
                 if(localStorage.getItem('saletag')==='WholeSale'){
                     Router.push('./Submission7')

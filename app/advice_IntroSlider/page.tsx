@@ -16,6 +16,7 @@ import { useAppContext } from '../Context';
 const SmartAdvice = () => {
 
   const router = useRouter();
+  
   const {isVendor} = useAppContext(); 
   const phone = isVendor ? phoneD : phoneW;
   const email = isVendor ? emailD : emailW;

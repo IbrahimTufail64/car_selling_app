@@ -32,6 +32,7 @@ const Submission7 = () => {
     const [progressState,setporgressState] = useState(0)
 
     useEffect(()=>{ 
+        localStorage.setItem('prevRoute','./Submission7');
         // localStorage.removeItem('car_no');
         const car_no = Number(localStorage.getItem('car_no'));
         car_no === 0 ? localStorage.setItem('car_no','1') : car_no;
@@ -303,6 +304,7 @@ const Submission7 = () => {
             <div>Live chat</div>
             </div>
         </div>
+
 
     </div>
   )

@@ -16,14 +16,20 @@ import { useAppContext } from '../Context';
 
 const SurfaceMarks = () => {
 
-    const {isVendor} = useAppContext()
+    const {isVendor} = useAppContext();
+          const [prevRoute,setPrevRoute] = useState<string | null>('');
+                
+                  useEffect(()=>{
+                    setPrevRoute(localStorage.getItem('prevRoute'));
+                
+                  },[])
 
-
+// ./Submission7
 
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
-        <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[3px]'/></Link>
+        <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Vehicle video</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>

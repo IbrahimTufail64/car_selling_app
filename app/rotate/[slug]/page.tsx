@@ -16,7 +16,7 @@ const Rotate = ({ params }: { params: { slug: string } }) => {
     useEffect(()=>{
         const portrait = window.matchMedia("(orientation: portrait)").matches;
         console.log(portrait)
-      if(!portrait || angle === 90){
+      if( angle === 90){
         if(params.slug.includes('video')){
           if(isSafari()){
 

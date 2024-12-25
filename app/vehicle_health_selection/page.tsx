@@ -14,15 +14,16 @@ const VehicleHealthSelection = () => {
   const [healthState,sethealthState] = useState<any>([]);
 
   useEffect(()=>{
+    localStorage.setItem('prevRoute','./vehicle_health_selection');
     const car = Number(localStorage.getItem('car_no'));
     const state = [localStorage.getItem(`wheel_condition_state_${car}`),localStorage.getItem(`tyre_health_state_${car}`),localStorage.getItem(`surface_marks_state_${car}`) , localStorage.getItem(`panel_damage_state_${car}`) , localStorage.getItem(`exterior_wear_tear_state_${car}`) , localStorage.getItem(`glass_health_state_${car}`) , localStorage.getItem(`damaged_absent_fixtures_state_${car}`) , localStorage.getItem(`dashboard_lights_state_${car}`),localStorage.getItem(`technical_state_${car}`),localStorage.getItem(`further_details_state_${car}`)];
     sethealthState(state);
     let count = 0;
     state.map((e)=>{
       e && count++;
-    })
+    }) 
     console.log(count);
-    localStorage.setItem('vehicle_health_complete',String(Math.floor((count/state.length)*100)));
+    localStorage.setItem('vehicle_health_complete',String(Math.floor((count/state.length)*100))); 
 
     // }
     // state();

@@ -16,8 +16,10 @@ const VehiclePhotos = () => {
   const [wheelsTyresState,setWheelsTyresState] = useState(false);
   const [healthState,sethealthState] = useState(false);
   const [progress,setProgress] = useState([0,0,0,0]);
+  const [popup,setPopup] = useState(true);
 
   useEffect(()=>{
+    localStorage.setItem('prevRoute','./vehicle_photos');
     const state = async()=>{
 
       const car = Number(localStorage.getItem('car_no'));
@@ -89,6 +91,7 @@ const VehiclePhotos = () => {
               Avoid including keys with defects, particularly those with remote unlocking failures.
             </div>
         </div>
+        
 
     </div>
   )

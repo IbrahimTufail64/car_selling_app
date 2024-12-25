@@ -37,7 +37,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
 
     const playAudio = () => {
         const base64Audio = localStorage.getItem('audio');
-        console.log(base64Audio);
+        // console.log(base64Audio);
         if (base64Audio) {
             const blob = dataURLToBlob(base64Audio);
             const audioURL = URL.createObjectURL(blob);
@@ -63,7 +63,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
                     reader.onloadend = () => {
                         const base64Data = reader.result as string;
                         localStorage.setItem('audio', base64Data);
-                        console.log('Audio saved to localStorage');
+                        // console.log('Audio saved to localStorage');
                         // setPlayAudio(playAudio); // Set playAudio after the audio is fetched and stored
                     };
                 } else {
@@ -124,15 +124,18 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     async function addImage(img: any) {
       try {
         console.log(car_no);
-        const image = await db.images.where('name').equals(imageUrl).filter(e=>e.car_number === car_no && e.dynamic_image_number === dynamic_image_no).first();
+        const carNo = Number(localStorage.getItem('car_no'));
+        const image = await db.images.where('name').equals(imageUrl)
+        .filter(e=>e.car_number === carNo && e.dynamic_image_number === dynamic_image_no).first();
         console.log(image);
         if(image?.data !== undefined ){
           await db.images.where('id').equals(image.id).delete();
         }
+        console.log(imageUrl,carNo,dynamic_image_no);
         const id = await db.images.add({
           name: imageUrl,
           data: img,
-          car_number: car_no,
+          car_number: carNo,
           dynamic_image_number: dynamic_image_no
         });
         console.log('image',id);

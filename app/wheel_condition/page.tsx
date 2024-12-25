@@ -104,7 +104,7 @@ const WheelCondition = () => {
 
     // Search for images in the db: 
     useEffect(()=>{
-
+        localStorage.setItem('prevRoute','./wheel_condition');
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const image = await db.images.where('name').equals(image_to_retrieve).first();

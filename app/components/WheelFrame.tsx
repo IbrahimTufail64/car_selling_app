@@ -7,6 +7,7 @@ import Link from 'next/link'
 import alert from '@/assets/icons/alertWhite.png'
 import { db } from '../Local_DB/db'
 import { useAppContext } from '../Context'
+import CustomizedCheckbox from './Checkbox'
 
 const WheelFrame = ({Content, setisSelected, photo, link}:{Content:string, setisSelected:React.Dispatch<React.SetStateAction<boolean>>, photo: any, link:string}) => {
 
@@ -25,7 +26,7 @@ const WheelFrame = ({Content, setisSelected, photo, link}:{Content:string, setis
             <div className='relative'>
                 <img src={uploaded_photo} className='w-full object-cover'/>
             </div>
-            <div className={`flex justify-between py-4 px-5   ${isVendor ? 'bg-[#6D6E8F] border-t-2' : 'border border-1 border-[#D1D9FF]'}`}>
+            <div className={`flex justify-between py-4 px-5   ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white': '  text-fourth'}`}>
@@ -34,9 +35,10 @@ const WheelFrame = ({Content, setisSelected, photo, link}:{Content:string, setis
                     </div>
                 </div>
                 <div className='pt-1'>
-                <div className={`${isVendor && 'form-group-white'} form-group mt-2`}>
-                    <input type="checkbox" id={link} checked= {checked} onClick={()=>{setChecked(!checked)}}/>
-                    <label htmlFor={link}></label>
+                <div className={`${isVendor && 'form-group-white'} form-group `} onClick={()=>{setChecked(!checked)}}>
+                    <CustomizedCheckbox checked={checked} /> 
+                    {/* <input type="checkbox" id={link} checked= {checked} onClick={()=>{setChecked(!checked)}}/> */}
+                    {/* <label htmlFor={link}></label> */}
                 </div>
                 </div>
             </div>

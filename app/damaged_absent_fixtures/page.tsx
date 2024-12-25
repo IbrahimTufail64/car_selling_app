@@ -70,6 +70,7 @@ const SurfaceMarks = () => {
       };
     // Search for images in the db: 
     useEffect(()=>{
+        localStorage.setItem('prevRoute','./damaged_absent_fixtures');
         const car_number = Number(localStorage.getItem('car_no'));
         setCar_no(car_number);
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{

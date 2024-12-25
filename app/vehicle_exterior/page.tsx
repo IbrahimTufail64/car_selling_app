@@ -40,6 +40,7 @@ const VehicleExterior = () => {
     const FrontPassen = isVendor ? FrontPassenV : FrontPassenC;
     // Search for images in the db: 
     useEffect(()=>{
+      localStorage.setItem('prevRoute','./vehicle_exterior')
 
         let counter = 0;
                 const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{

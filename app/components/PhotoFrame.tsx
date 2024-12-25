@@ -24,12 +24,12 @@ const PhotoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
             console.log(e);
         }
     }
-
+ // border border-1 border-[#6D6E8F]
   return (
     <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary '} flex justify-center  w-full `}>
-            <div className='w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden '>
+            <div className='w-[90vw] md:w-[80vw]  rounded-lg overflow-hidden '>
             <div>
-                <img src={uploaded_photo} className='w-full h-full object-cover'/>
+                <img src={uploaded_photo} className='w-full h-full md:max-h-[80vh] object-cover'/>
             </div>
             <Link href={`${!isUploaded ? `./camera_filter/${link}` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>

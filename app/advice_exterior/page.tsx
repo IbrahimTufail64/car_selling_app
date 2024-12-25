@@ -21,11 +21,17 @@ const SmartAdvice = () => {
   const {isVendor} = useAppContext(); 
   const phone = isVendor ? phoneD : phoneW;
   const email = isVendor ? emailD : emailW;
+  const [prevRoute,setPrevRoute] = useState<string | null>('');
+
+  useEffect(()=>{
+    setPrevRoute(localStorage.getItem('prevRoute'));
+
+  },[])
   
   return (
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <Link  href={`./vehicle_photos`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
+            <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>smart advice</div>
         </div>
 

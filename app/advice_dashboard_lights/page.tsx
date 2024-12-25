@@ -16,6 +16,12 @@ import { useAppContext } from '../Context';
 
 const SurfaceMarks = () => {
     const [car,setCar] = useState(0);
+      const [prevRoute,setPrevRoute] = useState<string | null>('');
+    
+      useEffect(()=>{
+        setPrevRoute(localStorage.getItem('prevRoute'));
+    
+      },[])
   useEffect(()=>{
     const car_local = Number(localStorage.getItem('car_no'));
     setCar(car_local);
@@ -23,11 +29,11 @@ const SurfaceMarks = () => {
     const {isVendor} = useAppContext()
 
 
-
+ //./vehicle_health_selection
   return (
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
-        <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
+        <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Dashboard and lights</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
@@ -88,14 +94,17 @@ const SurfaceMarks = () => {
                     </div>
                 </Link>
         </div>
-
-        <div className='p-5 pt-0'>
-                <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`dashboard_lights_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
-                    <div className='flex space-x-1 text-xl'>
-                        <div>No Dashboard and Lights </div>
-                    </div>
-                </Link>
-        </div>
+        {
+          prevRoute === './vehicle_health_selection' && 
+          <div className='p-5 pt-0'>
+          <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`dashboard_lights_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+              <div className='flex space-x-1 text-xl'>
+                  <div>No Dashboard and Lights </div>
+              </div>
+          </Link>
+  </div>
+        }
+        
         
 
     </div>

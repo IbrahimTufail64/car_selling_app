@@ -23,6 +23,7 @@ const ServiceRecords = () => {
 
     // Search for images in the db: 
     useEffect(()=>{
+        localStorage.setItem('prevRoute','./service_manuals_keys');
         setIsWholeSale(localStorage.getItem('saletag')==='WholeSale');
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{

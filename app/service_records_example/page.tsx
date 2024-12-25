@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import record from '@/assets/records.png'
 import icon from '@/assets/icons/Iconbutton.png'
 import Link from 'next/link'
@@ -9,6 +9,12 @@ import { useAppContext } from '../Context'
 const ServiceExample = () => {
 
     const {isVendor} = useAppContext();
+      const [prevRoute,setPrevRoute] = useState<string | null>('');
+                      
+                        useEffect(()=>{ 
+                          setPrevRoute(localStorage.getItem('prevRoute'));
+                      
+                        },[])
 
   return (
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
@@ -51,17 +57,19 @@ const ServiceExample = () => {
             </div>
         </div>
 
+        {prevRoute === './service_manuals_keys' && 
         <div className='p-5'>
-                <Link href={`${isVendor ? '././camera_filter_dynamic/service_records-1-service_records' : './camera_filter_dynamic/service_records-1-service_records_customer'}`} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
-                    <div className='flex space-x-1 text-xl'>
-                        <div  className="whitespace-nowrap  text-ellipsis">Add Documents</div>
-                        <img src={splash.src}/>
-                    </div>
-                </Link>
+        <Link href={`${isVendor ? '././camera_filter_dynamic/service_records-1-service_records' : './camera_filter_dynamic/service_records-1-service_records_customer'}`} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+            <div className='flex space-x-1 text-xl'>
+                <div  className="whitespace-nowrap  text-ellipsis">Add Documents</div>
+                <img src={splash.src}/>
+            </div>
+        </Link>
         </div>
+}
 
         <div className='p-5 pt-0'>
-                <Link href='./service_manuals_keys' className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                <Link href={`${prevRoute}`} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Previous</div>
                     </div>

@@ -27,6 +27,7 @@ const VehicleVideo = () => {
 
     // Search for images in the db: 
     useEffect(()=>{
+        localStorage.setItem('prevRoute','./vehicle_video');
         setis_safari(isSafari());
         console.log(isSafari());
 
