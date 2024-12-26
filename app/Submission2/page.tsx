@@ -264,7 +264,7 @@ const Submission2 = () => {
         {popup && 
         <div className={`flex justify-center items-center w-full h-full`}>
 
-        <div className='fixed top-5 w-[80vw] px-2 text-center  bg-secondaryDark   rounded-2xl text-lg border border-2 border-white'>
+        <div className={`fixed top-5 w-[80vw] px-2 text-center ${isVendor ? 'bg-secondaryDark' : ' bg-white'} rounded-2xl text-lg border border-2 border-white`}>
         <div className='py-5'>
         Smart advice: Turn on sound for a smoother photo experience 📷
         </div>

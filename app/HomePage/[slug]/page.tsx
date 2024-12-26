@@ -16,6 +16,17 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
     // const searchParams = useSearchParams();
     // const id = searchParams.get('id')
     const {setIsVendor} = useAppContext();
+    const FullScreen = ()=>{
+        var elem:any = document.getElementById("main");
+
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          elem.msRequestFullscreen();
+        }
+    }
     // console.log(localStorage.getItem('isVendor'))
     useEffect(()=>{
         localStorage.clear();
@@ -58,7 +69,7 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
           };
 
         handleRequest()
-    },[])
+    },[]); 
 
   return (
     <div className={`relative ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary '} min-h-[100vh] flex flex-col justify-between`}>
@@ -125,7 +136,7 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
                 </div>
             </div>
             <div>
-                <Link href='../Submission2' className='flex text-xl font-[500] rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
+                <Link href='../Submission2' onClick={FullScreen} className='flex text-xl font-[500] rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
                     <div>Take photos</div>
                     <img src={splash.src}/>
                 </Link>
