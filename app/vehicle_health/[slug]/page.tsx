@@ -21,6 +21,7 @@ import { useAppContext } from '../../Context'
 import Radio from '@mui/material/Radio';
 import axios from 'axios'
 import { DamageSelection, db } from '@/app/Local_DB/db'
+import { useScreenshot } from 'use-react-screenshot'
 
 const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
@@ -29,6 +30,10 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     const {isVendor} = useAppContext();
     const [coordinates_initial, setCoordinates_initial] = useState({ x: -100, y: -100 });
     const [isTablet, setIsTablet] = useState(false);
+    //screenshot implementation
+    const ScreenshotRef = useRef(null)
+    const [image, takeScreenshot] = useScreenshot();
+    const getScreenShot = () => takeScreenshot(ScreenshotRef.current);
 
     useEffect(()=>{
         const width = window.innerWidth;
@@ -87,7 +92,11 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                                       let x = Math.abs(clientX - relativeX);
                                       let y = Math.abs(clientY - relativeY);
                                         
-                                      
+                                      if(isTablet){
+                                        
+                                      } else{
+                                        if(x < 205 || y > 320)return;
+                                       }
                                       setCoordinates({ x, y });
                                       let temp_damage:any = damage;
                                       
@@ -249,17 +258,19 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className='' >
-         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-[100vw] sm:w-[115vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
+         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-[100vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
          <div>
-         <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={handleClick} />
-         
 
+         <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={handleClick} />
          <div
             className="bg-secondary absolute rounded-full ${mt-[]}" // Style indicator
             style={{ top: coordinates.y-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
         >
             <img src={mark.src} className={`w-15 h-15 `} style={{width: sizes[size],height: sizes[size]}}/>
         </div>
+        
+         
+
 
         <div className='p-5 py-4 flex space-x-2 text-[22px] justify-between'>
             <div className='flex space-x-2 pt-3'>
@@ -270,7 +281,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
             
         </div>
 
-        <div className='flex '>
+        <div className='flex justify-between w-full'>
             <div className=' px-3 mt-3 h-[80vh] flex justify-center items-center '> 
                 <div className='space-y-2 pb-20'>
                 <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-10px] `}>
@@ -324,16 +335,16 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 
                 
             </div>
-            <div className='mt-[-60px] mb-4 w-[100vw]' >
                 {/* <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] object-cover' */}
-                <img src={sides[currentSide].src} className='w-[575px] h-[415px] lg:w-[909px] lg:h-[655.5px] object-cover'
+            <div className='mt-[-60px] mb-4 w-[100vw] ml-4 sm:ml-0 overflow-visible ' >
+                <img src={sides[currentSide].src} className='w-[575px] h-[415px]  sm:h-[394px] lg:w-[863px] lg:h-[622.5px] object-cover'
                 />
             </div>
         </div>
          </div>
 
         <div className='relative'>
-        <div className='flex justify-center w-full mt-[-90px] absolute'>
+        <div className='flex justify-center w-full mt-[-75px] absolute'>
             <div className='flex'>
                 {
                     sidesArray.map((e,i)=>{
