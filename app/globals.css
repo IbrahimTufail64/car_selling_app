@@ -6,6 +6,8 @@ html, body {
   background-color: #ffffff; /* Match your app's color */
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
 input[type=radio] {
