@@ -42,7 +42,7 @@ const PhotoFrameDynamic = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
             <div>
                 <img src={uploaded_photo} className='w-full h-full object-cover sm:max-h-[400px]'/>
             </div>
-            <Link href={`${!isUploaded ? `./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}` : '#'}`} onClick={()=>{isUploaded ? handleDelete() : FullScreen()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
+            <Link href={`${!isUploaded ? `./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}` : '#'}`} onClick={()=>{isUploaded && handleDelete() }} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white' : '  text-fourth'}`}>

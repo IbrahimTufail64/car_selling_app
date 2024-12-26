@@ -136,7 +136,7 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
                 </div>
             </div>
             <div>
-                <Link href='../Submission2' onClick={FullScreen} className='flex text-xl font-[500] rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
+                <Link href='../Submission2' className='flex text-xl font-[500] rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
                     <div>Take photos</div>
                     <img src={splash.src}/>
                 </Link>

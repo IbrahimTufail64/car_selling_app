@@ -166,7 +166,7 @@ const SurfaceMarks = () => {
             
         </div>
         <div className='w-full flex justify-center'>
-        <Link href={`./camera_filter_dynamic/${'surface_marks'}-${images.length+1}-${'surface_marks'}`} onClick={FullScreen} className='py-2 px-5 text-[18px] my-5'>
+        <Link href={`./camera_filter_dynamic/${'surface_marks'}-${images.length+1}-${'surface_marks'}`} className='py-2 px-5 text-[18px] my-5'>
              Add another photo
         </Link>
         </div>
