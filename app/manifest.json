@@ -3,7 +3,7 @@
     "description":"A car selling app",
     "short_name": "carsmart",
 
-    "display": "standalone",
+    "display": "fullscreen",
     "orientation": "natural",
     "screenshots":"icons/Logo-192.png",
     "permissions": [ 
