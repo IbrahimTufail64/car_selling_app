@@ -1,5 +1,5 @@
 "use client"
-import React, { useContext, useEffect,Suspense } from 'react'
+import React, { useContext, useEffect,Suspense, useRef } from 'react'
 import frame from '@/assets/WelcomeFrame.png'
 import icon from '@/assets/icons/Iconbutton.png'
 import PlayStore from '@/assets/icons/PlayStore.png'
@@ -13,12 +13,13 @@ import { useAppContext } from '@/app/Context'
 
 const HomePage = ({ params }: { params: { slug: string } }) => {
     const {isVendor} = useAppContext();
+    const elementRef = useRef(null); 
     // const searchParams = useSearchParams();
     // const id = searchParams.get('id')
     const {setIsVendor} = useAppContext();
     const FullScreen = ()=>{
         var elem:any = document.getElementById("main");
-
+        
         if (elem.requestFullscreen) {
           elem.requestFullscreen();
         } else if (elem.webkitRequestFullscreen) { /* Safari */
@@ -70,6 +71,31 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
 
         handleRequest()
     },[]); 
+
+    // 
+    const toggleFullscreen = () => {
+        const element:any = elementRef.current;
+        const Document:any = document;
+        if (!document.fullscreenElement && !Document.webkitFullscreenElement && !Document.mozFullScreenElement) {
+          // Enter fullscreen mode
+          if (element.requestFullscreen) {
+            element.requestFullscreen();
+          } else if (element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+          } else if (element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+          }
+        } else {
+          // Exit fullscreen mode
+          if (Document.exitFullscreen) {
+            Document.exitFullscreen();
+          } else if (Document.webkitExitFullscreen) {
+            Document.webkitExitFullscreen();
+          } else if (Document.mozCancelFullScreen) {
+            Document.mozCancelFullScreen();
+          }
+        }
+      };
 
   return (
     <div className={`relative ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary '} min-h-[100vh] flex flex-col justify-between`}>
@@ -136,7 +162,7 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
                 </div>
             </div>
             <div>
-                <Link href='../Submission2' className='flex text-xl font-[500] rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
+                <Link href='../Submission2' onClick={FullScreen} className='flex text-xl font-[500] rounded-[6px] space-x-2 px-5 py-3 bg-tertiary '>
                     <div>Take photos</div>
                     <img src={splash.src}/>
                 </Link>
