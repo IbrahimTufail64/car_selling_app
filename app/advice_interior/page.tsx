@@ -28,7 +28,7 @@ const SmartAdvice = () => {
   const email = isVendor ? emailD : emailW;
   
   return (
-    <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
+    <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} pb-20`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>smart advice</div>
@@ -98,13 +98,15 @@ const SmartAdvice = () => {
           </div>
         </div>
       
-        <div className='p-5'>
+        <div className={`w-full fixed flex justify-center bottom-0`}>
+          <div className='p-5 w-full'>
                 <Link href='./camera_filter/dashboard' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
+          </div>
         </div>
 
     </div>

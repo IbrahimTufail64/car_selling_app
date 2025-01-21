@@ -39,8 +39,8 @@ const Auth = () => {
     <div className='bg-[#282828] h-[100vh] w-[100vw] overflow-hidden flex justify-center items-center'>
         <div className='flex flex-col justify-between h-[100vh]'>
             <div>
-            <div className='w-full flex justify-center mb-12 mt-20'>
-            <img src={link.src} className='w-[300px]'/>
+            <div className='w-full flex justify-center mb-12 mt-[5vh]'>
+            <img src={link.src} className='w-[30vh]'/>
             </div>
             <div className='w-full justify-center flex text-[20px] text-[#695DFD] font-[500]'>Link Expired</div>
             <div className=' justify-center flex text-[16px] text-white font-[300] text-center mt-3'>

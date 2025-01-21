@@ -57,7 +57,7 @@ const Slider = () => {
     },[])
 
     return (
-        <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} min-h-[100vh] relative flex flex-col justify-between relative`} >
+        <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} min-h-[100vh] relative flex flex-col justify-between relative pb-[60px]`} >
           
             <div className="embla overflow-hidden">
         <div className="embla__viewport" ref={emblaRef}>
@@ -72,7 +72,7 @@ const Slider = () => {
       </div>
 
       {/* <div className='absolute w-full h-[800px] top-0'></div> */}
-      <div>
+      <div className={`fixed bottom-0 ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
                 <div className='flex justify-center w-full bottom-[100px] mt-5'>
                 <div className='flex space-x-1'>
                     {array.map( e=> {
@@ -82,7 +82,7 @@ const Slider = () => {
                     })}
                 </div>
                 </div>
-                <div className='flex justify-between p-5 space-x-3  bottom-0 flex-1 w-full font-[26px]'>
+                <div className='flex justify-between p-5 pl-4 space-x-3  bottom-0 flex-1 w-full font-[26px]'>
                     
                     <div onClick={()=>{SubCount()}}>
                     <button className={`embla__prev flex justify-center border-2 ${isVendor ? 'border-white' : 'border-[#000000]'} font-bold text-lg rounded-[6px] space-x-2 w-[45vw]  px-5 py-3  `} onClick={scrollPrev} >

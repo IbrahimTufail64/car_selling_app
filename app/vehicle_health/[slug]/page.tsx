@@ -31,7 +31,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     const [coordinates_initial, setCoordinates_initial] = useState({ x: -100, y: -100 });
     const [isTablet, setIsTablet] = useState(false);
     //screenshot implementation
-    const ScreenshotRef = useRef(null)
+    const ScreenshotRef = useRef<any>(null)
     const [image, takeScreenshot] = useScreenshot();
     const getScreenShot = () => takeScreenshot(ScreenshotRef.current);
 
@@ -178,10 +178,12 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     const Router = useRouter();
 
     const handleSubmit = async (event:any) => { 
-        event.preventDefault(); 
-        
+        // event.preventDefault(); 
+        if(!image) {
+            alert('Please mark the damage before proceding!');
+            return;}
         try{
-            
+            console.log(image);
             const link = params.slug.split('-');
             const returnLink  = link[2];
             const imageUrl = link[0];
@@ -191,6 +193,8 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
           console.log(coordinates,'before');
           let x = coordinates.x;
           let y = coordinates.y;
+        //   if(x === 0 || y === 0)  alert('Please mark the damage before proceding!');
+
           if(isTablet){
             x = coordinates.x/1.34;
             y = coordinates.y/1.34;
@@ -203,7 +207,8 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
             car_no: Number(localStorage.getItem('car_no')),
             coordinates: {x,y},
             size,
-            side: currentSide
+            side: currentSide,
+            url: image
           }
           console.log(value,'after');
 
@@ -214,7 +219,8 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 .where({
                   name: value.name,
                   dynamic_image_no: value.dynamic_image_no,
-                  car_no: value.car_no
+                  car_no: value.car_no,
+                  url: image
                 })
                 .first();
           
@@ -258,16 +264,12 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
   return (
     <div className='' >
-         <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-[100vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
+        {/* <img className='w-full h-full absolute' src={image}/> */}
+         <div  className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-[100vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
          <div>
 
-         <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={handleClick} />
-         <div
-            className="bg-secondary absolute rounded-full ${mt-[]}" // Style indicator
-            style={{ top: coordinates.y-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
-        >
-            <img src={mark.src} className={`w-15 h-15 `} style={{width: sizes[size],height: sizes[size]}}/>
-        </div>
+         <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={()=>{handleClick;getScreenShot();}} />
+         
         
          
 
@@ -281,8 +283,17 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
             
         </div>
 
-        <div className='flex justify-between w-full'>
-            <div className=' px-3 mt-3 h-[80vh] flex justify-center items-center '> 
+         </div>
+        
+        <div ref={ScreenshotRef}>
+        <div
+            className="bg-secondary absolute rounded-full ${mt-[]}" // Style indicator
+            style={{ top: coordinates.y-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
+        >
+            <img src={mark.src} className={`w-15 h-15 `} style={{width: sizes[size],height: sizes[size]}}/>
+        </div>
+        <div className='flex justify-between w-full' >
+            <div className=' px-3 mt-7 h-[80vh] flex justify-center items-center '> 
                 <div className='space-y-2 pb-20'>
                 <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-10px] `}>
                 {/* <input type="radio" id="Small" name="colors" value="Small" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
@@ -336,12 +347,11 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 
             </div>
                 {/* <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] object-cover' */}
-            <div className='mt-[-60px] mb-4 w-[100vw] ml-4 sm:ml-0 overflow-visible ' >
+            <div className='mt-[-60px] mb-4 w-[100vw] ml-4 sm:ml-0 overflow-visible '  >
                 <img src={sides[currentSide].src} className='w-[575px] h-[415px]  sm:h-[394px] lg:w-[863px] lg:h-[622.5px] object-cover'
                 />
             </div>
         </div>
-         </div>
 
         <div className='relative'>
         <div className='flex justify-center w-full mt-[-75px] absolute'>
@@ -349,20 +359,34 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 {
                     sidesArray.map((e,i)=>{
                         return <div className={`border border-1  px-7 p-4 ${i === 0 && 'rounded-l-full'} ${i === 4 && 'rounded-r-full'} ${e === currentSide ? 'bg-fourth text-white border-[#8383A0]' : (isVendor ? 'bg-[#3D3D6A] border-[#8383A0]':'bg-white border-[#D3D4FD]')}`}
-                                onClick={()=>{handleSideChange(e)}} >{e}</div>
+                                onClick={()=>{handleSideChange(e);}} >{e}</div>
                     })
                 }
             </div>
 
         </div>
         </div>
-        <div className='absolute right-0 w-[100vw] flex justify-end py-5 pr-5'>
-                <button onClick={handleSubmit} className={` flex justify-center  font-[600] text-lg rounded-[6px] space-x-2 w-[20vw] px-5 py-3 bg-tertiary ${isVendor && 'text-primaryDark'}`} >
-                <div className='flex space-x-2'>
+        </div>
+
+        <div className='absolute right-0 w-[100vw] flex justify-end py-5 pr-5' 
+        // onClick={()=>(console.log(image))}
+        >
+                <div
+                    // onClick={()=>{
+                    //     setTimeout(handleSubmit,800);
+                    // }}
+                    className={` flex justify-center  font-[600] text-lg rounded-[6px] space-x-2 w-[20vw] px-5 py-3 bg-tertiary ${isVendor && 'text-primaryDark'}`} 
+>
+                <button 
+                onClick={handleSubmit}
+                // onClick={getScreenShot}
+                 >
+                <div className='flex space-x-2' >
                 Confirm 
                 <img src={splash.src}/>
                 </div>
                 </button>
+                </div>
             </div>
 
         </div>

@@ -54,6 +54,7 @@ const ServiceRecordsCapture = () => {
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
+        Router.push('./preview_car');
     
         const formData = new FormData();
 
@@ -71,6 +72,10 @@ const ServiceRecordsCapture = () => {
                 alert('Please upload required images before proceeding')
                 return; 
             }
+            console.log({
+                formData,
+                car_no
+            });
     
           const response = await axios.post(`${url}/pwa/service_records`,  
             {
@@ -86,14 +91,14 @@ const ServiceRecordsCapture = () => {
           const car = Number(localStorage.getItem('car_no'));
               localStorage.setItem(`service_records_state_${car}`,'true');
           
-        if(!isVendor){
-                Router.push('./preview_car')
-        }
-        else if(localStorage.getItem('saletag')==='WholeSale'){
-            Router.push('./Submission7')
-          }else{
-            Router.push('./preview_car')
-          }
+        // if(!isVendor){
+        //         Router.push('./preview_car')
+        // }
+        // else if(localStorage.getItem('saletag')==='WholeSale'){
+        //     Router.push('./Submission7')
+        //   }else{
+        //     Router.push('./preview_car')
+        //   }
         } catch (error) {
           console.error(error);
         }
@@ -140,7 +145,7 @@ const ServiceRecordsCapture = () => {
 
           {images.map((e, i) => {
                     return ( (
-                            <div className="embla__slide" key={i}>
+                            <div className="embla__slide " key={i}>
                                 <PhotoFrameService
                                     image_name="service_records"
                                     Car_no={car_no}
@@ -155,7 +160,9 @@ const ServiceRecordsCapture = () => {
                     );
                 })}
                 { (
-                    <PhotoFrameDynamic
+                    <div className='w-full bg-white flex justify-center'>
+                        <div className='w-[90vw]'>
+                        <PhotoFrameDynamic
                         image_name="service_records"
                         Car_no={car_no}
                         DynamicImageNo={images.length + 1}
@@ -164,12 +171,14 @@ const ServiceRecordsCapture = () => {
                         photo={ExampleImage}
                         return_link="service_records_customer"
                     />
+                        </div>
+                    </div>
                 )}
           </div>
           
                 {images.length === 0 &&
                 
-                <div>
+                <div >
                 <PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={1} Content='Service history' isUploaded={false} photo={ ExampleImage}  return_link="service_records_customer"/>
 
                 <div className='w-full flex justify-center'>

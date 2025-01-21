@@ -85,7 +85,10 @@ const ServiceRecordsCapture = () => {
                 alert('Please upload required images before proceeding')
                 return;
             }
-    
+            console.log({
+                formData,
+                car_no
+            });
           const response = await axios.post(`${url}/pwa/service_records`,  
             {
                 formData,

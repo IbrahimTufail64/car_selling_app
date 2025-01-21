@@ -64,6 +64,12 @@ const SurfaceMarks = () => {
 
                 Router.push('./vehicle_health_selection')
             },300)
+          //   console.log('ssample',{
+          //     formData,
+          //     damage: newArr,
+          //     car_no: car 
+          // });
+
     
           const response = await axios.post(`${url}/pwa/surface_marks`,  
             {
@@ -189,6 +195,5 @@ const SurfaceMarks = () => {
 }
 
 export default SurfaceMarks
-
 
 

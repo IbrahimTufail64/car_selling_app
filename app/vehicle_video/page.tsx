@@ -90,7 +90,7 @@ const VehicleVideo = () => {
                 localStorage.setItem(`vehicle_video_state_${car}`,'true');
                 // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
             Router.push('./preview_car');
-            formData.append('front_driver', vehicle_video);
+            formData.append('vehicle_video', vehicle_video);
             const token = localStorage.getItem('token'); 
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/vehicle_video`,  
                 {

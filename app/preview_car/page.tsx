@@ -30,7 +30,9 @@ const VehicleExterior = () => {
     const [vehiclephotos, setvehiclephotos] = useState(true);
     const [vehiclehealth, setvehiclehealth] = useState(true);
     const [technical, settechnical] = useState(true);
+    const [technical_content, settechnical_content] = useState('');
     const [furtherdetails, setfurtherdetails] = useState(true);
+    const [furtherdetails_content, setfurtherdetails_content] = useState('');
     const [car_no, setcar_no] = useState(0);
     const [preview_car,setpreview_car] = useState();
     const [previewPhotos,setPreviewPhotos] = useState(false);
@@ -64,44 +66,63 @@ const VehicleExterior = () => {
             setIndex(index-1);
         }
     }
+    const isSafari = () => {
+        const ua = navigator.userAgent;
+        return ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Chromium');
+      };
 
+        const getVideo = async()=>{
+            const existingVideo = await db.images.where('name').equals('video').first(); 
+            console.log(existingVideo);
+            // alert(existingVideo?.data);
+            const car_no = Number(localStorage.getItem('car_no'));
+            // setVideo(localStorage.getItem(`videoData_${car_no}`));
+            if(isSafari()){
+    
+                setvehicle_video(existingVideo?.data);
+            }else{
+                setvehicle_video(localStorage.getItem(`videoData_${car_no}`))
+            }
+            const Tcontent = await db.images.where('name').equals('technicals').first();
+            settechnical_content(Tcontent?.data);
+            const Fcontent = await db.images.where('name').equals('further_details').first();
+            setfurtherdetails_content(Fcontent?.data);
+        }
     useEffect(()=>{
-        const isSafari = () => {
-            const ua = navigator.userAgent;
-            return ua.includes('Safari') && !ua.includes('Chrome') && !ua.includes('Chromium');
-          };
-        setcar_no(Number(localStorage.getItem("car_no")));
+        getVideo();
+        
+        // setcar_no(Number(localStorage.getItem("car_no")));
 
-            const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
-                        try{
-                            const car_no = Number(localStorage.getItem('car_no'));
-                            const image = await db.images.where('name').equals(image_to_retrieve).first(); 
-                            if(isSafari()){
-                                if(image?.data == undefined){
-                                    setter_function(undefined)
-                                    console.log(image?.data)
-                                }else{
-                                    const url = URL.createObjectURL(image?.data);
-                                setter_function(image?.data);
-                                console.log(image?.data)
-                                }
-                            } else {
+        //     const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
+        //                 try{
+        //                     const car_no = Number(localStorage.getItem('car_no'));
+        //                     const image = await db.images.where('name').equals(image_to_retrieve).first(); 
+        //                     if(isSafari()){
+        //                         if(image?.data == undefined){
+        //                             setter_function(undefined)
+        //                             console.log(image?.data)
+        //                         }else{
+        //                             const url = URL.createObjectURL(image?.data);
+        //                         setter_function(image?.data);
+        //                         console.log(image?.data)
+        //                         }
+        //                     } else {
             
-                                const video = String(localStorage.getItem(`videoData_${car_no}`)); 
-                                if(video === ''){
-                                    setter_function(undefined);
-                                } else {
-                                    setter_function(image?.data);
-                                }
-                            }
+        //                         const video = String(localStorage.getItem(`videoData_${car_no}`)); 
+        //                         if(video === ''){
+        //                             setter_function(undefined);
+        //                         } else {
+        //                             setter_function(image?.data);
+        //                         }
+        //                     }
             
                             
-                        }
-                        catch(e){
+        //                 }
+        //                 catch(e){
                             
-                        }
-                    };
-            retrieve('video',setvehicle_video);
+        //                 }
+        //             };
+        //     retrieve('video',setvehicle_video);
 
         
     },[])
@@ -192,7 +213,7 @@ const VehicleExterior = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full ${previewPhotos && 'h-[100vh] overflow-hidden'} relative`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full ${previewPhotos && 'h-[100vh] overflow-hidden'} relative pb-[180px]`}>
         
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='#'><IoChevronBack size={28} className='mt-[3px]'/></Link>
@@ -461,7 +482,7 @@ const VehicleExterior = () => {
                     
                     </div>
                     <div className={`${!technical && 'hidden'} px-3 text-[15px] font-[300] py-2`}>
-                        stibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante.stibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur 
+                        {technical_content}
                     </div>
 
 
@@ -474,7 +495,7 @@ const VehicleExterior = () => {
                     
                     </div>
                     <div className={`${!furtherdetails && 'hidden'} px-3 text-[15px] font-[300] py-2`}>
-                        stibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante.stibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur 
+                        {furtherdetails_content}
                     </div>
                     
                 </div>
@@ -520,7 +541,7 @@ const VehicleExterior = () => {
                 
                 <div className={`${!video_state && 'hidden'}`}>
                     
-                <video src={vehicle_video} controls className=' object-cover w-full rounded-xl p-1 ml-2 mt-5'/>
+                <video src={vehicle_video} controls autoPlay playsInline muted className=' object-cover w-full rounded-xl p-1 ml-2 mt-5'/>
                     
 
                 </div>
@@ -530,7 +551,9 @@ const VehicleExterior = () => {
             
         </div>
 
-        <div className='p-5'>
+        <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'}`}>
+          <div className='w-full'>
+          <div className='p-5 w-full'>
                 <div  onClick={()=>setPreviewPhotos(true)} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Looks good! Submit</div>
@@ -539,13 +562,17 @@ const VehicleExterior = () => {
                 </div>
         </div>
 
-        <div className='p-5 pt-0'>
+        <div className='p-5 pt-0 w-full'>
                 <Link href='Submission7' className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Back</div>
                     </div>
                 </Link>
         </div>
+          </div>
+        </div>
+
+
         
         {previewPhotos && <PreviewPhotos/>}
     </div>

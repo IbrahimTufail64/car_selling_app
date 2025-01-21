@@ -21,8 +21,9 @@ interface DamageSelection {
   id?: number;
   name: string;
   dynamic_image_no: number;
+  url: any;
   car_no: number;
-  coordinates: { x: number; y: number };
+  coordinates?: { x: number; y: number };
   size: string;
   side: string;
 }
@@ -44,7 +45,7 @@ const db = new Dexie('combinedDatabase') as Dexie & {
 db.version(2).stores({
   images: '++id, name, data, condition, dynamic_image_number, car_number',
   wheel_condition: '++id, front_driver, back_driver, front_passenger, back_passenger',
-  damage_selection: '++id, coordinates, size, side, car_no, name, dynamic_image_no',
+  damage_selection: '++id, coordinates, size, url, side, car_no, name, dynamic_image_no',
 });
 
 // Export the types and the database instance

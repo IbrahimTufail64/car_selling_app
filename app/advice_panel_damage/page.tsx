@@ -31,7 +31,7 @@ const SurfaceMarks = () => {
     const car1 = isVendor ? car4 : car3;
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full ${(prevRoute === './vehicle_health_selection') ? 'pb-[170px]':'pb-[90px]'}`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Panel damage</div>
@@ -95,23 +95,27 @@ const SurfaceMarks = () => {
         
         
 
-        <div className='p-5'>
-                <Link href='./camera_filter_dynamic/panel_damage-1-panel_damage-dynamic' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+        <div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'}`}>
+        <div className='p-5 w-full'>
+                <Link href='./camera_filter_dynamic/glass_health-1-glass_health' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
         </div>
-        {prevRoute === './vehicle_health_selection' && 
-        
-        <div className='p-5 pt-0'>
-                <Link  href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`panel_damage_state_${car}`,'true');}}  className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
-                    <div className='flex space-x-1 text-xl'>
-                        <div>No Panel Damage</div>
-                    </div>
-                </Link>
         </div>
+        {(prevRoute === './vehicle_health_selection') && 
+            <div className='w-full fixed flex justify-center bottom-0'>
+        <div className='p-5 pt-0 w-full'>
+        <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`glass_health_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+            <div className='flex space-x-1 text-xl'>
+            <div>No Marks</div>
+            </div>
+        </Link>
+        
+        </div>
+    </div>
         }
 
         

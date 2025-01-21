@@ -27,7 +27,7 @@ const SurfaceMarks = () => {
 // ./Submission7
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full pb-[90px] min-h-[100vh]`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Vehicle video</div>
@@ -83,13 +83,24 @@ const SurfaceMarks = () => {
         
 
 
-        <div className='p-5'>
+        {/* <div className='p-5'>
                 <Link href='./video_capture_ios' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
+        </div> */}
+
+        <div className={`w-full fixed flex justify-center bottom-0`}>
+          <div className='p-5 w-full'>
+                <Link href='./camera_filter/dashboard' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                    <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
+                    <img src={splash.src}/>
+                    </div>
+                </Link>
+          </div>
         </div>
         
 

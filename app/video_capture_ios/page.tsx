@@ -21,6 +21,44 @@ const App = () => {
   const router = useRouter();
 
             const [reachedBottom, setReachedBottom] = useState(false);
+            const [timer,setTimer] = useState({
+              minutes: 4,
+              seconds: 59
+          });
+      
+          // const Timer = ()=>{
+              setInterval(()=>{
+                if(isRecording){
+                  let seconds = timer.seconds;
+              let minutes = timer.minutes;
+              if(timer.seconds == 0){
+                  minutes = timer.minutes - 1;
+                  seconds = 60;
+              }
+              if(minutes <= 0 && seconds <= 0){
+                  // stopRecording();
+                  setTimer({minutes:0, seconds:59});
+              }
+              seconds --;
+              setTimer({
+                  minutes,seconds
+              });
+              } else {
+                  
+                setTimer({minutes:4, seconds:59});
+              }
+  
+              if(timer.minutes == 0 && timer.seconds == 0){
+                  setTimer({minutes:4, seconds:59});
+                  // setTimer({minutes:0, seconds:5});
+                  console.log(timer.minutes,timer.seconds)
+                  stopRecording();
+              }
+                  
+                  
+                   
+              },1000)
+          // }
           
           
             useEffect(() => {
@@ -29,7 +67,7 @@ const App = () => {
                 const innerHeight = window.innerHeight;
                 const scrollTop = document.documentElement.scrollTop;
             
-                const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 10;
+                const hasReachedBottom = 2*offsetHeight - (innerHeight + scrollTop) <= 10;
                 if(hasReachedBottom){
           
                   setReachedBottom(hasReachedBottom);
@@ -211,6 +249,10 @@ const App = () => {
                 <Link href="./advice_vehicle_video">
                 <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
                 </Link>
+
+                <div className='absolute z-20 right-[16vw] bottom-[4vw] bg-[#695DFD] rounded-3xl px-3 py-[4px] text-[14px]'>
+                    {timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}`: timer.seconds}
+                </div>
       <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             
       </div>

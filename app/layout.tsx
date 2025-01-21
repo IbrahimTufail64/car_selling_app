@@ -5,7 +5,7 @@ import {Alexandria} from '@next/font/google'
 import { AppWrapper } from "./Context";
 
 const alexandria = Alexandria({
-  subsets: [],
+  subsets: ['latin'],
   weight:['100','200','300','400','500','600','700','900'],
 });
 
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   //   title: "Carsmart",
   // },
 };
-{/* <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"></meta> */}
+//  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"></meta> 
 export default function RootLayout({
   children,
 }: Readonly<{

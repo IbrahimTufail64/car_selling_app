@@ -31,6 +31,7 @@ const FurtherDetails = () => {
     async function addData(data: any, condition: boolean) {
         // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
         try {
+            console.log('what the ')
             if(inputText === '' && checked) {
                 alert('Please enter a description before submitting!')
                 return;
@@ -40,10 +41,11 @@ const FurtherDetails = () => {
                   
                 localStorage.setItem(`vehicle_health_state_${car}`,'true');
                 localStorage.setItem(`vehicle_photos_state_${car}`,'true');
-                setTimeout(()=>{
+                Router.push('./Submission7')
+                // setTimeout(()=>{
 
-                    Router.push('./Submission7')
-                },300)
+                //     Router.push('./Submission7')
+                // },300)
 
             
             const image = await db.images.where('name').equals('further_details').first();

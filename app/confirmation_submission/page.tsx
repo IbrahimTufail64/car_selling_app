@@ -54,7 +54,7 @@ const Confirmationdfagagd= () => {
     },[])
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full min-h-[100vh] overflow-hidden `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} w-full min-h-[100vh] overflow-hidden pb-[90px]`}>
         <div>
         <div className='flex justify-center w-full'>
         <div className={`w-[93vw] my-[3vw] rounded-2xl ${isVendor ? 'bg-[#1F204F]': ' bg-white'}`}>
@@ -165,15 +165,17 @@ const Confirmationdfagagd= () => {
  
     </div>
         </div>
-    <div className='p-5 pt-3  flex justify-center w-full bottom-2'>
-                <div className='w-[90vw]'>
-                <Link href='./confirmation_upload' className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-[13px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
-                    <div className='flex space-x-1'>
+
+
+        <div className={`w-full fixed flex justify-center bottom-0`}>
+          <div className='p-5 w-full'>
+                <Link href='./confirmation_upload' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
                         <div className='whitespace-nowrap'>Verify my price</div>
-                        <img src={splash.src}/>
+                    <img src={splash.src}/>
                     </div>
                 </Link>
-                </div>
+          </div>
         </div>
 
         </div>

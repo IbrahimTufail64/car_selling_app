@@ -84,7 +84,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         const innerHeight = window.innerHeight;
         const scrollTop = document.documentElement.scrollTop;
     
-        const hasReachedBottom = offsetHeight - (innerHeight + scrollTop) <= 10;
+        const hasReachedBottom = 2*offsetHeight - (innerHeight + scrollTop) <= 10;
         if(hasReachedBottom){
   
           setReachedBottom(hasReachedBottom);
@@ -232,6 +232,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
 }
 
 export default Filter
+
 
 
 
