@@ -254,7 +254,7 @@ const VehicleExterior = () => {
                     <img src={elements[4]} className='w-20 h-20 object-cover rounded-full'/>
                 </div>
                 <div className='flex justify-center w-full mt-5'>
-                    <div className={`w-[100px] h-6 bg-white border ${!isVendor ? 'border-black' : 'border-secondary'} flex relative`}>
+                    <div className={`w-[100px] overflow-hidden h-6 bg-white border ${!isVendor ? 'border-black' : 'border-secondary'} flex relative`}>
                         <div className=' bg-[#3748EA] w-[15%] p-t-2'>
                         </div>
                         <div className='text-black font-[600] w-[85%] overflow-hidden absolute top-0 left-5'>

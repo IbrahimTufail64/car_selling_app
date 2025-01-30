@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react'
-import record from '@/assets/records.png'
+import record from '@/assets/service_records_image.png'
 import icon from '@/assets/icons/Iconbutton.png'
 import Link from 'next/link'
 import splash from '@/assets/icons/Rays-small.png'
@@ -17,7 +17,7 @@ const ServiceExample = () => {
                         },[])
 
   return (
-    <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
+    <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} pb-[140px]`}>
         <div>
             <img src={record.src} className='w-full'/>
         </div>
@@ -46,9 +46,9 @@ const ServiceExample = () => {
                             <div className='flex space-x-5 '>
                                 <img src={icon.src} className='w-7 h-7 mt-1'/>
                                 <div>
-                                    <div className={`font-[600] text-[20px]  ${isVendor ? 'text-white' : 'text-[#101044]'}`}>Capture all four corners</div>
+                                    <div className={`font-[600] text-[20px]  ${isVendor ? 'text-white' : 'text-[#101044]'}`}>Manuals & booklets</div>
                                     <div className='font-[300]'>
-                                    Good photos are important when selling your vehicle! 
+                                    Group manuals, booklets on a table; photograph them collectively.
                                     </div>
                                 </div>
                             </div>
@@ -66,15 +66,29 @@ const ServiceExample = () => {
             </div>
         </Link>
         </div>
-}
 
-        <div className='p-5 pt-0'>
+}
+<div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'}`}>
+          <div className='w-full'>
+          <div className='p-5 w-full'>
+                <Link href={isVendor ? './service_records':'./service_records_customer'}   className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div  className="whitespace-nowrap  text-ellipsis">Add Documents</div>
+                        <img src={splash.src}/>
+                    </div>
+                </Link>
+        </div>
+
+        <div className='p-5 pt-0 w-full'>
                 <Link href={`${prevRoute}`} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Previous</div>
                     </div>
                 </Link>
         </div>
+          </div>
+        </div>
+
     </div>
   )
 }

@@ -2,8 +2,8 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car1 from '@/assets/SmartAdvice1.png'
-import car2 from '@/assets/SmartAdvice2.png'
+import car1 from '@/assets/advice_exterior_1.png'
+import car2 from '@/assets/advice_exterior_2.png'
 import cross from '@/assets/redcross.png'
 import tick from '@/assets/greentick.png'
 import phoneW from '@/assets/icons/phone.png'
@@ -12,6 +12,8 @@ import phoneD from '@/assets/icons/phoneDark.png'
 import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context';
+import car from '@/assets/Sub3Car.png'
+
 import splash from '@/assets/icons/Rays-small.png'
 
 
@@ -35,6 +37,16 @@ const SmartAdvice = () => {
             <div>smart advice</div>
         </div>
 
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-5 pb-3'>
+                    <div className='font-[300] text-sm'>Smart advice for perfect exterior photos of your car!</div>
+                    <div   className='font-[400] text-sm '>Picture Perfect!</div>
+                </div>
+                <img src={car.src} className='object-cover'/>
+            </div>
+        </div>
+
         <div className='space-y-4 px-4'>
          <div className='w-full flex justify-center'>
             <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
@@ -42,12 +54,14 @@ const SmartAdvice = () => {
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
                     <img src={cross.src} className='w-7 h-7 mt-[2px]'/>
-                    <div>Don't</div>
+                    <div>Smart stops!</div>
                   </div>
                   <ul className="list-disc pl-7 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                    <li>Image is unclear or poorly lit</li>
+                    <li>Car is positioned outside the guidelines</li>
+                    <li>Objects block the view of the vehicle</li>
+                    <li>Shot is taken at the wrong angle</li>
+                    <li>Background is too distracting</li>
                     
                   </ul>
               </div>
@@ -64,12 +78,13 @@ const SmartAdvice = () => {
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
                     <img src={tick.src} className='w-7 h-7 mt-[2px]'/>
-                    <div>Do</div>
+                    <div>Smart shots!</div>
                   </div>
                   <ul className="list-disc pl-7 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                    <li>Ensure the photo is bright and clear</li>
+                    <li>Keep your vehicle perfectly aligned within the guides</li>
+                    <li>Make sure the background is free of clutter and distractions</li>
+                    <li>Capture the entire vehicle without any cropping or angles</li>
                     
                   </ul>
               </div>
@@ -100,14 +115,14 @@ const SmartAdvice = () => {
         </div>
 
         <div className={`w-full fixed flex justify-center bottom-0`}>
-        <div className='p-5 w-full'>
+          <div className='p-5 w-full'>
                 <Link href='./camera_filter/front_driver' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
-        </div>
+          </div>
         </div>
 
     </div>

@@ -57,7 +57,7 @@ const Slider = () => {
     },[])
 
     return (
-        <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} min-h-[100vh] relative flex flex-col justify-between relative pb-[60px]`} >
+        <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} min-h-[100vh] relative flex flex-col justify-between relative pb-[130px]`} >
           
             <div className="embla overflow-hidden">
         <div className="embla__viewport" ref={emblaRef}>

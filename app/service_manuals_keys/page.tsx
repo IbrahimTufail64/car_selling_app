@@ -9,6 +9,10 @@ import { db} from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import alert from '@/assets/icons/alert.png'
 import car from '@/assets/Sub3Car.png'
+import car1 from '@/assets/service_records_1.png'
+import car2 from '@/assets/service_records_2.png'
+import car3 from '@/assets/service_records_3.png'
+import car4 from '@/assets/service_records_4.jpg'
 
 const ServiceRecords = () => {
     const [frontDimg, setfrontDimg]  = useState<any>(null);
@@ -70,14 +74,14 @@ const ServiceRecords = () => {
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
         <div className='p-5 flex space-x-2 text-[26px]'>
             <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[5px]'/></Link>
-            <div>Service, Manuals and Keys</div>
+            <div>Service records</div>
         </div>
         
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} mb-5`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='#'  className='font-[400] text-sm mt-5'>see below for smart advice</Link>
+                    <div className='font-[300] text-sm'>Where can I find my service history?</div>
+                    <Link  href='#'  className='font-[400] text-sm mt-5'>Stay informed!</Link>
                 </div>
                 <img src={car.src}/>
             </div>
@@ -92,6 +96,19 @@ const ServiceRecords = () => {
                 A detailed service record increases the likelihood of selling your car by 10%
             </div>
         </div>
+        </div>
+
+        <div className='w-full flex justify-center my-5'>
+            <div className={`w-[90vw]  ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} text-[18px] rounded-xl p-5`}>
+                <div className='w-full text-[26px]'>
+                Wondering if your first service is due?
+                </div>
+                <div className='flex justify-center w-full my-3'>
+                    <div className='w-full bg-[#D3D4FD] h-[2px]'></div>
+                </div>
+                <div className='font-[300] text-[16px]'>
+                For a new car, the initial service typically occurs after 12 months or at a set mileage (often 5,000-20,000 miles), whichever comes first. Check your vehicle handbook for exact timings to stay on top of maintenance.                           </div>
+            </div>
         </div>
 
         <div className='w-full flex justify-center my-5'>
@@ -154,8 +171,58 @@ const ServiceRecords = () => {
                     <div className='w-full bg-[#D3D4FD] h-[2px]'></div>
                 </div>
                 <div className='font-[300] text-[16px]'>
-                A service history is a comprehensive log of all maintenance performed on your car throughout its life. This complete record helps dealers assess how well your vehicle has been maintained and its current condition. Cars with a full service history typically have a higher resale value compared to those with incomplete or no service history.
+                A service history is a detailed log of all work done on your car. It shows how well your vehicle has been cared for, giving dealers a clear picture of its condition. A full history can mean more money for you when selling with us.                </div>
+            </div>
+        </div>
+
+        <div className='w-full flex justify-center my-5'>
+            <div className={`w-[90vw]  ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} text-[18px] rounded-xl p-5`}>
+                <div className='w-full text-[26px]'>
+                How complete is your car’s service history? Full service records can boost your sale price! 
                 </div>
+                <div className='flex justify-center w-full my-3'>
+                    <div className='w-full bg-[#D3D4FD] h-[2px]'></div>
+                </div>
+                <div className='space-y-5'>
+                            <div className='flex space-x-5 pt-[10px]'>
+                                <img src={icon.src} className='w-7 h-7 mt-1'/>
+                                <div>
+                                    <div className={`font-[600] text-[20px] ${isVendor ? ' text-white' : 'text-[#101044]'} `}>Full service history:</div>
+                                    <div className='font-[300]'>
+                                    Every required service completed. You can provide photos of full records.
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='flex space-x-5 '>
+                                <img src={icon.src} className='w-7 h-7 mt-1'/>
+                                <div>
+                                    <div  className={`font-[600] text-[20px] ${isVendor ? ' text-white' : 'text-[#101044]'} `}>Limited or incomplete service history:</div>
+                                    <div className='font-[300]'>
+                                    Some services done and records available, but not all required ones. Upload what you have to maximise value!
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='flex space-x-5 '>
+                                <img src={icon.src} className='w-7 h-7 mt-1'/>
+                                <div>
+                                    <div  className={`font-[600] text-[20px] ${isVendor ? ' text-white' : 'text-[#101044]'} `}>First service not due:</div>
+                                    <div className='font-[300]'>
+                                    Your car hasn't reached its first scheduled service yet.
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='flex space-x-5 '>
+                                <img src={icon.src} className='w-7 h-7 mt-1'/>
+                                <div>
+                                    <div  className={`font-[600] text-[20px] ${isVendor ? ' text-white' : 'text-[#101044]'} `}>No service history:</div>
+                                    <div className='font-[300]'>
+                                    No service records available.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
             </div>
         </div>
 
@@ -163,29 +230,29 @@ const ServiceRecords = () => {
             <div className='text-[22px] w-full pl-5 mt-10'>Examples</div>
             <div className='w-full flex justify-center'>
                 <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-                    <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Above image title</div>
+                    <img src={car1.src} className='rounded-lg w-full object-cover'/>
+                    <div className='px-3'>Example vehicle registration</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-            <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Above image title</div>
+            <img src={car2.src} className='rounded-lg w-full object-cover'/>
+                    <div className='px-3'>Example digital history</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-            <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Above image title</div>
+            <img src={car3.src} className='rounded-lg w-full object-cover'/>
+                    <div className='px-3'>Example service history docs </div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
-            <img src={serviceRecords.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Above image title</div>
+            <img src={car4.src} className='rounded-lg w-full object-cover'/>
+                    <div className='px-3'>Keys</div>
                 </div>
             </div>
         </div>

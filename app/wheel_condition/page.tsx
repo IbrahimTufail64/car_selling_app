@@ -127,26 +127,22 @@ const WheelCondition = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary' } w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary' } w-full pb-[190px]`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
             <Link  href='./vehicle_health_selection'><IoChevronBack size={35} className='mt-[1px]'/></Link>
             <div>Wheel condition</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-2 flex justify-between rounded-lg pb-2'>
                 <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
+                    <div className='font-[300] text-sm'>Wheel condition refers to any damage to the metal rim or structure, including dents, scratches, fractures, warping or buckling.</div>
                     <Link  href='./advice_wheel_condition'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src} className='object-contain'/> 
             </div>
         </div>
 
-        <div className='w-full flex justify-center text-[18px] pt-10'>
-        <div className=' w-[90%]'>
-        Wheel condition refers to any damage to the metal rim or structure, including dents, scratches, fractures, warping or buckling.
-        </div>
-        </div>
+
 
         <div className='space-y-3 pt-7'>
         <WheelFrame Content='Back Driver Wheel' setisSelected={setback_driver_wheel_state} photo={ back_driver_wheel_img ? back_driver_wheel_img : BackDriverWheel.src}  link ='back_driver_wheel'/>
@@ -161,7 +157,11 @@ const WheelCondition = () => {
         </div>
         
 
-        <div className='p-5'>
+
+
+        <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'}`}>
+          <div className='w-full'>
+          <div className='p-5'>
                 <button onClick={()=>{handleWheelUpload(false)}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
@@ -175,6 +175,8 @@ const WheelCondition = () => {
                         <div>All Wheel Good</div>
                     </div>
                 </button>
+        </div>
+          </div>
         </div>
         
 

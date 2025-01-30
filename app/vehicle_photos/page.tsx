@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useAppContext } from '../Context';
 import CalculateState from '../Context/State';
 import axios from 'axios';
+import car from '@/assets/Sub3Car.png'
 
 const VehiclePhotos = () => {
 
@@ -53,8 +54,14 @@ const VehiclePhotos = () => {
             <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle Photos</div>
         </div>
-        <div className='px-5 pb-5 font-[400] text-md'>
-         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi.
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} mb-5 -mt-5`}>
+       <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-3 pb-2'>
+                    <div className='font-[300] text-sm'>Smart advice is here to gently guide you through the process!</div>
+                    <div onClick={()=>{localStorage.setItem('current_count','0')}} className='font-[400] text-sm mt-5'>Protect your price &gt;</div>
+                </div>
+                <img src={car.src} className='object-cover'/>
+            </div>
         </div>
         <div className='space-y-4 px-4'>
           <div className='mb-4'>

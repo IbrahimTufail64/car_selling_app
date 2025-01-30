@@ -139,7 +139,7 @@ const TyreHealth = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary' } w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary' } w-full pb-[200px]`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Tyre health</div>
@@ -156,7 +156,7 @@ const TyreHealth = () => {
 
         <div className='w-full flex justify-center text-[18px] pt-10'>
         <div className=' w-[90%]'>
-        Wheel condition refers to any damage to the metal rim or structure, including dents, scratches, fractures, warping or buckling.
+        Which of these tyres shows tread wear below 1.6mm, or has visible cuts, bulges, or other damage?
         </div>
         </div>
 
@@ -171,9 +171,11 @@ const TyreHealth = () => {
             <TyreFrame setCondition={setfront_passenger_tyre_specs} Content='Front passenger tyre' setisSelected={setfront_passenger_tyre_state} photo={front_passenger_tyre_img ? front_passenger_tyre_img :  FrontPassengerWheel.src} link ='front_passenger_tyre'/>
            
         </div>
-        
 
-        <div className='p-5'>
+
+        <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'}`}>
+          <div className='w-full'>
+          <div className='p-5 w-full'>
                 <button onClick={()=>{handleWheelUpload(false)}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
@@ -181,13 +183,19 @@ const TyreHealth = () => {
                     </div>
                 </button>
         </div>
-        <div className='p-5 pt-0'>
+
+        <div className='p-5 pt-0 w-full'>
                 <button onClick={()=>{handleWheelUpload(true)}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>All Wheel Good</div>
                     </div>
                 </button>
         </div>
+          </div>
+        </div>
+        
+
+
         
 
     </div>

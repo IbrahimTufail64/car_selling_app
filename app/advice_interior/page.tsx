@@ -2,8 +2,14 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car1 from '@/assets/SmartAdvice1.png'
-import car2 from '@/assets/SmartAdvice2.png'
+import car1 from '@/assets/advice_interior_1.png'
+import car2 from '@/assets/advice_interior_2.png'
+import car3 from '@/assets/advice_interior_3.png'
+import car4 from '@/assets/advice_interior_4.png'
+import car5 from '@/assets/advice_interior_5.png'
+import car6 from '@/assets/advice_interior_6.png'
+import car7 from '@/assets/advice_interior_7.png'
+import alertPurple from '@/assets/icons/alert_purple.png'
 import cross from '@/assets/redcross.png'
 import tick from '@/assets/greentick.png'
 import phoneW from '@/assets/icons/phone.png'
@@ -13,6 +19,7 @@ import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context';
 import splash from '@/assets/icons/Rays-small.png'
+import car from '@/assets/Sub3Car.png'
 
 const SmartAdvice = () => {
 
@@ -34,19 +41,28 @@ const SmartAdvice = () => {
             <div>smart advice</div>
         </div>
 
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-5 pb-3'>
+                    <div className='font-[300] text-sm'>Smart advice for perfect interior photos of your car!</div>
+                    <div   className='font-[400] text-sm '>Picture Perfect!</div>
+                </div>
+                <img src={car.src} className='object-cover'/>
+            </div>
+        </div>
+
         <div className='space-y-4 px-4'>
          <div className='w-full flex justify-center'>
             <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
               <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
-                    <img src={cross.src} className='w-7 h-7 mt-[2px]'/>
-                    <div>Don't</div>
+                    <img src={alertPurple.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Smart front seat shots!</div>
                   </div>
                   <ul className="list-disc pl-7 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                    <li>Even lighting or natural sunlight with doors open</li>
+                    <li>Keep the camera steady for crisp, sharp shots</li>
                     
                   </ul>
               </div>
@@ -55,20 +71,27 @@ const SmartAdvice = () => {
          </div>
 
         </div>
-
         <div className='space-y-4 px-4 mt-7'>
          <div className='w-full flex justify-center'>
-         <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
-              <img src={car2.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
+            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <div className='flex space-x-4'>
+              <div className='relative w-[50%]'>
+                <img src={car2.src} className='w-[100%] max-h-[200px] object-cover rounded-xl'/>
+                <img src={cross.src} className='w-8 left-[43%] -bottom-[15px] absolute'/>
+              </div>
+              <div className='relative w-[50%]'>
+                <img src={car3.src} className='w-[100%] max-h-[200px] object-cover rounded-xl'/>
+                <img src={tick.src} className='w-8 left-[43%] -bottom-[15px] absolute'/>
+              </div>
+              </div>
               <div>
-                  <div className='pt-4 text-[22px] flex space-x-3'>
-                    <img src={tick.src} className='w-7 h-7 mt-[2px]'/>
-                    <div>Do</div>
+                  <div className='pt-7 text-[22px] flex space-x-3'>
+                    <img src={alertPurple.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Smart back seat shots!</div>
                   </div>
                   <ul className="list-disc pl-7 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                    <li>Capture the full cabin, engine on, dashboard lit</li>
+                    <li>Remove any personal items</li>
                     
                   </ul>
               </div>
@@ -77,6 +100,65 @@ const SmartAdvice = () => {
          </div>
 
         </div>
+        <div className='space-y-4 px-4 mt-7'>
+         <div className='w-full flex justify-center'>
+            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <div className='flex space-x-4'>
+              <div className='relative w-[50%]'>
+                <img src={car4.src} className='w-[100%] max-h-[200px] object-cover rounded-xl'/>
+                <img src={cross.src} className='w-8 left-[43%] -bottom-[15px] absolute'/>
+              </div>
+              <div className='relative w-[50%]'>
+                <img src={car5.src} className='w-[100%] max-h-[200px] object-cover rounded-xl'/>
+                <img src={tick.src} className='w-8 left-[43%] -bottom-[15px] absolute'/>
+              </div>
+              </div>
+              <div>
+                  <div className='pt-7 text-[22px] flex space-x-3'>
+                    <img src={alertPurple.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Smart dashboard shots!</div>
+                  </div>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Capture the full cabin, engine on, dashboard lit</li>
+                    <li>Remove any personal items</li>
+                    
+                  </ul>
+              </div>
+            </div>
+
+         </div>
+
+        </div>
+        <div className='space-y-4 px-4 mt-7'>
+         <div className='w-full flex justify-center'>
+            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <div className='flex space-x-4'>
+              <div className='relative w-[50%]'>
+                <img src={car6.src} className='w-[100%] max-h-[200px] object-cover rounded-xl'/>
+                <img src={cross.src} className='w-8 left-[43%] -bottom-[15px] absolute'/>
+              </div>
+              <div className='relative w-[50%]'>
+                <img src={car7.src} className='w-[100%] max-h-[200px] object-cover rounded-xl'/>
+                <img src={tick.src} className='w-8 left-[43%] -bottom-[15px] absolute'/>
+              </div>
+              </div>
+              <div>
+                  <div className='pt-7 text-[22px] flex space-x-3'>
+                    <img src={alertPurple.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Smart boot shots!</div>
+                  </div>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Bright lighting reveals space and depth</li>
+                    <li>Remove any clutter!</li>
+                    
+                  </ul>
+              </div>
+            </div>
+
+         </div>
+
+        </div>
+
 
         <div className='overflow-hidden  w-full flex justify-center text-[18px]'>
           <div className={`w-[90vw] my-5 rounded-2xl  ${isVendor ? 'bg-secondaryDark': 'bg-white'}`} >

@@ -38,8 +38,7 @@ const VehicleHealthSelection = () => {
         
         <div className='w-full flex justify-center mb-10'>
         <div className='px-5 pb-5 font-[300] text-[18px] bg-[#D1D9FF] w-[90vw] p-3 text-black rounded-lg'>
-            For a hassle-free experience, tell us about the condition of your vehicle and any damage it has.Check each category below carefully.
-        </div>
+        Enjoy a hassle-free process by sharing your car’s condition carefully!        </div>
         </div>
 
         <div className='space-y-2 px-4'>

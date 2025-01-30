@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   keywords: ["nextjs", "next14", "pwa", "next-pwa"],
   viewport:
-    "width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no",
+    "width=device-width, initial-scale=1.6, minimum-scale=1, shrink-to-fit=no, user-scalable=no",
   icons: [
     { rel: "apple-touch-icon", url: "icons/Logo-128.png" },
     { rel: "icon", url: "icons/Logo-128x128.png" },

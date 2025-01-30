@@ -3,9 +3,9 @@ import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import carS from '@/assets/Sub3Car.png'
-import car1 from '@/assets/SmartAdvice1.png'
-import car2 from '@/assets/smart_advice_car2.png'
-
+import car1 from '@/assets/advice_glass_1.png'
+import car2 from '@/assets/advice_glass_2.png'
+import alert_blue from '@/assets/icons/alert_purple.png'
 import cross from '@/assets/redcross.png'
 import tick from '@/assets/greentick.png'
 
@@ -36,52 +36,59 @@ const SurfaceMarks = () => {
         <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Glass health</div>
         </div>
-        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
-                <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='#'  className='font-[400] text-sm mt-5'>see below for smart advice</Link>
+                <div className='space-y-5 pb-3'>
+                    <div className='font-[300] text-sm'>Get your glass photo right with our expert help.</div>
+                    <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
-                <img src={carS.src}/>
+                <img src={carS.src} className='object-contain'/>
             </div>
         </div>
+        <div className='text-xl pl-[5vw] pb-2'>Examples</div>
 
-        <div className='flex justify-center pt-10'>
-            <div className='w-[90vw] text-[18px]'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi.
-            </div>
-        
-        </div>
-
-        <div className='flex justify-center w-full'>
-            <div className='w-[98vw] mt-7'>
-                <div className='text-2xl pl-7 pb-3'>Examples</div>
-
-                <div className='space-y-4 px-4'>
+        <div className='space-y-4 px-4'>
          <div className='w-full flex justify-center'>
-            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-full space-y-5`}>
-              <img src={car2.src} className='w-full max-h-[200px] object-cover rounded-lg'/>
-              <img src={car1.src} className='w-full max-h-[200px] object-cover rounded-lg'/>
+            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
+              <div>
+                  <div className='pt-4 text-[22px] flex space-x-3'>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Chips & breaks</div>
+                  </div>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Look for small chips on the windscreen</li>
+                    <li>Spot breaks or cracks in the glass</li>
+                    <li>Inspect edges for deeper damage.</li>
+                    
+                  </ul>
+              </div>
             </div>
 
          </div>
 
         </div>
-            </div>
-        </div>
 
-        <div className='flex justify-center w-full'>
-             <div className=' w-[90vw]'>
-                  <div className='pt-4 text-[24px] px-2 flex space-x-3'>
-                    <div>Heading</div>
+        <div className='space-y-4 px-4 mt-7'>
+         <div className='w-full flex justify-center'>
+         <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <img src={car2.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
+              <div>
+                  <div className='pt-4 text-[22px] flex space-x-3'>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Cracks & scratches</div>
                   </div>
-                  <ul className="list-disc pl-10 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Spot cracks on the windscreen edges.</li>
+                    <li>Look for scratches across windows.</li>
+                    <li>Check chips around glass corners.</li>
                     
                   </ul>
               </div>
+            </div>
+
+         </div>
+
         </div>
         
         

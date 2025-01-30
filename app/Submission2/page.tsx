@@ -119,7 +119,7 @@ const Submission2 = () => {
     
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white':'bg-secondary'} min-h-[100vh] flex flex-col justify-between w-full overflow-hidden`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white':'bg-secondary'} min-h-[100vh] flex flex-col justify-between w-full overflow-hidden pb-[100px]`}>
  <div>
  <div className='flex w-full justify-center space-x-2 my-4'>
          <img src={isVendor ? LogoWhite.src : LogoBlue.src} className='h-14'/>
@@ -253,11 +253,14 @@ const Submission2 = () => {
         
  </div>
 
-        <div>
+
+        <div className={`w-full fixed flex justify-center bottom-0`}>
+          <div className=' w-full'>
             <Link href='./IntroSlider' onClick={requestCameraPermission} className={`${isVendor && 'text-secondaryDark'} flex justify-center m-5 font-bold text-xl rounded-[6px] space-x-2 px-5 py-4 bg-tertiary `}>
                     <div>Enable Camera</div>
                     <img src={splash.src}/>
             </Link> 
+          </div>
         </div>
 
 

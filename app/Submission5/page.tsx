@@ -4,8 +4,8 @@ import car from '@/assets/Sub3Car.png'
 import Link from 'next/link'
 import tick from '@/assets/icons/tick.png'
 import cross from '@/assets/icons/cross.png'
-import card1 from '@/assets/Sub4CarD1.png'
-import card2 from '@/assets/Sub4CarD2.png'
+import card1 from '@/assets/introSlider_3_1.png'
+import card2 from '@/assets/introSlider_3_2.png'
 import vector from '@/assets/icons/Vector.png'
 import { useAppContext } from '../Context'
 
@@ -16,25 +16,25 @@ const Submission5 = () => {
   return (
     <div className=' w-full'>
        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
-            <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
-                <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='./advice_IntroSlider' onClick={()=>{localStorage.setItem('current_count','2')}}  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+       <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-3 pb-2'>
+                    <div className='font-[300] text-sm'>Smart advice is here to gently guide you through the process!</div>
+                    <Link  href='./advice_IntroSlider' onClick={()=>{localStorage.setItem('current_count','0')}} className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src} className='object-cover'/>
             </div>
         </div>
 
         <div className='w-full flex justify-center mt-7'>
         <div className={`w-[85vw] flex justify-center ${isVendor ? 'bg-secondaryDark': 'bg-[#FFFFFF]'} p-3   rounded-lg`}>
-        <div className='gap-2 mt-6 grid grid-cols-2 max-w-[400px]'>
+        <div className='space-y-3 max-w-[400px]'>
                 <div className='relative'>
                     <img src={card1.src} className='w-full'/>
-                    <img src={cross.src} className='absolute top-[38%] left-[48%]'/>
+                    {/* <img src={cross.src} className='absolute top-[38%] left-[48%]'/> */}
                 </div>
                 <div className='relative'>
                     <img src={card2.src} className='w-full'/>
-                    <img src={tick.src} className='absolute top-[38%] left-[48%]'/>
+                    {/* <img src={tick.src} className='absolute top-[38%] left-[48%]'/> */}
                 </div>
             </div>
             </div>
@@ -43,7 +43,7 @@ const Submission5 = () => {
         <div className='w-full flex justify-center'>
         <div className={`w-[85vw] mt-6 ${isVendor ? 'bg-secondaryDark': 'bg-[#FFFFFF]'} p-3 rounded-lg`} >
         <div className={`w-full flex justify-center font-[400] text-[22px] ${!isVendor ? 'text-[#101044]': 'text-white'} `}>
-                    <div className='relative'>
+                    <div className='relative text-center'>
                         Don’t leave buyers in the dark
                         <img src={vector.src} className='absolute top-[30px] right-[0px] w-20 '/>
                     </div>

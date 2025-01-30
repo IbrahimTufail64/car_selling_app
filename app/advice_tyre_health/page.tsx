@@ -2,8 +2,9 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car1 from '@/assets/SmartAdvice1.png'
-import car2 from '@/assets/SmartAdvice2.png'
+import car1 from '@/assets/advice_tyres_1.png'
+import car2 from '@/assets/advice_tyres_2.png'
+import alert_blue from '@/assets/icons/alert_purple.png'
 import cross from '@/assets/redcross.png'
 import tick from '@/assets/greentick.png'
 import phoneW from '@/assets/icons/phone.png'
@@ -13,20 +14,20 @@ import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context';
 import splash from '@/assets/icons/Rays-small.png'
+import CAR from '@/assets/Sub3Car.png'
 
-const SmartAdviceTyre = () => {
+const SmartAdvice = () => {
   const [car,setCar] = useState(0);
-        const [prevRoute,setPrevRoute] = useState<string | null>('');
-              
-                useEffect(()=>{
-                  setPrevRoute(localStorage.getItem('prevRoute'));
-              
-                },[])
+  const [prevRoute,setPrevRoute] = useState<string | null>('');
+                  
+                    useEffect(()=>{
+                      setPrevRoute(localStorage.getItem('prevRoute'));
+                  
+                    },[])
   useEffect(()=>{
     const car_local = Number(localStorage.getItem('car_no'));
     setCar(car_local);
   },[])
-
   const router = useRouter();
   const {isVendor} = useAppContext(); 
   const phone = isVendor ? phoneD : phoneW;
@@ -39,17 +40,31 @@ const SmartAdviceTyre = () => {
             <div>smart advice</div>
         </div>
 
-        <div className='space-y-4 px-4 mt-5'>
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-5 pb-3'>
+                    <div className='font-[300] text-sm'>Easily spot tread wear below 1.6mm, visible cuts, bulges, or other damage.</div>
+                    <div   className='font-[400] text-sm '>Picture Perfect!</div>
+                </div>
+                <img src={CAR.src} className='object-cover'/>
+            </div>
+        </div>
+
+        <div className='space-y-4 px-4'>
          <div className='w-full flex justify-center'>
             <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
               <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
-                    <div>New Tyres</div>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Below 1.6mm & visible cuts</div>
                   </div>
-                  <div className=" pt-3 space-y-2">
-                  Tread depth is 7 mm or more freshly fitted tyres with fdivl tread depth, offering maximum grip and performance.
-                  </div>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Measure tread depth to ensure it’s above 1.6mm</li>
+                    <li>Inspect for cuts or tears in the rubber</li>
+                    <li>Check for exposed cords beneath the rubber surface</li>
+                    
+                  </ul>
               </div>
             </div>
 
@@ -57,71 +72,21 @@ const SmartAdviceTyre = () => {
 
         </div>
 
-        <div className='space-y-4 px-4 mt-10'>
+        <div className='space-y-4 px-4 mt-7'>
          <div className='w-full flex justify-center'>
-            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
-              <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
+         <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <img src={car2.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
-                    <div>Good Tyres</div>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Bulges or other damage</div>
                   </div>
-                  <div className=" pt-3 space-y-2">
-                  Tread depth is 5 mm to 7 mm.  Tyres with a healthy amount of tread remaining, providing good traction and safety.
-                  </div>
-              </div>
-            </div>
-
-         </div>
-
-        </div>
-
-        <div className='space-y-4 px-4 mt-10'>
-         <div className='w-full flex justify-center'>
-            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
-              <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
-              <div>
-                  <div className='pt-4 text-[22px] flex space-x-3'>
-                    <div>Average</div>
-                  </div>
-                  <div className=" pt-3 space-y-2">
-                  Tread Depth is 3 mm to 5 mm.  Tyres showing moderate wear; still legal but may require replacement soon to ensure optimal safety and performance.
-                  </div>
-              </div>
-            </div>
-
-         </div>
-
-        </div>
-
-        <div className='space-y-4 px-4 mt-10'>
-         <div className='w-full flex justify-center'>
-            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
-              <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
-              <div>
-                  <div className='pt-4 text-[22px] flex space-x-3'>
-                    <div>Worn</div>
-                  </div>
-                  <div className=" pt-3 space-y-2">
-                  Tread Depth is 1.6 mm to 3 mm.  Near the legal minimum tread depth; tyres are worn and should be monitored closely or replaced soon.
-                  </div>
-              </div>
-            </div>
-
-         </div>
-
-        </div>
-
-        <div className='space-y-4 px-4 mt-10'>
-         <div className='w-full flex justify-center'>
-            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
-              <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
-              <div>
-                  <div className='pt-4 text-[22px] flex space-x-3'>
-                    <div>New Tyres Needed</div>
-                  </div>
-                  <div className=" pt-3 space-y-2">
-                  Less than 1.6 mm.  Below the legal minimum tread depth; tyres are significantly worn and must be replaced immediately to ensure safety and legal compliance.
-                  </div>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Look for raised bumps on the tire walls.</li>
+                    <li>Inspect sidewalls for punctures or cracks.</li>
+                    <li>Report any uneven surfaces or deformities.</li>
+                    
+                  </ul>
               </div>
             </div>
 
@@ -148,6 +113,7 @@ const SmartAdviceTyre = () => {
             </div>
           </div>
         </div>
+
 
 
 <div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'}`}>
@@ -177,4 +143,4 @@ const SmartAdviceTyre = () => {
   )
 }
 
-export default SmartAdviceTyre
+export default SmartAdvice

@@ -130,7 +130,7 @@ const SurfaceMarks = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh]`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[80px]`}>
         <div className='flex flex-col justify-between min-h-[100vh]'>
         <div >
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
@@ -179,13 +179,15 @@ const SurfaceMarks = () => {
         </div>
         
 
-        <div className='p-5'>
-                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+
+
+        <div className={`w-full fixed flex justify-center p-5 bottom-0`}>
+        <div onClick={handleSubmit} className={`w-full flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Continue</div>
                         <img src={splash.src}/>
                     </div>
-                </div>
+         </div>
         </div>
         </div>
         

@@ -2,8 +2,9 @@
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
-import car1 from '@/assets/SmartAdvice1.png'
-import car2 from '@/assets/SmartAdvice2.png'
+import car1 from '@/assets/advice_wheel_condition_1.png'
+import car2 from '@/assets/advice_wheel_condition_2.png'
+import alert_blue from '@/assets/icons/alert_purple.png'
 import cross from '@/assets/redcross.png'
 import tick from '@/assets/greentick.png'
 import phoneW from '@/assets/icons/phone.png'
@@ -13,6 +14,8 @@ import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context';
 import splash from '@/assets/icons/Rays-small.png'
+import CAR from '@/assets/Sub3Car.png'
+
 const SmartAdvice = () => {
   const [car,setCar] = useState(0);
   const [prevRoute,setPrevRoute] = useState<string | null>('');
@@ -37,19 +40,29 @@ const SmartAdvice = () => {
             <div>smart advice</div>
         </div>
 
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-5 pb-3'>
+                    <div className='font-[300] text-sm'>Easily spot wheel damage, dents, scratches, cracks and warping.</div>
+                    <div   className='font-[400] text-sm '>Picture Perfect!</div>
+                </div>
+                <img src={CAR.src} className='object-contain'/>
+            </div>
+        </div>
+
         <div className='space-y-4 px-4'>
          <div className='w-full flex justify-center'>
             <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
               <img src={car1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
-                    <img src={cross.src} className='w-7 h-7 mt-[2px]'/>
-                    <div>Don't</div>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Scratches, dents & curbing</div>
                   </div>
                   <ul className="list-disc pl-7 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                    <li>Minor scratches on wheel finish</li>
+                    <li>Deep cuts exposing metal</li>
+                    <li>Dents on rim edges</li>
                     
                   </ul>
               </div>
@@ -65,13 +78,13 @@ const SmartAdvice = () => {
               <img src={car2.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
               <div>
                   <div className='pt-4 text-[22px] flex space-x-3'>
-                    <img src={tick.src} className='w-7 h-7 mt-[2px]'/>
-                    <div>Do</div>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Cracks, warping & buckling</div>
                   </div>
                   <ul className="list-disc pl-7 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                    <li>Check rim edges for cracks</li>
+                    <li>Spot warping in uneven shapes</li>
+                    <li>Feel for vibrations while driving.</li>
                     
                   </ul>
               </div>

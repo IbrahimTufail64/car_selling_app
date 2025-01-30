@@ -204,7 +204,7 @@ const App = () => {
                         <p className='text-lg font-semibold mb-4 '>Recording stopped successfully!</p>
                         <button
                             className='bg-gray-200 rounded-full px-5 py-2 mr-2'
-                            onClick={() => setShowPopup(false) }
+                            onClick={() => {setShowPopup(false); } }
                         >
                             Close
                         </button>

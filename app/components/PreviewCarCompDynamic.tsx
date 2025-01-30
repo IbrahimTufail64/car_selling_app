@@ -20,7 +20,7 @@ const PreviewCarCompDynamic = ({title,query}:{title: string,query: string}) => {
             try{
                 const images = await db.images
                     .where('name').equals(image_to_retrieve)
-                    .filter(image => image.car_number === car_number )
+                    // .filter(image => image.car_number === car_number )
                     .toArray();
                 // const imageData = images.map(e => e=e.data);
                 console.log('test',images);

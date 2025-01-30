@@ -4,10 +4,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
 import car1 from '@/assets/Sub3Car.png'
 import car4 from '@/assets/SmartAdvice1.png'
-import card1 from '@/assets/smart_advice_car2.png'
-import card4 from '@/assets/smart_advice_car3.png'
+import card1 from '@/assets/advice_damaged_1.png'
+import card2 from '@/assets/advice_damaged_2.png'
 import car3 from '@/assets/smart_advice_car3.png'
-
+import alert_blue from '@/assets/icons/alert_purple.png'
 import alert from '@/assets/icons/alert.png'
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
@@ -31,78 +31,64 @@ const SurfaceMarks = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full overflow-hidden  ${(prevRoute === './vehicle_health_selection') ? 'pb-[160px]':'pb-[80px]'}`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full overflow-hidden  ${(prevRoute === './vehicle_health_selection') ? 'pb-[170px]':'pb-[100px]'}`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Damaged/Absent Fixtures</div>
         </div>
-        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
-                <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='#'  className='font-[400] text-sm mt-5'>see below for smart advice</Link>
+                <div className='space-y-5 pb-3'>
+                    <div className='font-[300] text-sm'>Check broken or missing parts like handles, buttons, mirrors, or wipers.</div>
+                    <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
-                <img src={car1.src}/>
+                <img src={car1.src} className='object-contain'/>
             </div>
         </div>
+        <div className='text-xl pl-[5vw] pb-2'>Examples</div>
 
-        <div className='flex justify-center pt-10'>
-            <div className='w-[90vw] text-[18px]'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi.
-            </div>
-        
-        </div>
-
-        <div className='flex justify-center w-full'>
-            <div className='w-[98vw] mt-7'>
-                <div className='text-2xl pl-7 pb-3'>Examples</div>
-
-                <div className='space-y-4 px-4'>
+        <div className='space-y-4 px-4'>
          <div className='w-full flex justify-center'>
-         <div className='w-full flex justify-center'>
-            <div className={`w-[90vw] mt-6 pt-5 space-y-5 ${isVendor ? 'bg-secondaryDark': 'bg-[#FFFFFF]'} p-3   rounded-lg`}>
-                <div className='relative'>
-                    <img src={card1.src} className='w-full max-h-[300px] object-cover rounded-lg'/>
-                </div>
-                <div className='relative'>
-                    <img src={card1.src} className='w-full max-h-[300px] object-cover rounded-lg'/>
-                </div>
-                <div className='relative'>
-                    <img src={card1.src} className='w-full max-h-[300px] object-cover rounded-lg'/>
-                </div>
-                <div className='relative'>
-                    <img src={card4.src} className='w-full max-h-[300px] object-cover rounded-lg'/>
-                </div>
+            <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <img src={card1.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
+              <div>
+                  <div className='pt-4 text-[22px] flex space-x-3'>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Broken parts</div>
+                  </div>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Faulty handles, buttons and switches.</li>
+                    <li>Broken handles, buttons, or wipers.</li>
+                    <li>Reporting any visible damage helps protect your resale price.</li>
+                    
+                  </ul>
+              </div>
             </div>
-        </div>    
 
          </div>
 
         </div>
-            </div>
-        </div>
 
-        <div className='flex justify-center w-full'>
-             <div className=' w-[90vw]'>
-                  <div className='pt-4 text-[24px] px-2 flex space-x-3'>
-                    <div>Heading</div>
+        <div className='space-y-4 px-4 mt-7'>
+         <div className='w-full flex justify-center'>
+         <div className={` p-4 rounded-2xl ${isVendor ? 'bg-secondaryDark': 'bg-white'} w-[90vw]`}>
+              <img src={card2.src} className='w-[90vw] max-h-[200px] object-cover rounded-xl'/>
+              <div>
+                  <div className='pt-4 text-[22px] flex space-x-3'>
+                    <img src={alert_blue.src} className='w-7 h-7 mt-[2px]'/>
+                    <div>Missing & damaged</div>
                   </div>
-                  <ul className="list-disc pl-10 pt-3 space-y-2">
-                    <li>Photo is too dark</li>
-                    <li>Vehicle sits outside outlines</li>
-                    <li>Vehicle is obstructed</li>
+                  <ul className="list-disc pl-7 pt-3 space-y-2">
+                    <li>Missing or faulty mirros & wipers.</li>
+                    <li>Damaged mirrors, lights, or trims.</li>
+                    <li>Water leaks in headlights or seals.</li>
                     
                   </ul>
               </div>
-        </div>
+            </div>
 
-        <div className={`${!isVendor ? 'bg-[#FBFBFF] border-[#D3D4FD]' :'bg-[#3D3D6A] border-[#646488]'} border-2 border  border-dashed rounded-lg p-5 mt-7 m-5 space-y-4`}>
-            <div className='w-full flex justify-center'>
-              <img src={alert.src}/>
-            </div>
-            <div className='w-full flex justify-center text-center font-[400] text-[12px]'>
-              Avoid including keys with defects, particularly those with remote unlocking failures.
-            </div>
+         </div>
+
         </div>
         
         

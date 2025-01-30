@@ -170,18 +170,20 @@ const handleSubmit = async (event:any) => {
     // },[back_driver_wheel_img,back_driver_tyre_img,back_passenger_wheel_img,back_passenger_tyre_img, front_driver_wheel_img,front_driver_tyre_img,front_passenger_wheel_img,front_passenger_tyre_img])
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full pb-[100px]`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Your wheels & tyres</div>
         </div>
+
+
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-2 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
+                    <div className='font-[300] text-sm'>Perfect your car’s wheel & tyre photos with our expert guide.</div>
                     <Link  href='./advice_vehicle_wheels'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src}/> 
             </div>
         </div>
 
@@ -223,10 +225,11 @@ const handleSubmit = async (event:any) => {
         </div>
         
 
-        <div className='p-5'>
-                <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
-                    <div className='flex space-x-1 text-xl'>
-                        <div>Done</div>
+
+        <div className='p-5 pt-2 fixed bottom-0 w-full'>
+            <div onClick={handleSubmit} className={` w-full flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1'>
+                        <div>Continue</div>
                         <img src={splash.src}/>
                     </div>
                 </div>

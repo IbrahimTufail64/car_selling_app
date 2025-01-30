@@ -107,7 +107,7 @@ const ServiceRecordsCapture = () => {
       };
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full pb-[100px]`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./service_manuals_keys'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Service, Manuals and Keys</div>
@@ -181,13 +181,13 @@ const ServiceRecordsCapture = () => {
                     />
                 )}
           </div>
-          {hasRenderedValidElement &&
+          {/* {hasRenderedValidElement &&
             <div className='w-full flex justify-center'>
             <Link href={`./camera_filter_dynamic/${'service_records'}-${images.length+1}-${'service_records'}`} className='py-2 px-5 text-[18px] my-5'>
                  Add another photo
             </Link>
             </div>
-          }
+          } */}
         </div>
         
       </div>
@@ -227,7 +227,7 @@ const ServiceRecordsCapture = () => {
     
         
 
-        <div className='p-5'>
+        <div className='p-5 fixed bottom-0 w-full'>
                 <div onClick={handleSubmit} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Done</div>
