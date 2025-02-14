@@ -116,13 +116,21 @@ const VehicleVideo = () => {
             <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle video</div>
         </div>
+
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg pb-2'>
                 <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
+                    <div className='font-[300] text-sm'>Use a clear, open space with bright lighting for videos to ensure approval.</div>
                     <Link  href='./advice_vehicle_video'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src} className='object-contain'/>
+            </div>
+        </div>
+
+
+        <div className='w-full flex justify-center mt-7'>
+            <div className='w-[90vw] text-[18px]'>
+        If your video looks great, click continue to proceed.
             </div>
         </div>
 
@@ -137,7 +145,7 @@ const VehicleVideo = () => {
                 <div className='w-[90vw]'>
                 <div onClick={Submit} className={`flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
-                        <div>Submit</div>
+                        <div>Continue</div>
                         <img src={splash.src}/>
                     </div>
                 </div>

@@ -87,7 +87,7 @@ const ServiceRecords = () => {
             </div>
         </div>
 
-        <div className='flex justify-center'>
+        <div className={`flex justify-center ${!isVendor && 'hidden'}`}>
         <div className={`w-[90vw] ${!isVendor ? 'bg-[#FBFBFF] border-[#D3D4FD]' :'bg-[#3D3D6A] border-[#646488]'} border-2 border  border-dashed rounded-lg p-5 mt-7 m-5 space-y-4`}>
             <div className='w-full flex justify-center'>
               <img src={alert.src}/>
@@ -231,30 +231,41 @@ const ServiceRecords = () => {
             <div className='w-full flex justify-center'>
                 <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
                     <img src={car1.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Example vehicle registration</div>
+                    <div className='px-3'>Digital Service History</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
             <img src={car2.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Example digital history</div>
+                    <div className='px-3'>V5 Vehicle Registration</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
             <img src={car3.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Example service history docs </div>
+                    <div className='px-3'>Service Books & Documents</div>
                 </div>
             </div>
 
-            <div className='w-full flex justify-center'>
+            <div className={`w-full flex justify-center ${!isVendor && 'hidden'}`}>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
             <img src={car4.src} className='rounded-lg w-full object-cover'/>
                     <div className='px-3'>Keys</div>
                 </div>
             </div>
+        </div>
+
+        <div className={`flex justify-center ${isVendor && 'hidden'}`}>
+        <div className={`w-[90vw] ${!isVendor ? 'bg-[#FBFBFF] border-[#D3D4FD]' :'bg-[#3D3D6A] border-[#646488]'} border-2 border  border-dashed rounded-lg p-5 mt-7 m-5 space-y-4`}>
+            <div className='w-full flex justify-center'>
+              <img src={alert.src}/>
+            </div>
+            <div className='w-full flex justify-center text-center font-[400] text-[12px]'>
+                A detailed service record increases the likelihood of selling your car by 10%
+            </div>
+        </div>
         </div>
 
         <div className='w-full flex justify-center'>
@@ -265,7 +276,7 @@ const ServiceRecords = () => {
         
 
         <div className='p-5'>
-                <Link href={'./service_records_example'} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href={'./service_records_option'} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
                         <img src={splash.src}/>

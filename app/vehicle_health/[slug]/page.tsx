@@ -295,7 +295,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         <div className='flex justify-between w-full' >
             <div className=' px-3 mt-7 h-[80vh] flex justify-center items-center '> 
                 <div className='space-y-2 pb-20'>
-                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-10px] `}>
+                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-15px] `}>
                 {/* <input type="radio" id="Small" name="colors" value="Small" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
                 <Radio
                     id="Small"
@@ -305,13 +305,13 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                     onChange={(e)=>{handleSize(e)}}
                     sx={sx}
                 />
-                <label htmlFor="Small" className='space-y-[-3px] pl-5'>
+                <label htmlFor="Small" className='space-y-[-3px] pl-5 text-[16px]'>
                     <div >Small</div>
-                    <div className={` ${isVendor ? 'text-slate-200' : 'text-slate-500'} text-[13px]`}>0-5cm</div>
+                    <div className={` ${isVendor ? 'text-slate-200' : 'text-slate-500'} text-[12px]`}>0-5cm</div>
                 </label>
                 </div>
 
-                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-10px] `}>
+                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-15px] `}>
                 {/* <input type="radio" id="Medium" name="colors" value="Medium" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
                 <Radio
                     id="Medium"
@@ -321,13 +321,13 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                     onChange={(e)=>{handleSize(e)}}
                     sx={sx}
                 />
-                <label htmlFor="Medium" className='space-y-[-3px] pl-5'>
+                <label htmlFor="Medium" className='space-y-[-3px] pl-5 text-[16px]'>
                     <div >Medium</div>
-                    <div className={` ${isVendor ? 'text-slate-200' : 'text-slate-500'} text-[13px]`}>6-15cm</div>
+                    <div className={` ${isVendor ? 'text-slate-200' : 'text-slate-500'} text-[12px]`}>6-15cm</div>
                 </label>
                 </div>
 
-                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-10px] `}>
+                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-15px] `}>
                 {/* <input type="radio" id="Large" name="colors" value="Large" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
                 <Radio
                     id="Large"
@@ -337,9 +337,9 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                     onChange={(e)=>{handleSize(e)}}
                     sx={sx}
                 />
-                <label htmlFor="Large" className='space-y-[-3px] pl-5'>
+                <label htmlFor="Large" className='space-y-[-3px] pl-5 text-[16px]'>
                     <div >Large</div>
-                    <div className={` ${isVendor ? 'text-slate-200' : 'text-slate-500'} text-[13px]`}>16cm+</div>
+                    <div className={` ${isVendor ? 'text-slate-200' : 'text-slate-500'} text-[12px]`}>16cm+</div>
                 </label>
                 </div>
                 </div>
@@ -358,7 +358,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
             <div className='flex'>
                 {
                     sidesArray.map((e,i)=>{
-                        return <div className={`border border-1  px-7 p-4 ${i === 0 && 'rounded-l-full'} ${i === 4 && 'rounded-r-full'} ${e === currentSide ? 'bg-fourth text-white border-[#8383A0]' : (isVendor ? 'bg-[#3D3D6A] border-[#8383A0]':'bg-white border-[#D3D4FD]')}`}
+                        return <div className={`border border-1  px-5 text-[16px] p-[13px] ${i === 0 && 'rounded-l-full'} ${i === 4 && 'rounded-r-full'} ${e === currentSide ? 'bg-fourth text-white border-[#8383A0]' : (isVendor ? 'bg-[#3D3D6A] border-[#8383A0]':'bg-white border-[#D3D4FD]')}`}
                                 onClick={()=>{handleSideChange(e);}} >{e}</div>
                     })
                 }

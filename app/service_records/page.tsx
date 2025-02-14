@@ -113,12 +113,12 @@ const ServiceRecordsCapture = () => {
             <div>Service, Manuals and Keys</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg pb-2'>
                 <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Where can I find my service history?</div>
+                    <div className='font-[300] text-sm'>Upload all manuals, service records, and keys to maximize your car's trade value.</div>
                     <Link  href='./service_records_example'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src} className=' object-contain'/>
             </div>
         </div>
 

@@ -164,7 +164,10 @@ const VideoCapture: React.FC = () => {
                 window.localStorage.setItem(`videoData_${car_no}`, base64data);
                 addVideo(base64data)
                 console.log("Video saved to localStorage!");
-                router.push(`./vehicle_video`);
+                setTimeout(()=>{
+
+                    router.push(`./vehicle_video`);
+                },300)
             
             } catch (error) {
                 console.error("Error saving video to localStorage:", error);
