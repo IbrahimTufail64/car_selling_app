@@ -26,8 +26,8 @@ const PhotoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     }
  // border border-1 border-[#6D6E8F]
   return (
-    <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary '} flex justify-center  w-full `}>
-            <div className='w-[90vw] md:w-[80vw]  rounded-lg overflow-hidden '>
+    <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary  '} flex justify-center  w-full `}>
+            <div className={`w-[90vw] md:w-[70vw]  rounded-lg overflow-hidden ${!isVendor && 'border border-2'} `}>
             <div>
                 <img src={uploaded_photo} className='w-full h-full md:max-h-[80vh] object-cover'/>
             </div>

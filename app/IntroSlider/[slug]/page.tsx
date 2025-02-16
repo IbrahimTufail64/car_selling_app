@@ -2,15 +2,15 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
-import Submission3 from '../Submission3/page'
-import Submission4 from '../Submission4/page'
-import Submission5 from '../Submission5/page'
-import Submission6 from '../Submission6/page'
+import Submission3 from '../../Submission3/page'
+import Submission4 from '../../Submission4/page'
+import Submission5 from '../../Submission5/page'
+import Submission6 from '../../Submission6/page'
 import splash from '@/assets/icons/Rays-small.png'
 import { useRouter } from 'next/navigation';
-import { useAppContext } from '../Context'
+import { useAppContext } from '../../Context'
 
-const Slider = () => {
+const Slider = ({ params }: { params: { slug: string } }) => {
     const router = useRouter();
     const [count, setCount] = useState(0);
     const [startCount,setStartCount] = useState(0);
@@ -19,8 +19,11 @@ const Slider = () => {
     const {isVendor} = useAppContext();
     useEffect(()=>{
         if(localStorage.getItem('current_count')){
-            setStartCount(Number(localStorage.getItem('current_count')));
-            setCount(Number(localStorage.getItem('current_count')));
+            console.log(localStorage.getItem('current_count'))
+            // setStartCount(Number(localStorage.getItem('current_count')));
+            setStartCount(Number(params.slug)-1);
+            // setCount(Number(localStorage.getItem('current_count')));
+            setCount(Number(params.slug)-1);
         }
     },[])
     
@@ -33,6 +36,7 @@ const Slider = () => {
     const SubCount = ()=>{
         console.log(count);
         if(count > 0){
+            localStorage.setItem('current_count',String(count-1));
             setCount(count => count-1)
         }
     }
@@ -43,7 +47,7 @@ const Slider = () => {
             setCount(count => count+1)
             
         }else{
-            router.push('./Submission7');
+            router.push('../Submission7');
         }
     }
     

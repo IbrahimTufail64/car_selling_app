@@ -256,7 +256,7 @@ const Submission2 = () => {
 
         <div className={`w-full fixed flex justify-center bottom-0`}>
           <div className=' w-full'>
-            <Link href='./IntroSlider' onClick={requestCameraPermission} className={`${isVendor && 'text-secondaryDark'} flex justify-center m-5 font-bold text-xl rounded-[6px] space-x-2 px-5 py-4 bg-tertiary `}>
+            <Link href='./IntroSlider/1' onClick={requestCameraPermission} className={`${isVendor && 'text-secondaryDark'} flex justify-center m-5 font-bold text-xl rounded-[6px] space-x-2 px-5 py-4 bg-tertiary `}>
                     <div>Enable Camera</div>
                     <img src={splash.src}/>
             </Link> 

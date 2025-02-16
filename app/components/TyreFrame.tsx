@@ -92,7 +92,7 @@ const TyreFrame = ({ Content, setisSelected, photo, link, setCondition }: { setC
 
     return (
         <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary '} flex justify-center  w-full `}>
-            <div className='w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden '>
+            <div className='w-[90vw] md:w-[70vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden '>
                 <div className='relative'>
                     <img src={uploaded_photo} className='w-full object-cover'/>
                 </div>

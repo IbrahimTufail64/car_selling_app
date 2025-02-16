@@ -11,9 +11,9 @@ import emailW from '@/assets/icons/email.png'
 import phoneD from '@/assets/icons/phoneDark.png'
 import emailD from '@/assets/icons/emailDark.png'
 import { useRouter } from 'next/navigation';
-import { useAppContext } from '../Context';
+import { useAppContext } from '../../Context';
 
-const SmartAdvice = () => {
+const SmartAdvice = ({ params }: { params: { slug: string } }) => {
 
   const router = useRouter();
   
@@ -24,7 +24,7 @@ const SmartAdvice = () => {
   return (
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
-            <Link  href={`./IntroSlider`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
+            <Link  href={`../IntroSlider/${params.slug}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>smart advice</div>
         </div>
 

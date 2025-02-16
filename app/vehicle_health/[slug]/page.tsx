@@ -30,6 +30,15 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     const {isVendor} = useAppContext();
     const [coordinates_initial, setCoordinates_initial] = useState({ x: -100, y: -100 });
     const [isTablet, setIsTablet] = useState(false);
+    const [instruction_index, set_instruction_index] = useState(0);
+    const [lastStep, setlastStep] = useState(false);
+    const instruction = [
+        'Select damage size',
+        'Select a side of the car',
+        'Choose exact damage location',
+        'Tap Confirm'
+    ]
+
     //screenshot implementation
     const ScreenshotRef = useRef<any>(null)
     const [image, takeScreenshot] = useScreenshot();
@@ -38,10 +47,18 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     useEffect(()=>{
         const width = window.innerWidth;
         // Define tablet width range (e.g., 768px to 1024px)
-        console.log(width);
+        console.log(width,'width---tablet',width >= 900);
         setIsTablet(width >= 900);
         
     },[])
+
+    useEffect(()=>{
+        console.log(lastStep)
+        console.log('index',String(instruction_index))
+        if( instruction_index < 2) setCoordinates({ x: -100, y: -100 });
+        if(instruction_index === 2) 
+            set_instruction_index(3);
+    },[lastStep])
 
     const front = isVendor ? frontV : frontC;
     const back = isVendor ? backV : backC;
@@ -77,9 +94,12 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                                     const canvasRef = useRef(null);
                                     const [coordinates, setCoordinates] = useState({ x: -100, y: -100 });
                                   
-                                    const handleClick = (event:any) => {
+                                const handleClick = (event:any) => {
                                       const canvas: any = canvasRef.current;
                                       if (!canvas) return;
+                                      setlastStep(prevState => !prevState);
+                                      
+                                      
                                   
                                       // Get canvas position relative to the viewport
                                       const canvasRect = canvas.getBoundingClientRect();
@@ -91,12 +111,12 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                                       const clientY = event.clientY;
                                       let x = Math.abs(clientX - relativeX);
                                       let y = Math.abs(clientY - relativeY);
-                                        
-                                      if(isTablet){
-                                        
-                                      } else{
-                                        if(x < 205 || y > 320)return;
-                                       }
+                                      console.log(x,y)
+                                    //   if(!isTablet){
+                                    //     if(x < 205 || y > 320)
+                                    //         console.log('returning...')
+                                    //         return;
+                                    //   } 
                                       setCoordinates({ x, y });
                                       let temp_damage:any = damage;
                                       
@@ -156,6 +176,8 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     },[coordinates])
 
     const handleSize = (e:any) =>{
+        console.log('index',instruction_index)
+        if(instruction_index === 0) set_instruction_index(1);
         setSize(e.target.value);
         let temp_damage:any = damage;
         temp_damage[currentSide].size = e.target.value;
@@ -165,14 +187,17 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     }
 
     const handleSideChange = (e:any)=>{
+        console.log('index',instruction_index)
 
+        if( instruction_index < 1) return;
+        if(instruction_index === 1) set_instruction_index(2);
         let temp_damage:any = damage;
         const x = temp_damage[e].coordinates.x;
         const y = temp_damage[e].coordinates.y;
         console.log(e,x,y,temp_damage[e].size);
-        setCoordinates({x,y});
+        // setCoordinates({x,y});
         
-        setSize(temp_damage[e].size);
+        // setSize(temp_damage[e].size);
         setCurrentSide(e);
     }
     const Router = useRouter();
@@ -263,36 +288,56 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
 
   return (
-    <div className='' >
-        {/* <img className='w-full h-full absolute' src={image}/> */}
-         <div  className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary '} relative w-[100vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
-         <div>
-
-         <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={()=>{handleClick;getScreenShot();}} />
-         
+    <div className='' ref={ScreenshotRef}>
         
-         
-
-
-        <div className='p-5 py-4 flex space-x-2 text-[22px] justify-between'>
+        {/* <img className='w-full h-full absolute' src={image}/> */}
+         <div  className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary text-[#101044]'} relative w-[100vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
+         <div className='p-5 py-4 flex space-x-2 text-[22px] justify-between'>
+            <div className='absolute z-50 left-5 top-3'>
             <div className='flex space-x-2 pt-3'>
-            <Link  href='./vehicle_photos'><IoChevronBack size={22} className='mt-[5px]'/></Link>
+            <Link  href='../vehicle_photos'><IoChevronBack size={22} className='mt-[6px]'/></Link>
             <div>Back to main</div>
+            </div>
             </div>
 
             
         </div>
+         
+         <div className='absolute top-8 w-full flex justify-center text-[16px]'>
+            <div className='flex'>
+            <div className={`mx-2 mt-[2px] pb-[1px] w-[22px] h-5 text-[14px] rounded-full ${!isVendor ? 'bg-[#101044] text-white' : 'text-[#101044] bg-white'} flex justify-center items-center`}>
+                {instruction_index+1}
+            </div>
+             {instruction[instruction_index]}
+            </div>
+         </div>
+         <div>
+
+         <canvas ref={canvasRef} className="absolute w-[800px] h-[370px] lg:w-[1200px] lg:h-[555px] "  onClick={()=>{()=>{
+            
+            
+         };handleClick;getScreenShot();}} />
+         
+        
+         
+
+
+
 
          </div>
         
-        <div ref={ScreenshotRef}>
+        <div >
         <div
             className="bg-secondary absolute rounded-full ${mt-[]}" // Style indicator
             style={{ top: coordinates.y-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
         >
             <img src={mark.src} className={`w-15 h-15 `} style={{width: sizes[size],height: sizes[size]}}/>
         </div>
-        <div className='flex justify-between w-full' >
+        
+        {/* <div className='absolute h-[80%]  w-[190px]  left-0 bottom-0'> */}
+         {/* just for padding */}
+        {/* </div> */}
+        <div className='flex justify-between w-full mt-5' >
             <div className=' px-3 mt-7 h-[80vh] flex justify-center items-center '> 
                 <div className='space-y-2 pb-20'>
                 <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-15px] `}>
@@ -354,7 +399,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         </div>
 
         <div className='relative'>
-        <div className='flex justify-center w-full mt-[-75px] absolute'>
+        <div className='flex justify-center w-full mt-[-90px] absolute z-50 pt-5'>
             <div className='flex'>
                 {
                     sidesArray.map((e,i)=>{
@@ -367,6 +412,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         </div>
         </div>
         </div>
+
 
         <div className='absolute right-0 w-[100vw] flex justify-end py-5 pr-5' 
         // onClick={()=>(console.log(image))}
