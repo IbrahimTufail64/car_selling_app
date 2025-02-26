@@ -70,6 +70,7 @@ const lookup_table_interior:any = {
 
 const Filter = ({ params }: { params: { slug: string } }) => {
   const [reachedBottom, setReachedBottom] = useState(false);
+  const [is_resiable, set_is_resizable] = useState(false);
 
 
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -262,7 +263,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         
 
         <div className='absolute z-10 w-[100vw] h-[100vh] flex justify-center items-center ' >
-            <img src={car_filter.src} className='w-[70vw]'/>
+            <img src={car_filter.src} className={` ${returnLink === 'vehicle_wheels' ? 'w-[50vw]' : 'w-[70vw]'}`}/>
         </div>
 
         <div className="-z-10">
