@@ -19,9 +19,9 @@ const Submission4 = () => {
        <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-3 pb-2'>
                     <div className='font-[300] text-sm'>Smart advice is here to gently guide you through the process!</div>
-                    <Link  href='../advice_IntroSlider/2' onClick={()=>{localStorage.setItem('current_count','0')}} className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='../advice_IntroSlider/2' onClick={()=>{localStorage.setItem('current_count','0')}} className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className='object-cover'/>
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 
@@ -45,7 +45,7 @@ const Submission4 = () => {
                <div className={`w-full flex justify-center font-[400] text-[22px] ${!isVendor ? 'text-[#101044]': 'text-white'} `}>
                     <div className='relative text-center'>
                     Being Carsmart is being ready!
-                        <img src={vector.src} className='absolute top-[30px] left-[90px]'/>
+                        <img src={vector.src} className='absolute top-[30px] left-[70px]'/>
                     </div>
                </div>
 

@@ -86,7 +86,7 @@ const FurtherDetails = () => {
 
     
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] flex flex-col justify-between`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] flex flex-col justify-between relative pb-24`}>
         <div>
         <div className='p-5 flex space-x-2 text-[22px] pt-10'>
         <Link  href='./vehicle_health_selection'><IoChevronBack size={35} className='mt-[1px]'/></Link>
@@ -148,15 +148,25 @@ const FurtherDetails = () => {
             </div>
         </div>
 
-            <div className='p-5 bottom-0 w-[100vw]'>
+            {/* <div className='p-5 bottom-0 w-[100vw]'>
                 <button  onClick={(e)=>{addData(e,inputText,checked)}}  className={`w-full flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Submit</div>
                         <img src={splash.src}/>
                     </div>
                 </button>
-        </div>
+        </div> */}
         
+        <div className={`w-full fixed flex justify-center bottom-0`}>
+          <div className='p-5 w-full'>
+                <button onClick={(e)=>{addData(e,inputText,checked)}} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 w-full bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div  className="whitespace-nowrap  text-ellipsis">Submit</div>
+                        <img src={splash.src}/>
+                    </div>
+                </button>
+          </div>
+        </div>
 
         
 

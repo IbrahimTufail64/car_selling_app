@@ -47,7 +47,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Easily identify exterior wear & tear.</div>
                     <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
-                <img src={carS.src} className='object-contain'/>
+                <img src={carS.src} className='object-contain '/>
             </div>
         </div>
 
@@ -143,18 +143,18 @@ const SurfaceMarks = () => {
         
         
 
-<div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'}`}>
+<div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'} ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
         <div className='p-5 w-full'>
                 <Link href='./camera_filter_dynamic/exterior_wear_tear-1-exterior_wear_tear-dynamic' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
+                        <div  className="whitespace-nowrap  text-ellipsis">Take photos</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
         </div>
         </div>
         {(prevRoute === './vehicle_health_selection') && 
-            <div className='w-full fixed flex justify-center bottom-0'>
+            <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
         <div className='p-5 pt-0 w-full'>
         <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`exterior_wear_tear_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
             <div className='flex space-x-1 text-xl'>

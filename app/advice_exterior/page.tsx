@@ -34,7 +34,7 @@ const SmartAdvice = () => {
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} pb-20`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
-            <div>smart advice</div>
+            <div>Vehicle exterior</div>
         </div>
 
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
@@ -43,7 +43,7 @@ const SmartAdvice = () => {
                     <div className='font-[300] text-sm'>Smart advice for perfect exterior photos of your car!</div>
                     <div   className='font-[400] text-sm '>Picture Perfect!</div>
                 </div>
-                <img src={car.src} className='object-cover'/>
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 
@@ -114,11 +114,11 @@ const SmartAdvice = () => {
           </div>
         </div>
 
-        <div className={`w-full fixed flex justify-center bottom-0`}>
+        <div className={`w-full fixed flex justify-center bottom-0 `}>
           <div className='p-5 w-full'>
                 <Link href='./camera_filter/front_driver' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
+                        <div  className="whitespace-nowrap  text-ellipsis">Take photos</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>

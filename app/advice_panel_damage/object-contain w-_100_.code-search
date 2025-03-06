@@ -1,0 +1,115 @@
+# Query: object-contain w-[100%]
+# Flags: WordMatch
+# ContextLines: 1
+
+22 results - 22 files
+
+app\advice_damaged_absent_fixtures\page.tsx:
+  44                  </div>
+  45:                 <img src={car1.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  46              </div>
+
+app\advice_dashboard_lights\page.tsx:
+  45                  </div>
+  46:                 <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  47              </div>
+
+app\advice_exterior\page.tsx:
+  45                  </div>
+  46:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  47              </div>
+
+app\advice_glass_health\page.tsx:
+  44                  </div>
+  45:                 <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  46              </div>
+
+app\advice_interior\page.tsx:
+  49                  </div>
+  50:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  51              </div>
+
+app\advice_surface_marks\page.tsx:
+  53                  </div>
+  54:                 <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  55              </div>
+
+app\advice_tyre_health\page.tsx:
+  48                  </div>
+  49:                 <img src={CAR.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  50              </div>
+
+app\advice_vehicle_video\page.tsx:
+  40                  </div>
+  41:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  42              </div>
+
+app\advice_vehicle_wheels\page.tsx:
+  44                  </div>
+  45:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  46              </div>
+
+app\advice_wheel_condition\page.tsx:
+  48                  </div>
+  49:                 <img src={CAR.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  50              </div>
+
+app\service_records\page.tsx:
+  120                  </div>
+  121:                 <img src={car.src} className=' object-contain w-[35vw] md:w-[20vw]'/>
+  122              </div>
+
+app\service_records_option\page.tsx:
+  105                  </div>
+  106:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  107              </div>
+
+app\Submission3\page.tsx:
+  25                  </div>
+  26:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  27              </div>
+
+app\Submission4\page.tsx:
+  23                  </div>
+  24:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  25              </div>
+
+app\Submission5\page.tsx:
+  23                  </div>
+  24:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  25              </div>
+
+app\Submission6\page.tsx:
+  23                  </div>
+  24:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  25              </div>
+
+app\vehicle_exterior\page.tsx:
+  147                  </div>
+  148:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  149              </div>
+
+app\vehicle_interior\page.tsx:
+  133                  </div>
+  134:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
+  135              </div>
+
+app\vehicle_photos\page.tsx:
+  62                  </div>
+  63:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  64              </div>
+
+app\vehicle_video\page.tsx:
+  125                  </div>
+  126:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+  127              </div>
+
+app\vehicle_wheels\page.tsx:
+  185                  </div>
+  186:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
+  187              </div>
+
+app\wheel_condition\page.tsx:
+  140                  </div>
+  141:                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
+  142              </div>

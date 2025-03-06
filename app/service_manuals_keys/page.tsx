@@ -71,7 +71,7 @@ const ServiceRecords = () => {
     // },[frontDimg,frontPimg,backDimg,backPimg])
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full `}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full pb-[170px] `}>
         <div className='p-5 flex space-x-2 text-[26px]'>
             <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[5px]'/></Link>
             <div>Service records</div>
@@ -83,7 +83,7 @@ const ServiceRecords = () => {
                     <div className='font-[300] text-sm'>Where can I find my service history?</div>
                     <Link  href='#'  className='font-[400] text-sm mt-5'>Stay informed!</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 
@@ -231,21 +231,21 @@ const ServiceRecords = () => {
             <div className='w-full flex justify-center'>
                 <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
                     <img src={car1.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Digital Service History</div>
+                    <div className='px-3'>Digital service history</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
             <img src={car2.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>V5 Vehicle Registration</div>
+                    <div className='px-3'>V5 vehicle registration</div>
                 </div>
             </div>
 
             <div className='w-full flex justify-center'>
             <div className={`text-[22px] p-3 w-[90%] rounded-xl ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} space-y-3`}>
             <img src={car3.src} className='rounded-lg w-full object-cover'/>
-                    <div className='px-3'>Service Books & Documents</div>
+                    <div className='px-3'>Service books & documents</div>
                 </div>
             </div>
 
@@ -270,12 +270,11 @@ const ServiceRecords = () => {
 
         <div className='w-full flex justify-center'>
             <div className={`w-[90vw]  ${isVendor ? ' bg-[#1F204F]' : 'bg-white'} text-[18px] rounded-xl p-5 mt-5`}>
-                Been maintained and its current condition. Cars with a full service history typically have a higher resale value compared to those with incomplete or no service history.
-            </div>
+            Cars with a full service history typically have a higher resale value compared to those with incomplete or no service history.            </div>
         </div>
         
 
-        <div className='p-5'>
+        {/* <div className='p-5'>
                 <Link href={'./service_records_option'} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
@@ -290,7 +289,30 @@ const ServiceRecords = () => {
                         <div>No service record</div>
                     </div>
                 </Link>
+        </div> */}
+
+
+            <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
+        <div className='p-5 pt-0 w-full'>
+        <div className='pt-3'>
+                <Link href={'./service_records_option'} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
+                        <img src={splash.src}/>
+                    </div>
+                </Link>
         </div>
+
+        <div className=' pt-3'>
+                <Link href={isVendor && isWholeSale ? './Submission7':'./preview_car'} onClick={()=>{localStorage.setItem(`service_records_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
+                    <div className='flex space-x-1 text-xl'>
+                        <div>No service record</div>
+                    </div>
+                </Link>
+        </div>
+        
+        </div>
+    </div>
         
 
     </div>

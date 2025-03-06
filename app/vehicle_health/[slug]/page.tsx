@@ -22,6 +22,7 @@ import Radio from '@mui/material/Radio';
 import axios from 'axios'
 import { DamageSelection, db } from '@/app/Local_DB/db'
 import { useScreenshot } from 'use-react-screenshot'
+import { useOrientation } from 'react-use'
 
 const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
@@ -201,6 +202,20 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         setCurrentSide(e);
     }
     const Router = useRouter();
+    const {angle,type} = useOrientation();
+        useEffect(()=>{
+          const portrait = window.matchMedia("(orientation: portrait)").matches;
+          if(portrait){
+                Router.push(`../rotate/${params.slug}_vehicle_health`);
+            }
+        },[angle])
+
+    // setInterval(() => {
+    //     const portrait = window.matchMedia("(orientation: portrait)").matches;
+    //       if(portrait){
+    //             Router.push(`../rotate/${params.slug}_vehicle_health`);
+    //         }
+    // }, 300);
 
     const handleSubmit = async (event:any) => { 
         // event.preventDefault(); 
@@ -329,7 +344,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         <div >
         <div
             className="bg-secondary absolute rounded-full ${mt-[]}" // Style indicator
-            style={{ top: coordinates.y-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
+            style={{ top: coordinates.y+30-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
         >
             <img src={mark.src} className={`w-15 h-15 `} style={{width: sizes[size],height: sizes[size]}}/>
         </div>
@@ -340,7 +355,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         <div className='flex justify-between w-full mt-5' >
             <div className=' px-3 mt-7 h-[80vh] flex justify-center items-center '> 
                 <div className='space-y-2 pb-20'>
-                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-15px] `}>
+                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} lg:p-4 lg:px-5 py-3 px-2 pr-4 rounded-md text-[18px] flex relative space-x-[-15px] `}>
                 {/* <input type="radio" id="Small" name="colors" value="Small" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
                 <Radio
                     id="Small"
@@ -356,7 +371,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 </label>
                 </div>
 
-                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-15px] `}>
+                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} lg:p-4 lg:px-5 py-3 px-2 pr-4 rounded-md text-[18px] flex relative space-x-[-15px] `}>
                 {/* <input type="radio" id="Medium" name="colors" value="Medium" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
                 <Radio
                     id="Medium"
@@ -372,7 +387,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 </label>
                 </div>
 
-                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} p-4 px-5 rounded-md text-[18px] flex relative space-x-[-15px] `}>
+                <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} lg:p-4 lg:px-5 py-3 px-2 pr-4 rounded-md text-[18px] flex relative space-x-[-15px] `}>
                 {/* <input type="radio" id="Large" name="colors" value="Large" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
                 <Radio
                     id="Large"
@@ -392,8 +407,9 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 
             </div>
                 {/* <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] object-cover' */}
-            <div className='mt-[-60px] mb-4 w-[100vw] ml-4 sm:ml-0 overflow-visible '  >
-                <img src={sides[currentSide].src} className='w-[575px] h-[415px]  sm:h-[394px] lg:w-[863px] lg:h-[622.5px] object-cover'
+            <div className={` w-[100vw] ml-4 sm:ml-0 overflow-visible ${currentSide === "Front side" ? 'mt-[-30px] -mb-5' : 'mt-[-60px] mb-2'}`}  >
+                {/* <img src={sides[currentSide].src} className='w-[575px] h-[415px]  sm:h-[394px] lg:w-[863px] lg:h-[622.5px] object-cover' */}
+                <img src={sides[currentSide].src} className='w-[540px] h-[400px] lg:w-[863px] lg:h-[622.5px] object-contain'
                 />
             </div>
         </div>

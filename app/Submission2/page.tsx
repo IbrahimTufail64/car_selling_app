@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import demoPic from '@/assets/icons/DemoPic.png'
-import underline from '@/assets/icons/underline.png'
+import underline from '@/assets/underline_mark.png'
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import logo from '@/assets/icons/logo.png'
@@ -152,8 +152,8 @@ const Submission2 = () => {
                 </div>
                 <div className='text-[46px] font-[400] relative text-center w-full'>
                     <div className='font-[500]'>£ {estimatedPrice[carCount-1]}</div>
-                    <div className='w-full flex justify-center'>
-                    <img src={underline.src} className=''/>
+                    <div className='w-full flex justify-center -mt-3'>
+                    <img src={underline.src} className='w-[180px]'/>
                     </div>
                 </div>
                 {isVendor && 
@@ -168,7 +168,7 @@ const Submission2 = () => {
             
             <div className=''>
                 <div className='w-full flex justify-center'>
-                        <div className='w-[110%]'>
+                        <div className='w-[110%] -mt-1'>
                         <Slider
                         value={(estimatedPrice[carCount-1]/retailPrice[carCount-1])*100}
                         trackStyle={{ backgroundColor: "#695DFD", height: 6 }}
@@ -192,7 +192,7 @@ const Submission2 = () => {
             
             
         </div>
-        <div className='w-full flex justify-center mt-3'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{saleTag}</div></div>
+        <div className='w-full flex justify-center mt-2'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{saleTag}</div></div>
                 
                 
                 </div>
@@ -257,7 +257,7 @@ const Submission2 = () => {
         <div className={`w-full fixed flex justify-center bottom-0`}>
           <div className=' w-full'>
             <Link href='./IntroSlider/1' onClick={requestCameraPermission} className={`${isVendor && 'text-secondaryDark'} flex justify-center m-5 font-bold text-xl rounded-[6px] space-x-2 px-5 py-4 bg-tertiary `}>
-                    <div>Enable Camera</div>
+                    <div>Enable camera</div>
                     <img src={splash.src}/>
             </Link> 
           </div>

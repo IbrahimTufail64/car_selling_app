@@ -129,9 +129,9 @@ const handleSubmit = async (event:any) => {
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Perfect your car’s interior photo with our expert guide.</div>
-                    <Link  href='./advice_interior'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./advice_interior'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/> 
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
             </div>
         </div>
 

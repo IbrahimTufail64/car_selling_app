@@ -34,7 +34,7 @@ const SurfaceMarks = () => {
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full overflow-hidden  ${(prevRoute === './vehicle_health_selection') ? 'pb-[170px]':'pb-[100px]'}`}>
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
         <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[3px]'/></Link>
-            <div>Damaged/Absent Fixtures</div>
+            <div>Damaged/Absent fixtures</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
@@ -42,7 +42,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Check broken or missing parts like handles, buttons, mirrors, or wipers.</div>
                     <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
-                <img src={car1.src} className='object-contain'/>
+                <img src={car1.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
         <div className='text-xl pl-[5vw] pb-2'>Examples</div>
@@ -94,21 +94,21 @@ const SurfaceMarks = () => {
         
 
         <div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'}`}>
-        <div className='p-5 w-full'>
+        <div className={`p-5 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
                 <Link href='./camera_filter_dynamic/damaged_absent_fixtures-1-damaged_absent_fixtures' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
+                        <div  className="whitespace-nowrap  text-ellipsis">Take photos</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
         </div>
         </div>
         {(prevRoute === './vehicle_health_selection') && 
-            <div className='w-full fixed flex justify-center bottom-0'>
+            <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
         <div className='p-5 pt-0 w-full'>
         <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`damaged_absent_fixtures_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
             <div className='flex space-x-1 text-xl'>
-                <div>No Damage</div>
+                <div>No issues</div>
             </div>
         </Link>
         

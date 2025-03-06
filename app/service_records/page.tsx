@@ -110,15 +110,15 @@ const ServiceRecordsCapture = () => {
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full pb-[100px]`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./service_manuals_keys'><IoChevronBack size={28} className='mt-[3px]'/></Link>
-            <div>Service, Manuals and Keys</div>
+            <div>Service, manuals and keys</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg pb-2'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Upload all manuals, service records, and keys to maximize your car's trade value.</div>
-                    <Link  href='./service_records_example'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./service_records_example'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className=' object-contain'/>
+                <img src={car.src} className=' object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 

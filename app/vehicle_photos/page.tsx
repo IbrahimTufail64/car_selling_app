@@ -52,7 +52,7 @@ const VehiclePhotos = () => {
     <div className={`${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'} w-full min-h-[100vh] pb-5`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='./Submission7'><IoChevronBack size={28} className='mt-[1px]'/></Link>
-            <div>Vehicle Photos</div>
+            <div>Vehicle photos</div>
         </div>
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} mb-5 -mt-5`}>
        <div className='w-[85vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
@@ -60,7 +60,7 @@ const VehiclePhotos = () => {
                     <div className='font-[300] text-sm'>Smart advice is here to gently guide you through the process!</div>
                     <div onClick={()=>{localStorage.setItem('current_count','0')}} className='font-[400] text-sm mt-5'>Protect your price &gt;</div>
                 </div>
-                <img src={car.src} className='object-cover'/>
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
         <div className='space-y-4 px-4'>

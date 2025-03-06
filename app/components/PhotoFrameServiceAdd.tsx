@@ -69,11 +69,11 @@ const PhotoFrameServiceAdd = ({Content, Car_no, DynamicImageNo, isUploaded, phot
         </div>
         </div>
         
-        <div className='w-full flex justify-center'>
+        {/* <div className='w-full flex justify-center'>
         <Link href={`./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}`} className='py-2 px-5 text-[18px] my-2'>
              Add another photo
         </Link>
-        </div>
+        </div> */}
             
     </div>}
    

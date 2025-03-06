@@ -19,12 +19,26 @@ export function AppWrapper({
     const [isVendor, setIsVendor] = useState<boolean | null>(null);
     const location = useLocation();
     const Router = useRouter();
+
+    const requestPermission = async (): Promise<boolean> => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        stream.getTracks().forEach(track => track.stop()); // Immediately stop tracks after getting permission
+        return true;
+      } catch (error) {
+        console.error("Permission denied:", error);
+        return false;
+      }
+    };
+
     useEffect(()=>{
 
+      
 
 
       
       const getVendor = async()=>{
+        await requestPermission();
         try { 
           const url:any = process.env.NEXT_PUBLIC_API_URL ;
           const token = localStorage.getItem('token');

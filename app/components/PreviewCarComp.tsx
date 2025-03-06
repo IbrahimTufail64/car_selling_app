@@ -54,7 +54,7 @@ const PreviewCarComp = () => {
   return (      
             <div>
                     <div className='flex justify-between w-full mx-2 px-1 pb-2 pt-5'>
-                    <div className='pt-[4px] text-lg font-[350]'>Your wheels & Your tyres</div>
+                    <div className='pt-[4px] text-lg font-[350]'>Your wheels & your tyres</div>
                     <div onClick={()=>setCloseState(!closeState)}>
                         <img src={arrow.src} className={`w-7 ${!closeState && 'rotate-180'}`}/>
                     </div>

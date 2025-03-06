@@ -37,7 +37,7 @@ const SmartAdvice = () => {
     <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full ${(prevRoute === './vehicle_health_selection') ? 'pb-[170px]':'pb-[90px]'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href={`${prevRoute}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
-            <div>smart advice</div>
+            <div>Tyre health</div>
         </div>
 
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'} -mt-[20px] mb-6`}>
@@ -46,7 +46,7 @@ const SmartAdvice = () => {
                     <div className='font-[300] text-sm'>Easily spot tread wear below 1.6mm, visible cuts, bulges, or other damage.</div>
                     <div   className='font-[400] text-sm '>Picture Perfect!</div>
                 </div>
-                <img src={CAR.src} className='object-cover'/>
+                <img src={CAR.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 
@@ -116,8 +116,8 @@ const SmartAdvice = () => {
 
 
 
-<div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'}`}>
-        <div className='p-5 w-full'>
+<div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'} ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
+        <div className={`p-5 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
                 <Link href='./tyre_health' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                     <div  className="whitespace-nowrap  text-ellipsis">Continue</div>
@@ -127,11 +127,11 @@ const SmartAdvice = () => {
         </div>
         </div>
         {(prevRoute === './vehicle_health_selection') && 
-            <div className='w-full fixed flex justify-center bottom-0'>
+            <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
         <div className='p-5 pt-0 w-full'>
         <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`tyre_health_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
             <div className='flex space-x-1 text-xl'>
-            <div>No Marks</div>
+            <div>No marks</div>
             </div>
         </Link>
         

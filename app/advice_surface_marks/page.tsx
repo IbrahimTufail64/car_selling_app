@@ -51,7 +51,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Spot scratches, dents, or chips easily under natural light or even lighting.</div>
                     <div   className='font-[400] text-sm '>Picture Perfect!</div>
                 </div>
-                <img src={carS.src} className='object-contain'/>
+                <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 
@@ -118,21 +118,21 @@ const SurfaceMarks = () => {
 
 
   <div className={`w-full fixed flex justify-center  ${(prevRoute === './vehicle_health_selection') ? 'bottom-20' : 'bottom-0'}`}>
-        <div className='p-5 w-full'>
+        <div className={`p-5 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
                 <Link href='./camera_filter_dynamic/surface_marks-1-surface_marks-dynamic' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
-                        <div  className="whitespace-nowrap  text-ellipsis">Take Photos</div>
+                        <div  className="whitespace-nowrap  text-ellipsis">Take photos</div>
                         <img src={splash.src}/>
                     </div>
                 </Link>
         </div>
         </div>
         {(prevRoute === './vehicle_health_selection') && 
-            <div className='w-full fixed flex justify-center bottom-0'>
+            <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
         <div className='p-5 pt-0 w-full'>
         <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`surface_marks_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
             <div className='flex space-x-1 text-xl'>
-            <div>No Marks</div>
+            <div>No marks</div>
             </div>
         </Link>
         

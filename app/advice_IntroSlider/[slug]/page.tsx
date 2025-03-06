@@ -25,7 +25,7 @@ const SmartAdvice = ({ params }: { params: { slug: string } }) => {
     <div className={`w-full ${isVendor ? 'bg-primaryDark text-white': 'bg-secondary'}`}>
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href={`../IntroSlider/${params.slug}`}><IoChevronBack size={28} className='mt-[1px]'/></Link>
-            <div>smart advice</div>
+            <div>Smart advice</div>
         </div>
 
         <div className='space-y-4 px-4'>

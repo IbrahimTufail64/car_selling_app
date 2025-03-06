@@ -217,7 +217,7 @@ const VehicleExterior = () => {
         
         <div className='p-5 flex space-x-2 text-[22px]'>
             <Link  href='#'><IoChevronBack size={28} className='mt-[3px]'/></Link>
-            <div>Be Carsmart ready!</div>
+            <div>Be carsmart ready!</div>
         </div>
         
         <div className='w-full flex justify-center'>
@@ -313,25 +313,25 @@ const VehicleExterior = () => {
                 </div>
                 
                 <div className={`${!aboutyou && 'hidden'}`}>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Owner</div>
-                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[0]}</div>
+                <div className='px-2 py-3 flex justify-between space-x-4 font-light' >
+                    <div className = "font-semibold">Owner</div>
+                    <div className=" overflow-hidden text-right ">{about_info[0]}</div>
                 </div>
-                <div className='px-2 py-3 flex justify-between'>
-                    <div>Address</div>
-                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[1]}</div>
+                <div className='px-2 py-3 flex justify-between space-x-4 font-light' >
+                    <div className = "font-semibold">Address</div>
+                    <div className=" overflow-hidden text-right ">{about_info[1]}</div>
                 </div>
-                <div className='px-2 py-3 flex justify-between  space-x-3'>
-                    <div>Email</div>
-                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[2]}</div>
+                <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+                    <div className = "font-semibold">Email</div>
+                    <div className=" overflow-hidden text-right ">{about_info[2]}</div>
                 </div>
-                <div className='px-2 py-3 flex justify-between  space-x-3'>
-                    <div>Phone Number</div>
-                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[3]}</div>
+                <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+                    <div className = "font-semibold">Phone Number</div>
+                    <div className=" overflow-hidden text-right ">{about_info[3]}</div>
                 </div>
-                <div className='px-2 py-3 flex justify-between  space-x-3'>
-                    <div>Collection notes</div>
-                    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[4]}</div>
+                <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+                    <div className = "font-semibold">Collection notes</div>
+                    <div className=" overflow-hidden text-right ">{about_info[4]}</div>
                 </div>
                 </div>
                 
@@ -352,65 +352,66 @@ const VehicleExterior = () => {
                 </div>
                 
                 <div className={`${!aboutyourvehicle && 'hidden'}`}>
-                <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Specifications</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[5]}</div>
+                <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Specifications</div>
+    <div className=" overflow-hidden text-right ">{about_info[5]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Registration</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[6]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Registration</div>
+    <div className=" overflow-hidden text-right ">{about_info[6]}</div> 
+    {/* className="t-runcate overflow-hidden w-hitespace-nowrap " */}
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Make</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[7]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Make</div>
+    <div className=" overflow-hidden text-right ">{about_info[7]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Model</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[8]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Model</div>
+    <div className=" overflow-hidden text-right ">{about_info[8]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Year</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[9]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Year</div>
+    <div className=" overflow-hidden text-right ">{about_info[9]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Mileage</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[10]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Mileage</div>
+    <div className=" overflow-hidden text-right ">{about_info[10]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Color</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[11]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Color</div>
+    <div className=" overflow-hidden text-right ">{about_info[11]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Body</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[12]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Body</div>
+    <div className=" overflow-hidden text-right ">{about_info[12]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Fuel Status</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[13]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Fuel Status</div>
+    <div className=" overflow-hidden text-right ">{about_info[13]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Keys on hand</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[14]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Keys on hand</div>
+    <div className=" overflow-hidden text-right ">{about_info[14]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Tool pack status</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[15]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Tool pack status</div>
+    <div className=" overflow-hidden text-right ">{about_info[15]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Locking nut status</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[16]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Locking nut status</div>
+    <div className=" overflow-hidden text-right ">{about_info[16]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Seat type</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[17]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Seat type</div>
+    <div className=" overflow-hidden text-right ">{about_info[17]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Finance status</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[18]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Finance status</div>
+    <div className=" overflow-hidden text-right ">{about_info[18]}</div>
   </div>
-  <div className='px-2 py-3 flex justify-between  space-x-3'>
-    <div>Smoking status</div>
-    <div className="truncate overflow-hidden whitespace-nowrap ">{about_info[19]}</div>
+  <div className='px-2 py-3 flex justify-between space-x-4  font-light space-x-3'>
+    <div className = "font-semibold">Smoking status</div>
+    <div className=" overflow-hidden text-right ">{about_info[19]}</div>
   </div>
 
                 
@@ -551,7 +552,7 @@ const VehicleExterior = () => {
             
         </div>
 
-        <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'}`}>
+        <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} z-50`}>
           <div className='w-full'>
           <div className='p-5 w-full'>
                 <div  onClick={()=>setPreviewPhotos(true)} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>

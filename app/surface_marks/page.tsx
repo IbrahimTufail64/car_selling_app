@@ -141,9 +141,9 @@ const SurfaceMarks = () => {
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='./advice_surface_marks'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./advice_surface_marks'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 
@@ -155,15 +155,15 @@ const SurfaceMarks = () => {
         </div>
 
         <div className='space-y-3 pt-7'>
-            {images.length === 0 && <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={1} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>}
+            {images.length === 0 && <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={1} Content='Surface marks' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>}
         <div className="embla overflow-hidden mx-2">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container flex space-x-5">
             {images.map((e,i)=>{
-                return <div className="embla__slide "><PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Title here' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='surface_marks'/></div>;
+                return <div className="embla__slide "><PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Surface marks' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='surface_marks'/></div>;
             })}
             {images.length===1 && 
-                <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={2} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>
+                <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={2} Content='Surface marks' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>
             }
           </div>
         </div>
@@ -171,11 +171,11 @@ const SurfaceMarks = () => {
       </div>
             
         </div>
-        <div className='w-full flex justify-center'>
+        {/* <div className='w-full flex justify-center'>
         <Link href={`./camera_filter_dynamic/${'surface_marks'}-${images.length+1}-${'surface_marks'}`} className='py-2 px-5 text-[18px] my-5'>
              Add another photo
         </Link>
-        </div>
+        </div> */}
         </div>
         
 

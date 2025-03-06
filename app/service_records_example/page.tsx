@@ -77,7 +77,7 @@ const ServiceExample = () => {
         <div className='p-5'>
         <Link href={`${isVendor ? '././camera_filter_dynamic/service_records-1-service_records' : './camera_filter_dynamic/service_records-1-service_records_customer'}`} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
             <div className='flex space-x-1 text-xl'>
-                <div  className="whitespace-nowrap  text-ellipsis">Add Documents</div>
+                <div  className="whitespace-nowrap  text-ellipsis">Add documents</div>
                 <img src={splash.src}/>
             </div>
         </Link>

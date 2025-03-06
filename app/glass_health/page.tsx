@@ -95,7 +95,7 @@ const SurfaceMarks = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[60px]`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[90px]`}>
         <div className='flex flex-col justify-between min-h-[100vh]'>
         <div >
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
@@ -106,9 +106,9 @@ const SurfaceMarks = () => {
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
-                    <Link  href='./advice_glass_health'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./advice_glass_health'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src}/>
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 
@@ -120,15 +120,15 @@ const SurfaceMarks = () => {
         </div>
 
         <div className='space-y-3 pt-7'>
-            {images.length === 0 && <PhotoFrameDynamic image_name='glass_health' Car_no={car_no} DynamicImageNo={1} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='glass_health'/>}
+            {images.length === 0 && <PhotoFrameDynamic image_name='glass_health' Car_no={car_no} DynamicImageNo={1} Content='Glass health' isUploaded={false} photo={ ExampleImage}  return_link ='glass_health'/>}
         <div className="embla overflow-hidden mx-2">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container flex space-x-5">
             {images.map((e,i)=>{
-                return <div className="embla__slide "><PhotoFrameDynamic image_name='glass_health' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Title here' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='glass_health'/></div>;
+                return <div className="embla__slide "><PhotoFrameDynamic image_name='glass_health' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Glass health' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='glass_health'/></div>;
             })}
             {images.length===1 && 
-                <PhotoFrameDynamic image_name='glass_health' Car_no={car_no} DynamicImageNo={2} Content='Title here' isUploaded={false} photo={ ExampleImage}  return_link ='glass_health'/>
+                <PhotoFrameDynamic image_name='glass_health' Car_no={car_no} DynamicImageNo={2} Content='Glass health' isUploaded={false} photo={ ExampleImage}  return_link ='glass_health'/>
             }
           </div>
         </div>
@@ -136,11 +136,11 @@ const SurfaceMarks = () => {
       </div>
             
         </div>
-        <div className='w-full flex justify-center'>
+        {/* <div className='w-full flex justify-center'>
         <Link href={`./camera_filter_dynamic/${'glass_health'}-${images.length+1}-${'glass_health'}`} className='py-2 px-5 text-[18px] my-5'>
              Add another photo
         </Link>
-        </div>
+        </div> */}
         </div>
         
 

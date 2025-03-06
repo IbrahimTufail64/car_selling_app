@@ -27,10 +27,16 @@ const PhotoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
  // border border-1 border-[#6D6E8F]
   return (
     <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary  '} flex justify-center  w-full `}>
-            <div className={`w-[90vw] md:w-[70vw]  rounded-lg overflow-hidden ${!isVendor && 'border border-2'} `}>
-            <div className=' overflow-hidden'>
-                <img src={uploaded_photo} className={`${isUploaded && 'h-[40vh] md:h-[80vh]'} w-full object-cover`}/>
-                {/* md:max-h-[80vh] */}
+            <div className={`w-[90vw] md:w-[50vw]  rounded-lg overflow-hidden ${!isVendor && 'border border-2'} `}>
+            <div className={`${isUploaded && 'overflow-hidden h-[30vh] md:h-[70vh]  object-center flex items-center justify-center'}`}>
+            {/* <div className="w-full h-[300px] overflow-hidden">
+                <img 
+                    src={uploaded_photo} 
+                    className="w-full h-full object-cover"
+                />
+            </div> */}
+                <img src={uploaded_photo} className={`${isUploaded && 'h-[45vh] md:h-[100vh] object-cover '} w-full `}/>
+                {/* md:max-h-[80vh]  h-[30vh] object-cover*/}
             </div>
             <Link href={`${!isUploaded ? `./camera_filter/${link}` : '#'}`} onClick={()=>{isUploaded && handleDelete()}} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>

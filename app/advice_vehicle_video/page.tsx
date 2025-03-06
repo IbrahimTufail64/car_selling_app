@@ -38,7 +38,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Keep videos short, clear, well-lit, and shot in an open space for quick approval.</div>
                     <Link  href='#'  className='font-[400] text-sm mt-5'>Short clip time!</Link>
                 </div>
-                <img src={car.src} className='object-contain'/>
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 

@@ -136,9 +136,9 @@ const WheelCondition = () => {
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-2 flex justify-between rounded-lg pb-2'>
                 <div className='space-y-5'>
                     <div className='font-[300] text-sm'>Wheel condition refers to any damage to the metal rim or structure, including dents, scratches, fractures, warping or buckling.</div>
-                    <Link  href='./advice_wheel_condition'  className='font-[400] text-sm mt-5'>smart advice &gt;</Link>
+                    <Link  href='./advice_wheel_condition'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className='object-contain'/> 
+                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
             </div>
         </div>
 

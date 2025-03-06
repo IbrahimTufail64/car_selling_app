@@ -16,6 +16,7 @@ const Rotate = ({ params }: { params: { slug: string } }) => {
     useEffect(()=>{
         const portrait = window.matchMedia("(orientation: portrait)").matches;
         console.log(portrait)
+        // router.push(`../vehicle_health/${params.slug}`);
       if( angle === 90){
         if(params.slug.includes('video')){
           if(isSafari()){
@@ -26,7 +27,12 @@ const Rotate = ({ params }: { params: { slug: string } }) => {
 
           }
         }
+        else if(params.slug.includes('vehicle_health')){
+          const route = params.slug.split("_vehicle_health")[0]
+          router.push(`../vehicle_health/${route}`);
+        }
         else if(params.slug.includes('dynamic')){
+          // console.log(params.slug)
           router.push(`../camera_filter_dynamic/${params.slug}`);
         }
         else{

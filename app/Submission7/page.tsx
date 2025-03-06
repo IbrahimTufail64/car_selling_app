@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import demoPic from '@/assets/icons/DemoPic.png'
-import underline from '@/assets/icons/underline.png'
+import underline from '@/assets/underline_mark.png'
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import chat from '@/assets/icons/char.png'
@@ -136,8 +136,8 @@ const Submission7 = () => {
 </div>
 <div className='text-[46px] font-[400] relative text-center w-full'>
     <div className='font-[500]'>£ {estimatedPrice[carCount-1]}</div>
-    <div className='w-full flex justify-center'>
-    <img src={underline.src} className=''/>
+    <div className='w-full flex justify-center -mt-3'>
+    <img src={underline.src} className='w-[180px]'/>
     </div>
 </div>
 {isVendor && 
@@ -262,7 +262,7 @@ const Submission7 = () => {
                                 isVendor && (
                                     <div>
                                         <Link href={`${vehiclePhotosState ? './service_manuals_keys' : '#'}`}>
-                                    <Field isComplete={serviceRecordsState} Content={'Service records, Manuals & Keys'} Progress={0} Next={vehiclePhotosState}/>
+                                    <Field isComplete={serviceRecordsState} Content={'Service records, manuals & keys'} Progress={0} Next={vehiclePhotosState}/>
                                     </Link> 
                                         </div>
                                 )
