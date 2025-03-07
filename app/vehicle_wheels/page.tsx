@@ -18,6 +18,7 @@ import FrontDriverTyreC from '@/assets/front_driver_tyre.png'
 import FrontPassengerWheelC from '@/assets/front_passenger_wheel.png'
 import FrontPassengerTyreC from '@/assets/front_passenger_tyre.png'
 
+import alert_retake from '@/assets/alert_retake.png'
 // Vendor pics 
 
 import BackDriverWheelV from '@/assets/BackDriverWheelVendor.png'
@@ -47,6 +48,29 @@ const VehicleWheels = () => {
     const [front_passenger_tyre_img, setfront_passenger_tyre_img]  = useState<any>(null);
 
     const {setVehicle_Wheels,isVendor} = useAppContext();
+           const [blur_count, set_blur_count] = useState(0);
+            const [blured_images,set_blured_images] = useState([
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ])
+    
+                // for updating blur state of images
+        const updateState = (index: number, value: boolean) => {
+          let temp = blured_images;
+          temp[index] = value
+          set_blured_images(temp);
+          let count = 0;
+          temp.map((e)=>{
+            e && count++
+          })
+          set_blur_count(count);
+        };
 
     const BackDriverWheel = isVendor ? BackDriverWheelV : BackDriverWheelC;
     const BackDriverTyre = isVendor ? BackDriverTyreV : BackDriverTyreC;
@@ -68,7 +92,7 @@ const VehicleWheels = () => {
       let counter = 0;
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-              const car_no = Number(localStorage.getItem('car_no'));
+              const car_no = localStorage.getItem('car_no');
               const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                 
                 setter_function(image?.data);
@@ -101,7 +125,7 @@ const VehicleWheels = () => {
         
 
         // window.location.reload();
-        const car = Number(localStorage.getItem('car_no'));
+        const car = localStorage.getItem('car_no');
       localStorage.setItem(`vehicle_wheels_state_${car}`,'true'); 
         
     },[])
@@ -131,7 +155,7 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
-              const car = Number(localStorage.getItem('car_no'));
+              const car = localStorage.getItem('car_no');
       localStorage.setItem(`vehicle_wheels_state_${car}`,'true');
         setTimeout(()=>{
 
@@ -141,7 +165,7 @@ const handleSubmit = async (event:any) => {
       const response = await axios.post(`${url}/pwa/vehicle_wheels_tyres`,  
         {
           formData,
-          car_no: Number(localStorage.getItem('car_no')),
+          car_no: localStorage.getItem('car_no'),
       }, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -176,6 +200,17 @@ const handleSubmit = async (event:any) => {
             <div>Your wheels & tyres</div>
         </div>
 
+        {
+          (blur_count > 0) ?
+          <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#FFD1D1] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-2'>
+                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo' : 'photos'} requires attention</div>
+                    <div className='font-[300] text-sm'>Retake and reupload</div>
+                </div>
+                <img src={alert_retake.src} className='object-contain w-[55px] mx-3 mb-2'/>
+            </div>
+        </div> : 
 
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-2 flex justify-between rounded-lg'>
@@ -186,41 +221,44 @@ const handleSubmit = async (event:any) => {
                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
             </div>
         </div>
+        }
+
+        
 
         <div className='space-y-3 pt-7'>
 
             <div ref={divRefs[0]}>
               
-            <PhotoFrame Content='Back Driver Wheel' isUploaded={back_driver_wheel_img !== undefined} photo={ back_driver_wheel_img ? back_driver_wheel_img : BackDriverWheel}  link ='back_driver_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {0} Content='Back Driver Wheel' isUploaded={back_driver_wheel_img !== undefined} photo={ back_driver_wheel_img ? back_driver_wheel_img : BackDriverWheel}  link ='back_driver_wheel'/>
             </div>
             <div ref={divRefs[1]}>
               
-            <PhotoFrame Content='Back Driver Tyre' isUploaded={back_driver_tyre_img !== undefined} photo={back_driver_tyre_img ? back_driver_tyre_img : BackDriverTyre} link ='back_driver_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {1} Content='Back Driver Tyre' isUploaded={back_driver_tyre_img !== undefined} photo={back_driver_tyre_img ? back_driver_tyre_img : BackDriverTyre} link ='back_driver_tyre'/>
             </div>
             <div ref={divRefs[2]}>
               
-            <PhotoFrame Content='Back Passenger Wheel' isUploaded={back_passenger_wheel_img !== undefined} photo={back_passenger_wheel_img ? back_passenger_wheel_img :  BackPassengerWheel} link ='back_passenger_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {2} Content='Back Passenger Wheel' isUploaded={back_passenger_wheel_img !== undefined} photo={back_passenger_wheel_img ? back_passenger_wheel_img :  BackPassengerWheel} link ='back_passenger_wheel'/>
             </div>
             <div ref={divRefs[3]}>
               
-            <PhotoFrame Content='Back Passenger Tyre' isUploaded={back_passenger_tyre_img !== undefined} photo={back_passenger_tyre_img ? back_passenger_tyre_img : BackPassengerTyre} link ='back_passenger_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {3} Content='Back Passenger Tyre' isUploaded={back_passenger_tyre_img !== undefined} photo={back_passenger_tyre_img ? back_passenger_tyre_img : BackPassengerTyre} link ='back_passenger_tyre'/>
             </div>
 
             <div ref={divRefs[4]}>
               
-            <PhotoFrame Content='front Driver Wheel' isUploaded={front_driver_wheel_img !== undefined} photo={ front_driver_wheel_img ? front_driver_wheel_img : FrontDriverWheel}  link ='front_driver_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {4} Content='front Driver Wheel' isUploaded={front_driver_wheel_img !== undefined} photo={ front_driver_wheel_img ? front_driver_wheel_img : FrontDriverWheel}  link ='front_driver_wheel'/>
             </div>
             <div ref={divRefs[5]}>
               
-            <PhotoFrame Content='front Driver Tyre' isUploaded={front_driver_tyre_img !== undefined} photo={front_driver_tyre_img ? front_driver_tyre_img : FrontDriverTyre} link ='front_driver_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {5} Content='front Driver Tyre' isUploaded={front_driver_tyre_img !== undefined} photo={front_driver_tyre_img ? front_driver_tyre_img : FrontDriverTyre} link ='front_driver_tyre'/>
             </div>
             <div ref={divRefs[6]}>
               
-            <PhotoFrame Content='front Passenger Wheel' isUploaded={front_passenger_wheel_img !== undefined} photo={front_passenger_wheel_img ? front_passenger_wheel_img :  FrontPassengerWheel} link ='front_passenger_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {6} Content='front Passenger Wheel' isUploaded={front_passenger_wheel_img !== undefined} photo={front_passenger_wheel_img ? front_passenger_wheel_img :  FrontPassengerWheel} link ='front_passenger_wheel'/>
             </div>
             <div ref={divRefs[7]}>
               
-            <PhotoFrame Content='front Passenger Tyre' isUploaded={front_passenger_tyre_img !== undefined} photo={front_passenger_tyre_img ? front_passenger_tyre_img : FrontPassengerTyre} link ='front_passenger_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {7} Content='front Passenger Tyre' isUploaded={front_passenger_tyre_img !== undefined} photo={front_passenger_tyre_img ? front_passenger_tyre_img : FrontPassengerTyre} link ='front_passenger_tyre'/>
             </div>
         </div>
         

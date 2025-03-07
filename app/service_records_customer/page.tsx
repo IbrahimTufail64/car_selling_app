@@ -20,7 +20,7 @@ import axios from 'axios';
 const ServiceRecordsCapture = () => {
     const Router = useRouter();
     const [images,setImages] = useState<Image[]>([]);
-    const [car_no,setCar_no] = useState(0);
+    const [car_no,setCar_no] = useState('');
 
     const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
 
@@ -29,8 +29,8 @@ const ServiceRecordsCapture = () => {
     // Search for images in the db: 
     useEffect(()=>{
         localStorage.setItem('prevRoute','./service_records_customer');
-        const car_number = Number(localStorage.getItem('car_no'));
-        setCar_no(car_number);
+        const car_number = localStorage.getItem('car_no');
+        setCar_no(String(car_number));
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const images = await db.images
@@ -88,7 +88,7 @@ const ServiceRecordsCapture = () => {
                   }
           });
           console.log(response.status,response.data);  
-          const car = Number(localStorage.getItem('car_no'));
+          const car = localStorage.getItem('car_no');
               localStorage.setItem(`service_records_state_${car}`,'true');
           
         // if(!isVendor){

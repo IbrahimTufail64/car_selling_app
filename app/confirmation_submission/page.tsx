@@ -15,14 +15,14 @@ const Confirmationdfagagd= () => {
     const [userId, setuserId] = useState('');
     const [saletag,setsaletag] = useState('');
     const {isVendor} = useAppContext();
-    const [carCount, setCarCount] = useState(0);
+    const [carCount, setCarCount] = useState('');
     const [user_name,setuser_name] = useState('');
     const [price,setprice] = useState(0);
 
       useEffect(()=>{ 
         setuserId(String(localStorage.getItem('userId')));
         setsaletag(String(localStorage.getItem('saletag')))
-        setCarCount(Number(localStorage.getItem('car_no')))
+        setCarCount(String(localStorage.getItem('car_no')))
         const handleRequest = async () => { 
             
 

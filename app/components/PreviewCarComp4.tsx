@@ -23,7 +23,7 @@ const PreviewCarComp4 = ({title,Array, car_no}:{title: string, Array: string[],c
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const car_no = Number(localStorage.getItem('car_no'));
+                const car_no = localStorage.getItem('car_no');
                 const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                 // console.log(image?.data);
                 

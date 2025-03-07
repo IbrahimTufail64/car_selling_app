@@ -97,7 +97,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
       return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const [car_no,setCar_no] = useState(0);
+    const [car_no,setCar_no] = useState('');
 
     const webcamRef:any = useRef(null);
     
@@ -114,7 +114,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     const router = useRouter(); 
 
     useEffect(()=>{
-      setCar_no(Number(localStorage.getItem('car_no')));
+      setCar_no(String(localStorage.getItem('car_no')));
       const portrait = window.matchMedia("(orientation: portrait)").matches;
       if(portrait){
             router.push(`../rotate/${params.slug}-dynamic`);
@@ -124,7 +124,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     async function addImage(img: any) {
       try {
         console.log(car_no);
-        const carNo = Number(localStorage.getItem('car_no'));
+        const carNo = localStorage.getItem('car_no');
         const image = await db.images.where('name').equals(imageUrl)
         .filter(e=>e.car_number === carNo && e.dynamic_image_number === dynamic_image_no).first();
         console.log(image);
@@ -135,7 +135,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         const id = await db.images.add({
           name: imageUrl,
           data: img,
-          car_number: carNo,
+          car_number: String(carNo),
           dynamic_image_number: dynamic_image_no
         });
         console.log('image',id);

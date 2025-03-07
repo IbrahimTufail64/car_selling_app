@@ -14,7 +14,7 @@ import alert from '@/assets/icons/alertWhite.png';
 
 import upload from '@/assets/icons/uploadBtn.png'
 
-const PhotoFrameServiceAdd = ({Content, Car_no, DynamicImageNo, isUploaded, photo, image_name, return_link}:{Content:string,DynamicImageNo:number, image_name: string,return_link: string,  Car_no: number, isUploaded:Boolean, photo: any})=> {
+const PhotoFrameServiceAdd = ({Content, Car_no, DynamicImageNo, isUploaded, photo, image_name, return_link}:{Content:string,DynamicImageNo:number, image_name: string,return_link: string,  Car_no: string, isUploaded:Boolean, photo: any})=> {
 
     const uploaded_photo = isUploaded ? photo : photo.src;
     const {isVendor} = useAppContext();

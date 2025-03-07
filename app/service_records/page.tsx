@@ -20,7 +20,7 @@ const ServiceRecordsCapture = () => {
     const Router = useRouter();
     const [hasRenderedValidElement, setHasRenderedValidElement] = useState(false);
     const [images,setImages] = useState<Image[]>([]);
-    const [car_no,setCar_no] = useState(0);
+    const [car_no,setCar_no] = useState('');
 
     const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
 
@@ -29,8 +29,8 @@ const ServiceRecordsCapture = () => {
     // Search for images in the db: 
     useEffect(()=>{
         localStorage.setItem('prevRoute','./service_records');
-        const car_number = Number(localStorage.getItem('car_no'));
-        setCar_no(car_number);
+        const car_number = localStorage.getItem('car_no');
+        setCar_no(String(car_number));
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const images = await db.images
@@ -59,7 +59,7 @@ const ServiceRecordsCapture = () => {
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
-        const car = Number(localStorage.getItem('car_no'));
+        const car = localStorage.getItem('car_no');
               localStorage.setItem(`service_records_state_${car}`,'true');      
               setTimeout(()=>{
                 if(localStorage.getItem('saletag')==='WholeSale'){
@@ -134,10 +134,10 @@ const ServiceRecordsCapture = () => {
         </div> 
 
         {/* <div className='space-y-3 pt-7'>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords1 !== undefined} photo={ serviceRecords1 ? serviceRecords1 : serviceRecords}  link ='service_records1'/>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords2 !== undefined} photo={serviceRecords2 ? serviceRecords2 : serviceRecords} link ='service_records2'/>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords3 !== undefined} photo={serviceRecords3 ? serviceRecords3 :  serviceRecords} link ='service_records3'/>
-        <PhotoFrame Content='Title here' isUploaded={serviceRecords4 !== undefined} photo={serviceRecords4 ? serviceRecords4 : serviceRecords} link ='service_records4'/>
+        <PhotoFrame Content='Service records' isUploaded={serviceRecords1 !== undefined} photo={ serviceRecords1 ? serviceRecords1 : serviceRecords}  link ='service_records1'/>
+        <PhotoFrame Content='Service records' isUploaded={serviceRecords2 !== undefined} photo={serviceRecords2 ? serviceRecords2 : serviceRecords} link ='service_records2'/>
+        <PhotoFrame Content='Service records' isUploaded={serviceRecords3 !== undefined} photo={serviceRecords3 ? serviceRecords3 :  serviceRecords} link ='service_records3'/>
+        <PhotoFrame Content='Service records' isUploaded={serviceRecords4 !== undefined} photo={serviceRecords4 ? serviceRecords4 : serviceRecords} link ='service_records4'/>
     </div> */}
 
 
@@ -174,7 +174,7 @@ const ServiceRecordsCapture = () => {
                         image_name="service_records"
                         Car_no={car_no}
                         DynamicImageNo={images.length + 1}
-                        Content="Title here"
+                        Content="Service records"
                         isUploaded={false}
                         photo={ExampleImage}
                         return_link="service_records"

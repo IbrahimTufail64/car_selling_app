@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useAppContext } from '../Context';
 import splash from '@/assets/icons/Rays-small.png'
 import LogoWhite from '@/assets/LogoWhite.png'
-import confetti from '@/assets/Confetti.png'
+import confetti from '@/assets/congratulation_gif.gif'
 import phoneW from '@/assets/icons/phone.png'
 import emailW from '@/assets/icons/email.png'
 import phoneD from '@/assets/icons/phoneDark.png'

@@ -210,12 +210,12 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
             }
         },[angle])
 
-    // setInterval(() => {
-    //     const portrait = window.matchMedia("(orientation: portrait)").matches;
-    //       if(portrait){
-    //             Router.push(`../rotate/${params.slug}_vehicle_health`);
-    //         }
-    // }, 300);
+    setInterval(() => {
+        const portrait = window.matchMedia("(orientation: portrait)").matches;
+          if(portrait){
+                Router.push(`../rotate/${params.slug}_vehicle_health`);
+            }
+    }, 300);
 
     const handleSubmit = async (event:any) => { 
         // event.preventDefault(); 
@@ -244,7 +244,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
           let value = {
             name: imageUrl,
             dynamic_image_no,
-            car_no: Number(localStorage.getItem('car_no')),
+            car_no: String(localStorage.getItem('car_no')),
             coordinates: {x,y},
             size,
             side: currentSide,

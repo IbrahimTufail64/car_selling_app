@@ -139,7 +139,7 @@ const Confirmation= () => {
 
 export default Confirmation
 
-// onClick={()=>localStorage.setItem('car_no',String(Number(localStorage.getItem('car_no'))+1))}
+// onClick={()=>localStorage.setItem('car_no',String(localStorage.getItem('car_no')+1))}
 
 
 

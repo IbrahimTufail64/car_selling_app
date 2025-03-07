@@ -22,6 +22,8 @@ const Submission2 = () => {
     const [permissionStatus, setPermissionStatus] = useState('Not Requested');
     const [estimatedPrice, setEstimatedPrice] = useState([]);
     const [retailPrice, setretailPrice] = useState([]);
+    const [manufacturer, setmanufacturer] = useState([]);
+    const [carId, setcarId] = useState([]);
     const [saleTag, setsaleTag] = useState('');
     const [userName, setUserName] = useState('');
     const [profileImg,setProfileImg] = useState<any>();
@@ -51,10 +53,12 @@ const Submission2 = () => {
                     setsaleTag(data.tag)
                     setEstimatedPrice(data.estimatedPrice);
                     setretailPrice(data.retailPrice);
+                    setmanufacturer(data.manufacturer);
+                    setcarId(data.carId);
+                    
                 // }
                 setUserName(data.userName);
                 setProfileImg(data.profileImage);
-                setUserId(data.userId);
 
                 localStorage.setItem('userName',userName);
                 localStorage.setItem('profileImg',profileImg);
@@ -104,14 +108,14 @@ const Submission2 = () => {
       const [carCount, setCarCount] = useState(1);
     const handleCarCountMinus =() =>{
         if(carCount > 1){
-            localStorage.setItem('car_no',String(carCount-1));
+            localStorage.setItem('car_no',carId[carCount-1]);
             setCarCount(carCount-1);
         }
     }
 
     const handleCarCountAdd =() =>{
         if(carCount < estimatedPrice.length){
-            localStorage.setItem('car_no',String(carCount+1));
+            localStorage.setItem('car_no',carId[carCount+1]);
             setCarCount(carCount+1);
         }
     }
@@ -146,7 +150,7 @@ const Submission2 = () => {
                         <div className=' bg-[#3748EA] w-[15%] p-t-2'>
                         </div>
                         <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
-                            {userId}
+                            {carId[carCount-1]}
                         </div>
                     </div>
                 </div>
@@ -161,7 +165,7 @@ const Submission2 = () => {
 
                 <div className='flex justify-center w-full'>
                             <div className='text-sm px-5 text-center pt-5 w-[90%]'>
-                        Based on our live real-time <span className='text-primary'>Smart Data</span> for 'Manufacturer'' vehicles and daily live trade data. 
+                        Based on our live real-time <span className='text-primary'>Smart Data</span> for '{manufacturer[carCount-1]}' vehicles and daily live trade data. 
                     </div>
                 </div>
         <div className='w-full px-24 flex justify-center pt-3'>

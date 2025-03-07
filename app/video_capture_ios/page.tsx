@@ -169,7 +169,7 @@ const App = () => {
       reader.onload = async() => {
         const base64Data = reader.result as string; // Convert Blob to Base64
         try {
-          const car_no = Number(localStorage.getItem('car_no'));
+          const car_no = localStorage.getItem('car_no');
           await addVideo(base64Data)
           console.log(base64Data);
           // alert(base64Data);

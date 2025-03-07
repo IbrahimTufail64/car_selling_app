@@ -1,4 +1,5 @@
 "use client"
+import '@/app/dynamic_image_css/embla_styles.css'
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
@@ -17,7 +18,7 @@ import axios from 'axios';
 
 const SurfaceMarks = () => {
     const [images,setImages] = useState<Image[]>([]);
-    const [car_no,setCar_no] = useState(0);
+    const [car_no,setCar_no] = useState('');
 
     const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
 
@@ -43,7 +44,7 @@ const SurfaceMarks = () => {
                 alert('Please upload atleast one image before proceeding')
                 return;
             }
-            const car = Number(localStorage.getItem('car_no'));
+            const car = localStorage.getItem('car_no');
 
             localStorage.setItem(`damaged_absent_fixtures_state_${car}`,'true');
             setTimeout(()=>{
@@ -71,8 +72,8 @@ const SurfaceMarks = () => {
     // Search for images in the db: 
     useEffect(()=>{
         localStorage.setItem('prevRoute','./damaged_absent_fixtures');
-        const car_number = Number(localStorage.getItem('car_no'));
-        setCar_no(car_number);
+        const car_number = localStorage.getItem('car_no');
+        setCar_no(String(car_number));
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const images = await db.images
@@ -128,7 +129,7 @@ const SurfaceMarks = () => {
             {images.map((e,i)=>{
                 return <div className="embla__slide "><PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Damaged/Absent fixtures' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='damaged_absent_fixtures'/></div>;
             })}
-            {images.length===1 && 
+            {images.length!=0 && 
                 <PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={2} Content='Damaged/Absent fixtures' isUploaded={false} photo={ ExampleImage}  return_link ='damaged_absent_fixtures'/>
             }
           </div>

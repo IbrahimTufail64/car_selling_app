@@ -36,7 +36,7 @@ const FurtherDetails = () => {
                 alert('Please enter a description before submitting!')
                 return;
             }
-            const car = Number(localStorage.getItem('car_no'));
+            const car = localStorage.getItem('car_no');
               localStorage.setItem(`further_details_state_${car}`,'true');
                   
                 localStorage.setItem(`vehicle_health_state_${car}`,'true');
@@ -68,7 +68,7 @@ const FurtherDetails = () => {
                 {
                     condition: checked, 
                     data: inputText,
-                    car_no: Number(localStorage.getItem('car_no'))
+                    car_no: localStorage.getItem('car_no')
                 }, {
                     headers: {
                         'Content-Type': 'multipart/form-data',

@@ -65,7 +65,7 @@ const FurtherDetails = () => {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/service_records_status`,  
                 {
                     service_records_status: checked,
-                    car_no: Number(localStorage.getItem('car_no'))
+                    car_no: localStorage.getItem('car_no')
                 }, {
                     headers: {
                         'Content-Type': 'multipart/form-data',

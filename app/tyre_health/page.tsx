@@ -38,7 +38,7 @@ const TyreHealth = () => {
     const {isVendor} = useAppContext();
 
     const handleWheelUpload = async(isGood:boolean)=>{
-        const car = Number(localStorage.getItem('car_no'));
+        const car = localStorage.getItem('car_no');
         try{
             let wheel_state: unknown;
             const url:any = process.env.NEXT_PUBLIC_API_URL ;

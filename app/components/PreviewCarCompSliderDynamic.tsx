@@ -13,7 +13,7 @@ const PreviewCarCompSliderDynamic = ({
   const [_img, set_img] = useState<any[]>([]);
 
   useEffect(() => {
-    const car_number = Number(localStorage.getItem('car_no'));
+    const car_number = localStorage.getItem('car_no');
     const retrieve = async (image_to_retrieve: string, setter_function: React.Dispatch<any[]>) => {
       try {
         const images = await db.images

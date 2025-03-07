@@ -33,7 +33,7 @@ const VehicleVideo = () => {
 
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
-                const car_no = Number(localStorage.getItem('car_no'));
+                const car_no = localStorage.getItem('car_no');
                 const image = await db.images.where('name').equals(image_to_retrieve).first(); 
                 if(is_safari){
                     if(image?.data == undefined){
@@ -69,7 +69,7 @@ const VehicleVideo = () => {
 
     async function Submit() {
         try {
-            const car_no = Number(localStorage.getItem('car_no'));
+            const car_no = localStorage.getItem('car_no');
             const formData = new FormData();
             const video = String(localStorage.getItem(`videoData_${car_no}`)); 
             console.log(video);
@@ -85,7 +85,7 @@ const VehicleVideo = () => {
                 }
             }
             
-            const car = Number(localStorage.getItem('car_no'));
+            const car = localStorage.getItem('car_no');
                   
                 localStorage.setItem(`vehicle_video_state_${car}`,'true');
                 // localStorage.setItem(`vehicle_photos_state_${car}`,'true');

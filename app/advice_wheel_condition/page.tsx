@@ -17,7 +17,7 @@ import splash from '@/assets/icons/Rays-small.png'
 import CAR from '@/assets/Sub3Car.png'
 
 const SmartAdvice = () => {
-  const [car,setCar] = useState(0);
+  const [car,setCar] = useState('');
   const [prevRoute,setPrevRoute] = useState<string | null>('');
                   
                     useEffect(()=>{
@@ -25,8 +25,8 @@ const SmartAdvice = () => {
                   
                     },[])
   useEffect(()=>{
-    const car_local = Number(localStorage.getItem('car_no'));
-    setCar(car_local);
+    const car_local = localStorage.getItem('car_no');
+    setCar(String(car_local));
   },[])
   const router = useRouter();
   const {isVendor} = useAppContext(); 

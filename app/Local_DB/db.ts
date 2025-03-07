@@ -4,7 +4,7 @@ interface Image {
   id: number;
   name?: string;
   data?: any;
-  car_number?: number;
+  car_number?: string;
   dynamic_image_number?: number;
   condition?: boolean;
 }
@@ -22,7 +22,7 @@ interface DamageSelection {
   name: string;
   dynamic_image_no: number;
   url: any;
-  car_no: number;
+  car_no: string;
   coordinates?: { x: number; y: number };
   size: string;
   side: string;

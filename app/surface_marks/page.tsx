@@ -1,4 +1,6 @@
 "use client"
+import '@/app/dynamic_image_css/embla_styles.css'
+import '@/app/dynamic_image_css/embla_styles.css'
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
@@ -18,16 +20,20 @@ import { useTimeout } from 'react-use';
 
 const SurfaceMarks = () => {
     const [images,setImages] = useState<Image[]>([]);
-    const [car_no,setCar_no] = useState(0);
+    const [car_no,setCar_no] = useState('');
 
-    const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
+    const [emblaRef, emblaApi] = useEmblaCarousel({
+      loop: false,
+      align: "start", // Aligns slides to the start
+      containScroll: "trimSnaps", // Ensures proper slide containment
+    });
 
     const {isVendor} = useAppContext();
     const Router = useRouter();
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
-        const car = Number(localStorage.getItem('car_no'));
+        const car = localStorage.getItem('car_no');
         const formData = new FormData();
         let damage = await db.damage_selection.where('name').equals('surface_marks').toArray();
        
@@ -105,8 +111,8 @@ const SurfaceMarks = () => {
     // Search for images in the db: 
     useEffect(()=>{
         localStorage.setItem('prevRoute','./surface_marks');
-        const car_number = Number(localStorage.getItem('car_no'));
-        setCar_no(car_number);
+        const car_number = localStorage.getItem('car_no');
+        setCar_no(String(car_number));
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const images = await db.images
@@ -130,7 +136,7 @@ const SurfaceMarks = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[80px]`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[90px]`}>
         <div className='flex flex-col justify-between min-h-[100vh]'>
         <div >
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
@@ -158,11 +164,11 @@ const SurfaceMarks = () => {
             {images.length === 0 && <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={1} Content='Surface marks' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>}
         <div className="embla overflow-hidden mx-2">
         <div className="embla__viewport" ref={emblaRef}>
-          <div className="embla__container flex space-x-5">
+          <div className="embla__container flex space-x-3">
             {images.map((e,i)=>{
                 return <div className="embla__slide "><PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Surface marks' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='surface_marks'/></div>;
             })}
-            {images.length===1 && 
+            {images.length>=1 && 
                 <PhotoFrameDynamic image_name='surface_marks' Car_no={car_no} DynamicImageNo={2} Content='Surface marks' isUploaded={false} photo={ ExampleImage}  return_link ='surface_marks'/>
             }
           </div>

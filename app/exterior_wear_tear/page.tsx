@@ -1,4 +1,5 @@
 "use client"
+import '@/app/dynamic_image_css/embla_styles.css'
 import Link from 'next/link';
 import React, { useContext, useEffect, useState } from 'react'
 import { IoChevronBack } from "react-icons/io5";
@@ -17,7 +18,7 @@ import axios from 'axios';
 
 const SurfaceMarks = () => {
     const [images,setImages] = useState<Image[]>([]);
-    const [car_no,setCar_no] = useState(0);
+    const [car_no,setCar_no] = useState('');
 
     const [emblaRef,emblaApi] = useEmblaCarousel({ loop: false })
 
@@ -26,7 +27,7 @@ const SurfaceMarks = () => {
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
-        const car = Number(localStorage.getItem('car_no'));
+        const car = localStorage.getItem('car_no');
         const formData = new FormData();
         let damage = await db.damage_selection.where('name').equals('exterior_wear_tear').toArray();
        
@@ -83,8 +84,8 @@ const SurfaceMarks = () => {
     // Search for images in the db: 
     useEffect(()=>{
         localStorage.setItem('prevRoute','./exterior_wear_tear');
-        const car_number = Number(localStorage.getItem('car_no'));
-        setCar_no(car_number);
+        const car_number = localStorage.getItem('car_no');
+        setCar_no(String(car_number));
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const images = await db.images
@@ -140,7 +141,7 @@ const SurfaceMarks = () => {
             {images.map((e,i)=>{
                 return <div className="embla__slide "><PhotoFrameDynamic image_name='exterior_wear_tear' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Exterior wear & tear' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='exterior_wear_tear'/></div>;
             })}
-            {images.length===1 && 
+            {images.length>=1 && 
                 <PhotoFrameDynamic image_name='exterior_wear_tear' Car_no={car_no} DynamicImageNo={2} Content='Exterior wear & tear' isUploaded={false} photo={ ExampleImage}  return_link ='exterior_wear_tear'/>
             }
           </div>

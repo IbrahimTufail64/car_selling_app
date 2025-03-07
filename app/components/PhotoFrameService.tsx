@@ -14,13 +14,13 @@ import alert from '@/assets/icons/alertWhite.png';
 
 import upload from '@/assets/icons/uploadBtn.png'
 
-const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, image_name, return_link}:{Content:string,DynamicImageNo:number, image_name: string,return_link: string,  Car_no: number, isUploaded:Boolean, photo: any})=> {
+const PhotoFrameService = ({Content, Car_no, DynamicImageNo, isUploaded, photo, image_name, return_link}:{Content:string,DynamicImageNo:number, image_name: string,return_link: string,  Car_no: string, isUploaded:Boolean, photo: any})=> {
 
     const uploaded_photo = isUploaded ? photo : photo.src;
     const {isVendor} = useAppContext();
 
     const handleDelete = async()=>{
-        const car_no = Number(localStorage.getItem('car_no'))
+        const car_no = localStorage.getItem('car_no')
         try{
             console.log(image_name,car_no, DynamicImageNo)
         //    const del =  await db.images.where('name').equals(image_name).toArray()

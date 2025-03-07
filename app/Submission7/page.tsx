@@ -25,6 +25,8 @@ const Submission7 = () => {
 
     const [estimatedPrice, setEstimatedPrice] = useState([]);
     const [retailPrice, setretailPrice] = useState([]);
+        const [manufacturer, setmanufacturer] = useState([]);
+        const [carId, setcarId] = useState([]);
     const [saleTag, setsaleTag] = useState('');
     const [userName, setUserName] = useState('');
     const [profileImg,setProfileImg] = useState<any>();
@@ -34,13 +36,15 @@ const Submission7 = () => {
     useEffect(()=>{ 
         localStorage.setItem('prevRoute','./Submission7');
         // localStorage.removeItem('car_no');
-        const car_no = Number(localStorage.getItem('car_no'));
-        car_no === 0 ? localStorage.setItem('car_no','1') : car_no;
+        const car_no = localStorage.getItem('car_no');
+        // car_no === 0 ? localStorage.setItem('car_no','1') : car_no;
         const progresst = Number(localStorage.getItem('vehicle_photos_complete'))
         console.log(progresst);
         setporgressState(progresst);
+        setCarCount(Number(localStorage.getItem('car_count_id')));
+        console.log(localStorage.getItem('car_no'))
 
-        setCarCount(car_no === 0 ? 1 : car_no)
+        // setCarCount(car_no === 0 ? 1 : car_no)
         const handleRequest = async () => { 
             
 
@@ -58,11 +62,14 @@ const Submission7 = () => {
                 const data =  response.data;
                 // console.log(response.data)
                 
-                // if(data.isWholeSale === "Wholesale"){
-                    setsaleTag(data.tag)
+
                     localStorage.setItem('saletag',data.tag);
+                    
+                    setsaleTag(data.tag)
                     setEstimatedPrice(data.estimatedPrice);
                     setretailPrice(data.retailPrice);
+                    setmanufacturer(data.manufacturer);
+                    setcarId(data.carId);
                 // }
                 setUserName(data.userName);
                 setProfileImg(data.profileImage);
@@ -84,23 +91,25 @@ const Submission7 = () => {
     const handleCarCountMinus =() =>{
         // console.log(vehiclePhotosState)
         if(carCount > 1){
-            localStorage.setItem('car_no',String(carCount-1))
+            localStorage.setItem('car_no',String(carId[carCount-1]))
             setCarCount(carCount-1);
+            localStorage.setItem('car_count_id',String(carCount-1))
             window.location.reload()
         }
     }
 
     const handleCarCountAdd =() =>{
         if(carCount < estimatedPrice.length){
-            localStorage.setItem('car_no',String(carCount+1))
+            localStorage.setItem('car_no',String(carId[carCount+1]))
             setCarCount(carCount+1);
+            localStorage.setItem('car_count_id',String(carCount+1))
             window.location.reload()
         }
     }
 
 
     useEffect(()=>{
-        const car_no = Number(localStorage.getItem('car_no')); 
+        const car_no = localStorage.getItem('car_no'); 
         console.log(localStorage.getItem(`vehicle_photos_state_${car_no}`));
         setvehiclePhotosState(localStorage.getItem(`vehicle_photos_state_${car_no}`)==='true');
         setserviceRecordsState(localStorage.getItem(`service_records_state_${car_no}`)==='true');
@@ -130,7 +139,7 @@ const Submission7 = () => {
         <div className=' bg-[#3748EA] w-[15%] p-t-2'>
         </div>
         <div className='text-black font-[600] w-[85%] absolute top-0 left-5'>
-            {userId}
+            {carId[carCount-1]}
         </div>
     </div>
 </div>

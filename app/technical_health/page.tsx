@@ -33,7 +33,7 @@ const TechnicalHealth = () => {
                 alert('Please enter a description before submitting!')
                 return;
             }
-            const car = Number(localStorage.getItem('car_no'));
+            const car = localStorage.getItem('car_no');
               localStorage.setItem(`technical_state_${car}`,'true');
               setTimeout(()=>{
 
@@ -58,7 +58,7 @@ const TechnicalHealth = () => {
                 {
                     condition: checked, 
                     data: inputText,
-                    car_no: Number(localStorage.getItem('car_no'))
+                    car_no: localStorage.getItem('car_no')
                 }, {
                     headers: {
                         'Content-Type': 'multipart/form-data',

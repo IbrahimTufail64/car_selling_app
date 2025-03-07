@@ -14,6 +14,7 @@ import BackDriverV from '@/assets/backDriverVendor.png'
 import BackPassenV  from '@/assets/backPassengerVendor.png'
 import FrontDriverV  from '@/assets/frontDriverVendor.png'
 import FrontPassenV from '@/assets/frontPassengerVendor.png'
+import alert_retake from '@/assets/alert_retake.png'
 
 import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
@@ -29,7 +30,25 @@ const VehicleExterior = () => {
     const [frontPimg, setfrontPimg]  = useState<any>(null);
     const [backDimg, setbackDimg]  = useState<any>(null);
     const [backPimg, setbackPimg]  = useState<any>(null);
-    // const [car_no, setcar_no] = useState(0);
+    const [blur_count, set_blur_count] = useState(0);
+    const [blured_images,set_blured_images] = useState([
+      false,
+      false,
+      false,
+      false
+    ])
+
+    // for updating blur state of images
+    const updateState = (index: number, value: boolean) => {
+      let temp = blured_images;
+      temp[index] = value
+      set_blured_images(temp);
+      let count = 0;
+      temp.map((e)=>{
+        e && count++
+      })
+      set_blur_count(count);
+    };
 
     const Router = useRouter();
     const {isVendor} = useAppContext()
@@ -45,7 +64,7 @@ const VehicleExterior = () => {
         let counter = 0;
                 const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
                     try{
-                      const car_no = Number(localStorage.getItem('car_no'));
+                      const car_no = localStorage.getItem('car_no');
                       const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                         
                         setter_function(image?.data);
@@ -99,10 +118,14 @@ const handleSubmit = async (event:any) => {
     const token = localStorage.getItem('token');
     try {
         if(!frontDimg || !backDimg || !frontPimg || !backPimg){
-            alert('Please upload all images before proceding')
+            alert('Please upload all images before proceeding!')
             return;
         }
-        const car = Number(localStorage.getItem('car_no'));
+        if(blur_count > 0){
+          alert('Please retake blured images before proceeding!')
+            return;
+        }
+        const car = localStorage.getItem('car_no');
         localStorage.setItem(`vehicle_exterior_state_${car}`,'true');
 
         setTimeout(()=>{
@@ -112,7 +135,7 @@ const handleSubmit = async (event:any) => {
       const response = await axios.post(`${url}/pwa/vehicle_exterior`,  
         {
             formData,
-            car_no: Number(localStorage.getItem('car_no')),
+            car_no: localStorage.getItem('car_no'),
         }, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -139,28 +162,44 @@ const handleSubmit = async (event:any) => {
             <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle exterior</div>
         </div>
-        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
-                <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Perfect your car’s exterior photo with our expert guide.</div>
-                    <Link  href='./advice_exterior'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
+        {
+          (blur_count > 0) ?
+          <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#FFD1D1] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-2'>
+                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo' : 'photos'} requires attention</div>
+                    <div className='font-[300] text-sm'>Retake and reupload</div>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={alert_retake.src} className='object-contain w-[55px] mx-3 mb-2'/>
             </div>
+        </div> : 
+
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+        <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+            <div className='space-y-5'>
+                <div className='font-[300] text-sm'>Perfect your car’s exterior photo with our expert guide.</div>
+                <Link  href='./advice_exterior'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
+            </div>
+            <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
         </div>
+        </div>
+        }
+        
+
+        
 
         <div className='space-y-3 py-7'>
             <div ref={divRefs[0]}> 
-            <PhotoFrame  Content='Front Driver Corner' isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
+            <PhotoFrame  Content='Front Driver Corner' updateState={updateState} index = {0} isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
             </div>
             <div ref={divRefs[1]}> 
-            <PhotoFrame Content='Front Passenger Corner' isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
+            <PhotoFrame Content='Front Passenger Corner' updateState={updateState} index = {1} isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
             </div>
             <div ref={divRefs[2]}>
-            <PhotoFrame Content='Back Driver Corner' isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
+            <PhotoFrame Content='Back Driver Corner' updateState={updateState} index = {2} isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
             </div>
             <div ref={divRefs[3]}>
-            <PhotoFrame Content='Back Passenger Corner' isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
+            <PhotoFrame Content='Back Passenger Corner' updateState={updateState} index = {3} isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
             </div>
         </div>
         

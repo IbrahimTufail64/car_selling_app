@@ -33,7 +33,7 @@ const WheelCondition = () => {
     const handleWheelUpload = async(isGood:boolean)=>{
 
         try{
-            const car = Number(localStorage.getItem('car_no'));
+            const car = localStorage.getItem('car_no');
             let wheel_state: unknown;
             const url:any = process.env.NEXT_PUBLIC_API_URL ;
             const token = localStorage.getItem('token');

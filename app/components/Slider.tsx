@@ -34,12 +34,12 @@ const SliderPreview = ({setpreview_car,preview_car}:{preview_car:undefined,setpr
     },[])
 
     useEffect(() => {
-        const car_number = Number(localStorage.getItem('car_no'));
+        const car_number = localStorage.getItem('car_no');
         const retrieve = async ( setter_function: React.Dispatch<React.SetStateAction<number[]>>) => {
           try {
             const images = await db.images
               .where('car_number')
-              .equals(car_number)
+              .equals(String(car_number))
               .toArray();
               console.log(images);
             setter_function(images.map((image) => image.id)); // Store the array of images

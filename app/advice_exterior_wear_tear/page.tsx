@@ -20,7 +20,7 @@ import { useAppContext } from '../Context';
 
 
 const SurfaceMarks = () => {
-    const [car,setCar] = useState(0);
+    const [car,setCar] = useState('');
           const [prevRoute,setPrevRoute] = useState<string | null>('');
         
           useEffect(()=>{
@@ -28,8 +28,8 @@ const SurfaceMarks = () => {
         
           },[])
   useEffect(()=>{
-    const car_local = Number(localStorage.getItem('car_no'));
-    setCar(car_local);
+    const car_local = localStorage.getItem('car_no');
+    setCar(String(car_local));
   },[])
 
     const {isVendor} = useAppContext()

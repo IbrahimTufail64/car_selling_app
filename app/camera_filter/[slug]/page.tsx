@@ -203,7 +203,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         const id = await db.images.add({
           name: imageUrl,
           data: img,
-          car_number: Number(localStorage.getItem('car_no'))
+          car_number: String(localStorage.getItem('car_no'))
         });
         console.log('test',id);
       } catch (error) {

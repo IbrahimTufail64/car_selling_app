@@ -15,7 +15,7 @@ const PreviewCarCompSlider = ({toRetrieve, setcurrentcar,current}:{current:undef
         
         const retrieve = async (image_to_retrieve:number,setter_function :React.Dispatch<any>)=>{
             try{
-                const car_no = Number(localStorage.getItem('car_no'));
+                const car_no = localStorage.getItem('car_no');
                 const image = await db.images.where('id').equals(image_to_retrieve).first();
                 if(image?.name === 'dashboard'){
                     setcurrentcar(image?.data)

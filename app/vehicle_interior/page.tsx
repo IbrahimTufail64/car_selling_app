@@ -9,7 +9,7 @@ import DashboardC from '@/assets/Dashboard.png'
 import BootC from '@/assets/Boot.png'
 import FrontSeatC from '@/assets/Front_Seat.png'
 import BackSeatC from '@/assets/Back_Seat.png'
-
+import alert_retake from '@/assets/alert_retake.png'
 import DashboardV from '@/assets/DashboardVendor.png'
 import BootV from '@/assets/BootVendor.png'
 import FrontSeatV from '@/assets/FrontSeatVendor.png'
@@ -28,6 +28,25 @@ const VehicleInterior = () => {
     const [bootimg, setbootimg]  = useState<any>(null);
     const [frontseatimg, setfrontseatimg]  = useState<any>(null);
     const [backseatimg, setbackseatimg]  = useState<any>(null);
+        const [blur_count, set_blur_count] = useState(0);
+        const [blured_images,set_blured_images] = useState([
+          false,
+          false,
+          false,
+          false
+        ])
+
+            // for updating blur state of images
+    const updateState = (index: number, value: boolean) => {
+      let temp = blured_images;
+      temp[index] = value
+      set_blured_images(temp);
+      let count = 0;
+      temp.map((e)=>{
+        e && count++
+      })
+      set_blur_count(count);
+    };
 
     const {setVehicle_Interior,isVendor}  = useAppContext();
 
@@ -43,7 +62,7 @@ const VehicleInterior = () => {
         let counter = 0;
                         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
                             try{
-                              const car_no = Number(localStorage.getItem('car_no'));
+                              const car_no = localStorage.getItem('car_no');
                               const image = await db.images.where('name').equals(image_to_retrieve).filter(e => e.car_number === car_no).first();
                                 
                                 setter_function(image?.data);
@@ -92,7 +111,7 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images before proceding')
             return;
         }
-        const car = Number(localStorage.getItem('car_no'));
+        const car = localStorage.getItem('car_no');
       localStorage.setItem(`vehicle_interior_state_${car}`,'true');
         setTimeout(()=>{
           Router.push('./vehicle_photos')
@@ -101,7 +120,7 @@ const handleSubmit = async (event:any) => {
       const response = await axios.post(`${url}/pwa/vehicle_interior`,  
         {
             formData,
-            car_no: Number(localStorage.getItem('car_no')),
+            car_no: localStorage.getItem('car_no'),
         }, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -125,32 +144,47 @@ const handleSubmit = async (event:any) => {
             <Link  href='./vehicle_photos'><IoChevronBack size={28} className='mt-[1px]'/></Link>
             <div>Vehicle interior</div>
         </div>
-        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
-            <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
-                <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Perfect your car’s interior photo with our expert guide.</div>
-                    <Link  href='./advice_interior'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
+
+
+        {
+          (blur_count > 0) ?
+          <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#FFD1D1] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-2'>
+                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo' : 'photos'} requires attention</div>
+                    <div className='font-[300] text-sm'>Retake and reupload</div>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
+                <img src={alert_retake.src} className='object-contain w-[55px] mx-3 mb-2'/>
             </div>
+        </div> : 
+
+        <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+        <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+            <div className='space-y-5'>
+                <div className='font-[300] text-sm'>Perfect your car’s interior photo with our expert guide.</div>
+                <Link  href='./advice_interior'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
+            </div>
+            <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/> 
         </div>
+        </div>
+        }
 
         <div className='space-y-3 pt-7'>
          <div ref={divRefs[0]}>
             
-<PhotoFrame Content='Dashboard' isUploaded={dashboardimg !== undefined} photo={ dashboardimg ? dashboardimg : Dashboard}  link ='dashboard'/>
+<PhotoFrame index = {0} updateState={updateState} Content='Dashboard' isUploaded={dashboardimg !== undefined} photo={ dashboardimg ? dashboardimg : Dashboard}  link ='dashboard'/>
         </div>   
         <div ref={divRefs[1]}>
 
-<PhotoFrame Content='Boot' isUploaded={bootimg !== undefined} photo={bootimg ? bootimg : Boot} link ='boot'/>
+<PhotoFrame index = {1} updateState={updateState} Content='Boot' isUploaded={bootimg !== undefined} photo={bootimg ? bootimg : Boot} link ='boot'/>
         </div>
         <div ref={divRefs[2]}>
 
-<PhotoFrame Content='Front seat' isUploaded={frontseatimg !== undefined} photo={frontseatimg ? frontseatimg :  FrontSeat} link ='front_seat'/>
+<PhotoFrame index = {2} updateState={updateState} Content='Front seat' isUploaded={frontseatimg !== undefined} photo={frontseatimg ? frontseatimg :  FrontSeat} link ='front_seat'/>
         </div>
         <div ref={divRefs[3]}>
 
-<PhotoFrame Content='Back seat' isUploaded={backseatimg !== undefined} photo={backseatimg ? backseatimg : BackSeat} link ='back_seat'/>
+<PhotoFrame index = {3} updateState={updateState} Content='Back seat' isUploaded={backseatimg !== undefined} photo={backseatimg ? backseatimg : BackSeat} link ='back_seat'/>
         </div>
         </div>
         

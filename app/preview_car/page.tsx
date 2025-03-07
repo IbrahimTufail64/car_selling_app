@@ -75,7 +75,7 @@ const VehicleExterior = () => {
             const existingVideo = await db.images.where('name').equals('video').first(); 
             console.log(existingVideo);
             // alert(existingVideo?.data);
-            const car_no = Number(localStorage.getItem('car_no'));
+            const car_no = localStorage.getItem('car_no');
             // setVideo(localStorage.getItem(`videoData_${car_no}`));
             if(isSafari()){
     
@@ -95,7 +95,7 @@ const VehicleExterior = () => {
 
         //     const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
         //                 try{
-        //                     const car_no = Number(localStorage.getItem('car_no'));
+        //                     const car_no = localStorage.getItem('car_no');
         //                     const image = await db.images.where('name').equals(image_to_retrieve).first(); 
         //                     if(isSafari()){
         //                         if(image?.data == undefined){
@@ -129,7 +129,7 @@ const VehicleExterior = () => {
 
     useEffect(()=>{ 
         
-        setCarCount(Number(localStorage.getItem('car_no')))
+        setCarCount(String(localStorage.getItem('car_no')))
         const handleRequest = async () => { 
             
 
@@ -169,19 +169,19 @@ const VehicleExterior = () => {
         handleRequest()
     },[])
 
-    const [carCount, setCarCount] = useState(0);
+    const [carCount, setCarCount] = useState('');
 
-    const handleCarCountMinus =() =>{
-        if(carCount > 0){
-            setCarCount(carCount-1);
-        }
-    }
+    // const handleCarCountMinus =() =>{
+    //     if(carCount > 0){
+    //         setCarCount(carCount-1);
+    //     }
+    // }
 
-    const handleCarCountAdd =() =>{
-        if(carCount < 5){
-            setCarCount(carCount+1);
-        }
-    }
+    // const handleCarCountAdd =() =>{
+    //     if(carCount < 5){
+    //         setCarCount(carCount+1);
+    //     }
+    // }
 
 
     // for fetching video: 

@@ -15,7 +15,7 @@ const PreviewCarCompDynamic = ({title,query}:{title: string,query: string}) => {
     
     useEffect(()=>{
         // console.log('what the fuck dude');
-        const car_number = Number(localStorage.getItem('car_no'));
+        const car_number = localStorage.getItem('car_no');
         const retrieve = async (image_to_retrieve:string,setter_function :React.Dispatch<any>)=>{
             try{
                 const images = await db.images

@@ -23,7 +23,7 @@ const VehiclePhotos = () => {
     localStorage.setItem('prevRoute','./vehicle_photos');
     const state = async()=>{
 
-      const car = Number(localStorage.getItem('car_no'));
+      const car = localStorage.getItem('car_no');
       console.log(localStorage.getItem(`vehicle_exterior_complete`));
       const progresst = [
         Number(localStorage.getItem(`vehicle_exterior_complete`)),

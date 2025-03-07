@@ -25,7 +25,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
         const existingVideo = await db.images.where('name').equals('video').first(); 
         console.log(existingVideo);
         // alert(existingVideo?.data);
-        const car_no = Number(localStorage.getItem('car_no'));
+        const car_no = localStorage.getItem('car_no');
         // setVideo(localStorage.getItem(`videoData_${car_no}`));
         if(isSafari()){
 
@@ -37,7 +37,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
 
     // const getVideo = async () => {
     //     const existingVideo = await db.images.where('name').equals('video').first(); 
-    //     const car_no = Number(localStorage.getItem('car_no'));
+    //     const car_no = localStorage.getItem('car_no');
     //     let videoData = existingVideo?.data || localStorage.getItem(`videoData_${car_no}`);
     
     //     if (videoData?.startsWith("data:")) {
@@ -63,7 +63,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
     
     useEffect(()=>{
         setis_safari(isSafari() ? './video_capture_ios' : './video_capture');
-        const car_no = Number(localStorage.getItem('car_no'));
+        const car_no = localStorage.getItem('car_no');
         // const videoElement = document.createElement("video");
         // const canPlay = videoElement.canPlayType("video/x-matroska;codecs=avc1,opus");
         // alert(`canplay:${canPlay}`);
@@ -73,7 +73,7 @@ const VideoFrame = ({Content, isUploaded, photo, link}:{Content:string, isUpload
 
     const handleDelete = async()=>{
         try{
-            const car_no = Number(localStorage.getItem('car_no'));
+            const car_no = localStorage.getItem('car_no');
             await db.images.where('name').equals(link).delete(); 
             localStorage.removeItem(`videoData_${car_no}`)
             window.location.reload();

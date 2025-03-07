@@ -160,7 +160,7 @@ const VideoCapture: React.FC = () => {
         reader.onloadend = () => {
             const base64data = reader.result as string;
             try {
-                const car_no = Number(localStorage.getItem('car_no'));
+                const car_no = localStorage.getItem('car_no');
                 window.localStorage.setItem(`videoData_${car_no}`, base64data);
                 addVideo(base64data)
                 console.log("Video saved to localStorage!");
