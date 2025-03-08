@@ -41,7 +41,13 @@ const Submission7 = () => {
         const progresst = Number(localStorage.getItem('vehicle_photos_complete'))
         console.log(progresst);
         setporgressState(progresst);
-        setCarCount(Number(localStorage.getItem('car_count_id')));
+        if(Number(localStorage.getItem('car_count_id')) && isVendor){
+            setCarCount(Number(localStorage.getItem('car_count_id')));
+
+        }else {
+
+            setCarCount(1);
+        }
         console.log(localStorage.getItem('car_no'))
 
         // setCarCount(car_no === 0 ? 1 : car_no)
@@ -70,6 +76,7 @@ const Submission7 = () => {
                     setretailPrice(data.retailPrice);
                     setmanufacturer(data.manufacturer);
                     setcarId(data.carId);
+                    localStorage.setItem('car_no',String(data.carId[carCount-1]))
                 // }
                 setUserName(data.userName);
                 setProfileImg(data.profileImage);
