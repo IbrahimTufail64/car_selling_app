@@ -1,0 +1,13 @@
+/* @media (orientation: portrait) {
+    .main {
+      transform: rotate(-90deg);
+      transform-origin: center;
+      
+      height: 100vw;
+      width: 100vh;
+      overflow-x: hidden;
+      position: absolute;
+    }
+
+  }
+   */

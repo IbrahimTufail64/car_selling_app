@@ -53,7 +53,7 @@ const PhotoFrame = ({Content, isUploaded, photo, link,updateState,index}:{Conten
                     {!isUploaded && 
                     <div className={`text-[12px] flex space-x-1  `}>
                     <IoAlertCircleOutline className={`${isVendor ? 'text-[#0C0D45]' :'text-[#675DF4]'} rotate-180 w-4 h-4 mt-[1px]`}/>
-                    <div className={`${!isVendor && 'text-[#675DF4]'}`}>Make sure to make in frame</div>
+                    <div className={`${!isVendor && 'text-[#675DF4]'}`}>Make sure it fits in frame!</div>
 
                     </div>}
                     {isUploaded && !is_blured && 

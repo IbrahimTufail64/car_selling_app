@@ -40,7 +40,7 @@ const SurfaceMarks = () => {
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5 pb-3'>
                     <div className='font-[300] text-sm'>Easily identify and report common types of car panel damage.</div>
-                    <div   className='font-[400] text-sm '>see below for smart advice</div>
+                    <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
                 <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>

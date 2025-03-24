@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import { IoChevronBack } from 'react-icons/io5'
 import splash from '@/assets/icons/Rays-small.png'
-
+import './vehicle_health.css'
 import frontC from '@/assets/Front_Damage-modified-modified.png'
 import backC from '@/assets/Back_Damage-modified-modified.png'
 import roofC from '@/assets/Roof_Damage-modified-modified.png'
@@ -205,17 +205,28 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     const {angle,type} = useOrientation();
         useEffect(()=>{
           const portrait = window.matchMedia("(orientation: portrait)").matches;
-          if(portrait){
-                Router.push(`../rotate/${params.slug}_vehicle_health`);
-            }
+
+            // window.addEventListener('orientationchange', () => {
+                if(portrait){
+                    Router.push(`../rotate/${params.slug}_vehicle_health`);
+                }
+            //   });
         },[angle])
 
-    setInterval(() => {
         const portrait = window.matchMedia("(orientation: portrait)").matches;
-          if(portrait){
+
+        window.addEventListener('orientationchange', () => {
+            if(portrait){
                 Router.push(`../rotate/${params.slug}_vehicle_health`);
             }
-    }, 300);
+          });
+
+    // setInterval(() => {
+    //     const portrait = window.matchMedia("(orientation: portrait)").matches;
+    //       if(portrait){
+    //             Router.push(`../rotate/${params.slug}_vehicle_health`);
+    //         }
+    // }, 300);
 
     const handleSubmit = async (event:any) => { 
         // event.preventDefault(); 
@@ -303,7 +314,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
 
   return (
-    <div className='' ref={ScreenshotRef}>
+    <div className='main' ref={ScreenshotRef}>
         
         {/* <img className='w-full h-full absolute' src={image}/> */}
          <div  className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary text-[#101044]'} relative w-[100vw] min-h-[100vh] overflow-hidden flex flex-col justify-between`} >
@@ -445,7 +456,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                  >
                 <div className='flex space-x-2' >
                 Confirm 
-                <img src={splash.src}/>
+                <img src={splash.src} className='pt-[3px]'/>
                 </div>
                 </button>
                 </div>

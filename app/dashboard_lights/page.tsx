@@ -106,7 +106,7 @@ const SurfaceMarks = () => {
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-5'>
-                    <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
+                    <div className='font-[300] text-sm'>Need help prepping a dashboard lights on image? Check out our guide!</div>
                     <Link  href='./advice_dashboard_lights'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>

@@ -190,20 +190,20 @@ const handleSubmit = async (event:any) => {
 
         <div className='space-y-3 py-7'>
             <div ref={divRefs[0]}> 
-            <PhotoFrame  Content='Front Driver Corner' updateState={updateState} index = {0} isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
+            <PhotoFrame  Content='Front driver corner' updateState={updateState} index = {0} isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
             </div>
             <div ref={divRefs[1]}> 
-            <PhotoFrame Content='Front Passenger Corner' updateState={updateState} index = {1} isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
+            <PhotoFrame Content='Front passenger corner' updateState={updateState} index = {1} isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
             </div>
             <div ref={divRefs[2]}>
-            <PhotoFrame Content='Back Driver Corner' updateState={updateState} index = {2} isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
+            <PhotoFrame Content='Back driver corner' updateState={updateState} index = {2} isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
             </div>
             <div ref={divRefs[3]}>
-            <PhotoFrame Content='Back Passenger Corner' updateState={updateState} index = {3} isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
+            <PhotoFrame Content='Back passenger corner' updateState={updateState} index = {3} isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
             </div>
         </div>
         
-        <div className='p-5 pt-2 fixed bottom-0 w-full'>
+        <div className={`p-5 pt-4 fixed bottom-0 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'} `}>
             <Link href='./vehicle_photos' onClick={handleSubmit} className={` w-full flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Continue</div>

@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import demoPic from '@/assets/icons/DemoPic.png'
-import underline from '@/assets/underline_mark.png'
+import underline from '@/assets/underline_green.png'
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import logo from '@/assets/icons/logo.png'
@@ -29,6 +29,10 @@ const Submission2 = () => {
     const [profileImg,setProfileImg] = useState<any>();
     const [userId,setUserId] = useState('');
     const [popup,setpopup] = useState(false);
+
+    function formatNumber(num: Number) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     useEffect(()=>{ 
         
@@ -155,9 +159,9 @@ const Submission2 = () => {
                     </div>
                 </div>
                 <div className='text-[46px] font-[400] relative text-center w-full'>
-                    <div className='font-[500]'>£ {estimatedPrice[carCount-1]}</div>
+                    <div className='font-[500]'>£ {formatNumber(Number(estimatedPrice[carCount-1]))}</div>
                     <div className='w-full flex justify-center -mt-3'>
-                    <img src={underline.src} className='w-[180px]'/>
+                    <img src={underline.src} className='w-[200px]'/>
                     </div>
                 </div>
                 {isVendor && 

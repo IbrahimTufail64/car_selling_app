@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import demoPic from '@/assets/icons/DemoPic.png'
-import underline from '@/assets/underline_mark.png'
+import underline from '@/assets/underline_green.png'
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import chat from '@/assets/icons/char.png'
@@ -14,6 +14,7 @@ import LogoWhite from '@/assets/LogoWhite.png'
 import CalculateState from '../Context/State';
 import { db } from '../Local_DB/db';
 import axios from 'axios';
+import logo from '@/assets/Logo.png'
 
 const Submission7 = () => {
     const [value, setValue] = useState(20); 
@@ -33,6 +34,11 @@ const Submission7 = () => {
     const [userId,setUserId] = useState('');
     const [progressState,setporgressState] = useState(0)
 
+
+    function formatNumber(num: Number) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     useEffect(()=>{ 
         localStorage.setItem('prevRoute','./Submission7');
         // localStorage.removeItem('car_no');
@@ -41,13 +47,13 @@ const Submission7 = () => {
         const progresst = Number(localStorage.getItem('vehicle_photos_complete'))
         console.log(progresst);
         setporgressState(progresst);
-        if(Number(localStorage.getItem('car_count_id')) && isVendor){
+        // if(Number(localStorage.getItem('car_count_id')) && isVendor){
             setCarCount(Number(localStorage.getItem('car_count_id')));
 
-        }else {
+        // }else {
 
-            setCarCount(1);
-        }
+        //     setCarCount(1);
+        // }
         console.log(localStorage.getItem('car_no'))
 
         // setCarCount(car_no === 0 ? 1 : car_no)
@@ -116,7 +122,8 @@ const Submission7 = () => {
 
 
     useEffect(()=>{
-        const car_no = localStorage.getItem('car_no'); 
+        const car_no = localStorage.getItem('car_count_id'); 
+        console.log(car_no,'car_no')
         console.log(localStorage.getItem(`vehicle_photos_state_${car_no}`));
         setvehiclePhotosState(localStorage.getItem(`vehicle_photos_state_${car_no}`)==='true');
         setserviceRecordsState(localStorage.getItem(`service_records_state_${car_no}`)==='true');
@@ -132,12 +139,22 @@ const Submission7 = () => {
                 
                 <div className='bg-tertiary w-[46px] text-[14px] mt-4 flex justify-center items-center text-[#000000] h-[22px] rounded-full'>Hub</div>
                 
-            </div>)
+            </div>) 
         }
+
         <div className='flex justify-center w-full'>
             <div className={`${!isVendor && 'bg-[#FFFFFF]' } w-[93vw] rounded-xl mt-3`}>
+
+            {!isVendor && 
+             <>
+             <div className='flex w-full justify-center space-x-2 pt-5'>
+             <img src={logo.src} className='h-14'/>
+             </div>
+             </>}
+
                 <div className='w-full flex justify-center'>
                 <div className='w-full flex justify-center py-3'>
+                    
 
 <div className={`${isVendor ? 'bg-[#242557] border-[#646488]': 'bg-[#ECF1FD] border-[#D3D4FD]' } border-2  border-dashed w-[86vw] rounded-xl my-3 pb-4`}>
 
@@ -151,9 +168,9 @@ const Submission7 = () => {
     </div>
 </div>
 <div className='text-[46px] font-[400] relative text-center w-full'>
-    <div className='font-[500]'>£ {estimatedPrice[carCount-1]}</div>
+    <div className='font-[500]'>£ {formatNumber(Number(estimatedPrice[carCount-1]))}</div>
     <div className='w-full flex justify-center -mt-3'>
-    <img src={underline.src} className='w-[180px]'/>
+    <img src={underline.src} className='w-[200px]'/>
     </div>
 </div>
 {isVendor && 
@@ -223,10 +240,11 @@ const Submission7 = () => {
 
                         <div className='flex'>
                         <div className='text-[28px]'>
-                            0{carCount}/
+                            {carCount < 9 ? `0${carCount}` : carCount}/
                         </div>
                         <div className='opacity-40 text-[20px] pl-2 pt-3'>
-                            0{estimatedPrice.length}
+                        {estimatedPrice.length < 9 ? `0${estimatedPrice.length}` : estimatedPrice.length}
+                            
                         </div>
                         </div>
 

@@ -16,7 +16,8 @@ const FurtherDetails = () => {
     const {isVendor} = useAppContext() 
     const [checked, setChecked] = useState(false);
     const [inputText, setInputText] = useState('');
-    
+    const [red_outline,set_red_outline] = useState(false);
+
     const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     const color = !isVendor ? '#695DFD' :'#FFFFFF'
     const sx = {
@@ -33,7 +34,8 @@ const FurtherDetails = () => {
         try {
             console.log('what the ')
             if(inputText === '' && checked) {
-                alert('Please enter a description before submitting!')
+                set_red_outline(true);
+                // alert('Please enter a description before submitting!')
                 return;
             }
             const car = localStorage.getItem('car_no');
@@ -141,7 +143,9 @@ const FurtherDetails = () => {
                     <textarea
                     value={inputText}
                     onChange={(e)=>setInputText(e.target.value)}
-                    className={`${isVendor ? 'bg-[#3D3D6A] border-[#646488] text-white placeholder:text-white' : ' bg-white border-[#D3D4FD]'} w-[90vw] px-4 max-h-[200px] min-h-[200px] border  border-2 text-[20px] rounded-lg p-2  focus:outline-none focus:ring-2 focus:ring-[#646488] `}
+                    className={`${isVendor ? `bg-[#3D3D6A] ${ red_outline ? 'border-[#dc3e3e]':'border-[#646488]'} text-white placeholder:text-white` : 
+                        `bg-white  ${ red_outline ? 'border-[#dc3e3e]':'border-[#D3D4FD]'}`}
+                     w-[90vw] px-4 max-h-[200px] min-h-[200px] border  border-2 text-[20px] rounded-lg p-2  focus:outline-none  `}
                     placeholder="Type here"
                     />
                 </div>

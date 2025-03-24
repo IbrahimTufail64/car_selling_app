@@ -191,7 +191,7 @@ const handleSubmit = async (event:any) => {
 
 
 
-        <div className='p-5 pt-2 fixed bottom-0 w-full'>
+        <div className={`p-5 pt-4 fixed bottom-0 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
             <Link href='./vehicle_photos' onClick={handleSubmit} className={` w-full flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Continue</div>

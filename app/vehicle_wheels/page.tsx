@@ -229,42 +229,42 @@ const handleSubmit = async (event:any) => {
 
             <div ref={divRefs[0]}>
               
-            <PhotoFrame updateState = {updateState} index = {0} Content='Back Driver Wheel' isUploaded={back_driver_wheel_img !== undefined} photo={ back_driver_wheel_img ? back_driver_wheel_img : BackDriverWheel}  link ='back_driver_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {0} Content='Back driver wheel' isUploaded={back_driver_wheel_img !== undefined} photo={ back_driver_wheel_img ? back_driver_wheel_img : BackDriverWheel}  link ='back_driver_wheel'/>
             </div>
             <div ref={divRefs[1]}>
               
-            <PhotoFrame updateState = {updateState} index = {1} Content='Back Driver Tyre' isUploaded={back_driver_tyre_img !== undefined} photo={back_driver_tyre_img ? back_driver_tyre_img : BackDriverTyre} link ='back_driver_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {1} Content='Back driver tyre' isUploaded={back_driver_tyre_img !== undefined} photo={back_driver_tyre_img ? back_driver_tyre_img : BackDriverTyre} link ='back_driver_tyre'/>
             </div>
             <div ref={divRefs[2]}>
               
-            <PhotoFrame updateState = {updateState} index = {2} Content='Back Passenger Wheel' isUploaded={back_passenger_wheel_img !== undefined} photo={back_passenger_wheel_img ? back_passenger_wheel_img :  BackPassengerWheel} link ='back_passenger_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {2} Content='Back passenger wheel' isUploaded={back_passenger_wheel_img !== undefined} photo={back_passenger_wheel_img ? back_passenger_wheel_img :  BackPassengerWheel} link ='back_passenger_wheel'/>
             </div>
             <div ref={divRefs[3]}>
               
-            <PhotoFrame updateState = {updateState} index = {3} Content='Back Passenger Tyre' isUploaded={back_passenger_tyre_img !== undefined} photo={back_passenger_tyre_img ? back_passenger_tyre_img : BackPassengerTyre} link ='back_passenger_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {3} Content='Back passenger tyre' isUploaded={back_passenger_tyre_img !== undefined} photo={back_passenger_tyre_img ? back_passenger_tyre_img : BackPassengerTyre} link ='back_passenger_tyre'/>
             </div>
 
             <div ref={divRefs[4]}>
               
-            <PhotoFrame updateState = {updateState} index = {4} Content='front Driver Wheel' isUploaded={front_driver_wheel_img !== undefined} photo={ front_driver_wheel_img ? front_driver_wheel_img : FrontDriverWheel}  link ='front_driver_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {4} Content='Front driver wheel' isUploaded={front_driver_wheel_img !== undefined} photo={ front_driver_wheel_img ? front_driver_wheel_img : FrontDriverWheel}  link ='front_driver_wheel'/>
             </div>
             <div ref={divRefs[5]}>
               
-            <PhotoFrame updateState = {updateState} index = {5} Content='front Driver Tyre' isUploaded={front_driver_tyre_img !== undefined} photo={front_driver_tyre_img ? front_driver_tyre_img : FrontDriverTyre} link ='front_driver_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {5} Content='Front driver tyre' isUploaded={front_driver_tyre_img !== undefined} photo={front_driver_tyre_img ? front_driver_tyre_img : FrontDriverTyre} link ='front_driver_tyre'/>
             </div>
             <div ref={divRefs[6]}>
               
-            <PhotoFrame updateState = {updateState} index = {6} Content='front Passenger Wheel' isUploaded={front_passenger_wheel_img !== undefined} photo={front_passenger_wheel_img ? front_passenger_wheel_img :  FrontPassengerWheel} link ='front_passenger_wheel'/>
+            <PhotoFrame updateState = {updateState} index = {6} Content='Front passenger wheel' isUploaded={front_passenger_wheel_img !== undefined} photo={front_passenger_wheel_img ? front_passenger_wheel_img :  FrontPassengerWheel} link ='front_passenger_wheel'/>
             </div>
             <div ref={divRefs[7]}>
               
-            <PhotoFrame updateState = {updateState} index = {7} Content='front Passenger Tyre' isUploaded={front_passenger_tyre_img !== undefined} photo={front_passenger_tyre_img ? front_passenger_tyre_img : FrontPassengerTyre} link ='front_passenger_tyre'/>
+            <PhotoFrame updateState = {updateState} index = {7} Content='Front passenger tyre' isUploaded={front_passenger_tyre_img !== undefined} photo={front_passenger_tyre_img ? front_passenger_tyre_img : FrontPassengerTyre} link ='front_passenger_tyre'/>
             </div>
         </div>
         
 
 
-        <div className='p-5 pt-2 fixed bottom-0 w-full'>
+        <div className={`p-5 pt-4 fixed bottom-0 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
             <div onClick={handleSubmit} className={` w-full flex justify-center font-[600] text-[22px] rounded-[6px] space-x-2 px-5 py-5 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1'>
                         <div>Continue</div>

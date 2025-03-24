@@ -19,6 +19,10 @@ const Confirmationdfagagd= () => {
     const [user_name,setuser_name] = useState('');
     const [price,setprice] = useState(0);
 
+    function formatNumber(num: Number) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
       useEffect(()=>{ 
         setuserId(String(localStorage.getItem('userId')));
         setsaletag(String(localStorage.getItem('saletag')))
@@ -96,9 +100,9 @@ const Confirmationdfagagd= () => {
                     <div className='pt-3 text-lg text-center'>Your estimated sales price</div>  
                 </div>
                 <div className='text-[46px] font-[400] relative text-center w-full'>
-                    <div className='font-[500]'>£ {price}</div>
+                    <div className='font-[500]'>£ {formatNumber(Number(price))}</div>
                     <div className='w-full flex justify-center'>
-                    <img src={underline.src} className=''/>
+                    <img src={underline.src} className='-mt-3 object-contain w-[200px]'/>
                     </div>
                     {isVendor && 
                     <div className='w-full flex justify-center mt-3 text-[12px] text-[#99F22B] underline'><Link href='#'>I don’t want to proceed with this car</Link></div>}

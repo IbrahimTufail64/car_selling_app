@@ -47,7 +47,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Easily identify exterior wear & tear.</div>
                     <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
-                <img src={carS.src} className='object-contain '/>
+                <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
 

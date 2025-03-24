@@ -47,7 +47,7 @@ const PhotoFrameDynamic = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
                     <div className='font-[400]'>{Content}</div>
                     <div className={`text-[12px] flex space-x-1  ${isVendor ? 'text-white' : '  text-fourth'}`}>
                         <div><img src={isVendor ? alert.src : Alert.src} /></div>
-                        <div>Make sure to make in frame</div>
+                        <div>Make sure photos are well-lit</div>
                     </div>
                 </div>
                 <div className='pt-1'>

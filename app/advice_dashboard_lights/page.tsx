@@ -93,7 +93,7 @@ const SurfaceMarks = () => {
         <div className='p-5 pt-0 w-full'>
         <Link href='./vehicle_health_selection' onClick={()=>{localStorage.setItem(`dashboard_lights_state_${car}`,'true');}} className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
             <div className='flex space-x-1 text-xl'>
-                <div>No Damage</div>
+                <div>No lights on</div>
             </div>
         </Link>
         

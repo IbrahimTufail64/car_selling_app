@@ -180,7 +180,7 @@ const SmartAdvice = () => {
           </div>
         </div>
       
-        <div className={`w-full fixed flex justify-center bottom-0`}>
+        <div className={` fixed bottom-0 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
           <div className='p-5 w-full'>
                 <Link href='./camera_filter/dashboard' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
