@@ -20,6 +20,7 @@ import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import axios from 'axios';
+import PhotoFrameReturn from '../components/PhotoFrameReturn';
 // import measureBlur from '../Blur_Detection/measureBlur';
 
 
@@ -31,6 +32,7 @@ const VehicleExterior = () => {
     const [backDimg, setbackDimg]  = useState<any>(null);
     const [backPimg, setbackPimg]  = useState<any>(null);
     const [blur_count, set_blur_count] = useState(0);
+    const [counter_state, setCounter_state] = useState(0);
     const [blured_images,set_blured_images] = useState([
       false,
       false,
@@ -77,6 +79,7 @@ const VehicleExterior = () => {
                         
                     }
                 };
+                
         retrieve('front_driver',setfrontDimg);
         retrieve('front_passenger',setfrontPimg);
         retrieve('back_driver',setbackDimg);
@@ -84,6 +87,7 @@ const VehicleExterior = () => {
 
         setTimeout(() => {
             console.log(counter,'cc')
+            setCounter_state(counter);
             console.log(car,'asdf')
             localStorage.setItem(`vehicle_exterior_complete`,String(Math.floor((counter/4)*100)));
             console.log(String(Math.floor((counter/4)*100)));
@@ -117,8 +121,8 @@ const handleSubmit = async (event:any) => {
     const url:any = process.env.NEXT_PUBLIC_API_URL ;
     const token = localStorage.getItem('token');
     try {
-        if(!frontDimg || !backDimg || !frontPimg || !backPimg){
-            alert('Please upload all images before proceeding!')
+        if(!frontDimg || !backDimg || !frontPimg || !backPimg || blur_count > 0){
+            alert('Please upload all images or reupload blured images before proceding')
             return;
         }
         if(blur_count > 0){
@@ -190,16 +194,16 @@ const handleSubmit = async (event:any) => {
 
         <div className='space-y-3 py-7'>
             <div ref={divRefs[0]}> 
-            <PhotoFrame  Content='Front driver corner' updateState={updateState} index = {0} isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
+            <PhotoFrameReturn return_link={counter_state >0 ? 'vehicle_exterior':'chain'}  Content='Front driver corner' updateState={updateState} index = {0} isUploaded={frontDimg !== undefined} photo={ frontDimg ? frontDimg : FrontDriver}  link ='front_driver'/>
             </div>
             <div ref={divRefs[1]}> 
-            <PhotoFrame Content='Front passenger corner' updateState={updateState} index = {1} isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
+            <PhotoFrameReturn return_link='vehicle_exterior' Content='Front passenger corner' updateState={updateState} index = {1} isUploaded={frontPimg !== undefined} photo={frontPimg ? frontPimg : FrontPassen} link ='front_passenger'/>
             </div>
             <div ref={divRefs[2]}>
-            <PhotoFrame Content='Back driver corner' updateState={updateState} index = {2} isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
+            <PhotoFrameReturn return_link='vehicle_exterior' Content='Back driver corner' updateState={updateState} index = {2} isUploaded={backDimg !== undefined} photo={backDimg ? backDimg :  BackDriver} link ='back_driver'/>
             </div>
             <div ref={divRefs[3]}>
-            <PhotoFrame Content='Back passenger corner' updateState={updateState} index = {3} isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
+            <PhotoFrameReturn return_link='vehicle_exterior' Content='Back passenger corner' updateState={updateState} index = {3} isUploaded={backPimg !== undefined} photo={backPimg ? backPimg : BackPassen} link ='back_passenger'/>
             </div>
         </div>
         

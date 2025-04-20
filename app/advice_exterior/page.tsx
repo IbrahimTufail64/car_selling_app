@@ -116,7 +116,7 @@ const SmartAdvice = () => {
 
         <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark' : 'bg-secondary'}`}>
           <div className='p-5 w-full'>
-                <Link href='./camera_filter/front_driver' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                <Link href='./camera_filter/front_driver-chain' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Take photos</div>
                         <img src={splash.src}/>

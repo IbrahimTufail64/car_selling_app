@@ -19,6 +19,7 @@ import splash from '@/assets/icons/Rays-small.png'
 import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import axios from 'axios';
+import PhotoFrameReturn from '../components/PhotoFrameReturn';
 
 
 const VehicleInterior = () => {
@@ -35,6 +36,7 @@ const VehicleInterior = () => {
           false,
           false
         ])
+    const [counter_state, setCounter_state] = useState(0);
 
             // for updating blur state of images
     const updateState = (index: number, value: boolean) => {
@@ -82,6 +84,7 @@ const VehicleInterior = () => {
 
         setTimeout(() => {
             console.log(counter,'cc')
+            setCounter_state(counter);
             localStorage.setItem(`vehicle_interior_complete`,String(Math.floor((counter/4)*100)));
             const Index = counter - 1; // Adjust for zero-based index
             if (divRefs[Index].current) {
@@ -107,8 +110,8 @@ const handleSubmit = async (event:any) => {
     const url:any = process.env.NEXT_PUBLIC_API_URL ;
     const token = localStorage.getItem('token');
     try {
-        if(!dashboardimg || !frontseatimg || !bootimg || !backseatimg){
-            alert('Please upload all images before proceding')
+        if(!dashboardimg || !frontseatimg || !bootimg || !backseatimg || blur_count > 0){
+            alert('Please upload all images or reupload blured images before proceding')
             return;
         }
         const car = localStorage.getItem('car_no');
@@ -172,19 +175,19 @@ const handleSubmit = async (event:any) => {
         <div className='space-y-3 pt-7'>
          <div ref={divRefs[0]}>
             
-<PhotoFrame index = {0} updateState={updateState} Content='Dashboard' isUploaded={dashboardimg !== undefined} photo={ dashboardimg ? dashboardimg : Dashboard}  link ='dashboard'/>
+<PhotoFrameReturn return_link={counter_state >0 ? 'vehicle_interior':'chain'} index = {0} updateState={updateState} Content='Dashboard' isUploaded={dashboardimg !== undefined} photo={ dashboardimg ? dashboardimg : Dashboard}  link ='dashboard'/>
         </div>   
         <div ref={divRefs[1]}>
 
-<PhotoFrame index = {1} updateState={updateState} Content='Boot' isUploaded={bootimg !== undefined} photo={bootimg ? bootimg : Boot} link ='boot'/>
+<PhotoFrameReturn return_link='vehicle_interior' index = {1} updateState={updateState} Content='Boot' isUploaded={bootimg !== undefined} photo={bootimg ? bootimg : Boot} link ='boot'/>
         </div>
         <div ref={divRefs[2]}>
 
-<PhotoFrame index = {2} updateState={updateState} Content='Front seat' isUploaded={frontseatimg !== undefined} photo={frontseatimg ? frontseatimg :  FrontSeat} link ='front_seat'/>
+<PhotoFrameReturn return_link='vehicle_interior' index = {2} updateState={updateState} Content='Front seat' isUploaded={frontseatimg !== undefined} photo={frontseatimg ? frontseatimg :  FrontSeat} link ='front_seat'/>
         </div>
         <div ref={divRefs[3]}>
 
-<PhotoFrame index = {3} updateState={updateState} Content='Back seat' isUploaded={backseatimg !== undefined} photo={backseatimg ? backseatimg : BackSeat} link ='back_seat'/>
+<PhotoFrameReturn return_link='vehicle_interior' index = {3} updateState={updateState} Content='Back seat' isUploaded={backseatimg !== undefined} photo={backseatimg ? backseatimg : BackSeat} link ='back_seat'/>
         </div>
         </div>
         

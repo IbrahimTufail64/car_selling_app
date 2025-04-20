@@ -26,7 +26,7 @@ import BackPassengerTyre from '@/assets/PNG-Back-Passenger-Tyre-Tread.png'
 import FrontDriverWheel from '@/assets/PNG-Front-Driver-WheelPNG-Front-Driver-Wheel.png'
 import FrontDriverTyre from '@/assets/PNG-Front-Driver-Tyre-Tread.png'
 import FrontPassengerWheel from '@/assets/PNG-Front-Passenger-Wheel.png'
-import FrontPassengerTyre from '@/assets/PNG-Back-Passenger-Tyre-Tread.png'
+import FrontPassengerTyre from '@/assets/PNG-Front-Passenger-Tyre-Tread.png'
 
 import emptyFilter from '@/assets/emptyFilter.png'
 
@@ -47,6 +47,16 @@ const lookup_table_wheels:any = {
   'front_passenger_wheel': FrontPassengerWheel,
   'front_passenger_tyre': FrontPassengerTyre
 }
+const lookup_wheels_return:any = {
+  'back_driver_wheel': 'camera_filter/back_driver_tyre-chain',
+  'back_driver_tyre':'camera_filter/back_passenger_wheel-chain',
+  'back_passenger_wheel': 'camera_filter/back_passenger_tyre-chain',
+  'back_passenger_tyre': 'camera_filter/front_driver_wheel-chain',
+  'front_driver_wheel': 'camera_filter/front_driver_tyre-chain',
+  'front_driver_tyre':'camera_filter/front_passenger_wheel-chain',
+  'front_passenger_wheel': 'camera_filter/front_passenger_tyre-chain',
+  'front_passenger_tyre': 'vehicle_wheels'
+}
 
 const lookup_table_exterior:any = {
   'back_driver': BackDriver,
@@ -54,12 +64,24 @@ const lookup_table_exterior:any = {
   'front_driver': FrontDriver,
   'front_passenger': FrontPassen
 }
+const lookup_exterior_return:any = {
+  'front_driver': 'camera_filter/front_passenger-chain',
+  'front_passenger': 'camera_filter/back_driver-chain',
+  'back_driver': 'camera_filter/back_passenger-chain',
+  'back_passenger':'vehicle_exterior',
+}
 
 const lookup_table_interior:any = {
   'dashboard': dashboard,
   'boot':boot,
   'front_seat': frontSeat,
   'back_seat': backSeat
+}
+const lookup_interior_return:any = {
+  'dashboard': 'camera_filter/boot-chain',
+  'boot':'camera_filter/front_seat-chain',
+  'front_seat': 'camera_filter/back_seat-chain',
+  'back_seat': 'vehicle_interior'
 }
 
 
@@ -171,21 +193,35 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     const imageUrl = link[0];
     // console.log(imageUrl)
     let adviceLink = '';
+    let filterSize = "w-[65vw] mt-10"; 
 
-    let returnLink = '';
+    let returnLink = link[1];
     let car_filter = lookup_table_exterior[imageUrl];
-    returnLink = 'vehicle_exterior';
+    if(returnLink === 'chain' && car_filter !== undefined){
+
+      returnLink = lookup_exterior_return[imageUrl];
+    }
     adviceLink = 'advice_exterior';
 
     if(car_filter === undefined){
       car_filter = lookup_table_interior[imageUrl];
-      returnLink = 'vehicle_interior';
+      if(returnLink === 'chain' && car_filter !== undefined){
+        returnLink = lookup_interior_return[imageUrl];
+      }
       adviceLink = 'advice_interior';
+      filterSize = "w-[95vw] overflow-hidden"; 
     }
 
     if(car_filter === undefined){
       car_filter = lookup_table_wheels[imageUrl];
-      returnLink = 'vehicle_wheels';
+      if(returnLink === 'chain' && car_filter !== undefined){
+        returnLink = lookup_wheels_return[imageUrl];
+      }
+      filterSize = "w-[75vw] mr-10 overflow-hidden"; 
+      if(imageUrl.includes('tyre')){
+        filterSize = "w-[60vw] mr-10 overflow-hidden"; 
+      }
+  
       adviceLink = 'advice_vehicle_wheels';
     }
 
@@ -277,9 +313,12 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         
 
         <div className='absolute z-10 w-[100vw] h-[100vh] flex justify-center items-center ' >
-            <img src={car_filter.src} className={` ${returnLink === 'vehicle_wheels' ? 
-              `${imageUrl.includes("wheel") ? 'w-[65vw]' : 'w-[37vw]' } mt-10` :
-              `${returnLink === 'vehicle_interior' ? 'w-[40vw]' : 'w-[70vw]'}`}`}/>
+            <img src={car_filter.src} 
+            className={`${filterSize}`}
+            // className={` ${returnLink === 'vehicle_wheels' ? 
+            //   `${imageUrl.includes("wheel") ? 'w-[65vw]' : 'w-[37vw]' } mt-10` :
+            //   `${returnLink === 'vehicle_interior' ? 'w-[40vw]' : 'w-[70vw]'}`}`}
+              />
         </div>
 
         <div className="-z-10">
