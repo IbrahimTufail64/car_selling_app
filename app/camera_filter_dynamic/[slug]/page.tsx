@@ -113,7 +113,22 @@ const Filter = ({ params }: { params: { slug: string } }) => {
     const {angle,type} = useOrientation(); 
     const router = useRouter(); 
 
+    const requestPermission = async (): Promise<boolean> => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        stream.getTracks().forEach(track => track.stop()); // Immediately stop tracks after getting permission
+        return true;
+      } catch (error) {
+        console.error("Permission denied:", error);
+        return false;
+      }
+    };
+
     useEffect(()=>{
+      const handlePermission = async () => {
+        const permissionGranted = await requestPermission();
+      }
+      handlePermission();
       setCar_no(String(localStorage.getItem('car_no')));
       const portrait = window.matchMedia("(orientation: portrait)").matches;
       if(portrait){

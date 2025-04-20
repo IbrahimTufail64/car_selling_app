@@ -15,6 +15,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import ExampleImage from '@/assets/ExamplePlaceHolder.png'
 import PhotoFrameServiceAdd from '../components/PhotoFrameServiceAdd';
 import axios from 'axios';
+import alert_retake from '@/assets/alert_retake.png'
 
 const ServiceRecordsCapture = () => {
     const Router = useRouter();
@@ -26,6 +27,20 @@ const ServiceRecordsCapture = () => {
 
     const {isVendor} = useAppContext();
     const Alert = isVendor ? alertWhite : alertblue;
+
+                const [blur_count, set_blur_count] = useState(0);
+                const [blured_images,set_blured_images] = useState<Boolean[]>([])
+        
+                const updateState = (index: number, value: boolean) => {
+                  let temp = blured_images;
+                  temp[index] = value
+                  set_blured_images(temp);
+                  let count = 0;
+                  temp.map((e)=>{
+                    e && count++
+                  })
+                  set_blur_count(count);
+                };
     // Search for images in the db: 
     useEffect(()=>{
         localStorage.setItem('prevRoute','./service_records');
@@ -81,7 +96,7 @@ const ServiceRecordsCapture = () => {
         const url:any = process.env.NEXT_PUBLIC_API_URL ;
         const token = localStorage.getItem('token');
         try {
-            if(images.length < 3){ 
+            if(images.length < 3 || blur_count > 0){ 
                 alert('Please upload required images before proceeding')
                 return;
             }
@@ -112,6 +127,19 @@ const ServiceRecordsCapture = () => {
             <Link  href='./service_manuals_keys'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Service, manuals and keys</div>
         </div>
+
+        {
+          (blur_count > 0) ?
+          <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#FFD1D1] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-2'>
+                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo requires attention' : 'photos require attention'} </div>
+                    <div className='font-[300] text-sm'>Retake and reupload</div>
+                </div>
+                <img src={alert_retake.src} className='object-contain w-[55px] mx-3 mb-2'/>
+            </div>
+        </div> :
+
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg pb-2'>
                 <div className='space-y-5'>
@@ -121,6 +149,7 @@ const ServiceRecordsCapture = () => {
                 <img src={car.src} className=' object-contain w-[35vw] md:w-[20vw]'/>
             </div>
         </div>
+}
 
          <div className='flex justify-center w-full'>
             <div className={`border-[1px] ${isVendor ? 'border-[#3D3D6A]': 'border-[#D3D4FD]'} mt-7 w-[90%] rounded-lg p-3 font-[300] flex justify-between space-x-10 px-7`}>
@@ -144,7 +173,7 @@ const ServiceRecordsCapture = () => {
 
 <div className='space-y-3 pt-7'>
             {!hasRenderedValidElement &&  
-                    <PhotoFrameServiceAdd image_name='service_records' Car_no={car_no} DynamicImageNo={1} Content='Service history' isUploaded={false} photo={ ExampleImage}  return_link ='service_records'/>
+                    <PhotoFrameServiceAdd image_name='service_records' Car_no={car_no} DynamicImageNo={1} Content='Service history' isUploaded={false} photo={ ExampleImage}  return_link ='service_records' />
 
             }
         <div className="embla overflow-hidden mx-2">
@@ -164,6 +193,7 @@ const ServiceRecordsCapture = () => {
                                     isUploaded={e !== null}
                                     photo={e ? e.data : ExampleImage}
                                     return_link="service_records"
+                                    updateState={updateState}
                                 />
                             </div>
                         )
@@ -178,6 +208,7 @@ const ServiceRecordsCapture = () => {
                         isUploaded={false}
                         photo={ExampleImage}
                         return_link="service_records"
+                        updateState={updateState}
                     />
                 )}
           </div>
@@ -208,18 +239,18 @@ const ServiceRecordsCapture = () => {
          {/* <PhotoFrameService Content='Add service history' isUploaded={serviceRecords1 !== null} photo={ serviceRecords1 ? serviceRecords1 : serviceRecords}  link ='service_records1'/> */}
          {images.some( e => e.dynamic_image_number === 100) ? images.map((e,i)=>{
                 return ( e.dynamic_image_number === 100 &&
-                    <div className="embla__slide "><PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Add manuals' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='service_records'/></div>
+                    <div className="embla__slide "><PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Add manuals' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='service_records' updateState={updateState}/></div>
                 )    
             }):
-            <PhotoFrameService Content='Add manuals' image_name='service_records' Car_no={car_no} DynamicImageNo={100} isUploaded={false} photo={  ExampleImage}  return_link ='service_records'/>
+            <PhotoFrameService Content='Add manuals' image_name='service_records' Car_no={car_no} DynamicImageNo={100} isUploaded={false} photo={  ExampleImage}  return_link ='service_records' updateState={updateState}/>
 
             }
          {images.some( e => e.dynamic_image_number === 101) ? images.map((e,i)=>{
                 return ( e.dynamic_image_number === 101 &&
-                    <div className="embla__slide "><PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Add keys' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='service_records'/></div>
+                    <div className="embla__slide "><PhotoFrameService image_name='service_records' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Add keys' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='service_records' updateState={updateState}/></div>
                 )    
             }):
-            <PhotoFrameService Content='Add keys' image_name='service_records' Car_no={car_no} DynamicImageNo={101} isUploaded={false} photo={ExampleImage}  return_link ='service_records'/>
+            <PhotoFrameService Content='Add keys' image_name='service_records' Car_no={car_no} DynamicImageNo={101} isUploaded={false} photo={ExampleImage}  return_link ='service_records' updateState={updateState}/>
 
             }
 

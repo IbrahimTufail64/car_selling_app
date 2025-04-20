@@ -167,7 +167,7 @@ const handleSubmit = async (event:any) => {
           <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#FFD1D1] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-2'>
-                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo' : 'photos'} requires attention</div>
+                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo requires attention' : 'photos require attention'}</div>
                     <div className='font-[300] text-sm'>Retake and reupload</div>
                 </div>
                 <img src={alert_retake.src} className='object-contain w-[55px] mx-3 mb-2'/>

@@ -122,7 +122,7 @@ const Submission7 = () => {
 
 
     useEffect(()=>{
-        const car_no = localStorage.getItem('car_count_id'); 
+        const car_no = localStorage.getItem('car_no'); 
         console.log(car_no,'car_no')
         console.log(localStorage.getItem(`vehicle_photos_state_${car_no}`));
         setvehiclePhotosState(localStorage.getItem(`vehicle_photos_state_${car_no}`)==='true');

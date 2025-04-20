@@ -9,14 +9,14 @@ import { db } from '../Local_DB/db';
 import { useAppContext } from '../Context';
 import { useRouter } from 'next/navigation';
 import BackDriverWheelC from '@/assets/back_driver_wheel.png'
-import BackDriverTyreC from '@/assets/back_driver_tyre.png'
+import BackDriverTyreC from '@/assets/back_driver_tyre_c_mod.jpg'
 import BackPassengerWheelC from '@/assets/back_passenger_wheel.png'
-import BackPassengerTyreC from '@/assets/back_passenger_tyre.png'
+import BackPassengerTyreC from '@/assets/back_passenger_tyre_c_mod.jpg'
 
 import FrontDriverWheelC from '@/assets/front_driver_wheel.png'
-import FrontDriverTyreC from '@/assets/front_driver_tyre.png'
+import FrontDriverTyreC from '@/assets/front_driver_tyre_c_mod.jpg'
 import FrontPassengerWheelC from '@/assets/front_passenger_wheel.png'
-import FrontPassengerTyreC from '@/assets/front_passenger_tyre.png'
+import FrontPassengerTyreC from '@/assets/front_passenger_tyre_c_mod.jpg'
 
 import alert_retake from '@/assets/alert_retake.png'
 // Vendor pics 
@@ -205,7 +205,7 @@ const handleSubmit = async (event:any) => {
           <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#FFD1D1] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
                 <div className='space-y-2'>
-                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo' : 'photos'} requires attention</div>
+                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo requires attention' : 'photos require attention'}</div>
                     <div className='font-[300] text-sm'>Retake and reupload</div>
                 </div>
                 <img src={alert_retake.src} className='object-contain w-[55px] mx-3 mb-2'/>

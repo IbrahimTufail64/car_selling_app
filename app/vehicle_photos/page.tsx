@@ -41,6 +41,7 @@ const VehiclePhotos = () => {
     setExteriorState(localStorage.getItem(`vehicle_exterior_state_${car}`)=== 'true');
     setWheelsTyresState(localStorage.getItem(`vehicle_wheels_state_${car}`)=== 'true');
     sethealthState(localStorage.getItem(`vehicle_health_state_${car}`)=== 'true');
+    console.log(car,'car');
 
     }
     state();

@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import ExampleImage from '@/assets/ExamplePlaceHolder.png'
 import { Image } from '../Local_DB/db';
 import axios from 'axios';
+import alert_retake from '@/assets/alert_retake.png'
 
 const SurfaceMarks = () => {
     const [images,setImages] = useState<Image[]>([]);
@@ -24,6 +25,20 @@ const SurfaceMarks = () => {
 
     const {isVendor} = useAppContext();
     const Router = useRouter();
+
+                        const [blur_count, set_blur_count] = useState(0);
+                        const [blured_images,set_blured_images] = useState<Boolean[]>([])
+            
+                const updateState = (index: number, value: boolean) => {
+                    let temp = blured_images;
+                    temp[index] = value
+                    set_blured_images(temp);
+                    let count = 0;
+                    temp.map((e)=>{
+                      e && count++
+                    })
+                    set_blur_count(count);
+                  };
 
     const handleSubmit = async (event:any) => { 
         event.preventDefault();
@@ -40,8 +55,8 @@ const SurfaceMarks = () => {
         const url:any = process.env.NEXT_PUBLIC_API_URL ;
         const token = localStorage.getItem('token');
         try {
-            if(images.length < 1){
-                alert('Please upload atleast one image before proceeding')
+            if(images.length < 1 || blur_count > 0){
+                alert('Please upload atleast one image or retake blured images before proceeding')
                 return;
             }
             const car = localStorage.getItem('car_no');
@@ -104,6 +119,19 @@ const SurfaceMarks = () => {
         <Link  href='./vehicle_health_selection'><IoChevronBack size={28} className='mt-[3px]'/></Link>
             <div>Damaged/Absent fixtures</div>
         </div>
+
+        {
+          (blur_count > 0) ?
+          <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
+            <div className='w-[90vw] bg-[#FFD1D1] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+                <div className='space-y-2'>
+                    <div className='font-[400] text-sm text-[#F45D5D]'>{blur_count} {blur_count === 1 ? 'photo requires attention' : 'photos require attention'} </div>
+                    <div className='font-[300] text-sm'>Retake and reupload</div>
+                </div>
+                <img src={alert_retake.src} className='object-contain w-[55px] mx-3 mb-2'/>
+            </div>
+        </div> :
+
         <div className={`w-full flex justify-center ${isVendor && 'text-primaryDark'}`}>
             <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg pb-2'>
                 <div className='space-y-5'>
@@ -112,7 +140,7 @@ const SurfaceMarks = () => {
                 </div>
                 <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
             </div>
-        </div>
+        </div>}
 
         <div className='flex justify-center pt-10'>
             <div className='w-[90vw] text-[18px]'>
@@ -122,15 +150,15 @@ const SurfaceMarks = () => {
         </div>
 
         <div className='space-y-3 pt-7'>
-            {images.length === 0 && <PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={1} Content='Damaged/Absent fixtures' isUploaded={false} photo={ ExampleImage}  return_link ='damaged_absent_fixtures'/>}
+            {images.length === 0 && <PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={1} Content='Damaged/Absent fixtures' isUploaded={false} photo={ ExampleImage}  return_link ='damaged_absent_fixtures' updateState={updateState}/>}
         <div className="embla overflow-hidden mx-2">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container flex space-x-5">
             {images.map((e,i)=>{
-                return <div className="embla__slide "><PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Damaged/Absent fixtures' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='damaged_absent_fixtures'/></div>;
+                return <div className="embla__slide "><PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={Number(e.dynamic_image_number)} Content='Damaged/Absent fixtures' isUploaded={e !== null} photo={ e ? e.data : ExampleImage}  return_link ='damaged_absent_fixtures' updateState={updateState}/></div>;
             })}
             {images.length!=0 && 
-                <PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={2} Content='Damaged/Absent fixtures' isUploaded={false} photo={ ExampleImage}  return_link ='damaged_absent_fixtures'/>
+                <PhotoFrameDynamic image_name='damaged_absent_fixtures' Car_no={car_no} DynamicImageNo={images.length+1} Content='Damaged/Absent fixtures' isUploaded={false} photo={ ExampleImage}  return_link ='damaged_absent_fixtures' updateState={updateState}/>
             }
           </div>
         </div>
