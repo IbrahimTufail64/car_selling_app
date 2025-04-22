@@ -121,7 +121,8 @@ const handleSubmit = async (event:any) => {
     const url:any = process.env.NEXT_PUBLIC_API_URL ;
     const token = localStorage.getItem('token');
     try {
-        if(!frontDimg || !backDimg || !frontPimg || !backPimg || blur_count > 0){
+        // if(!frontDimg || !backDimg || !frontPimg || !backPimg || blur_count > 0){
+        if(!frontDimg || !backDimg || !frontPimg || !backPimg ){
             alert('Please upload all images or reupload blured images before proceding')
             return;
         }

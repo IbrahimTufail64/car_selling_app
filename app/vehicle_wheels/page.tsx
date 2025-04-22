@@ -154,7 +154,8 @@ const handleSubmit = async (event:any) => {
     const token = localStorage.getItem('token');
 
     try {
-        if(!back_driver_wheel_img || !back_driver_tyre_img || !back_passenger_wheel_img || !back_passenger_tyre_img || !front_driver_wheel_img || !front_driver_tyre_img || !front_passenger_wheel_img || !front_passenger_tyre_img || blur_count > 0){
+        // if(!back_driver_wheel_img || !back_driver_tyre_img || !back_passenger_wheel_img || !back_passenger_tyre_img || !front_driver_wheel_img || !front_driver_tyre_img || !front_passenger_wheel_img || !front_passenger_tyre_img || blur_count > 0){
+        if(!back_driver_wheel_img || !back_driver_tyre_img || !back_passenger_wheel_img || !back_passenger_tyre_img || !front_driver_wheel_img || !front_driver_tyre_img || !front_passenger_wheel_img || !front_passenger_tyre_img){
             alert('Please upload all images or reupload blured images before proceding')
             return;
         }

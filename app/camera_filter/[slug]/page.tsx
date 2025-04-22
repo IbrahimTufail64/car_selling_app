@@ -210,6 +210,9 @@ const Filter = ({ params }: { params: { slug: string } }) => {
       }
       adviceLink = 'advice_interior';
       filterSize = "w-[95vw] overflow-hidden"; 
+      if(imageUrl.includes('dashboard') || imageUrl.includes('boot')){
+        filterSize = "w-[80vw] overflow-hidden"; 
+      }
     }
 
     if(car_filter === undefined){
