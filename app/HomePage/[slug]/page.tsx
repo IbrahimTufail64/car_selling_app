@@ -6,7 +6,7 @@ import PlayStore from '@/assets/icons/PlayStore.png'
 import splash from '@/assets/icons/Rays-small.png'
 import Link from 'next/link'
 import Logo from '@/assets/LogoWhite.png'
-// import { useAppContext } from '../Context'
+import { useRouter } from 'next/navigation';
 // import { useSearchParams } from 'next/navigation'
 import axios from 'axios'
 import { useAppContext } from '@/app/Context'
@@ -14,6 +14,7 @@ import { useAppContext } from '@/app/Context'
 const HomePage = ({ params }: { params: { slug: string } }) => {
     const {isVendor} = useAppContext();
     const elementRef = useRef(null); 
+    const Router = useRouter();
     // const searchParams = useSearchParams();
     // const id = searchParams.get('id')
     const {setIsVendor} = useAppContext();
@@ -47,6 +48,7 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
                     }
                   });
                   
+                  console.log(params.slug)
                   console.log(response.data)
                   localStorage.setItem('token',response.data.token);
                   localStorage.setItem('isVendor',response.data.isVendor);
@@ -62,9 +64,12 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
             
                   
 
-            } catch (error) {
+            } catch (error:any) {
                 //handle authentification
-                
+                // if(error.status === 401){
+                  alert('The Link is either broken or expired, please log In again!');
+                Router.push('/authentification');
+                // }
               console.error(error);
             }
           };

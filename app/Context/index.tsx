@@ -58,12 +58,13 @@ export function AppWrapper({
           //handle authentification
           if(error.status === 401){
             alert('Login session expired please login again!');
-          Router.push('./authentification');
+          Router.push('/authentification');
           }
         console.error(error);
       }
       }
-      if(location.pathname !== '/authentification'){
+      const pathname = location.pathname;
+      if(pathname !== '/authentification' && !pathname?.includes('/HomePage/') ){
       console.log(location)
         getVendor();
       }
