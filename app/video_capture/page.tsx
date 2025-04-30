@@ -9,6 +9,7 @@ import alertNew from '@/assets/alertNEW.png'
 import { useInterval, useOrientation } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { IoChevronBack } from 'react-icons/io5';
+import Timer from '../components/Timer';
 
 const VideoCapture: React.FC = () => {
     const [recording, setRecording] = useState<boolean>(false);
@@ -23,35 +24,35 @@ const VideoCapture: React.FC = () => {
     });
 
     // const Timer = ()=>{
-        useInterval(()=>{
-            if(recording){
-                let seconds = timer.seconds;
-            let minutes = timer.minutes;
-            if(timer.seconds == 0){
-                minutes = timer.minutes - 1;
-                seconds = 60;
-            }
-            if(minutes <= 0 && seconds <= 0){
-                // stopRecording();
-                setTimer({minutes:0, seconds:59});
-            }
-            seconds --;
-            setTimer({
-                minutes,seconds
-            });
-            } else {
+        // useInterval(()=>{
+        //     if(recording){
+        //         let seconds = timer.seconds;
+        //     let minutes = timer.minutes;
+        //     if(timer.seconds == 0){
+        //         minutes = timer.minutes - 1;
+        //         seconds = 60;
+        //     }
+        //     if(minutes <= 0 && seconds <= 0){
+        //         // stopRecording();
+        //         setTimer({minutes:0, seconds:59});
+        //     }
+        //     seconds --;
+        //     setTimer({
+        //         minutes,seconds
+        //     });
+        //     } else {
                 
-                setTimer({minutes:4, seconds:59});
-            }
+        //         setTimer({minutes:4, seconds:59});
+        //     }
 
-            if(timer.minutes == 0 && timer.seconds == 0){
-                setTimer({minutes:4, seconds:59});
-                stopRecording();
-            }
+        //     if(timer.minutes == 0 && timer.seconds == 0){
+        //         setTimer({minutes:4, seconds:59});
+        //         stopRecording();
+        //     }
             
             
              
-        },1000)
+        // },1000)
     // }
 
     const {angle,type} = useOrientation(); 
@@ -235,7 +236,8 @@ const VideoCapture: React.FC = () => {
                 <img className=" absolute z-20 object-cover w-[40px] left-[4.5vw] bottom-[5vh]" src={alertNew.src}/>
                 </Link>
                 <div className='absolute z-20 right-[16vw] bottom-[4vw] bg-[#695DFD] rounded-3xl px-3 py-[4px] text-[14px]'>
-                    {timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}`: timer.seconds}
+                    {/* {timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}`: timer.seconds} */}
+                    <Timer isRecording={recording} stopRecording={startRecording}/>
                 </div>
                 
       <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
