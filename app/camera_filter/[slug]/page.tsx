@@ -327,6 +327,13 @@ const Filter = ({ params }: { params: { slug: string } }) => {
         <div className="-z-10">
         <WebcamCapture webcamRef={webcamRef}/>
         </div>
+
+        <div className="absolute left-[50%] bottom-[0%] -translate-x-1/2 -translate-y-1/2 z-20 text-[18px] font-normal px-[20px] py-[7px] bg-[#323230] rounded-md">
+        {(adviceLink === 'advice_exterior'
+          ? imageUrl + ' corner'
+          : imageUrl
+        ).replace(/_/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2')}
+        </div>
         
     </div>
     </div>

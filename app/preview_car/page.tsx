@@ -244,7 +244,7 @@ const VehicleExterior = () => {
         </div>
         
       </div> */}
-      {!previewPhotos && <SliderPreview setpreview_car = {setpreview_car} preview_car={preview_car}/>}
+      {!previewPhotos && <div onClick={()=>setPreviewPhotos(true)}><SliderPreview setpreview_car = {setpreview_car} preview_car={preview_car}/></div>}
       
 
         <div className='w-full flex justify-center'>
@@ -552,15 +552,17 @@ const VehicleExterior = () => {
             
         </div>
 
-        <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} z-50`}>
+{!previewPhotos && 
+    <div className={`w-full fixed flex justify-center bottom-0 ${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} z-40`}>
           <div className='w-full'>
           <div className='p-5 w-full'>
-                <div  onClick={()=>setPreviewPhotos(true)} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
+                {/* <div  onClick={()=>setPreviewPhotos(true)} className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}> */}
+                <Link href='./confirmation_submission' className={`flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div  className="whitespace-nowrap  text-ellipsis">Looks good! Submit</div>
                         <img src={splash.src}/>
                     </div>
-                </div>
+                </Link>
         </div>
 
         <div className='p-5 pt-0 w-full'>
@@ -572,10 +574,15 @@ const VehicleExterior = () => {
         </div>
           </div>
         </div>
+}
+        
 
 
         
-        {previewPhotos && <PreviewPhotos/>}
+        <div>
+
+        {previewPhotos && <PreviewPhotos setisopen={setPreviewPhotos}/>}
+        </div>
     </div>
   )
 }

@@ -10,6 +10,7 @@ import alertNew from '@/assets/alertNEW.png'
 import { useOrientation, useTimeout } from 'react-use';
 import { useRouter } from 'next/navigation';
 import { IoChevronBack } from 'react-icons/io5';
+import Timer from "../components/Timer";
 
 const App = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -18,6 +19,7 @@ const App = () => {
   const [recordedBlob, setRecordedBlob] = useState<Blob | null>(null);
   const [recordedChunks, setRecordedChunks] = useState<Blob[]>([]);
     const [showPopup, setShowPopup] = useState<boolean>(false);
+    const [showStartPopup, setShowStartPopup] = useState<boolean>(false);
   const router = useRouter();
 
             const [reachedBottom, setReachedBottom] = useState(false);
@@ -27,37 +29,37 @@ const App = () => {
           });
       
           // const Timer = ()=>{
-              setInterval(()=>{
-                if(isRecording){
-                  let seconds = timer.seconds;
-              let minutes = timer.minutes;
-              if(timer.seconds == 0){
-                  minutes = timer.minutes - 1;
-                  seconds = 60;
-              }
-              if(minutes <= 0 && seconds <= 0){
-                  // stopRecording();
-                  setTimer({minutes:0, seconds:59});
-              }
-              seconds --;
-              setTimer({
-                  minutes,seconds
-              });
-              } else {
+              // setInterval(()=>{
+              //   if(isRecording){
+              //     let seconds = timer.seconds;
+              // let minutes = timer.minutes;
+              // if(timer.seconds == 0){
+              //     minutes = timer.minutes - 1;
+              //     seconds = 60;
+              // }
+              // if(minutes <= 0 && seconds <= 0){
+              //     // stopRecording();
+              //     setTimer({minutes:0, seconds:59});
+              // }
+              // seconds --;
+              // setTimer({
+              //     minutes,seconds
+              // });
+              // } else {
                   
-                setTimer({minutes:4, seconds:59});
-              }
+              //   setTimer({minutes:4, seconds:59});
+              // }
   
-              if(timer.minutes == 0 && timer.seconds == 0){
-                  setTimer({minutes:4, seconds:59});
-                  // setTimer({minutes:0, seconds:5});
-                  console.log(timer.minutes,timer.seconds)
-                  stopRecording();
-              }
+              // if(timer.minutes == 0 && timer.seconds == 0){
+              //     setTimer({minutes:4, seconds:59});
+              //     // setTimer({minutes:0, seconds:5});
+              //     console.log(timer.minutes,timer.seconds)
+              //     stopRecording();
+              // }
                   
                   
                    
-              },1000)
+              // },1000)
           // }
           
           
@@ -116,6 +118,7 @@ const App = () => {
     newRecorder.startRecording();
     setRecorder(newRecorder);
     setIsRecording(true);
+    setShowStartPopup(true);
   };
 
   const stopRecording = () => {
@@ -223,6 +226,22 @@ const App = () => {
                     </div>
                 </div>
             )}
+
+{showStartPopup && (
+                <div className='fixed inset-0 text-black bg-black bg-opacity-50 flex items-center justify-center z-50'>
+                    <div className='bg-white p-6 rounded-lg text-center'>
+                        <p className='text-lg font-semibold mb-4 '>Recording started!</p>
+                        <button
+                            className='bg-gray-200 rounded-full px-5 py-2 mr-2'
+                            onClick={() => {setShowStartPopup(false); } }
+                        >
+                            Close
+                        </button>
+                    </div>
+                   
+                </div>
+                
+            )}
       {/* <img className="h-full w-[14%] absolute z-10" src={blurBG.src}/> */}
 
                 {/* <button className='bg-white absolute rounded-full w-[75px] h-[75px] z-20 top-[50%] -right-5 -translate-x-1/2 -translate-y-1/2 cursor-pointer' onClick={()=>{capture(); console.log('yes')}}></button> */}
@@ -251,7 +270,8 @@ const App = () => {
                 </Link>
 
                 <div className='absolute z-20 right-[16vw] bottom-[4vw] bg-[#695DFD] rounded-3xl px-3 py-[4px] text-[14px]'>
-                    {timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}`: timer.seconds}
+                    {/* {timer.minutes}:{timer.seconds < 10 ? `0${timer.seconds}`: timer.seconds} */}
+                    <Timer isRecording={isRecording} stopRecording={stopRecording} />
                 </div>
       <div className="h-full w-[14%] bg-[#000000] absolute z-10 opacity-85 backdrop-blur-2xl ">
             

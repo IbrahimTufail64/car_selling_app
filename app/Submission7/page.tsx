@@ -48,7 +48,10 @@ const Submission7 = () => {
         console.log(progresst);
         setporgressState(progresst);
         // if(Number(localStorage.getItem('car_count_id')) && isVendor){
-            setCarCount(Number(localStorage.getItem('car_count_id')));
+            const carCountFromStorage = localStorage.getItem('car_count_id');
+            if (carCountFromStorage !== null) {
+                setCarCount(Number(carCountFromStorage));
+            }
 
         // }else {
 

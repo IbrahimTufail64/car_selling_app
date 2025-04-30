@@ -29,6 +29,7 @@ const Submission2 = () => {
     const [profileImg,setProfileImg] = useState<any>();
     const [userId,setUserId] = useState('');
     const [popup,setpopup] = useState(false);
+    const [carCount, setCarCount] = useState(1);
 
     function formatNumber(num: Number) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -64,9 +65,10 @@ const Submission2 = () => {
                 setUserName(data.userName);
                 setProfileImg(data.profileImage);
 
-                localStorage.setItem('userName',userName);
-                localStorage.setItem('profileImg',profileImg);
-                localStorage.setItem('userId',userId);
+                localStorage.setItem('userName',data.userName);
+                localStorage.setItem('profileImg',data.profileImage);
+                // localStorage.setItem('userId',data.userId);
+                localStorage.setItem('car_no',data.carId[0]);
                                    
                   
 
@@ -82,6 +84,7 @@ const Submission2 = () => {
         handleRequest();
         setTimeout(()=>{
             setpopup(true);
+            
         },500)
         setTimeout(()=>{
             setpopup(false);
@@ -109,20 +112,30 @@ const Submission2 = () => {
         console.log("new Value", newValue);
         setValue(newValue);
       };
-      const [carCount, setCarCount] = useState(1);
+      
     const handleCarCountMinus =() =>{
         if(carCount > 1){
-            localStorage.setItem('car_no',carId[carCount-1]);
+
+            const count = carCount;
+            // localStorage.setItem('car_no',carId[carCount]);
+           
             setCarCount(carCount-1);
         }
     }
 
     const handleCarCountAdd =() =>{
         if(carCount < estimatedPrice.length){
-            localStorage.setItem('car_no',carId[carCount+1]);
+            const count = carCount;
+            // localStorage.setItem('car_no',carId[carCount]);
+            // console.log(carCount)
             setCarCount(carCount+1);
         }
     }
+
+    useEffect(()=>{
+        localStorage.setItem('car_no',carId[carCount-1]);
+         console.log(carCount)
+    },[carCount])
 
     
 

@@ -105,7 +105,7 @@ const Confirmationdfagagd= () => {
                     <img src={underline.src} className='-mt-3 object-contain w-[200px]'/>
                     </div>
                     {isVendor && 
-                    <div className='w-full flex justify-center mt-3 text-[12px] text-[#99F22B] underline'><Link href='#'>I don’t want to proceed with this car</Link></div>}
+                    <div className='w-full flex justify-center mt-3 text-[12px] text-[#99F22B] underline'><Link href='./Submission2'>I don’t want to proceed with this car</Link></div>}
                     <div className='w-full flex justify-center mt-6'><div className='bg-[#064E3B] text-white py-2 w-[110px] flex justify-center text-sm rounded-full'>{saletag}</div></div>
                 </div>
                 

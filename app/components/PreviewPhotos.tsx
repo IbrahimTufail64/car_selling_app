@@ -7,7 +7,7 @@ import { db, Image } from '../Local_DB/db'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context'
 
-const PreviewPhotos = () => {
+const PreviewPhotos = ({setisopen}:{setisopen:React.Dispatch<React.SetStateAction<boolean>>}) => {
     const Router = useRouter();
     const {isVendor} = useAppContext();
     const [carCount, setCarCount] = useState(0); 
@@ -52,7 +52,7 @@ const PreviewPhotos = () => {
             setCarCount(0);
             setCurrentPhoto(Photos[index[0]+1][0]);
         }else{
-            Router.push('./confirmation_submission')
+            // Router.push('./confirmation_submission')
         }
         
     }
@@ -76,8 +76,8 @@ const PreviewPhotos = () => {
         retrieve( setImages);
       }, []);
   return (
-    <div className={`${!isVendor && 'text-white'}`}>
-        <div className='absolute top-0'>
+    <div className={`${!isVendor && 'text-white'}`} >
+        <div className='absolute top-0' onClick={()=>setisopen(false)}>
             <img src={blurBG.src} className='w-[100vw] h-full'/>
         </div>
         <div className='absolute top-5 w-[100vw]'>

@@ -49,7 +49,7 @@ const PhotoFrameDynamic = ({Content, Car_no, DynamicImageNo, isUploaded, photo, 
     <div className={`${isVendor ? 'bg-primaryDark' : 'bg-secondary '} flex justify-center  w-full  `}>
             <div className='w-[90vw] border border-1 border-[#6D6E8F] rounded-lg overflow-hidden flex flex-col justify-between'>
             <div>
-                <img src={uploaded_photo} className='w-full object-cover md:h-[300px] max-h-[200px]'/>
+                <img src={uploaded_photo} className='w-full object-cover md:h-[300px] max-h-[300px]'/>
             </div>
             <Link href={`${!isUploaded ? `./camera_filter_dynamic/${image_name}-${DynamicImageNo}-${return_link}` : '#'}`} onClick={()=>{isUploaded && handleDelete() }} className={`py-4 px-5 text-[18px] flex justify-between  ${isVendor ? 'bg-[#6D6E8F] ' : ''}`}>
                 <div className='space-y-1'>
