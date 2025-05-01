@@ -126,10 +126,10 @@ const handleSubmit = async (event:any) => {
             alert('Please upload all images or reupload blured images before proceding')
             return;
         }
-        if(blur_count > 0){
-          alert('Please retake blured images before proceeding!')
-            return;
-        }
+        // if(blur_count > 0){
+        //   alert('Please retake blured images before proceeding!')
+        //     return;
+        // }
         const car = localStorage.getItem('car_no');
         localStorage.setItem(`vehicle_exterior_state_${car}`,'true');
 
