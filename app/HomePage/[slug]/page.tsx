@@ -42,7 +42,7 @@ const HomePage = ({ params }: { params: { slug: string } }) => {
             const url:any = process.env.NEXT_PUBLIC_API_URL ;
             const token = localStorage.getItem('token');
             try { 
-                const response = await axios.get(`${url}/pwa_auth/?id=${params.slug}`, {
+                const response = await axios.get(`${url}/pwa_auth?id=${params.slug}`, {
                     headers: {
                       'Content-Type': 'multipart/form-data'
                     }
