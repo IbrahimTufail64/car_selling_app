@@ -70,7 +70,7 @@ const SurfaceMarks = () => {
         const url:any = process.env.NEXT_PUBLIC_API_URL ;
         const token = localStorage.getItem('token');
         try {
-            if(images.length < 1 || blur_count > 0){
+            if(images.length < 1 ){
                 alert('Please upload atleast one image or retake blured images before proceeding')
                 return;
             }
