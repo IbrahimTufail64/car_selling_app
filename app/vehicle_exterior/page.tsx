@@ -114,6 +114,7 @@ const handleSubmit = async (event:any) => {
     formData.append('front_passenger', frontPimg);
     formData.append('back_driver', backDimg);
     formData.append('back_passenger', backPimg);
+    formData.append("car_no", localStorage.getItem("car_no") || "");
     console.log(frontDimg)
     // measureBlur(frontDimg)
     // .then(blurScore => console.log("Blur Score:", blurScore))
@@ -138,23 +139,18 @@ const handleSubmit = async (event:any) => {
         },300)
 
       const response = await axios.post(`${url}/pwa/vehicle_exterior`,  
-        {
-            formData,
-            car_no: localStorage.getItem('car_no'),
-        }, {
+            formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token}`
               }
       });
-      console.log(response.status,response.data);  
-      
-      
-    //   localStorage.setItem(`vehicle_interior_state_${car}`,'false');
+      console.log('response',response.data); 
+      // console.log(formData) 
+
 
       console.log('uploaded now...')
     } catch (error) {
-        // localStorage.setItem('vehicle_exterior_state','true');
       console.error(error);
     }
   };

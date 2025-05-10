@@ -85,7 +85,7 @@ const FurtherDetails = () => {
   return (
     <form 
     // onSubmit={()=>{addData(inputText,checked)}} 
-    className={`${isVendor ? 'bg-primaryDark text-white pb-[110px]' : 'bg-secondary pb-[150px]'} w-full min-h-[100vh] flex flex-col justify-between  `}>
+    className={`${isVendor ? 'bg-primaryDark text-white ' : 'bg-secondary '} pb-[170px] w-full min-h-[100vh] flex flex-col justify-between  `}>
         <div>
         <div className='p-5 flex space-x-2 text-[22px] pt-10'>
         <Link  href='./service_manuals_keys'><IoChevronBack size={35} className='mt-[1px]'/></Link>
@@ -194,7 +194,7 @@ const FurtherDetails = () => {
                 </button>
         </div> */}
 
-        <div className='p-5 fixed bottom-0 w-full'>
+        <div className={`p-5 fixed bottom-0 w-full ${isVendor ? 'bg-primaryDark' : 'bg-secondary'} py-3`}>
                 <div
                 onClick={()=>addData(false)} 
                 className={`w-full flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 bg-tertiary ${isVendor && 'text-primaryDark'}`}>
@@ -206,7 +206,8 @@ const FurtherDetails = () => {
 
                 <div
                 onClick={()=>addData(true)} 
-                className={`w-full flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 pt-4 ${isVendor && 'hidden'} text-primaryDark`}>
+                // className={`w-full flex justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 pt-4 ${isVendor && 'hidden'} text-primaryDark`}>
+                className={`flex w-full justify-center font-bold text-lg rounded-[6px] space-x-2 px-5 py-4 mt-4 text-[22px] border border-2 ${isVendor ? ' text-white  border-white' : 'text-primaryDark border-primaryDark'}`}>
                     <div className='flex space-x-1 text-xl'>
                         <div>Upload later</div>
                     </div>
