@@ -141,12 +141,11 @@ const handleSubmit = async (event:any) => {
       const response = await axios.post(`${url}/pwa/vehicle_exterior`,  
             formData, {
             headers: {
-                'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token}`
               }
       });
       console.log('response',response.data); 
-      // console.log(formData) 
+      console.log(formData) 
 
 
       console.log('uploaded now...')

@@ -150,6 +150,7 @@ const handleSubmit = async (event:any) => {
         formData.append('front_driver_tyre',front_driver_tyre_img);
         formData.append('front_passenger_wheel',front_passenger_wheel_img);
         formData.append('front_passenger_tyre',front_passenger_tyre_img);
+        formData.append("car_no", localStorage.getItem("car_no") || "");
     const url:any = process.env.NEXT_PUBLIC_API_URL ;
     const token = localStorage.getItem('token');
 
@@ -167,10 +168,7 @@ const handleSubmit = async (event:any) => {
         },300)
 
       const response = await axios.post(`${url}/pwa/vehicle_wheels_tyres`,  
-        {
-          formData,
-          car_no: localStorage.getItem('car_no'),
-      }, {
+        formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`

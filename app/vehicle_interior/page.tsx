@@ -107,6 +107,7 @@ const handleSubmit = async (event:any) => {
     formData.append('boot', bootimg);
     formData.append('front_seat', frontseatimg);
     formData.append('back_seat', backseatimg);
+    formData.append("car_no", localStorage.getItem("car_no") || "");
     const url:any = process.env.NEXT_PUBLIC_API_URL ;
     const token = localStorage.getItem('token');
     try {
@@ -122,10 +123,7 @@ const handleSubmit = async (event:any) => {
         },300)
 
       const response = await axios.post(`${url}/pwa/vehicle_interior`,  
-        {
-            formData,
-            car_no: localStorage.getItem('car_no'),
-        }, {
+        formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${token}`
