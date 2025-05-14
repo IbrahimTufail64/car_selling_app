@@ -46,7 +46,7 @@ const SmartAdvice = () => {
                     <div className='font-[300] text-sm'>Easily spot wheel damage, dents, scratches, cracks and warping.</div>
                     <div   className='font-[400] text-sm '>Picture Perfect!</div>
                 </div>
-                <img src={CAR.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={CAR.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
 

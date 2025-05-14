@@ -47,7 +47,7 @@ const SurfaceMarks = () => {
         images.forEach(e=>{
             formData.append(`${e.name}-${e.dynamic_image_number}-${e.car_number}`, e.data);
         })
-        
+        formData.append("car_no", localStorage.getItem("car_no") || "");
 
         // console.log(formData);
 
@@ -67,10 +67,7 @@ const SurfaceMarks = () => {
             },300)
     
           const response = await axios.post(`${url}/pwa/dashboard_lights`,  
-            {
-                formData,
-                car_no
-            }, {
+            formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -110,7 +107,7 @@ const SurfaceMarks = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[50px]`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[90px]`}>
         <div className='flex flex-col justify-between min-h-[100vh]'>
         <div >
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
@@ -136,7 +133,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Need help prepping a dashboard lights on image? Check out our guide!</div>
                     <Link  href='./advice_dashboard_lights'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
 

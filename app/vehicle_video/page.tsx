@@ -91,12 +91,10 @@ const VehicleVideo = () => {
                 // localStorage.setItem(`vehicle_photos_state_${car}`,'true');
             Router.push('./preview_car');
             formData.append('vehicle_video', vehicle_video);
+            formData.append("car_no", localStorage.getItem("car_no") || "");
             const token = localStorage.getItem('token'); 
             const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/pwa/vehicle_video`,  
-                {
-                    formData,
-                    car_no
-                }, {
+                formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -123,7 +121,7 @@ const VehicleVideo = () => {
                     <div className='font-[300] text-sm'>Use a clear, open space with bright lighting for videos to ensure approval.</div>
                     <Link  href='./advice_vehicle_video'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
 

@@ -15,6 +15,7 @@ import { useAppContext } from '../Context';
 import { IoChevronBack } from "react-icons/io5";
 import axios from 'axios';
 import PreviewPhotos from '../components/PreviewPhotos';
+import car from '@/assets/Sub3Car.png'
 
 const Submission2 = () => {
     const [value, setValue] = useState(20); 
@@ -286,15 +287,28 @@ const Submission2 = () => {
 
 
         {popup && 
-        <div className={`flex justify-center items-center w-full h-full`}>
+    //     <div className={`flex justify-center items-center w-full h-full`}>
 
-        <div className={`fixed top-5 w-[80vw] px-2 text-center ${isVendor ? 'bg-secondaryDark' : ' bg-white'} rounded-2xl text-lg border border-2 border-white`}>
-        <div className='py-5'>
-        Smart advice: Turn on sound for a smoother photo experience 📷
-        </div>
-        </div>
+    //     <div className={`fixed top-5 w-[80vw] px-2 text-center ${isVendor ? 'bg-secondaryDark' : ' bg-white'} rounded-2xl text-lg border border-2 border-white`}>
+    //     <div className='py-5 font-semibold'>
+    //     Smart advice: Enable sound and unlock orientation for best experience!
+    //     smart advice
+
+    //     </div>
+    //     </div>
         
-    </div>
+    // </div>
+            <div className='fixed top-5 w-full flex justify-center'>
+    <div className={`w-full flex justify-center rounded-xl ${isVendor && 'text-primaryDark'} pb-4`}>
+        <div className='w-[90vw] bg-[#D1D9FF] overflow-hidden mt-7 pl-3 pt-3 flex justify-between rounded-lg'>
+            <div className='space-y-5'>
+                <div className='font-[300] text-sm'>Enable sound and unlock orientation for best experience!</div>
+                <div    className='font-[400] text-sm pb-2'>Smart advice </div>
+            </div>
+            <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
+        </div>
+        </div>
+        </div>
         }
     </div>
   )

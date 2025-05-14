@@ -150,7 +150,7 @@ const TyreHealth = () => {
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
                     <Link  href='./advice_tyre_health'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
 

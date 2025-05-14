@@ -83,7 +83,7 @@ const ServiceRecords = () => {
                     <div className='font-[300] text-sm'>Where can I find my service history?</div>
                     <Link  href='#'  className='font-[400] text-sm mt-5'>Stay informed!</Link>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
 

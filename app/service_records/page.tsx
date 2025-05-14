@@ -89,7 +89,7 @@ const ServiceRecordsCapture = () => {
         images.forEach(e=>{
             formData.append(`${e.name}-${e.dynamic_image_number}-${e.car_number}`, e.data);
         })
-        
+        formData.append("car_no", localStorage.getItem("car_no") || "");
 
         // console.log(formData);
 
@@ -105,10 +105,7 @@ const ServiceRecordsCapture = () => {
                 car_no
             });
           const response = await axios.post(`${url}/pwa/service_records`,  
-            {
-                formData,
-                car_no
-            }, {
+            formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
@@ -146,7 +143,7 @@ const ServiceRecordsCapture = () => {
                     <div className='font-[300] text-sm'>Upload all manuals, service records, and keys to maximize your car's trade value.</div>
                     <Link  href='./service_records_example'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className=' object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car.src} className=' object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
 }

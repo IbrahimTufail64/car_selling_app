@@ -6,6 +6,7 @@ import { IoChevronBack } from 'react-icons/io5'
 import { db, Image } from '../Local_DB/db'
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '../Context'
+import { RxCross1 } from "react-icons/rx";
 
 const PreviewPhotos = ({setisopen}:{setisopen:React.Dispatch<React.SetStateAction<boolean>>}) => {
     const Router = useRouter();
@@ -77,9 +78,11 @@ const PreviewPhotos = ({setisopen}:{setisopen:React.Dispatch<React.SetStateActio
       }, []);
   return (
     <div className={`${!isVendor && 'text-white'}`} >
+        
         <div className='absolute top-0' onClick={()=>setisopen(false)}>
             <img src={blurBG.src} className='w-[100vw] h-full'/>
         </div>
+        
         <div className='absolute top-5 w-[100vw]'>
             <PreviewPhoto toRetrieve={currentPhoto}/>
             <div className='w-full text-center text-[#D9D9D9] mt-8'>{PhotoTitle[index[0]]}</div>
@@ -102,6 +105,11 @@ const PreviewPhotos = ({setisopen}:{setisopen:React.Dispatch<React.SetStateActio
                             <IoChevronBack size={25} className='rotate-180'/>
                         </div>
                     </div>
+        </div>
+
+        <div className='absolute top-10 left-10' onClick={()=>setisopen(false)}>
+            {/* <div className='w-10 h-10 rounded-full '></div> */}
+            <RxCross1 size={30} className='text-white'/>
         </div>
         
     </div>

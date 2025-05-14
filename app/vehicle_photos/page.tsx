@@ -61,7 +61,7 @@ const VehiclePhotos = () => {
                     <div className='font-[300] text-sm'>Smart advice is here to gently guide you through the process!</div>
                     <div onClick={()=>{localStorage.setItem('current_count','0')}} className='font-[400] text-sm mt-5'>Protect your price &gt;</div>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
         <div className='space-y-4 px-4'>

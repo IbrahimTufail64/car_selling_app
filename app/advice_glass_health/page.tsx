@@ -42,7 +42,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Get your glass photo right with our expert help.</div>
                     <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
-                <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={carS.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
         <div className='text-xl pl-[5vw] pb-2'>Examples</div>

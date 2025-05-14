@@ -26,13 +26,14 @@ import { useOrientation } from 'react-use'
 
 const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
-    const [currentSide, setCurrentSide] = useState('Driver Side');
-    const [size, setSize] = useState('Small');
+    const [currentSide, setCurrentSide] = useState('Nill');
+    const [size, setSize] = useState('Nill');
     const {isVendor} = useAppContext();
     const [coordinates_initial, setCoordinates_initial] = useState({ x: -100, y: -100 });
     const [isTablet, setIsTablet] = useState(false);
     const [instruction_index, set_instruction_index] = useState(0);
     const [lastStep, setlastStep] = useState(false);
+    const [styles, setStyles] = useState('');
     const instruction = [
         'Select damage size',
         'Select a side of the car',
@@ -68,7 +69,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     const PassengerSide = isVendor ? PassengerSideV : PassengerSideC;
 
     const [damage, setDamage] = useState({
-                                    'Driver Side' : {
+                                    'Driver side' : {
                                         'size': 'Small',
                                         'coordinates': { x: -100, y: -100 }
                                     },
@@ -144,7 +145,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
 
 
     const sides:any = {
-                        'Driver Side' : driverSide,
+                        'Driver side' : driverSide,
                         'Passenger side': PassengerSide,
                         'Front side': front,
                         'Back side': back,
@@ -152,13 +153,14 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     }
 
     const sizes:any ={
+        'Nill' : 0,
         'Small' : 40,
         'Medium' : 50,
         'Large': 70
     }
 
     const sidesArray = [
-        'Driver Side',
+        'Driver side',
         'Passenger side',
         'Front side',
         'Back side',
@@ -166,12 +168,12 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
     ]
 
     useEffect(()=>{
-        if(currentSide === 'Driver Side'){
+        if(currentSide === 'Driver side'){
             const {x,y} = coordinates;
             setCoordinates_initial({x,y});
         }else{
             let temp_damage:any = damage;
-            temp_damage['Driver Side'].coordinates = coordinates_initial;
+            temp_damage['Driver side'].coordinates = coordinates_initial;
             setDamage(temp_damage);
         }
     },[coordinates])
@@ -233,6 +235,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         if(!image) {
             alert('Please mark the damage before proceding!');
             return;}
+
         try{
             console.log(image);
             const link = params.slug.split('-');
@@ -311,7 +314,14 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         },
         }
 
-
+    useEffect(()=>{
+        if(currentSide === 'Driver side' || currentSide === 'Passenger side' || currentSide === 'Nill'){
+            setStyles('w-[540px] h-[400px] mb-[-20px]');
+        }
+        else{
+            setStyles('w-[500px] mt-5');
+        }
+    },[currentSide])
 
   return (
     <div className='main' ref={ScreenshotRef}>
@@ -355,7 +365,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         <div >
         <div
             className="bg-secondary absolute rounded-full ${mt-[]}" // Style indicator
-            style={{ top: coordinates.y+30-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
+            style={{ top: coordinates.y+40-Math.floor(sizes[size]/2), left: coordinates.x-Math.floor(sizes[size]/2) }}
         >
             <img src={mark.src} className={`w-15 h-15 `} style={{width: sizes[size],height: sizes[size]}}/>
         </div>
@@ -363,8 +373,8 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
         {/* <div className='absolute h-[80%]  w-[190px]  left-0 bottom-0'> */}
          {/* just for padding */}
         {/* </div> */}
-        <div className='flex justify-between w-full mt-5' >
-            <div className=' px-3 mt-7 h-[80vh] flex justify-center items-center '> 
+        <div className='flex justify-between w-full' >
+            <div className=' px-3 mt-5 h-[80vh] flex justify-center items-center '> 
                 <div className='space-y-2 pb-20'>
                 <div className={`${!isVendor ? 'bg-white border border-1 border-[#D3D4FD]': 'bg-[#3D3D6A]'} lg:p-4 lg:px-5 py-3 px-2 pr-4 rounded-md text-[18px] flex relative space-x-[-15px] `}>
                 {/* <input type="radio" id="Small" name="colors" value="Small" className='absolute left-[-40px] top-[25px]' onChange={(e)=>{handleSize(e)}}/> */}
@@ -420,7 +430,7 @@ const VehicleHealth = ({ params }: { params: { slug: string } }) => {
                 {/* <img src={sides[currentSide].src} className='w-[606px] h-[437px] lg:w-[909px] lg:h-[655.5px] object-cover' */}
             <div className={` w-[100vw] ml-4 sm:ml-0 overflow-visible ${currentSide === "Front side" ? 'mt-[-30px] -mb-5' : 'mt-[-60px] mb-2'}`}  >
                 {/* <img src={sides[currentSide].src} className='w-[575px] h-[415px]  sm:h-[394px] lg:w-[863px] lg:h-[622.5px] object-cover' */}
-                <img src={sides[currentSide].src} className='w-[540px] h-[400px] lg:w-[863px] lg:h-[622.5px] object-contain'
+                <img src={currentSide !== 'Nill'? sides[currentSide].src : sides['Driver side'].src} className={`${styles} lg:w-[863px] lg:h-[622.5px] object-contain`}
                 />
             </div>
         </div>

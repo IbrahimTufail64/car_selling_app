@@ -65,6 +65,7 @@ const SurfaceMarks = () => {
             newArr.push(indexedDamageData.find(item => item.index === query));
             formData.append(query, e.data);
         })
+        formData.append("car_no", localStorage.getItem("car_no") || "");
         console.log('aaa',newArr);
 
         
@@ -89,20 +90,25 @@ const SurfaceMarks = () => {
           //     damage: newArr,
           //     car_no: car 
           // });
-
+            console.log(newArr,'newarr');
     
-          const response = await axios.post(`${url}/pwa/surface_marks`,  
+          const response1 = await axios.post(`${url}/pwa/surface_marks_form`,  
+            formData,
+             {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+          });
+          const response2 = await axios.post(`${url}/pwa/surface_marks_data`,  
             {
-                formData,
                 damage: newArr,
                 car_no: car 
             }, {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
                   }
           });
-          console.log(response.status,response.data);  
+          // console.log(response.status,response.data);  
           
               
         } catch (error) {
@@ -152,7 +158,7 @@ const SurfaceMarks = () => {
 
 
   return (
-    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[50px]`}>
+    <div className={`${isVendor ? 'bg-primaryDark text-white' : 'bg-secondary'} w-full min-h-[100vh] pb-[90px]`}>
         <div className='flex flex-col justify-between min-h-[100vh]'>
         <div >
         <div className='p-5 flex space-x-2 text-[26px] pt-10'>
@@ -179,7 +185,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Get your photo right with our expert help.</div>
                     <Link  href='./advice_surface_marks'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
                 </div>
-                <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
         }

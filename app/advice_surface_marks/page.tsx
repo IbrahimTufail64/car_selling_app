@@ -51,7 +51,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Spot scratches, dents, or chips easily under natural light or even lighting.</div>
                     <div   className='font-[400] text-sm '>Picture Perfect!</div>
                 </div>
-                <img src={carS.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={carS.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
 

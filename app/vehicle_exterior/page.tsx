@@ -180,7 +180,7 @@ const handleSubmit = async (event:any) => {
                 <div className='font-[300] text-sm'>Perfect your car’s exterior photo with our expert guide.</div>
                 <Link  href='./advice_exterior'  className='font-[400] text-sm mt-5'>Smart advice &gt;</Link>
             </div>
-            <img src={car.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+            <img src={car.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
         </div>
         </div>
         }

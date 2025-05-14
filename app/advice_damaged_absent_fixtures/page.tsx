@@ -42,7 +42,7 @@ const SurfaceMarks = () => {
                     <div className='font-[300] text-sm'>Check broken or missing parts like handles, buttons, mirrors, or wipers.</div>
                     <div   className='font-[400] text-sm '>Check carefully!</div>
                 </div>
-                <img src={car1.src} className='object-contain w-[35vw] md:w-[20vw]'/>
+                <img src={car1.src} className='object-contain w-[35vw] landscape:w-[20vw]'/>
             </div>
         </div>
         <div className='text-xl pl-[5vw] pb-2'>Examples</div>

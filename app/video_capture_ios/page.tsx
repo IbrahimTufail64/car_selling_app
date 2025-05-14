@@ -302,9 +302,9 @@ const App = () => {
             </div>
             <div className='flex justify-center w-full pt-5 '>
                 <div className='space-y-[-20px]'>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='rotate-90 text-[#675DF4]' size={75}/>
                 </div>
             </div>
             </div>

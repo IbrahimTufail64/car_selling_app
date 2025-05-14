@@ -220,7 +220,7 @@ const Filter = ({ params }: { params: { slug: string } }) => {
       if(returnLink === 'chain' && car_filter !== undefined){
         returnLink = lookup_wheels_return[imageUrl];
       }
-      filterSize = "w-[75vw] mr-10 overflow-hidden"; 
+      filterSize = "w-[70vw] mr-10 overflow-hidden"; 
       if(imageUrl.includes('tyre')){
         filterSize = "w-[60vw] mr-10 overflow-hidden"; 
       }
@@ -351,9 +351,9 @@ const Filter = ({ params }: { params: { slug: string } }) => {
             </div>
             <div className='flex justify-center w-full pt-5 '>
                 <div className='space-y-[-20px]'>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
-                <IoChevronBack className='-rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='rotate-90 text-[#675DF4]' size={75}/>
+                <IoChevronBack className='rotate-90 text-[#675DF4]' size={75}/>
                 </div>
             </div>
             {/* <div ref = {elementRef} className="w-full bg-red h-10">

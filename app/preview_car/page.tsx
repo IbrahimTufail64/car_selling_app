@@ -476,7 +476,7 @@ const VehicleExterior = () => {
                     {/* <PreviewCarComp1 title='Warning lights' ToRetrieve=''/> */}
 
                     <div className='flex justify-between w-full mx-2 px-1 pt-3 pb-2'>
-                    <div className=' font-[350] max-w-[80%]'>Technical health (electrical and mechanical)</div>
+                    <div className={`text-lg font-[350] max-w-[80%] ${!technical_content && 'opacity-70'}`}>Technical health (electrical and mechanical)</div>
                     <div onClick={()=>settechnical(!technical)}>
                         <img src={arrow.src} className={`w-7 ${!technical && 'rotate-180'}`}/>
                     </div>
@@ -489,7 +489,7 @@ const VehicleExterior = () => {
 
 
                     <div className='flex justify-between w-full mx-2 px-1 pt-3 pb-2'>
-                    <div className=' font-[350] max-w-[80%]'>Further details</div>
+                    <div className={`text-lg font-[350] max-w-[80%] ${!furtherdetails_content && 'opacity-70'}`}>Further details</div>
                     <div onClick={()=>setfurtherdetails(!furtherdetails)}>
                         <img src={arrow.src} className={`w-7 ${!furtherdetails && 'rotate-180'}`}/>
                     </div>
