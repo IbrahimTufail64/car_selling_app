@@ -16,7 +16,7 @@ const ImageSharpnessChecker = ({imageURL,set_is_blured}:{imageURL:string | null,
       const sharpnessValue = calculateSharpness(image);
       setSharpness(sharpnessValue);
       console.log('Sharpness:', sharpnessValue);
-      set_is_blured(sharpnessValue === 0);
+      set_is_blured(sharpnessValue < 30);
     };
 
     // Handle image loading errors
