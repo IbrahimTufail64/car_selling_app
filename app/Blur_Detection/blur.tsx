@@ -16,6 +16,7 @@ const ImageSharpnessChecker = ({imageURL,set_is_blured}:{imageURL:string | null,
       const sharpnessValue = calculateSharpness(image);
       setSharpness(sharpnessValue);
       console.log('Sharpness:', sharpnessValue);
+      alert(sharpnessValue);
       set_is_blured(sharpnessValue < 30);
     };
 
@@ -30,50 +31,52 @@ const calculateSharpness = (image: HTMLImageElement): number => {
   const context = canvas.getContext('2d');
   if (!context) throw new Error('Could not get canvas context');
 
-  // Webcam-specific settings (no downsampling for 720p)
-  canvas.width = image.width;
-  canvas.height = image.height;
-  context.drawImage(image, 0, 0, canvas.width, canvas.height);
+  // Step 1: Adaptive Downsampling (Prevents high-res overload)
+  const MAX_PIXELS = 2_000_000; // Process max 2MP for speed
+  const downscale = Math.sqrt((image.width * image.height) / MAX_PIXELS);
+  const width = Math.floor(image.width / Math.max(1, downscale));
+  const height = Math.floor(image.height / Math.max(1, downscale));
 
-  const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+  canvas.width = width;
+  canvas.height = height;
+  context.drawImage(image, 0, 0, width, height);
+
+  // Step 2: Edge Detection (Laplacian + Noise Thresholding)
+  const imageData = context.getImageData(0, 0, width, height);
   const data = imageData.data;
   const stride = 4;
-  let laplacianSum = 0;
-  let edgeCount = 0; // Count strong edges to normalize better
+  let edgeStrengthSum = 0;
+  let strongEdgeCount = 0;
 
-  // Webcams often have noise - we focus only on strong edges
-  for (let y = 1; y < canvas.height - 1; y++) {
-    for (let x = 1; x < canvas.width - 1; x++) {
-      const i = (y * canvas.width + x) * stride;
+  for (let y = 1; y < height - 1; y++) {
+    for (let x = 1; x < width - 1; x++) {
+      const i = (y * width + x) * stride;
       
-      // Grayscale conversion
+      // Convert to grayscale
       const gray = 0.299 * data[i] + 0.587 * data[i+1] + 0.114 * data[i+2];
-      const grayUp = 0.299 * data[i - canvas.width*stride] + 
-                    0.587 * data[i+1 - canvas.width*stride] + 
-                    0.114 * data[i+2 - canvas.width*stride];
-      const grayDown = 0.299 * data[i + canvas.width*stride] + 
-                       0.587 * data[i+1 + canvas.width*stride] + 
-                       0.114 * data[i+2 + canvas.width*stride];
-      const grayLeft = 0.299 * data[i - stride] + 
-                       0.587 * data[i+1 - stride] + 
-                       0.114 * data[i+2 - stride];
-      const grayRight = 0.299 * data[i + stride] + 
-                        0.587 * data[i+1 + stride] + 
-                        0.114 * data[i+2 + stride];
-      
+      const grayUp = 0.299 * data[i - width*stride] + 0.587 * data[i+1 - width*stride] + 0.114 * data[i+2 - width*stride];
+      const grayDown = 0.299 * data[i + width*stride] + 0.587 * data[i+1 + width*stride] + 0.114 * data[i+2 + width*stride];
+      const grayLeft = 0.299 * data[i - stride] + 0.587 * data[i+1 - stride] + 0.114 * data[i+2 - stride];
+      const grayRight = 0.299 * data[i + stride] + 0.587 * data[i+1 + stride] + 0.114 * data[i+2 + stride];
+
       // Laplacian edge strength
       const edgeStrength = Math.abs(4 * gray - grayUp - grayDown - grayLeft - grayRight);
-      
-      // Only count edges above noise threshold
-      if (edgeStrength > 25) { // Adjusted for webcam noise
-        laplacianSum += edgeStrength;
-        edgeCount++;
+
+      // Only count edges stronger than noise (threshold adaptive to resolution)
+      const noiseThreshold = width > 2000 ? 10 : 20; // Higher threshold for high-res
+      if (edgeStrength > noiseThreshold) {
+        edgeStrengthSum += edgeStrength;
+        strongEdgeCount++;
       }
     }
   }
 
-  // Normalize by strong edges only (not total pixels)
-  return edgeCount > 100 ? (laplacianSum / edgeCount) : 0;
+  // Step 3: Normalized Sharpness Score
+  if (strongEdgeCount < 50) return 0; // Not enough edges (likely blurry)
+  const avgEdgeStrength = edgeStrengthSum / strongEdgeCount;
+  const normalizedSharpness = avgEdgeStrength * (strongEdgeCount / (width * height));
+
+  return normalizedSharpness;
 };
 
   return (
